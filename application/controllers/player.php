@@ -18,9 +18,9 @@ class Player extends MY_Controller {
     public function index() {
         if ($this->session->userdata('status') == false) {
             parent::index();
-        } elseif ($this->session->userdata('status') == 1) {
+        }elseif ($this->session->userdata('status') == 1) {
             redirect('./casino');
-        } else {
+        }else{
             $this->load->view('page/header');
             $this->navigation();
             $this->load->view('page/index');

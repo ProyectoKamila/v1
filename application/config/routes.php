@@ -41,8 +41,10 @@
 //$route['default_controller'] = "welcome";
 $route['default_controller'] = "casino";
 $route['profile/(:any)'] = "casino/profile/$1";
+$route['profile'] = "casino/profile/";
 $route['login'] = "casino/login/";
 $route['close'] = "casino/close/";
+$route['pr'] = "casino/pr/";
 $route['404_override'] = '';
 
 
