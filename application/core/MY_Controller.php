@@ -22,7 +22,7 @@ class MY_Controller extends CI_Controller {
         } else {
             if (($this->input->cookie('token', true) != false)) {
                 $very = $this->modelo_universal->select('user_session', '*', array('user_token' => $this->input->cookie('token')));
-                $user = $this->modelo_universal->select('user', 'status', array('id_user' => $check[0]['id_user']));
+                $user = $this->modelo_universal->select('user', 'status', array('id_user' => $very[0]['id_user']));
                 if($very != null) {
 //                    SELECT `user`.`nickname` FROM `user`,`user_session` WHERE `user`.`id_user`=`user_session`.`id_user`
                     $check = $this->modelo_universal->query('SELECT `user`.`nickname` FROM `user`,`user_session` WHERE `user`.`id_user`=`user_session`.`id_user`');
