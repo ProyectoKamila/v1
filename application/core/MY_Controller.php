@@ -28,7 +28,8 @@ class MY_Controller extends CI_Controller {
                     $user = $this->modelo_universal->select('user', 'status', array('id_user' => $very[0]['id_user']));
                     if ($very != null) {
 //                    SELECT `user`.`nickname` FROM `user`,`user_session` WHERE `user`.`id_user`=`user_session`.`id_user`
-                        $check = $this->modelo_universal->query('SELECT `user`.`nickname` FROM `user`,`user_session` WHERE `user`.`id_user`=`user_session`.`id_user`');
+                        $check = $this->modelo_universal->query('SELECT `user`.`nickname`,`user`.`status` FROM `user`,`user_session` WHERE `user`.`id_user`=`user_session`.`id_user`');
+//                        debug($check,false);
                         $this->session->set_userdata(array('session' => md5('true')));
                         $this->session->set_userdata(array('status' => $check[0]['status']));
                         $this->session->set_userdata(array('name' => $check[0]['nickname']));
