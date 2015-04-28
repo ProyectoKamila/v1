@@ -16,14 +16,16 @@ class Casino extends MY_Controller {
     }
 
     public function index() {
-        if($this->session->userdata('status')==false){
-            parent::index(); 
-        }elseif($this->session->userdata('status')!=1){
+//        debug($this->last_hour());
+//        debug($this->session->userdata('session_id'));
+        if ($this->session->userdata('status') == false) {
+            parent::index();
+        } elseif ($this->session->userdata('status') != 1) {
             redirect('./player');
         }
     }
-    
-    public function profile($message=null) {
+
+    public function profile($message = null) {
         if ($message == 'online' or $message == 'offline') {
             $this->data['message'] = $message;
             $this->load->view('page/header');
@@ -37,6 +39,7 @@ class Casino extends MY_Controller {
             $this->load->view('page/profile', $this->data);
         }
     }
+
     public function login() {
         parent::login();
     }
@@ -44,7 +47,8 @@ class Casino extends MY_Controller {
     public function close() {
         parent::close();
     }
-    public function pr(){
+
+    public function pr() {
         $this->sign_verify();
         $this->load->view('page/index');
     }

@@ -16,6 +16,9 @@ class Player extends MY_Controller {
     }
 
     public function index() {
+        $this->last_connection();
+        
+        debug($this->session->userdata('token'),false);
         if ($this->session->userdata('status') == false) {
             parent::index();
         }elseif ($this->session->userdata('status') == 1) {
