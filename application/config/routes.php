@@ -44,6 +44,7 @@ $route['profile/(:any)'] = "casino/profile/$1";
 $route['profile'] = "casino/profile/";
 $route['login'] = "casino/login/";
 $route['close'] = "casino/close/";
+$route['nuevo'] = "insert_controller/nuevo/";
 $route['pr'] = "casino/pr/";
 $route['404_override'] = '';
 
