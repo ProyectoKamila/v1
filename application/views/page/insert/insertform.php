@@ -31,7 +31,7 @@
 						Confirmar Clave:
 					</td>
 					<td>
-						<input type="password" name="pass" />
+						<input type="password" name="passc" />
 					</td>
 				</tr>
 				<tr>

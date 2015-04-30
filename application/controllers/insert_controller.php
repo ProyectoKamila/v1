@@ -42,9 +42,10 @@ function index()
 		{
 			//SI EXISTE EL CAMPO OCULTO LLAMADO GRABAR CREAMOS LAS VALIDACIONES
 			//$this->form_validation->set_rules('nickname','Nombre','required|trim|xss_clean');
-			$this->form_validation->set_rules('email','Correo','valid_email|required|trim|xss_clean');
-			$this->form_validation->set_rules('nickname','Seudónimo','required|trim|xss_clean');
-			$this->form_validation->set_rules('pass','Password','required|trim|xss_clean|md5');
+			$this->form_validation->set_rules('email','Correo','valid_email|required|trim|xss_clean|is_unique[user.email]');
+			$this->form_validation->set_rules('nickname','Seudónimo','required|trim|xss_clean|min_length[5]|max_length[12]|is_unique[user.nickname]');
+			$this->form_validation->set_rules('pass','Clave','required|trim|xss_clean|md5|matches[passc]');
+			$this->form_validation->set_rules('passc', 'Password Confirmation', 'required');
 			
 			//SI HAY ALGÚNA REGLA DE LAS ANTERIORES QUE NO SE CUMPLE MOSTRAMOS EL MENSAJE
 			//EL COMODÍN %s SUSTITUYE LOS NOMBRES QUE LE HEMOS DADO ANTERIORMENTE, EJEMPLO, 
@@ -52,6 +53,8 @@ function index()
 			//SERÁ SUSTITUIDO POR EL NOMBRE DEL CAMPO
 			$this->form_validation->set_message('required', 'El %s es requerido');
 	        $this->form_validation->set_message('valid_email', 'El %s no es válido');
+	        $this->form_validation->set_message('is_unique', 'Este %s ya se encuentra en la base de datos');
+	        $this->form_validation->set_message('matches', 'La  %s no coincide con la confirmación');
 			
 			//SI ALGO NO HA IDO BIEN NOS DEVOLVERÁ AL INDEX MOSTRANDO LOS ERRORES
 			if($this->form_validation->run()==FALSE)
@@ -75,7 +78,5 @@ function index()
 	}
 
 }
-
-
 
 }
