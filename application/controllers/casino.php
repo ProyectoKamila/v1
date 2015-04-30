@@ -17,24 +17,33 @@ class Casino extends MY_Controller {
 
     public function index() {
 //        debug($this->last_hour());
-//        debug($this->session->userdata('session_id'));
-        if ($this->session->userdata('status') == false) {
+        $this->token_cokie();
+//        debug($this->session->userdata('status'));
+        if ($this->session->userdata('status') == 1) {
+            redirect('./dashboard');
+        }elseif($this->session->userdata('status') == 2){
+            redirect('./account');
+        }elseif ($this->session->userdata('status') == false) {
             parent::index();
-        } elseif ($this->session->userdata('status') != 1) {
-            redirect('./player');
         }
+    }
+    public function dashboard(){
+//            $this->load->view('page/header');
+        $this->header('admin');
+            $this->navigation();
+            $this->load->view('page/index');
     }
 
     public function profile($message = null) {
         if ($message == 'online' or $message == 'offline') {
             $this->data['message'] = $message;
-            $this->load->view('page/header');
+//            $this->load->view('page/header');
             $this->navigation();
             $this->load->view('page/profile', $this->data);
         } else {
 //            $this->index();
             $this->data['message'] = 'Todos';
-            $this->load->view('page/header');
+//            $this->load->view('page/header');
             $this->navigation();
             $this->load->view('page/profile', $this->data);
         }
@@ -49,6 +58,12 @@ class Casino extends MY_Controller {
     }
 
     public function pr() {
+        $insert = $this->modelo_universal->query('SELECT * FROM `user`');
+        debug($insert);
+        
+        
+        debug('');
+        
         $this->sign_verify();
         $this->load->view('page/index');
     }

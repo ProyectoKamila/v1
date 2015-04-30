@@ -24,6 +24,9 @@
                             <li>
                                 <a href="profile/offline">Desconectados</a>
                             </li>
+                            <li>
+                                <a href="profile">Todos</a>
+                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>

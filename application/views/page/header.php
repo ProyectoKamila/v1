@@ -9,8 +9,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin Casino4As</title>
+    <title>
+        <?php if($this->data['us']=='admin'){ ?>
+            Admin Casino4As
+        <?php }else{ ?>
+            Account
+        <?php } ?>
+    </title>
 
+    <link href="style.css" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 

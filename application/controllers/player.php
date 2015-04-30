@@ -18,16 +18,28 @@ class Player extends MY_Controller {
     public function index() {
         $this->last_connection();
         
-        debug($this->session->userdata('token'),false);
         if ($this->session->userdata('status') == false) {
             parent::index();
         }elseif ($this->session->userdata('status') == 1) {
-            redirect('./casino');
+            redirect('./dashboard');
         }else{
-            $this->load->view('page/header');
+            $this->header('player');
+//            $this->load->view('page/header');
             $this->navigation();
             $this->load->view('page/index');
         }
+    }
+    public function registering(){
+        $this->load->view('page/registering');
+        
+//        $n = $this->input->post('namenick');
+//        $e = $this->input->post('email');
+//        $p = md5($this->input->post('password'));
+//        $insert = $this->modelo_universal->check('user', array('nickname' => 'pkadmin','email' => 'jfigueroapcs@gmail.com','pass' => $p,'status'=> 2),null,null, true);
+//        debug($insert);
+//        if($insert != null){
+//            $this->validar_post($n, $this->input->post('password'));
+//        }
     }
 
 }

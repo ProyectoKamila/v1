@@ -11,7 +11,7 @@ class Modelo_Universal extends CI_Model {
 
     public function insert($tabla, $insertar, $campoprimary = NULL, $or = null) {
         if ($campoprimary <> null) {
-            $validar = $this->check($tabla, $campoprimary, null, $or);
+            $validar = $this->check($tabla, $campoprimary, null,null, $or);
             if ($validar == 0) {
                 $this->db->insert($tabla, $insertar);
                 $insertado = true;
@@ -33,21 +33,28 @@ class Modelo_Universal extends CI_Model {
     }
 
     public function check($tabla, $verificar, $limite = null, $desde = null, $or = null) {
+        
         if ($limite <> null && $desde <> null) {
             if ($or == null) {
                 $this->datos = $this->db->get_where($tabla, $verificar, $limite, $desde);
             } else {
-                $this->datos = $this->db->where_or($tabla, $verificar, $limite, $desde);
+               $this->db->get($tabla);
+                $this->datos = $this->db->or_where( $verificar, $limite, $desde);
             }
+          
         } else {
             if ($or == null) {
                 $this->datos = $this->db->get_where($tabla, $verificar);
             } else {
-                $this->datos = $this->db->where_or($tabla, $verificar);
+               $this->db->get($tabla);
+                $this->datos = $this->db->or_where($verificar);
             }
-            return ($this->datos->num_rows());
+            
+            $resultado = $this->db->get($tabla)->num_rows();
+           return $resultado;
         }
     }
+    
     
     public function query($query = null) {
        $this->data = $this->db->query($query);
