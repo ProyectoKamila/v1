@@ -44,33 +44,43 @@
                             <h3 class="panel-title">Registrate</h3>
                         </div>
                         <div class="panel-body">
-                            <form role="form" method="post" action="./registering">
+                            <?php echo form_open("/recibirdatos") ?>
+                        <!--     <form role="form" method="post" action="./registering"> -->
                                 <fieldset>
                                     <div class="form-group input-group">
                                         <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" name="namenick" placeholder="Username" required="" pattern=".{5,12}"title="5 a 12 caracteres">
+                                        <input type="hidden" name="status" value="0" />
+                                        <input type="text" class="form-control" name="nickname" value="<?php echo set_value('nickname') ?>" placeholder="Usuario" required="" pattern=".{5,12}"title="5 a 12 caracteres">
+                                        
+                                        <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('nickname'); ?></font>
+                                        
                                     </div>
                                     <fieldset>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">@</span>
-                                            <input type="email" class="form-control" name="email" placeholder="Correo" required="">
+                                            <input type="email" class="form-control" name="email" value="<?php echo set_value('email') ?>" placeholder="Correo" required="">
+                                            <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('email'); ?></font>
                                         </div>
                                         <!--                                    <div class="form-group">
                                                                                 <input class="form-control" placeholder="E-mail / Nickname" name="email" type="email" autofocus>
                                                                             </div>-->
                                         <div class="form-group input-group">
                                             <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
-                                            <input class="form-control" placeholder="Password" name="password" type="password" value=""required="">
+                                           
+                                           <input class="form-control" placeholder="Password" name="pass" type="password" value=""required=""> 
                                         </div>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
-                                            <input class="form-control" placeholder="Repeat Password" name="password1" type="password" value=""required="">
+                                        
+                                        <input class="form-control" placeholder="Repeat Password" name="passc" type="password" value=""required=""> 
+                                        <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('pass'); ?></font>
+
                                         </div>
                                         <!-- Change this to a button or input when using this as a form -->
                                         <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
                                         <input type="submit" name="login" class="btn btn-lg btn-success btn-block" value="Registrarme"/>
                                     </fieldset>
-                            </form>
+                          <?php echo form_close() ?>
                         </div>
                     </div>
                 </div>
