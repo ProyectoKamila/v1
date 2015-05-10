@@ -37,13 +37,13 @@ class Casino extends MY_Controller {
     public function profile($message = null) {
         if ($message == 'online' or $message == 'offline') {
             $this->data['message'] = $message;
-//            $this->load->view('page/header');
+            $this->load->view('page/header');
             $this->navigation();
             $this->load->view('page/profile', $this->data);
         } else {
 //            $this->index();
             $this->data['message'] = 'Todos';
-//            $this->load->view('page/header');
+            $this->load->view('page/header');
             $this->navigation();
             $this->load->view('page/profile', $this->data);
         }
