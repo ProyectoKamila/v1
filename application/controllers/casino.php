@@ -35,19 +35,35 @@ class Casino extends MY_Controller {
     }
 
     public function profile($message = null) {
-        if ($message == 'online' or $message == 'offline') {
+
+        if ($message == 'online') {
+            $users = $this->modelo_universal->query('SELECT * FROM `user` where `id_user_status` =1');
             $this->data['message'] = $message;
+            $this->data['users'] = $users;
+            $this->load->view('page/header');
+            $this->navigation();
+            $this->load->view('page/profile', $this->data);    
+
+         } elseif ($message == 'offline') {
+            echo "offline";
+            $users = $this->modelo_universal->query('SELECT * FROM `user` where `id_user_status` =2');
+            $this->data['message'] = $message;
+            $this->data['users'] = $users;
             $this->load->view('page/header');
             $this->navigation();
             $this->load->view('page/profile', $this->data);
         } else {
+            echo "Todos";
+            $users = $this->modelo_universal->query('SELECT * FROM `user`');
 //            $this->index();
             $this->data['message'] = 'Todos';
+            $this->data['users'] = $users;
             $this->load->view('page/header');
             $this->navigation();
             $this->load->view('page/profile', $this->data);
         }
     }
+    
 
     public function login() {
         parent::login();

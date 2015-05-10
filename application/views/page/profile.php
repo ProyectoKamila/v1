@@ -18,64 +18,21 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Rendering engine</th>
-                                            <th>Browser</th>
-                                            <th>Platform(s)</th>
-                                            <th>Engine version</th>
-                                            <th>CSS grade</th>
+                                            <th>Id Usuer</th>
+                                            <th>nickname</th>
+                                            <th>email</th>
+                                            <th>Status Account</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php for($i=0;$i<=5;$i++){ ?>
+                                        <?foreach ($this->data['users'] as $user=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                            <td>Trident</td>
-                                            <td>Internet Explorer 4.0</td>
-                                            <td>Win 95+</td>
-                                            <td class="center">4</td>
-                                            <td class="center">X</td>
+                                            <td><? echo $valor['id_user']; ?></td>
+                                            <td><? echo $valor['nickname']; ?></td>
+                                            <td><? echo $valor['email']; ?></td>
+                                            <td><? echo $valor['id_user_status']; ?></td>
                                         </tr>
-                                        <tr class="gradeA">
-                                            <td>Gecko</td>
-                                            <td>Firefox 1.0</td>
-                                            <td>Win 98+ / OSX.2+</td>
-                                            <td class="center">1.7</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Presto</td>
-                                            <td>Opera 7.0</td>
-                                            <td>Win 95+ / OSX.1+</td>
-                                            <td class="center">-</td>
-                                            <td class="center">A</td>
-                                        </tr>
-                                        <tr class="gradeC">
-                                            <td>KHTML</td>
-                                            <td>Konqureror 3.1</td>
-                                            <td>KDE 3.1</td>
-                                            <td class="center">3.1</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeX">
-                                            <td>Tasman</td>
-                                            <td>Internet Explorer 4.5</td>
-                                            <td>Mac OS 8-9</td>
-                                            <td class="center">-</td>
-                                            <td class="center">X</td>
-                                        </tr>
-                                        <tr class="gradeA">
-                                            <td>Misc</td>
-                                            <td>NetFront 3.1</td>
-                                            <td>Embedded devices</td>
-                                            <td class="center">-</td>
-                                            <td class="center">C</td>
-                                        </tr>
-                                        <tr class="gradeU">
-                                            <td>Other browsers</td>
-                                            <td>All others</td>
-                                            <td>-</td>
-                                            <td class="center">-</td>
-                                            <td class="center">U</td>
-                                        </tr>
+                                        
                                         <?php } ?>
                                     </tbody>
                                 </table>
