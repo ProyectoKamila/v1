@@ -10,7 +10,7 @@
 						<?php echo form_open("/nuevo") ?>
 						<!--     <form role="form" method="post" action="./registering"> -->
 						<fieldset>
-							<input type="hidden" class="form-control" name="nickname" value="<?php echo set_value('nickname') ?>" placeholder="Username" required="" pattern=".{5,12}"title="5 a 12 caracteres">
+							<input type="text" class="form-control" name="id_user" value="<?php echo set_value('id_user') ?>" placeholder="Username" required="" pattern=".{5,12}"title="5 a 12 caracteres">
                                         
 										<input type="submit" name="Regresar" class="btn btn-lg btn-success btn-block" value="Ingresar"/>
 									
