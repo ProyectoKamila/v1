@@ -65,6 +65,15 @@ class Casino extends MY_Controller {
     }
     
 
+    public function detail_profile($message = null) {
+
+        echo "detalle perfil";
+        $this->load->view('page/header');
+        $this->load->view('page/detail_profile');
+    
+    }
+    
+
     public function login() {
         parent::login();
     }
