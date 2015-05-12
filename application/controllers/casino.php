@@ -65,9 +65,16 @@ class Casino extends MY_Controller {
     }
     
 
-    public function detail_profile($message = null) {
+    public function detail_profile($id = null) {
+
+       if(!$id){
+            redirect('./casino/profile');
+       }
+
+       
 
         echo "detalle perfil";
+        $this->navigation();
         $this->load->view('page/header');
         $this->load->view('page/detail_profile');
     
