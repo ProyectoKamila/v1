@@ -15,7 +15,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-user">
                                     <thead>
                                         <tr>
                                             <th>Id Usuer</th>
@@ -25,12 +25,79 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?foreach ($this->data['users'] as $user=>$valor ){ ?>
+                                        <?foreach ($this->data['user'] as $user=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                            <td><? echo $valor['id_user']; ?></td>
-                                            <td><? echo $valor['nickname']; ?></td>
-                                            <td><? echo $valor['email']; ?></td>
-                                            <td><? echo $valor['id_user_status']; ?></td>
+                                            <? print_r($data['user']) ?>
+                                            <td><? echo $valor['first_name'].' '.$valor['last_name']; ?></td>
+                                            <td><? echo $valor['identity_card']; ?></td>
+                                            <td><? echo $valor['gender']; ?></td>
+                                            <td><? echo $valor['nationality']; ?></td>
+                                        </tr>
+                                        
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-bet">
+                                    <thead>
+                                        <tr>
+                                            <th>ID Bet</th>
+                                            <th>Invesment</th>
+                                            <th>Bet</th>
+                                            <th>Gain</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?foreach ($this->data['bet'] as $bet=>$valor ){ ?>
+                                        <tr class="odd gradeX">
+                                        <? print_r($data['bet']) ?>
+                                            <td><? echo $valor['id_bet']; ?></td>
+                                            <td><? echo $valor['invesment']; ?></td>
+                                            <td><? echo $valor['bet']; ?></td>
+                                            <td><? echo $valor['gain']; ?></td>
+                                        </tr>
+                                        
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                                 <table class="table table-striped table-bordered table-hover" id="dataTables-balance">
+                                    <thead>
+                                        <tr>
+                                            <th>ID Bet</th>
+                                            <th>Invesment</th>
+                                            <th>Bet</th>
+                                            <th>Gain</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?foreach ($this->data['balance'] as $balance=>$valor ){ ?>
+                                        <tr class="odd gradeX">
+                                        <? print_r($data['balance']) ?>
+                                            <td><? echo $valor['id_bet']; ?></td>
+                                            <td><? echo $valor['invesment']; ?></td>
+                                            <td><? echo $valor['bet']; ?></td>
+                                            <td><? echo $valor['gain']; ?></td>
+                                        </tr>
+                                        
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-game">
+                                    <thead>
+                                        <tr>
+                                            <th>ID Bet</th>
+                                            <th>Invesment</th>
+                                            <th>Bet</th>
+                                            <th>Gain</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?foreach ($this->data['game'] as $game=>$valor ){ ?>
+                                        <tr class="odd gradeX">
+                                            <? print_r($data['balance']) ?>
+                                            <td><? echo $valor['id_bet']; ?></td>
+                                            <td><? echo $valor['invesment']; ?></td>
+                                            <td><? echo $valor['bet']; ?></td>
+                                            <td><? echo $valor['gain']; ?></td>
                                         </tr>
                                         
                                         <?php } ?>

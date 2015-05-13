@@ -45,7 +45,6 @@ class Casino extends MY_Controller {
             $this->load->view('page/profile', $this->data);    
 
          } elseif ($message == 'offline') {
-            echo "offline";
             $users = $this->modelo_universal->query('SELECT * FROM `user` where `id_user_status` =2');
             $this->data['message'] = $message;
             $this->data['users'] = $users;
@@ -53,7 +52,6 @@ class Casino extends MY_Controller {
             $this->navigation();
             $this->load->view('page/profile', $this->data);
         } else {
-            echo "Todos";
             $users = $this->modelo_universal->query('SELECT * FROM `user`');
 //            $this->index();
             $this->data['message'] = 'Todos';
@@ -67,12 +65,18 @@ class Casino extends MY_Controller {
 
     public function detail_profile($id = null) {
 
-       if(!$id){
+        if(!$id){
             redirect('./casino/profile');
-       }
+        }
 
-       
-
+        $user = $this->modelo_universal->query('SELECT * FROM `user_data` where id_user='.$id);
+        $bet = $this->modelo_universal->query('SELECT * FROM `activity_bet` where id_user='.$id);
+        $balance = $this->modelo_universal->query('SELECT * FROM `activity_balance` where id_user='.$id);
+        $game = $this->modelo_universal->query('SELECT * FROM `game` where id_user='.$id);
+        $this->data['user'] = $user;
+        $this->data['bet'] = $bet;
+        $this->data['balance'] = $balance;
+        $this->data['game'] = $game;
         echo "detalle perfil";
         $this->navigation();
         $this->load->view('page/header');
