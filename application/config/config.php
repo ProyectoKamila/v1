@@ -16,7 +16,16 @@
 | environments.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
+$config['base_url'] .= "://".$_SERVER['HTTP_HOST'];
+if (!isset($_SERVER['ORIG_SCRIPT_NAME']))
+{
+  $config['base_url'] .= str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+}
+else
+{
+  $config['base_url'] .= str_replace(basename($_SERVER['ORIG_SCRIPT_NAME']),"",$_SERVER['ORIG_SCRIPT_NAME']);
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +37,7 @@ $config['base_url'] = '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config[''] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------

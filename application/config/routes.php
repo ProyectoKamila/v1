@@ -41,8 +41,17 @@
 //$route['default_controller'] = "welcome";
 $route['default_controller'] = "casino";
 $route['profile/(:any)'] = "casino/profile/$1";
+$route['profile'] = "casino/profile/";
 $route['login'] = "casino/login/";
 $route['close'] = "casino/close/";
+$route['nuevo'] = "insert_controller/nuevo/";
+$route['verificar'] = "insert_controller/recibirdatos/";
+$route['completareg'] = "insert_controller/insertc/";
+//$route['activar'] = "insert_controller/activar/";
+$route['dashboard'] = "casino/dashboard/";
+$route['account'] = "player/index/";
+$route['registering'] = "player/registering/";
+$route['pr'] = "casino/pr/";
 $route['404_override'] = '';
 
 

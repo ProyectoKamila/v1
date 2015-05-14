@@ -1,7 +1,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Perfiles <?php if($this->data['message'] == 'online'){ echo 'El L&iacute;nea';}else{ echo 'Desconectados'; } ?></h1> 
+                    <h1 class="page-header">Perfiles <?php if($this->data['message'] == 'online'){ echo 'El L&iacute;nea';}elseif($this->data['message'] == 'online'){ echo 'Desconectados'; }else{echo $this->data['message'];} ?></h1> 
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

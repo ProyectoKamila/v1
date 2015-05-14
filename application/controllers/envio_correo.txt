@@ -1,0 +1,47 @@
+/* $configGmail = array(
+                'protocol' => 'smtp',
+                'smtp_host' => 'mail.casino4as.com',
+                'smtp_port' => 25,
+                'smtp_user' => 'noreply@casino4as.com',
+                'smtp_pass' => 'Temporal01',
+                'mailtype' => 'html',
+                'charset' => 'utf-8',
+                'newline' => "\r\n"
+                );    
+*/
+
+                $configGmail = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp.mail.yahoo.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'oigresarerbac@yahoo.com',
+            'smtp_pass' => 'superSAC2',
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        );    
+ 
+        //cargamos la configuración para enviar con gmail
+
+       $this->email->initialize($configGmail);
+
+
+    			$this->email->from('Email de Validación', 'Casino4As.com');
+				$this->email->to($correo);
+				$this->email->subject('Bienvenido/a a Casino4As.com');
+				$this->email->message('<h2> gracias por registrarte en Casino4As.com</h2><hr><br><br> 
+
+					Tu nombre de usuario es: ' . $nick . '.
+
+					Debes Activar tu Usuario entrando en la sigiente dirección
+
+					localhost/activar/' . $nick . '
+
+					');
+
+
+				$this->email->send();
+
+				var_dump($this->email->print_debugger());
+
+    			//

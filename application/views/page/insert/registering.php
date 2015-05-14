@@ -38,51 +38,19 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-md-offset-2">
-                    <div class="login-panel panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Identificarse</h3>
-                        </div>
-                        <div class="panel-body">
-                            <form role="form" method="post" action="./login">
-                                <fieldset>
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" name="namenick" placeholder="Username" required="" pattern=".{5,12}"title="5 a 12 caracteres">
-                                    </div>
-                                    <!--                                    <div class="form-group">
-                                                                            <input class="form-control" placeholder="E-mail / Nickname" name="email" type="email" autofocus>
-                                                                        </div>-->
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
-                                        <input class="form-control" placeholder="Password" name="password" type="password" value="Pr4y2ct4"required="">
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input name="remember" type="checkbox" value="1">No cerrar sesi&oacute;n
-                                        </label>
-                                    </div>
-                                    <!-- Change this to a button or input when using this as a form -->
-                                    <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
-                                    <input type="submit" name="login" class="btn btn-lg btn-success btn-block" value="Iniciar Sesi&oacute;n"/>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-md-offset-4">
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Registrate</h3>
                         </div>
                         <div class="panel-body">
-                            <?php echo form_open("/verificar") ?>
+                            <?php echo form_open("/recibirdatos") ?>
                         <!--     <form role="form" method="post" action="./registering"> -->
                                 <fieldset>
                                     <div class="form-group input-group">
                                         <span class="input-group-addon">@</span>
                                         <input type="hidden" name="status" value="0" />
-                                        <input type="text" class="form-control" name="nickname" value="<?php echo set_value('nickname') ?>" placeholder="Username" required="" pattern=".{5,12}"title="5 a 12 caracteres">
+                                        <input type="text" class="form-control" name="nickname" value="<?php echo set_value('nickname') ?>" placeholder="Usuario" required="" pattern=".{5,12}"title="5 a 12 caracteres">
                                         
                                         <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('nickname'); ?></font>
                                         
