@@ -12,18 +12,16 @@ class Insert_controller extends MY_Controller {
         $this->load->library('email');
     }
 
-    /*  public function index() {
+    public function index() {
       if($this->session->userdata('status')==false){
       parent::index();
       }elseif($this->session->userdata('status')!=1){
       redirect('./player');
       }
-  } */
+  } 
 
   public function nuevo() {
-        //$this->load->view('page/header');
-        //$this->load->view('page/insert/insertform');
-        //$this->load->view('page/insert/registering');
+   
     $this->load->view('page/login');
 }
 
@@ -59,12 +57,13 @@ function recibirDatos() {
                 'nickname' => $this->input->post('nickname'),
                 'email' => $this->input->post('email'),
                 'pass' => $this->input->post('pass'),
-                'status' => $this->input->post('status')
+                'status' => '0',
+                'id_role'=>'2',
+                'cod_validacion'=>md5($this->input->post('nickname'))
                 );
-            if(!$this->enviarcorreo($correo , $nick)){
-                redirect('./nuevo');
-            }
-            $this->enviarcorreo($correo , $nick);
+            $this->enviarcorreo($correo , $nick)
+                
+           // $this->enviarcorreo($correo , $nick);
 
             $this->modelo_universal->insert('user', $data);
             $this->insertado();
@@ -132,7 +131,7 @@ public function insertado() {
 }
 
 public function insertc() {
-        // $this->load->view('page/header');
+        
     $this->load->view('page/insert/registercompl');
 }
 
@@ -143,15 +142,14 @@ public function activar($id = null) {
         redirect('./nuevo');
     }
 
+
     $data = array(
         'status' => '1'
         );
 
-    $this->modelo_universal->update('user', $data, array('id_user' => $id));
+    $this->modelo_universal->update('user', $data, array('cod_validacion' => $id));
 
-
-    $this->load->view('page/header');
-    $this->load->view('page/insert/activar',$this->nickname);
+    $this->load->view('page/insert/activar');
 }
 
 function enviarcorreo($correo , $nick)
@@ -179,18 +177,12 @@ function enviarcorreo($correo , $nick)
 
         Debes Activar tu Usuario entrando en la sigiente dirección
 
-        localhost/activar/' . $nick . '
+        localhost/envio_correo/activar/' . md5($nick) . '
 
         ');
 
-
-
     
-    if ( $this->email->send() ) {
-       echo "El email fué enviado correctamente!";
-   } else {
-       echo "El email no pudo ser enviado!";
-   }
+    $this->email->send();
 
 
 }
