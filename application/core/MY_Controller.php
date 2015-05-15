@@ -133,7 +133,7 @@ class MY_Controller extends CI_Controller {
             $this->session->set_userdata(array('name' => $check[0]['nickname']));
             $this->session->set_userdata(array('status' => $check[0]['status']));
             $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
-            if($this->session->userdata('token') == 1){
+            if($this->session->userdata('status') == 1){
             redirect('./casino');
             }else{
             redirect('./account');

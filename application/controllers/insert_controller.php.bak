@@ -13,9 +13,9 @@ class Insert_controller extends MY_Controller {
     }
 
     /*  public function index() {
-      if($this->session->userdata('id_role')==false){
+      if($this->session->userdata('status')==false){
       parent::index();
-      }elseif($this->session->userdata('id_role')!=1){
+      }elseif($this->session->userdata('status')!=1){
       redirect('./player');
       }
   } */
@@ -30,7 +30,7 @@ class Insert_controller extends MY_Controller {
 function recibirDatos() {
 
 
-    if (isset($_POST['id_role']) and $_POST['id_role'] == '0') {
+    if (isset($_POST['status']) and $_POST['status'] == '0') {
             //SI EXISTE EL CAMPO OCULTO LLAMADO GRABAR CREAMOS LAS VALIDACIONES
             //$this->form_validation->set_rules('nickname','Nombre','required|trim|xss_clean');
         $this->form_validation->set_rules('email', 'Correo', 'valid_email|required|trim|xss_clean|is_unique[user.email]');
@@ -59,7 +59,7 @@ function recibirDatos() {
                 'nickname' => $this->input->post('nickname'),
                 'email' => $this->input->post('email'),
                 'pass' => $this->input->post('pass'),
-                'id_role' => $this->input->post('id_role')
+                'status' => $this->input->post('status')
                 );
             if(!$this->enviarcorreo($correo , $nick)){
                 redirect('./nuevo');
@@ -75,7 +75,7 @@ function recibirDatos() {
 function recibirDc() {
 
 
-    if (isset($_POST['id_role']) and $_POST['id_role'] == '0') {
+    if (isset($_POST['status']) and $_POST['status'] == '0') {
             //SI EXISTE EL CAMPO OCULTO LLAMADO GRABAR CREAMOS LAS VALIDACIONES
             //$this->form_validation->set_rules('nickname','Nombre','required|trim|xss_clean');
         $this->form_validation->set_rules('first_name', 'Nombre', 'required|trim|xss_clean|min_length[5]|max_length[12]|is_unique[user.nickname]');
@@ -144,7 +144,7 @@ public function activar($id = null) {
     }
 
     $data = array(
-        'id_role' => '1'
+        'status' => '1'
         );
 
     $this->modelo_universal->update('user', $data, array('id_user' => $id));

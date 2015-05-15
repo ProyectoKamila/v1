@@ -18,12 +18,12 @@ class Casino extends MY_Controller {
     public function index() {
 //        debug($this->last_hour());
         $this->token_cokie();
-//        debug($this->session->userdata('id_role'));
-        if ($this->session->userdata('id_role') == 1) {
+//        debug($this->session->userdata('status'));
+        if ($this->session->userdata('status') == 1) {
             redirect('./dashboard');
-        }elseif($this->session->userdata('id_role') == 2){
+        }elseif($this->session->userdata('status') == 2){
             redirect('./account');
-        }elseif ($this->session->userdata('id_role') == false) {
+        }elseif ($this->session->userdata('status') == false) {
             parent::index();
         }
     }
