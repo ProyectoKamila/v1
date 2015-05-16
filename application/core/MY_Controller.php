@@ -110,7 +110,7 @@ class MY_Controller extends CI_Controller {
 //            $this->modelo_universal->insert('user_session', array('user_token' => $token, 'user_ip' => $ip, 'kernel' => $agent, 'machine_name' => php_uname('n'), 'last_activity' => $last_activity, 'id_user' => $id_user), array('user_token' => $token));
 
             $this->session->set_userdata(array('session' => md5('true')));
-            $this->session->set_userdata(array('status' => $check[0]['status']));
+            $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
             $this->session->set_userdata(array('name' => $check[0]['nickname']));
             $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
             redirect('./');
@@ -131,9 +131,9 @@ class MY_Controller extends CI_Controller {
             }
             $this->session->set_userdata(array('session' => md5('true')));
             $this->session->set_userdata(array('name' => $check[0]['nickname']));
-            $this->session->set_userdata(array('status' => $check[0]['status']));
+            $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
             $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
-            if($this->session->userdata('status') == 1){
+            if($this->session->userdata('id_role') == 1){
             redirect('./casino');
             }else{
             redirect('./account');
@@ -147,15 +147,15 @@ class MY_Controller extends CI_Controller {
         $this->session->unset_userdata('session_id');
         $this->session->unset_userdata('ip_address');
         $this->session->unset_userdata('user_agent');
-        $this->session->unset_userdata('status');
+        $this->session->unset_userdata('id_role');
         $this->session->unset_userdata('last_activity');
         delete_cookie('token');
-//        debug($this->session->unset_userdata('status'));
+//        debug($this->session->unset_userdata('id_role'));
         redirect('./');
     }
 
     public function navigation() {
-        if ($this->session->userdata('status') == 1) {
+        if ($this->session->userdata('id_role') == 1) {
             $this->load->view('page/navegation/header');
             $this->load->view('page/navegation/notification');
             $this->load->view('page/navegation/nav_admin');
@@ -167,9 +167,9 @@ class MY_Controller extends CI_Controller {
     }
 
     public function sign_verify() {
-        if (($this->session->userdata('status') != null) and ( $this->session->userdata('status') == 1)) {
+        if (($this->session->userdata('id_role') != null) and ( $this->session->userdata('id_role') == 1)) {
             redirect('./dashboard');
-        } elseif (($this->session->userdata('status') != null) and ( $this->session->userdata('status') == 2)) {
+        } elseif (($this->session->userdata('id_role') != null) and ( $this->session->userdata('id_role') == 2)) {
             redirect('./account');
         }
     }
@@ -198,14 +198,14 @@ class MY_Controller extends CI_Controller {
                 if ($very == null) {
                     $this->close();
                 } else {
-                    $user = $this->modelo_universal->select('user', 'status', array('id_user' => $very[0]['id_user']));
+                    $user = $this->modelo_universal->select('user', 'id_role', array('id_user' => $very[0]['id_user']));
 //                    debug($user,false);
                     if ($very != null) {
 //                    SELECT `user`.`nickname` FROM `user`,`user_session` WHERE `user`.`id_user`=`user_session`.`id_user`
-                        $check = $this->modelo_universal->query('SELECT `user`.`nickname`,`user`.`status` FROM `user`,`user_session` WHERE `user`.`id_user`=`user_session`.`id_user` AND `user`.`id_user` ='.$very[0]['id_user']);
+                        $check = $this->modelo_universal->query('SELECT `user`.`nickname`,`user`.`id_role` FROM `user`,`user_session` WHERE `user`.`id_user`=`user_session`.`id_user` AND `user`.`id_user` ='.$very[0]['id_user']);
 //                        debug($check,false);
                         $this->session->set_userdata(array('session' => md5('true')));
-                        $this->session->set_userdata(array('status' => $check[0]['status']));
+                        $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
                         $this->session->set_userdata(array('name' => $check[0]['nickname']));
                     }
                 }
