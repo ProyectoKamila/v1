@@ -13,7 +13,11 @@ class Insert_controller extends MY_Controller {
     }
 
     /*  public function index() {
+<<<<<<< HEAD
       if($this->session->userdata('id_role')==false){
+=======
+      if($this->session->userdata('status')==false){
+>>>>>>> parent of e4248be... Registro y envio de correo
       parent::index();
       }elseif($this->session->userdata('id_role')!=1){
       redirect('./player');
@@ -59,7 +63,11 @@ function recibirDatos() {
                 'nickname' => $this->input->post('nickname'),
                 'email' => $this->input->post('email'),
                 'pass' => $this->input->post('pass'),
+<<<<<<< HEAD
                 'id_role' => $this->input->post('id_role')
+=======
+                'status' => $this->input->post('status')
+>>>>>>> parent of e4248be... Registro y envio de correo
                 );
             if(!$this->enviarcorreo($correo , $nick)){
                 redirect('./nuevo');
