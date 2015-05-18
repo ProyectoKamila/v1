@@ -25,12 +25,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?foreach ($this->data['users'] as $user=>$valor ){ ?>
+                                        <?php foreach ($this->data['users'] as $user=>$valor ){ ?>
                                         <tr class="odd gradeX">
                                             <td><a href='./casino/detail_profile/<? echo $valor['id_user']; ?>' class='glyphicon glyphicon-search'></a></td>
-                                            <td><? echo $valor['nickname']; ?></td>
-                                            <td><? echo $valor['email']; ?></td>
-                                            <td><? echo $valor['id_user_status']; ?></td>
+                                            <td><?php echo $valor['nickname']; ?></td>
+                                            <td><?php echo $valor['email']; ?></td>
+                                            <td><?php echo $valor['id_user_status']; ?></td>
                                         </tr>
                                         
                                         <?php } ?>

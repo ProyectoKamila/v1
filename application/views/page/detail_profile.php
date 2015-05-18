@@ -25,13 +25,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?foreach ($this->data['user'] as $user=>$valor ){ ?>
+                                        <?php foreach ($this->data['user'] as $user=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                            <? print_r($this->data['user']) ?>
-                                            <td><? echo $valor['first_name'].' '.$valor['last_name']; ?></td>
-                                            <td><? echo $valor['identity_card']; ?></td>
-                                            <td><? echo $valor['gender']; ?></td>
-                                            <td><? echo $valor['nationality']; ?></td>
+                                            <?php print_r($this->data['user']) ?>
+                                            <td><?php echo $valor['first_name'].' '.$valor['last_name']; ?></td>
+                                            <td><?php echo $valor['identity_card']; ?></td>
+                                            <td><?php echo $valor['gender']; ?></td>
+                                            <td><?php echo $valor['nationality']; ?></td>
                                         </tr>
                                         
                                         <?php } ?>
@@ -47,13 +47,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?foreach ($this->data['bet'] as $bet=>$valor ){ ?>
+                                        <?php foreach ($this->data['bet'] as $bet=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                        <? print_r($this->data['bet']) ?>
-                                            <td><? echo $valor['id_activity_bet']; ?></td>
-                                            <td><? echo $valor['investment']; ?></td>
-                                            <td><? echo $valor['bet']; ?></td>
-                                            <td><? echo $valor['gain']; ?></td>
+                                        <?php print_r($this->data['bet']) ?>
+                                            <td><?php echo $valor['id_activity_bet']; ?></td>
+                                            <td><?php echo $valor['investment']; ?></td>
+                                            <td><?php echo $valor['bet']; ?></td>
+                                            <td><?php echo $valor['gain']; ?></td>
                                         </tr>
                                         
                                         <?php } ?>
@@ -70,14 +70,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?foreach ($this->data['balance'] as $balance=>$valor ){ ?>
+                                        <?php foreach ($this->data['balance'] as $balance=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                        <? print_r($this->data['balance']) ?>
-                                            <td><? echo $valor['id_activity_balance']; ?></td>
-                                            <td><? echo $valor['reload']; ?></td>
-                                            <td><? echo $valor['withdrawal']; ?></td>
-                                            <td><? echo $valor['available_balance']; ?></td>
-                                            <td><? echo $valor['new_balance']; ?></td>
+                                        <?php print_r($this->data['balance']) ?>
+                                            <td><?php echo $valor['id_activity_balance']; ?></td>
+                                            <td><?php echo $valor['reload']; ?></td>
+                                            <td><?php echo $valor['withdrawal']; ?></td>
+                                            <td><?php echo $valor['available_balance']; ?></td>
+                                            <td><?php echo $valor['new_balance']; ?></td>
                                         </tr>
                                         
                                         <?php } ?>
@@ -95,15 +95,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?foreach ($this->data['game'] as $game=>$valor ){ ?>
+                                        <?php foreach ($this->data['game'] as $game=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                            <? print_r($this->data['game']) ?>
-                                            <td><? echo $valor['id_game']; ?></td>
-                                            <td><? echo $valor['type']; ?></td>
-                                            <td><? echo $valor['name']; ?></td>
-                                            <td><? echo $valor['minimum_bet']; ?></td>
-                                            <td><? echo $valor['maximum_bet']; ?></td>
-                                            <td><? echo $valor['jackpot']; ?></td>
+                                            <?php print_r($this->data['game']) ?>
+                                            <td><?php echo $valor['id_game']; ?></td>
+                                            <td><?php echo $valor['type']; ?></td>
+                                            <td><?php echo $valor['name']; ?></td>
+                                            <td><?php echo $valor['minimum_bet']; ?></td>
+                                            <td><?php echo $valor['maximum_bet']; ?></td>
+                                            <td><?php echo $valor['jackpot']; ?></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>

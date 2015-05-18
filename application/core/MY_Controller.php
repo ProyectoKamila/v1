@@ -17,7 +17,7 @@ class MY_Controller extends CI_Controller {
 
     public function index() {
         $this->sign_verify();
-        if (!$this->input->cookie('token')) {
+        if ($this->input->cookie('token', true)==false) {
             $this->login();
         } else {
             $this->token_cokie();
@@ -54,7 +54,7 @@ class MY_Controller extends CI_Controller {
     public function validar_post($n, $p, $l = null) {
 //        b326b5062b2f0e69046810717534cb09
 //        debug($this->session->userdata('session'));
-        $check = $this->modelo_universal->select('user', '*', array('nickname' => $n, 'pass' => md5($p)));
+        $check = $this->modelo_universal->select('user', 'nickname, id_user, status', array('nickname' => $n, 'pass' => md5($p)));
         if ($l != null) {
 //            if (($this->input->cookie('token', true) != false) and ( $this->input->cookie('token', true) == $this->load->library('session'))) {
 ////                $session = $this->modelo_universal->select('user_session', '*', array('user_token'=>$this->input->cookie('token')));
@@ -88,9 +88,16 @@ class MY_Controller extends CI_Controller {
             );
             $this->input->set_cookie($c_token);
             ///////////////////////crear token/////////////////
-
+            
             $this->session->set_userdata(array('token' => $this->session->userdata('session_id')));
             $token = $this->session->userdata('token');
+            
+            $ss = $this->modelo_universal->select('user_session', '*', array('id_user' => $check[0]['id_user'],'user_token'=>$token));
+            if ($ss == null) {
+//                debug('null');
+                $rs = $this->modelo_universal->insert('user_session', array('user_token' => $token, 'user_ip' => $ip, 'kernel' => $agent, 'machine_name' => php_uname('n'), 'last_activity' => $last_activity, 'id_user' => $id_user));
+//                debug($rs);
+            }
 
             $s = $this->modelo_universal->select('active_session', '*', array('id_user' => $check[0]['id_user']));
             if ($s == null) {
@@ -100,12 +107,6 @@ class MY_Controller extends CI_Controller {
                 $this->last_connection();
             }
             
-            $ss = $this->modelo_universal->select('user_session', '*', array('id_user' => $check[0]['id_user'],'user_token'=>$token));
-            if ($ss == null) {
-//                debug('null');
-                $rs = $this->modelo_universal->insert('user_session', array('user_token' => $token, 'user_ip' => $ip, 'kernel' => $agent, 'machine_name' => php_uname('n'), 'last_activity' => $last_activity, 'id_user' => $id_user), array('user_token' => $token));
-//                debug($rs);
-            }
 //            debug($ss);
 //            $this->modelo_universal->insert('user_session', array('user_token' => $token, 'user_ip' => $ip, 'kernel' => $agent, 'machine_name' => php_uname('n'), 'last_activity' => $last_activity, 'id_user' => $id_user), array('user_token' => $token));
 
@@ -113,6 +114,7 @@ class MY_Controller extends CI_Controller {
             $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
             $this->session->set_userdata(array('name' => $check[0]['nickname']));
             $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
+//            debug($ss);
             redirect('./');
 //            return $_SESSION;
 //            }
