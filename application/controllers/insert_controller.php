@@ -20,7 +20,7 @@ class Insert_controller extends MY_Controller {
 function recibirDatos() {
 
 
-    if (isset($_POST['id_role']) and $_POST['id_role'] == '0') {
+    if (isset($_POST['status']) and $_POST['status'] == '0') {
             //SI EXISTE EL CAMPO OCULTO LLAMADO GRABAR CREAMOS LAS VALIDACIONES
             //$this->form_validation->set_rules('nickname','Nombre','required|trim|xss_clean');
         $this->form_validation->set_rules('email', 'Correo', 'valid_email|required|trim|xss_clean|is_unique[user.email]');
@@ -49,16 +49,14 @@ function recibirDatos() {
                 'nickname' => $this->input->post('nickname'),
                 'email' => $this->input->post('email'),
                 'pass' => $this->input->post('pass'),
-                'id_role' => $this->input->post('id_role')
-
                 'status' => '0',
                 'id_role'=>'2',
                 'cod_validacion'=>md5($this->input->post('nickname'))
 
                 );
-            $this->enviarcorreo($correo , $nick)
+            $this->enviarcorreo($correo , $nick);
                 
-           // $this->enviarcorreo($correo , $nick);
+
 
             $this->modelo_universal->insert('user', $data);
             $this->insertado();
@@ -69,7 +67,7 @@ function recibirDatos() {
 function recibirDc() {
 
 
-    if (isset($_POST['id_role']) and $_POST['id_role'] == '0') {
+    if (isset($_POST['status']) and $_POST['status'] == '0') {
             //SI EXISTE EL CAMPO OCULTO LLAMADO GRABAR CREAMOS LAS VALIDACIONES
             //$this->form_validation->set_rules('nickname','Nombre','required|trim|xss_clean');
         $this->form_validation->set_rules('first_name', 'Nombre', 'required|trim|xss_clean|min_length[5]|max_length[12]|is_unique[user.nickname]');
