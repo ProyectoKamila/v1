@@ -216,5 +216,52 @@ class MY_Controller extends CI_Controller {
     public function successful_registration(){
         
     }
+    public function uploadimg($id = null) {
+       $this->permiso(3);
+       $this->empresa();
+       $nombre = $this->modelo_universal->select('empresa', 'logo', array('idempresa' => $this->idempresa));
+       
+       $config['upload_path'] = './uploadimg/';
+       $config['allowed_types'] = 'gif|jpg|png';
+       $config['max_size'] = '2048';
+       $config['max_width'] = '3000';
+       $config['max_height'] = '3000';
+       $config['file_name'] = $nombre[0]['logo'];
+       $config['encrypt_name'] = true;
+       $this->load->library('upload', $config);
+       if ($this->upload->do_upload()) {
+           $array = $this->upload->data();
+           //select
+
+
+           if ($array['image_width'] > 500 && $array['image_height'] > 500) {
+               $this->load->library('image_lib');
+               $config2['image_library'] = 'gd2';
+
+               $config2['source_image'] = 'uploadimg/' . $array['file_name'];
+
+               $config2['quality'] = '70%';
+               $config2['maintain_ratio'] = TRUE;
+               $config2['create_thumb'] = TRUE;
+
+
+               $config2['width'] = 500;
+               $config2['height'] = 500;
+               $this->image_lib->initialize($config2);
+
+               $this->image_lib->resize();
+               if ($this->image_lib->resize()) {
+                   $url2 = 'uploadimg/' . $array['file_name'];
+                   unlink($url2);
+               }
+
+               $nombre = explode('.', $array['file_name']);
+               $url1 = 'uploadimg/' . $nombre[0] . '_thumb.' . $nombre[1];
+               $url2 = 'uploadimg/' . $array['file_name'];
+               rename($url1, $url2);
+           }
+       }
+       //redirect(base_url() . 'carrito/miempresa/');
+   }
 
 }
