@@ -18,9 +18,9 @@ class Player extends MY_Controller {
     public function index() {
         $this->last_connection();
         
-        if ($this->session->userdata('status') == false) {
+        if ($this->session->userdata('id_role') == false) {
             parent::index();
-        }elseif ($this->session->userdata('status') == 1) {
+        }elseif ($this->session->userdata('id_role') == 1) {
             redirect('./dashboard');
         }else{
             $this->header('player');
@@ -35,7 +35,7 @@ class Player extends MY_Controller {
 //        $n = $this->input->post('namenick');
 //        $e = $this->input->post('email');
 //        $p = md5($this->input->post('password'));
-//        $insert = $this->modelo_universal->check('user', array('nickname' => 'pkadmin','email' => 'jfigueroapcs@gmail.com','pass' => $p,'status'=> 2),null,null, true);
+//        $insert = $this->modelo_universal->check('user', array('nickname' => 'pkadmin','email' => 'jfigueroapcs@gmail.com','pass' => $p,'id_role'=> 2),null,null, true);
 //        debug($insert);
 //        if($insert != null){
 //            $this->validar_post($n, $this->input->post('password'));

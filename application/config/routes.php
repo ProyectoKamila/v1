@@ -39,21 +39,39 @@
 */
 
 //$route['default_controller'] = "welcome";
+/////////////////////////////////////////////////////Rutas generales/////////////////////////////////////////////////////
 $route['default_controller'] = "casino";
+$route['404_override'] = '';
+/////////////////////////////////////////////////////controlador CASINO/////////////////////////////////////////////////////
 $route['profile/(:any)'] = "casino/profile/$1";
 $route['profile'] = "casino/profile/";
 $route['detail_profile'] = "casino/detail_profile/";
 $route['login'] = "casino/login/";
 $route['close'] = "casino/close/";
+$route['slotmachine'] = "casino/slotmachine/";
+
 $route['nuevo'] = "insert_controller/nuevo/";
 $route['verificar'] = "insert_controller/recibirdatos/";
 $route['completareg'] = "insert_controller/insertc/";
-//$route['activar'] = "insert_controller/activar/";
+$route['activar'] = "insert_controller/activar/";
+$route['activar/(:any)'] = "insert_controller/activar/$1";
+
 $route['dashboard'] = "casino/dashboard/";
+$route['game/watch-game'] ='casino/watch_game';
+/////////////////////////////////////////////////////controlador PLAYER/////////////////////////////////////////////////////
 $route['account'] = "player/index/";
 $route['registering'] = "player/registering/";
+/////////////////////////////////////////////////////controlador insert_controller/////////////////////////////////////////////////////
+$route['nuevo'] = "insert_controller/nuevo/";
+/////////////////////////////////////////////////////controlador nuevo/////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////controlador OTRO/////////////////////////////////////////////////////
 $route['pr'] = "casino/pr/";
-$route['404_override'] = '';
+
+
+
+
 
 
 /* End of file routes.php */
