@@ -103,6 +103,7 @@ wsServer.on('request', function(request) {
 
     var connection = request.accept('server', request.origin);
     connection.id = connection_id++;
+      clients = clients+1;
 
     connection.on('message', function(message) {
         if (message.type === 'utf8') {
@@ -113,7 +114,7 @@ wsServer.on('request', function(request) {
             //para acceder y devolver datos del tokken
             if (msgObj.type === 'join') {
                 connection.token = msgObj.token;
-                clients = clients+1;
+              
 
 
 
