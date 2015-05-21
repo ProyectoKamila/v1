@@ -17,9 +17,11 @@ class Player extends MY_Controller {
 
     public function index() {
         $this->last_connection();
-        
+        //debug(print_r($this->session->userdata));
         if ($this->session->userdata('id_role') == false) {
             parent::index();
+            //redirect('./completareg');
+            //$this->modelo_universal->check('user_data', $this->session->userdata('id_user'));           
         }elseif ($this->session->userdata('id_role') == 1) {
             redirect('./dashboard');
         }else{
