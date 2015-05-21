@@ -54,7 +54,7 @@ class MY_Controller extends CI_Controller {
     public function validar_post($n, $p, $l = null) {
 //        b326b5062b2f0e69046810717534cb09
 //        debug($this->session->userdata('session'));
-        $check = $this->modelo_universal->select('user', 'nickname, id_user, status', array('nickname' => $n, 'pass' => md5($p)));
+        $check = $this->modelo_universal->select('user', 'nickname, id_user, id_role', array('nickname' => $n, 'pass' => md5($p)));
         if ($l != null) {
 //            if (($this->input->cookie('token', true) != false) and ( $this->input->cookie('token', true) == $this->load->library('session'))) {
 ////                $session = $this->modelo_universal->select('user_session', '*', array('user_token'=>$this->input->cookie('token')));
