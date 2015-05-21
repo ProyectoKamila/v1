@@ -196,6 +196,9 @@ class MY_Controller extends CI_Controller {
             $r = $this->modelo_universal->update('active_session', array('date_time' => $date, 'token' => $this->session->userdata('token')), array('id_user' => $this->session->userdata('id_user')));
         }
         }
+        else{
+            redirect('./');
+        }
     }
     
     public function token_cokie(){
