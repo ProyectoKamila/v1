@@ -49,12 +49,12 @@ $route['detail_profile'] = "casino/detail_profile/";
 $route['login'] = "casino/login/";
 $route['close'] = "casino/close/";
 $route['slotmachine'] = "casino/slotmachine/";
-
-$route['nuevo'] = "insert_controller/nuevo/";
-$route['verificar'] = "insert_controller/recibirdatos/";
+$route['receivingdc'] = "insert_controller/recibirdc/";
+$route['newest'] = "insert_controller/newest/";
+$route['check'] = "insert_controller/receivingdata/";
 $route['completareg'] = "insert_controller/insertc/";
-$route['activar'] = "insert_controller/activar/";
-$route['activar/(:any)'] = "insert_controller/activar/$1";
+$route['enable'] = "insert_controller/enable/";
+$route['enable/(:any)'] = "insert_controller/enable/$1";
 
 $route['dashboard'] = "casino/dashboard/";
 $route['game/watch-game'] ='casino/watch_game';
@@ -62,8 +62,8 @@ $route['game/watch-game'] ='casino/watch_game';
 $route['account'] = "player/index/";
 $route['registering'] = "player/registering/";
 /////////////////////////////////////////////////////controlador insert_controller/////////////////////////////////////////////////////
-$route['nuevo'] = "insert_controller/nuevo/";
-/////////////////////////////////////////////////////controlador nuevo/////////////////////////////////////////////////////
+$route['newest'] = "insert_controller/newest/";
+/////////////////////////////////////////////////////controlador newest/////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////controlador OTRO/////////////////////////////////////////////////////

@@ -44,7 +44,7 @@
                             <h3 class="panel-title">Registrate</h3>
                         </div>
                         <div class="panel-body">
-                            <?php echo form_open("/recibirdatos") ?>
+                            <?php echo form_open("/receivingdata") ?>
                         <!--     <form role="form" method="post" action="./registering"> -->
                                 <fieldset>
                                     <div class="form-group input-group">

@@ -1,6 +1,6 @@
 <fieldset>
 	<legend>Formulario de registro</legend>
-		<?php echo form_open("/insert_controller/recibirdatos") ?>
+		<?php echo form_open("/insert_controller/receivingdata") ?>
 			<table>
 				<tr>
 					<td>

@@ -76,7 +76,7 @@
                             <h3 class="panel-title">Registrate</h3>
                         </div>
                         <div class="panel-body">
-                            <?php echo form_open("/verificar") ?>
+                            <?php echo form_open("/check") ?>
                         <!--     <form role="form" method="post" action="./registering"> -->
                                 <fieldset>
                                     <div class="form-group input-group">

@@ -217,7 +217,7 @@ class MY_Controller extends CI_Controller {
         
     }
     public function uploadimg($id = null) {
-       $this->permiso(3);
+     //  $this->permiso(3);
        $this->empresa();
        $nombre = $this->modelo_universal->select('empresa', 'logo', array('idempresa' => $this->idempresa));
        
@@ -240,7 +240,7 @@ class MY_Controller extends CI_Controller {
 
                $config2['source_image'] = 'uploadimg/' . $array['file_name'];
 
-               $config2['quality'] = '70%';
+               $config2['quality'] = '100%';
                $config2['maintain_ratio'] = TRUE;
                $config2['create_thumb'] = TRUE;
 

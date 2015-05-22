@@ -44,7 +44,7 @@
                             <h3 class="panel-title">Complete su Registro</h3>
                         </div>
                         <div class="panel-body">
-                            <?php echo form_open("/recibirdc") ?>
+                            <?php echo form_open_multipart("/receivingdc") ?>
                             <!--     <form role="form" method="post" action="./registering"> -->
                             <fieldset>
 
@@ -121,6 +121,13 @@
 
                                     <input class="form-control" placeholder="Dirección" name="address" type="address" value="<?php echo set_value('address') ?>"required=""> 
                                     <font color="red" style="font-weight: bold; font-size: 8px; text-decoration: underline"><?php echo form_error('address'); ?></font>
+
+                                </div>
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+
+                                    <input class="form-control" placeholder="Imagen" name="userfile" type="file" > 
+                                    <font color="red" style="font-weight: bold; font-size: 8px; text-decoration: underline"><?php echo $error;?></font>
 
                                 </div>
 
