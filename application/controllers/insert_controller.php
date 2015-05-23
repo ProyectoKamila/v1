@@ -155,11 +155,11 @@ class Insert_controller extends MY_Controller {
 
 
         $data = array(
-            'id_role' => '1'
+            'status' => '1'
             );
 
         $this->modelo_universal->update('user', $data, array('cod_validacion' => $id));
-
+        $this->load->view('page/header');
         $this->load->view('page/insert/enable');
     }
 
@@ -188,7 +188,7 @@ class Insert_controller extends MY_Controller {
 
             Debes Activar tu Usuario entrando en la sigiente dirección
 
-            localhost/envio_correo/enable/' . md5($nick) . '
+            <a href="http://localhost/v1/enable/' . md5($nick) . '">Casino4as.com</a>
 
             ');
 
