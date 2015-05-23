@@ -52,7 +52,7 @@ $route['slotmachine'] = "casino/slotmachine/";
 $route['receivingdc'] = "insert_controller/recibirdc/";
 $route['newest'] = "insert_controller/newest/";
 $route['check'] = "insert_controller/receivingdata/";
-$route['completareg'] = "insert_controller/insertc/";
+$route['completereg'] = "insert_controller/insertc/";
 $route['enable'] = "insert_controller/enable/";
 $route['enable/(:any)'] = "insert_controller/enable/$1";
 
