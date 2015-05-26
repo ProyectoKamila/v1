@@ -54,7 +54,10 @@ class MY_Controller extends CI_Controller {
     public function validar_post($n, $p, $l = null) {
 //        b326b5062b2f0e69046810717534cb09
 //        debug($this->session->userdata('session'));
-        $check = $this->modelo_universal->select('user', 'nickname, id_user, status', array('nickname' => $n, 'pass' => md5($p)));
+
+        $check = $this->modelo_universal->select('user', 'nickname, id_user, id_role', array('nickname' => $n, 'pass' => md5($p)));
+        //debug($check);
+
         if ($l != null) {
 //            if (($this->input->cookie('token', true) != false) and ( $this->input->cookie('token', true) == $this->load->library('session'))) {
 ////                $session = $this->modelo_universal->select('user_session', '*', array('user_token'=>$this->input->cookie('token')));
@@ -124,7 +127,7 @@ class MY_Controller extends CI_Controller {
             $token = $this->session->userdata('token');
 
             $s = $this->modelo_universal->select('active_session', '*', array('id_user' => $check[0]['id_user']));
-
+//            debug($s)
             if ($s == null) {
                 $date = $this->last_hour();
                 $this->modelo_universal->insert('active_session', array('token' => $token, 'id_user' => $check[0]['id_user'], 'date_time' => $date));
@@ -133,6 +136,7 @@ class MY_Controller extends CI_Controller {
             }
             $this->session->set_userdata(array('session' => md5('true')));
             $this->session->set_userdata(array('name' => $check[0]['nickname']));
+            $this->session->set_userdata(array('token' => $token));
             $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
             $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
             if($this->session->userdata('id_role') == 1){
@@ -186,10 +190,14 @@ class MY_Controller extends CI_Controller {
 //        $this->modelo_universal->insert('active_session', array('token' => $token, 'id_user' => $check[0]['id_user'], 'date_time' => $date));
         $date = $this->last_hour();
         if($this->session->userdata('token')){
+            //debug('si');
         $r = $this->modelo_universal->update('active_session', array('date_time' => $date), array('id_user' => $this->session->userdata('id_user'), 'token' => $this->session->userdata('token')));
         if ($r == null) {
-            $r = $this->modelo_universal->update('active_session', array('date_time' => $date, 'token' => $this->session->userdata('token')), array('id_user' => $this->session->userdata('id_user'), 'token' => 'asdfsfsf'));
+            $r = $this->modelo_universal->update('active_session', array('date_time' => $date, 'token' => $this->session->userdata('token')), array('id_user' => $this->session->userdata('id_user')));
         }
+        }
+        else{
+            redirect('./');
         }
     }
     
