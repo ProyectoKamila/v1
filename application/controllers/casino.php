@@ -79,7 +79,6 @@ class Casino extends MY_Controller {
         $this->data['bet'] = $bet;
         $this->data['balance'] = $balance;
         $this->data['game'] = $game;
-        echo "detalle perfil";
         $this->navigation();
         $this->load->view('page/header');
         $this->load->view('page/detail_profile');
