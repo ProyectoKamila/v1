@@ -56,101 +56,105 @@ class MY_Controller extends CI_Controller {
 //        b326b5062b2f0e69046810717534cb09
 //        debug($this->session->userdata('session'));
 
-        $check = $this->modelo_universal->select('user', 'nickname, id_user, id_role, status', array('nickname' => $n, 'pass' => md5($p)));
-
-        if($check[0]['status']==1){
-            redirect('./completereg');
+        $check = $this->modelo_universal->select('user', 'nickname, id_user, id_role, id_user_account_status', array('nickname' => $n, 'pass' => md5($p)));
+        if($check[0]['id_user_account_status']==0){
+            $this->load->view('page/header');
+            $this->load->view('page/insert/insertado');
         }else{
-            
-            
-            if ($l != null) {
+            if($check[0]['id_user_account_status']==1){
+               $this->load->view('page/insert/registercompl', array('data' => $check[0]['id_user']));
+            }else{
+
+
+                if ($l != null) {
 //            if (($this->input->cookie('token', true) != false) and ( $this->input->cookie('token', true) == $this->load->library('session'))) {
 ////                $session = $this->modelo_universal->select('user_session', '*', array('user_token'=>$this->input->cookie('token')));
 ////                return $this->modelo_universal->select('user_session', '*', array('user_token' => $this->input->cookie('token')));
 //            } else {
 //                return 'no es igual';
-                $this->load->library('user_agent');
-                $browser = null;
-                $robot = null;
-                $mobile = null;
-                if ($this->agent->is_browser()) {
-                    $browser = $this->agent->browser() . ' ' . $this->agent->version();
-                } elseif ($this->agent->is_robot()) {
-                    $robot = $this->agent->robot();
-                } elseif ($this->agent->is_mobile()) {
-                    $mobile = $this->agent->mobile();
-                }
-                $platform = $this->agent->platform();
+                    $this->load->library('user_agent');
+                    $browser = null;
+                    $robot = null;
+                    $mobile = null;
+                    if ($this->agent->is_browser()) {
+                        $browser = $this->agent->browser() . ' ' . $this->agent->version();
+                    } elseif ($this->agent->is_robot()) {
+                        $robot = $this->agent->robot();
+                    } elseif ($this->agent->is_mobile()) {
+                        $mobile = $this->agent->mobile();
+                    }
+                    $platform = $this->agent->platform();
 //            debug($platform, false);
 //            $token;
-                $ip = $this->session->userdata('ip_address');
-                $agent = $this->session->userdata('user_agent');
-                $last_activity = $this->session->userdata('last_activity');
+                    $ip = $this->session->userdata('ip_address');
+                    $agent = $this->session->userdata('user_agent');
+                    $last_activity = $this->session->userdata('last_activity');
 //            debug();
-                $id_user = $check[0]['id_user'];
+                    $id_user = $check[0]['id_user'];
             ///////////////////////crear token/////////////////
-                $c_token = array(
-                    'name' => 'token',
-                    'value' => $this->session->userdata('session_id'),
+                    $c_token = array(
+                        'name' => 'token',
+                        'value' => $this->session->userdata('session_id'),
                 'expire' => '31536000', //1 año (1*365*24*60*60)
                 );
-                $this->input->set_cookie($c_token);
+                    $this->input->set_cookie($c_token);
             ///////////////////////crear token/////////////////
-                
-                $this->session->set_userdata(array('token' => $this->session->userdata('session_id')));
-                $token = $this->session->userdata('token');
-                
-                $ss = $this->modelo_universal->select('user_session', '*', array('id_user' => $check[0]['id_user'],'user_token'=>$token));
-                if ($ss == null) {
+                    
+                    $this->session->set_userdata(array('token' => $this->session->userdata('session_id')));
+                    $token = $this->session->userdata('token');
+                    
+                    $ss = $this->modelo_universal->select('user_session', '*', array('id_user' => $check[0]['id_user'],'user_token'=>$token));
+                    if ($ss == null) {
 //                debug('null');
-                    $rs = $this->modelo_universal->insert('user_session', array('user_token' => $token, 'user_ip' => $ip, 'kernel' => $agent, 'machine_name' => php_uname('n'), 'last_activity' => $last_activity, 'id_user' => $id_user));
+                        $rs = $this->modelo_universal->insert('user_session', array('user_token' => $token, 'user_ip' => $ip, 'kernel' => $agent, 'machine_name' => php_uname('n'), 'last_activity' => $last_activity, 'id_user' => $id_user));
 //                debug($rs);
-                }
+                    }
 
-                $s = $this->modelo_universal->select('active_session', '*', array('id_user' => $check[0]['id_user']));
-                if ($s == null) {
-                    $date = $this->last_hour();
-                    $this->modelo_universal->insert('active_session', array('token' => $token, 'id_user' => $check[0]['id_user'], 'date_time' => $date));
-                } else {
-                    $this->last_connection();
-                }
-                
+                    $s = $this->modelo_universal->select('active_session', '*', array('id_user' => $check[0]['id_user']));
+                    if ($s == null) {
+                        $date = $this->last_hour();
+                        $this->modelo_universal->insert('active_session', array('token' => $token, 'id_user' => $check[0]['id_user'], 'date_time' => $date));
+                    } else {
+                        $this->last_connection();
+                    }
+                    
 //            debug($ss);
 //            $this->modelo_universal->insert('user_session', array('user_token' => $token, 'user_ip' => $ip, 'kernel' => $agent, 'machine_name' => php_uname('n'), 'last_activity' => $last_activity, 'id_user' => $id_user), array('user_token' => $token));
 
-                $this->session->set_userdata(array('session' => md5('true')));
-                $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
-                $this->session->set_userdata(array('name' => $check[0]['nickname']));
-                $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
-                $this->session->set_userdata(array('status' => $check[0]['status']));
+                    $this->session->set_userdata(array('session' => md5('true')));
+                    $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
+                    $this->session->set_userdata(array('name' => $check[0]['nickname']));
+                    $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
+                    $this->session->set_userdata(array('id_user_account_status' => $check[0]['id_user_account_status']));
 //            debug($ss);
-                redirect('./');
+                    redirect('./');
 //            return $_SESSION;
 //            }
-            } else {
-//            debug($check);
-                $this->session->set_userdata(array('token' => $this->session->userdata('session_id')));
-                $token = $this->session->userdata('token');
-
-                $s = $this->modelo_universal->select('active_session', '*', array('id_user' => $check[0]['id_user']));
-
-                if ($s == null) {
-                    $date = $this->last_hour();
-                    $this->modelo_universal->insert('active_session', array('token' => $token, 'id_user' => $check[0]['id_user'], 'date_time' => $date));
                 } else {
-                    $this->last_connection();
-                }
-                $this->session->set_userdata(array('session' => md5('true')));
-                $this->session->set_userdata(array('name' => $check[0]['nickname']));
-                $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
-                $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
-                if($this->session->userdata('id_role') == 1){
-                    redirect('./casino');
-                }else{
-                 
+//            debug($check);
+                    $this->session->set_userdata(array('token' => $this->session->userdata('session_id')));
+                    $token = $this->session->userdata('token');
 
-                    redirect('./account');
-                    
+                    $s = $this->modelo_universal->select('active_session', '*', array('id_user' => $check[0]['id_user']));
+
+                    if ($s == null) {
+                        $date = $this->last_hour();
+                        $this->modelo_universal->insert('active_session', array('token' => $token, 'id_user' => $check[0]['id_user'], 'date_time' => $date));
+                    } else {
+                        $this->last_connection();
+                    }
+                    $this->session->set_userdata(array('session' => md5('true')));
+                    $this->session->set_userdata(array('name' => $check[0]['nickname']));
+                    $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
+                    $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
+                    if($this->session->userdata('id_role') == 1){
+                        redirect('./casino');
+                    }else{
+
+
+                        redirect('./account');
+                        
+                    }
                 }
             }
         }
@@ -227,13 +231,13 @@ class MY_Controller extends CI_Controller {
         }
     }
     public function successful_registration(){
-        
+
     }
     public function uploadimg($id = null) {
      //  $this->permiso(3);
      $this->empresa();
      $nombre = $this->modelo_universal->select('empresa', 'logo', array('idempresa' => $this->idempresa));
-     
+
      $config['upload_path'] = './uploadimg/';
      $config['allowed_types'] = 'gif|jpg|png';
      $config['max_size'] = '2048';

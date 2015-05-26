@@ -20,7 +20,7 @@ class Insert_controller extends MY_Controller {
     function receivingData() {
 
 
-        if (isset($_POST['status']) and $_POST['status'] == '0') {
+        if (isset($_POST['id_user_account_status']) and $_POST['id_user_account_status'] == '0') {
             //SI EXISTE EL CAMPO OCULTO LLAMADO GRABAR CREAMOS LAS VALIDACIONES
             //$this->form_validation->set_rules('nickname','Nombre','required|trim|xss_clean');
             $this->form_validation->set_rules('email', 'Correo', 'valid_email|required|trim|xss_clean|is_unique[user.email]');
@@ -49,7 +49,7 @@ class Insert_controller extends MY_Controller {
                     'nickname' => $this->input->post('nickname'),
                     'email' => $this->input->post('email'),
                     'pass' => $this->input->post('pass'),
-                    'status' => '0',
+                    'id_user_account_status' => '0',
                     'id_role'=>'2',
                     'cod_validacion'=>md5($this->input->post('nickname'))
 
@@ -64,15 +64,15 @@ class Insert_controller extends MY_Controller {
         }
     }
 
-    function recibirDc() {
+    public function recibirDc() {
 
 
-        if (isset($_POST['status']) and $_POST['status'] == '0') {
+        if (isset($_POST['id_user_account_status']) and $_POST['id_user_account_status'] == '0') {
             //SI EXISTE EL CAMPO OCULTO LLAMADO GRABAR CREAMOS LAS VALIDACIONES
             //$this->form_validation->set_rules('nickname','Nombre','required|trim|xss_clean');
-            $this->form_validation->set_rules('first_name', 'Nombre', 'required|trim|xss_clean|min_length[5]|max_length[12]|is_unique[user.nickname]');
-            $this->form_validation->set_rules('last_name', 'Apellido', 'required|trim|xss_clean|min_length[5]|max_length[12]|is_unique[user.nickname]');
-            $this->form_validation->set_rules('identity_card', 'Nº de Identificación', 'required|trim|xss_clean|min_length[5]|max_length[12]|is_unique[user_data.identity_card]');
+            $this->form_validation->set_rules('first_name', 'Nombre', 'required|xss_clean|trim(last_name)');
+            $this->form_validation->set_rules('last_name', 'Apellido', 'required|xss_clean|trim(last_name)');
+            $this->form_validation->set_rules('identity_card', 'Nº de Identificación', 'required|trim|xss_clean|is_unique[user_data.identity_card]');
             $this->form_validation->set_rules('gender', 'Género', 'required|trim|xss_clean');
             $this->form_validation->set_rules('date_of_birth', 'Fecha de Nacimiento', 'required|trim|xss_clean');
             $this->form_validation->set_rules('phone', 'Teléfono', 'required|trim|xss_clean');
@@ -93,29 +93,11 @@ class Insert_controller extends MY_Controller {
             //SI ALGO NO HA IDO BIEN NOS DEVOLVERÁ AL INDEX MOSTRANDO LOS ERRORES
 
 
-            if ($this->form_validation->run() == FALSE) {
-                $this->newest();
-            } else {
+         /*   if ($this->form_validation->run() == FALSE) {
+                $this->insertc();
+               } else {*/
 
-                $config['upload_path']          = './uploads/';
-                $config['allowed_types']        = 'gif|jpg|png';
-                $config['max_size']             = 100;
-                $config['max_width']            = 1024;
-                $config['max_height']           = 768;
-
-                $this->load->library('upload', $config);
-
-                if ( ! $this->upload->do_upload())
-                {
-                        $error = array('error' => $this->upload->display_errors());
-
-                        $this->load->view('page/insert/registercompl', $error);
-                }
-                else
-                {
-                        $imagen = array('upload_data' => $this->upload->data());
-
-                       // $this->load->view('upload_success', $imagen);
+               // $this->load->view('upload_success', $imagen);
                 $data = array(
                     'first_name' => $this->input->post('first_name'),
                     'last_name' => $this->input->post('last_name'),
@@ -126,13 +108,29 @@ class Insert_controller extends MY_Controller {
                     'nationality' => $this->input->post('nationality'),
                     'country' => $this->input->post('country'),
                     'city' => $this->input->post('city'),
-                    'address' => $this->input->post('address')
+                    'address' => $this->input->post('address'),
+                    'id_user' => $this->input->post('id_user')
                     );
 
+
                 $this->modelo_universal->insert('user_data', $data);
+
+
+                $title= 'Documento Identificación';
+                $id_user= $this->input->post('id_user');
+
+                $this->save($title,$id_user);
+
+            //actualizar status
+        $data2 = array(
+            'id_user_account_status' => '2'
+            );
+
+        $this->modelo_universal->update('user', $data2, array('id_user' => $id_user));
+
                 $this->insertado();
-            }
-            }
+           // }
+            
         }
     }
 
@@ -143,7 +141,7 @@ class Insert_controller extends MY_Controller {
 
     public function insertc() {
 
-        $this->load->view('page/insert/registercompl', array('error' => ' ' ));
+        $this->load->view('page/insert/registercompl', array('data' => ' ' ));
     }
 
     public function enable($id = null) {
@@ -155,7 +153,7 @@ class Insert_controller extends MY_Controller {
 
 
         $data = array(
-            'status' => '1'
+            'id_user_account_status' => '1'
             );
 
         $this->modelo_universal->update('user', $data, array('cod_validacion' => $id));
@@ -197,5 +195,49 @@ class Insert_controller extends MY_Controller {
 
 
     }
+
+
+public function save($title, $id_user)
+    {
+        $this->load->model('save_img');
+
+        $url = $this->do_upload();
+        
+        $this->save_img->save($title, $url, $id_user);
+    }
+    private function do_upload()
+    {
+        $type = explode('.', $_FILES["userfile"]["name"]);
+        $type = strtolower($type[count($type)-1]);
+        $url = "./images/".uniqid(rand()).'.'.$type;
+        if(in_array($type, array("jpg", "jpeg", "gif", "png")))
+            if(is_uploaded_file($_FILES["userfile"]["tmp_name"]))
+                if(move_uploaded_file($_FILES["userfile"]["tmp_name"],$url))
+                    return $url;
+        return "";
+    }
+
+
+ /*   function 
+
+
+     $config['upload_path']          = './uploads/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 100;
+                $config['max_width']            = 1024;
+                $config['max_height']           = 768;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload())
+                {
+                        $error = array('error' => $this->upload->display_errors());
+
+                        $this->load->view('page/insert/registercompl', $error);
+                }
+                else
+                {
+                        $imagen = array('upload_data' => $this->upload->data());*/
+
 
 }

@@ -49,7 +49,7 @@
                                 <fieldset>
                                     <div class="form-group input-group">
                                         <span class="input-group-addon">@</span>
-                                        <input type="hidden" name="status" value="0" />
+                                        <input type="hidden" name="id_user_account_status" value="0" />
                                         <input type="text" class="form-control" name="nickname" value="<?php echo set_value('nickname') ?>" placeholder="Usuario" required="" pattern=".{5,12}"title="5 a 12 caracteres">
                                         
                                         <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('nickname'); ?></font>
