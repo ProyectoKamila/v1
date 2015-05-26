@@ -1,4 +1,4 @@
-/* $configGmail = array(
+﻿/* $configGmail = array(
                 'protocol' => 'smtp',
                 'smtp_host' => 'mail.casino4as.com',
                 'smtp_port' => 25,
@@ -35,7 +35,7 @@
 
 					Debes Activar tu Usuario entrando en la sigiente dirección
 
-					localhost/activar/' . $nick . '
+					localhost/enable/' . $nick . '
 
 					');
 

@@ -184,7 +184,7 @@ function CSlotSettings(){
             s_aRandSymbols.push(7);
         }
         
-        //OCCURENCE FOR SYMBOL WILD
+        //OCCURENCE FOR SYMBOL WILD  sergio, el simbolo comodin debe ser bloqueado segun el pote.
         for(i=0;i<1;i++){
             s_aRandSymbols.push(8);
         }
