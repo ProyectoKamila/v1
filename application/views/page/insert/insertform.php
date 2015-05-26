@@ -10,7 +10,7 @@
 						<input type="text" name="nickname" value="<?php echo set_value('nickname') ?>" />
 					</td>
 				</tr>
-				<tr><input type="hidden" name="status" value="0" />
+				<tr><input type="hidden" name="id_user_account_status" value="0" />
 					<td>
 						Email:
 					</td>
