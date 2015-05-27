@@ -35,6 +35,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
 
 var messagesend = [];
 var clients = 0;
+var clientsconection = {};
 var chat_rooms = {};
 
 var allowed_origins = [
@@ -103,7 +104,7 @@ wsServer.on('request', function(request) {
 
     var connection = request.accept('server', request.origin);
     connection.id = connection_id++;
-      clients = clients+1;
+
 
     connection.on('message', function(message) {
         if (message.type === 'utf8') {
@@ -113,29 +114,52 @@ wsServer.on('request', function(request) {
 
             //para acceder y devolver datos del tokken
             if (msgObj.type === 'join') {
+                clients = clients + 1;
                 connection.token = msgObj.token;
-              
+                if (clientsconection[connection.token] !== undefined) {
+                    sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
+                    connection.close();
+                } else {
+
+                    clientsconection[connection.token] = connection.token;
+
+
+                    var string = 'SELECT * FROM user_session WHERE user_token= "' + connection.token + '"';
 
 
 
-                var string = 'SELECT * FROM user_session WHERE user_token= "' + connection.token + '"';
+                    var mysqlc = mysql.createConnection(
+                            {
+                                host: '23.229.215.154',
+                                user: 'v1',
+                                password: 'Temporal01',
+                                database: 'v1',
+                            }
+                    );
+                    mysqlc.connect();
+                    mysqlc.query(string, function(err, row, fields) {
+                        if (typeof(row)) {
+                         connection.id_user = row[0]['id_user'];
+                           
+                            if (row[0]['id_user'] == clientsconection[connection.id_user]) {
 
+                                sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
+                                connection.close();
+                            }
+                            else {
+                              clientsconection[connection.id_user]=connection.id_user;
+                                sendmessageuser(connection, 'welcome', row);
+                            }
+                        }
+                        else {
+                            sendmessageuser(connection, 'welcome', 'aqui falso');
+                        }
+                    });
 
-                var mysqlc = mysqlcreate();
-                mysqlc.connect();
-                mysqlc.query(string, function(err, row, fields) {
-                    if (typeof(row)) {
-                        sendmessageuser(connection, 'welcome', row);
-                    }
-                    else {
-                        sendmessageuser(connection, 'welcome', 'aqui falso');
-                    }
-                });
+                    sendmessageuser(connection, 'sales', chat_rooms);
 
-                sendmessageuser(connection, 'sales', chat_rooms);
-
-                mysqlc.end();
-
+                    mysqlc.end();
+                }
 
 
             } else if (msgObj.type === 'intro') {
@@ -180,10 +204,20 @@ wsServer.on('request', function(request) {
     connection.on('close', function(reasonCode, description) {
         var chatroom = connection.chatroom;
         var users = chat_rooms[chatroom];
-        clients -=1;
-        
+        clients = clients - 1;
+        var newarrayclient = {};
+        delete clientsconection[connection.token];
+        delete clientsconection[connection.id_user];
+
+        for (var i in clientsconection) {
+            if (clientsconection[i] !== undefined) {
+                newarrayclient[clientsconection[i]] = clientsconection[i];
+            }
+        }
+        clientsconection = newarrayclient;
         for (var i in users) {
             if (connection.id === users[i].id) {
+                console.log(chat_rooms[chatroom]);
                 chat_rooms[chatroom].splice(i, 1);
                 broadcast_chatters_list(connection.chatroom);
             }
@@ -249,7 +283,7 @@ wsServer.on('request', function(request) {
             type: type,
             userId: connection.id,
             messagesend: forsend,
-            clients:clients
+            clients: clients
 
         }));
     }
