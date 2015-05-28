@@ -16,7 +16,7 @@
         var _aReelSequence;
         var _aFinalSymbolCombo;
         var _anterior;
-        var _rvs;
+      //  var _rvs;
         var _oReelSound;
         var _oCurSymbolWinSound;
         var _oBg;
@@ -132,11 +132,11 @@
          for(var j=0;j<NUM_REELS;j++){
 
             for(var i=0;i<NUM_ROWS;i++){
-                _rvs= new Array();
+              //  _rvs= new Array();
                 if (_aFinalSymbolCombo[i][j]==8){
                     _aFinalSymbolCombo[i][j]=_aFinalSymbolCombo[i][j]-1;
                 }
-                _rvs[i]= _aFinalSymbolCombo[i][j];
+              //  _rvs[i]= _aFinalSymbolCombo[i][j];
                 if (j==1){
                     for (var b=0;b<NUM_ROWS;b++){
 
@@ -198,7 +198,7 @@
                // alert(iValue);
                 var iNumEqualSymbol = 1;
                 var iStartIndex = 1;
-             //  alert(aCellList.push({row:aCombos[0].row,col:aCombos[0].col,value:_aFinalSymbolCombo[aCombos[0].row][aCombos[0].col]}));
+           aCellList.push({row:aCombos[0].row,col:aCombos[0].col,value:_aFinalSymbolCombo[aCombos[0].row][aCombos[0].col]});
                 
                 while(iValue === WILD_SYMBOL && iStartIndex<NUM_REELS){
                     iNumEqualSymbol++;
@@ -319,7 +319,7 @@
                     }
                     
                     iTotWin += _aWinningLine[i].amount;
-                    alert(iTotWin);   //sergio suma el monto de a gana por cada línea
+                   //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea
                 }
                 
                 iTotWin *=_iCurBet;  // multiplica el monto a ganar por cada linea apostada
