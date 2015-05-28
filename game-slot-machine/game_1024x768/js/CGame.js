@@ -127,7 +127,7 @@
          //alert(NUM_REELS);   j=0-4  i=0-2
 
          // sergio. revisa la matriz y muestra un alert si hay 
-         var ejecutar=true;
+         var ejecutar=false;
          if(ejecutar==true){
          for(var j=0;j<NUM_REELS;j++){
 
@@ -190,14 +190,15 @@
             */
             //CHECK IF THERE IS ANY COMBO
             _aWinningLine = new Array();//linea ganadora arreglo
-            for(var k=0;k<_iLastLineActive;k++){ //desde 0 hasta el numero de lineas pagas
+            for(var k=0;k<_iLastLineActive;k++){ //desde 0 hasta el numero de lineas activas
                 var aCombos = s_aPaylineCombo[k];// carga la linea ganadora de cslotsettings.js
-                
-                var aCellList = new Array();
-                var iValue = _aFinalSymbolCombo[aCombos[0].row][aCombos[0].col];
+                alert(aCombos[0].row +' ' +aCombos[0].col);
+                var aCellList = new Array();  //lista de celdas
+                var iValue = _aFinalSymbolCombo[aCombos[0].row][aCombos[0].col];  //guarda el valor de la celda de la matriz que coincide con la posicion de la linea ganadora que está activa
+                alert(iValue);
                 var iNumEqualSymbol = 1;
                 var iStartIndex = 1;
-                aCellList.push({row:aCombos[0].row,col:aCombos[0].col,value:_aFinalSymbolCombo[aCombos[0].row][aCombos[0].col]});
+               alert(aCellList.push({row:aCombos[0].row,col:aCombos[0].col,value:_aFinalSymbolCombo[aCombos[0].row][aCombos[0].col]}));
                 
                 while(iValue === WILD_SYMBOL && iStartIndex<NUM_REELS){
                     iNumEqualSymbol++;
