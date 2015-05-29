@@ -35,15 +35,11 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
 
 var messagesend = [];
 var clients = 0;
-
-var chat_rooms = {};
-
 var cont = 0;
 var clientsconection = {};
 var clientsconectionall = [];
 var rooms = {};
 //clientsconection['all'] = {};
-
 
 
 var allowed_origins = [
@@ -64,7 +60,6 @@ var mysqlc = mysql.createConnection(
         }
 );
 mysqlc.connect();
-
 var string = 'DELETE FROM  `salespoker` WHERE  `user_create` <>0;';
 
 mysqlc.query(string, function(err, row, fields) {
@@ -73,15 +68,11 @@ mysqlc.query(string, function(err, row, fields) {
     }
 
 });
-
 var string = 'SELECT id,name,boolpass,apu_min,apu_max,max_jug,jug_min,jug_max FROM salespoker';
 
 mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
-
-        chat_rooms = row;
         rooms = row;
-
     }
 
 });
@@ -125,9 +116,6 @@ wsServer.on('request', function(request) {
 
     var connection = request.accept('server', request.origin);
     connection.id = connection_id++;
-
-      clients = clients+1;
-
     cont = cont + 1;
     console.log(cont);
 
@@ -142,40 +130,6 @@ wsServer.on('request', function(request) {
 
             //para acceder y devolver datos del tokken
             if (msgObj.type === 'join') {
-
-                connection.token = msgObj.token;
-              
-
-
-
-                var string = 'SELECT * FROM user_session WHERE user_token= "' + connection.token + '"';
-
-
-                var mysqlc = mysqlcreate();
-                mysqlc.connect();
-                mysqlc.query(string, function(err, row, fields) {
-                    if (typeof(row)) {
-                        sendmessageuser(connection, 'welcome', row);
-                    }
-                    else {
-                        sendmessageuser(connection, 'welcome', 'aqui falso');
-                    }
-                });
-
-                sendmessageuser(connection, 'sales', chat_rooms);
-
-                mysqlc.end();
-
-
-
-            } else if (msgObj.type === 'intro') {
-                connection.nickname = msgObj.nickname;
-                connection.chatroom = msgObj.chatroom;
-
-                if (chat_rooms[msgObj.chatroom] !== undefined) {
-                    chat_rooms[msgObj.chatroom].push(connection);
-                } else {
-                    chat_rooms[msgObj.chatroom] = [connection];
                 clients = clients + 1;
                 connection.token = msgObj.token;
                 if (clientsconection[connection.token] !== undefined) {
@@ -241,7 +195,6 @@ wsServer.on('request', function(request) {
                     rooms[msgObj.chatroom].push(connection);
                 } else {
                     rooms[msgObj.chatroom] = [connection];
-
                 }
 
                 connection.sendUTF(JSON.stringify({
@@ -275,14 +228,6 @@ wsServer.on('request', function(request) {
 
     connection.on('close', function(reasonCode, description) {
         var chatroom = connection.chatroom;
-
-        var users = chat_rooms[chatroom];
-        clients -=1;
-        
-        for (var i in users) {
-            if (connection.id === users[i].id) {
-                chat_rooms[chatroom].splice(i, 1);
-
         var users = rooms[chatroom];
         var usersall = clientsconectionall;
         clients = clients - 1;
@@ -308,8 +253,6 @@ wsServer.on('request', function(request) {
         for (var i in users) {
             if (connection.id === users[i].id) {
                 rooms[chatroom].splice(i, 1);
-
-
                 broadcast_chatters_list(connection.chatroom);
             }
         }
@@ -317,11 +260,7 @@ wsServer.on('request', function(request) {
     });
 
     function broadcast_message(message, chatroom) {
-
-        var users = chat_rooms[chatroom];
-
         var users = rooms[chatroom];
-
 
         for (var i in users) {
             users[i].sendUTF(message);
@@ -331,11 +270,7 @@ wsServer.on('request', function(request) {
     function broadcast_chatters_list(chatroom) {
         var nicklist = [];
         var msg_to_send;
-
-        var users = chat_rooms[chatroom];
-
         var users = rooms[chatroom];
-
 
         for (var i in users) {
             nicklist.push(users[i].nickname);
@@ -440,6 +375,5 @@ wsServer.on('request', function(request) {
             sendmessageuser(clientsconectionall[i], 'sales', rooms)
         }
     }
-
 
 });
