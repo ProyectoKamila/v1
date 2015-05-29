@@ -176,7 +176,6 @@ wsServer.on('request', function(request) {
                     chat_rooms[msgObj.chatroom].push(connection);
                 } else {
                     chat_rooms[msgObj.chatroom] = [connection];
-=======
                 clients = clients + 1;
                 connection.token = msgObj.token;
                 if (clientsconection[connection.token] !== undefined) {
@@ -242,7 +241,7 @@ wsServer.on('request', function(request) {
                     rooms[msgObj.chatroom].push(connection);
                 } else {
                     rooms[msgObj.chatroom] = [connection];
->>>>>>> sergio
+
                 }
 
                 connection.sendUTF(JSON.stringify({
