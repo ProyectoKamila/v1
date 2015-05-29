@@ -16,7 +16,7 @@
         var _aReelSequence;
         var _aFinalSymbolCombo;
         var _anterior;
-        var _rvs;
+      //  var _rvs;
         var _oReelSound;
         var _oCurSymbolWinSound;
         var _oBg;
@@ -127,16 +127,16 @@
          //alert(NUM_REELS);   j=0-4  i=0-2
 
          // sergio. revisa la matriz y muestra un alert si hay 
-         var ejecutar=true;
+         var ejecutar=false;
          if(ejecutar==true){
          for(var j=0;j<NUM_REELS;j++){
 
             for(var i=0;i<NUM_ROWS;i++){
-                _rvs= new Array();
+              //  _rvs= new Array();
                 if (_aFinalSymbolCombo[i][j]==8){
                     _aFinalSymbolCombo[i][j]=_aFinalSymbolCombo[i][j]-1;
                 }
-                _rvs[i]= _aFinalSymbolCombo[i][j];
+              //  _rvs[i]= _aFinalSymbolCombo[i][j];
                 if (j==1){
                     for (var b=0;b<NUM_ROWS;b++){
 
@@ -190,14 +190,15 @@
             */
             //CHECK IF THERE IS ANY COMBO
             _aWinningLine = new Array();//linea ganadora arreglo
-            for(var k=0;k<_iLastLineActive;k++){ //desde 0 hasta el numero de lineas pagas
+            for(var k=0;k<_iLastLineActive;k++){ //desde 0 hasta el numero de lineas activas
                 var aCombos = s_aPaylineCombo[k];// carga la linea ganadora de cslotsettings.js
-                
-                var aCellList = new Array();
-                var iValue = _aFinalSymbolCombo[aCombos[0].row][aCombos[0].col];
+               // alert(aCombos[0].row +' ' +aCombos[0].col);
+                var aCellList = new Array();  //lista de celdas
+                var iValue = _aFinalSymbolCombo[aCombos[0].row][aCombos[0].col];  //guarda el valor de la celda de la matriz que coincide con la posicion de la linea ganadora que está activa
+               // alert(iValue);
                 var iNumEqualSymbol = 1;
                 var iStartIndex = 1;
-                aCellList.push({row:aCombos[0].row,col:aCombos[0].col,value:_aFinalSymbolCombo[aCombos[0].row][aCombos[0].col]});
+           aCellList.push({row:aCombos[0].row,col:aCombos[0].col,value:_aFinalSymbolCombo[aCombos[0].row][aCombos[0].col]});
                 
                 while(iValue === WILD_SYMBOL && iStartIndex<NUM_REELS){
                     iNumEqualSymbol++;
@@ -207,7 +208,7 @@
                     iStartIndex++;
                 }
                 
-                for(var t=iStartIndex;t<aCombos.length;t++){
+                for(var t=iStartIndex;t<aCombos.length;t++){  //mientras el simbolo de la columna siguiente sea igual al anterior o el comodin lo guarda
                     if(_aFinalSymbolCombo[aCombos[t].row][aCombos[t].col] === iValue || 
                         _aFinalSymbolCombo[aCombos[t].row][aCombos[t].col] === WILD_SYMBOL){
                         iNumEqualSymbol++;
@@ -218,10 +219,12 @@
                 }
             }
 
-            if(s_aSymbolWin[iValue-1][iNumEqualSymbol-1] > 0){
+            if(s_aSymbolWin[iValue-1][iNumEqualSymbol-1] > 0){ //guarda la linea ganadora, siempre y cuando sea de dos en adelante
                 _aWinningLine.push({line:k+1,amount:s_aSymbolWin[iValue-1][iNumEqualSymbol-1],
                     num_win:iNumEqualSymbol,value:iValue,list:aCellList});
+               
             }
+             //alert(_aWinningLine.line);
         }
     };
 
@@ -316,9 +319,10 @@
                     }
                     
                     iTotWin += _aWinningLine[i].amount;
+                   //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea
                 }
                 
-                iTotWin *=_iCurBet;
+                iTotWin *=_iCurBet;  // multiplica el monto a ganar por cada linea apostada
                 _iMoney += iTotWin;
                 
                 if(iTotWin>0){

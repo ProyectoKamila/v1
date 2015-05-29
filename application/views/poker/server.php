@@ -8,6 +8,11 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
+
+                            <div class="alert alert-danger" style="display: none;" role="alert" id="user-conect">!!Aff, Ya se encuentra conectado, revise los dispositivos conectados <a class="btn btn-default link-error" id="" href="./dispositivos">AQUI...</a></div>
+
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
                             <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">reconectar...</a></div>
 
                         </div>
@@ -27,6 +32,72 @@
         </div>
 
     </div>
+
+
+=======
+                            <div class="clearfix"></div>
+
+
+
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs sidebar-game"></div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs sin-pading" id="newsale">
+
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-ok" id="sizing-addon3"></span>
+                        <input type="text" class="form-control" placeholder="nombre de la sala" aria-describedby="sizing-addon3" id="namesale">
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-lock" id="sizing-addon3"></span>
+                        <input type="password" class="form-control" placeholder="Clave" aria-describedby="sizing-addon3" id="passsale">
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-usd" id="sizing-addon3"></span>
+                        <input type="text" class="form-control" placeholder="Minimo de coin para apostar" aria-describedby="sizing-addon3" id="minapos">
+
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-usd" id="sizing-addon3"></span>
+                        <input type="text" class="form-control" placeholder="Maximo de coin para apostar" aria-describedby="sizing-addon3" id="maxapos">
+
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-chevron-down" id="sizing-addon3"></span>
+                        <input type="text" class="form-control" placeholder="minimo de la ciega" aria-describedby="sizing-addon3" id="minci">
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-chevron-up" id="sizing-addon3"></span>
+
+                        <input type="text" class="form-control" placeholder="maximo de la ciega" aria-describedby="sizing-addon3" id="maxci">
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-user" id="sizing-addon3"></span>
+                        <select class="input" id="maxus" title="Maximo de usuario">
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                        </select>
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <a class="btn btn-default link-error" id="buttoncreate">Crear.</a>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <style>.sin-pading{padding-left: 0px;padding-right: 0px;}</style>
+    </div>
+
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -53,7 +124,6 @@ if (isset($_COOKIE['token'])) {
 }
 ?>";
 
-
             var msg_bubble_colors = [
                 '#FFFFFF',
                 '#E2EBC0',
@@ -73,6 +143,33 @@ if (isset($_COOKIE['token'])) {
                 hideConnectionLostMessage();
                 connetserver();
 
+            });
+
+            //si le dan click a reconectar
+            $('#buttonreconect').click(function() {
+                hideConnectionLostMessage();
+                connetserver();
+            });
+            $('#buttoncreate').click(function() {
+                var namesale = $('#namesale').val();
+                var clave = $('#passsale').val();
+                var minapos = $('#minapos').val();
+                var maxapos = $('#maxapos').val();
+                var minci = $('#minci').val();
+                var maxci = $('#maxci').val();
+                var maxus = $('#maxus').val();
+                var intro = {
+                    type: 'newsale',
+                    namesale: namesale,
+                    clave: clave,
+                    minapos: minapos,
+                    maxapos: maxapos,
+                    minci: minci,
+                    maxci: maxci,
+                    maxus: maxus
+                }
+
+                socket.send(JSON.stringify(intro));
             });
 
             //si no soporta websocket
@@ -96,7 +193,9 @@ if (isset($_COOKIE['token'])) {
                 socket = new WebSocket('ws://localhost:8804/', 'server');
                 socket.addEventListener("open", connection_established);
             }
+
 //cuando la conexion se establece
+
             function connection_established(event) {
                 connected = true;
                 //hideConnectionLostMessage();
@@ -126,7 +225,6 @@ if (isset($_COOKIE['token'])) {
             function message_received(message) {
                 var message;
 
-
                 message = JSON.parse(message);
 
                 //trae las salas actuales
@@ -144,10 +242,16 @@ if (isset($_COOKIE['token'])) {
                         return [value];
                     });
 
-
-
-
                     sales(array, message.clients);
+                }
+                //                si ya esta conectado
+                else if (message.type === 'readyconect') {
+
+
+                    $('#user-conect').slideDown();
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    //$('#game').html(message.messagesend);
 
                 }
                 //para traer datos del usuarhio
@@ -156,7 +260,8 @@ if (isset($_COOKIE['token'])) {
 
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
-                    //$('#game').html(message.messagesend);
+                    console.log(message.messagesend);
+
                 } else if (message.type === 'message' && parseInt(message.sender) !== parseInt(myId)) {
                     //add_new_msg_to_log(message);
                     blink_window_title('~ message poker ~');
@@ -192,6 +297,9 @@ if (isset($_COOKIE['token'])) {
             function hideConnectionLostMessage() {
                 // $('#send-msg textarea, #send-msg span').hide();
                 $('#connection-lost-message').slideUp();
+
+                $('#user-conect').slideUp();
+
             }
 
             //muestra el tiempo de espera al servidor
@@ -227,16 +335,28 @@ if (isset($_COOKIE['token'])) {
                     content += "<tr><th>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
                 }
                 content += "<tr><td><p></p><p><span id='clients'>" + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default'  id='newsale' >Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
+
+                var classtyle = "";
+                    if (recorrido[i].boolpass !== 0) {
+                        classtyle = "glyphicon glyphicon-lock";
+                    }
+
+
+                    content += "<tr><th><span class='"+classtyle+"'> </span>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
+                }
+                content += "<tr><td><p></p><p><span id='clients'> " + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default'  id='newsale' >Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
+
                 content += "</tablet>";
                 $('#sales').html(content);
             }
 
-       
+
 
         });
              function refresh() {
             $('#buttonreconect').click();
             }
+
     </script>
 
 </body>
