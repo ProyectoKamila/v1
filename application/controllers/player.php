@@ -44,4 +44,21 @@ class Player extends MY_Controller {
 //        }
     }
 
+        public function user_profile() {
+            //debug(print_r($this->session->userdata('id_user')));
+            $data = $this->modelo_universal->select('user_data', '*', array('id_user' =>  $this->session->userdata('id_user')));
+            //debug(print_r($data));
+        
+
+           /* if (!$data){
+                redirect('./inser_controller/insertc');
+            }*/
+            $this->data['user'] = $user;
+        //debug(print_r($this->session->userdata));
+             
+            $this->header('player');
+            $this->navigation();
+            $this->load->view('page/regisercompl');
+    }
+
 }
