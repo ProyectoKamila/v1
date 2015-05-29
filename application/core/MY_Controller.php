@@ -64,7 +64,14 @@ class MY_Controller extends CI_Controller {
             if($check[0]['id_user_account_status']==1){
                $this->load->view('page/insert/registercompl', array('data' => $check[0]['id_user']));
             }else{
-
+                 if($check[0]['id_user_account_status']==2){
+                    $this->load->view('page/header');
+                    $this->load->view('page/insert/confirm');
+                }else{
+                    if($check[0]['id_user_account_status']==4){
+                        $this->load->view('page/header');
+                        $this->load->view('page/insert/blocked');
+                    }else{
 
                 if ($l != null) {
 //            if (($this->input->cookie('token', true) != false) and ( $this->input->cookie('token', true) == $this->load->library('session'))) {
@@ -156,6 +163,8 @@ class MY_Controller extends CI_Controller {
                         
                     }
                 }
+            }
+        }
             }
         }
     }

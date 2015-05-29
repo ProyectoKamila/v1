@@ -54,6 +54,7 @@ $route['game/watch-game'] ='casino/watch_game';
 /////////////////////////////////////////////////////controlador PLAYER/////////////////////////////////////////////////////
 $route['account'] = "player/index/";
 $route['registering'] = "player/registering/";
+$route['user_profile'] = "player/user_profile/";
 /////////////////////////////////////////////////////controlador insert_controller/////////////////////////////////////////////////////
 $route['receivingdc'] = "insert_controller/recibirdc/";
 $route['nuevo'] = "insert_controller/nuevo/";
