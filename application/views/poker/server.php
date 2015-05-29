@@ -21,20 +21,6 @@
                         </div>
                         <div class="clearfix"></div>
                         <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="sales">
-
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs sidebar-game"></div>
-        </div>
-
-    </div>
-
-
-
                             <div class="clearfix"></div>
 
 
@@ -99,6 +85,8 @@
     </div>
 
 
+                        </div>
+                       
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
@@ -114,7 +102,6 @@
             var flash_title_timer;
             var connected = false;
             var connection_retry_timer;
-
             var server_url = 'ws://localhost:8804/';
             var token = "<?php
 if (isset($_COOKIE['token'])) {
@@ -136,14 +123,8 @@ if (isset($_COOKIE['token'])) {
                 '#FBFAEF',
                 '#EFF2FC'
             ];
+          
 
-
-//si le dan click a reconectar
-            $('#buttonreconect').click(function() {
-                hideConnectionLostMessage();
-                connetserver();
-
-            });
 
             //si le dan click a reconectar
             $('#buttonreconect').click(function() {
@@ -181,7 +162,6 @@ if (isset($_COOKIE['token'])) {
             }
 
             connetserver();
-
             function connetserver() {
                 //muestra el tiempo de espera al servidor revisar la funcion para que cargue si no hay conexion
                 // show_timer();
@@ -200,12 +180,10 @@ if (isset($_COOKIE['token'])) {
                 connected = true;
                 //hideConnectionLostMessage();
                 clearInterval(connection_retry_timer);
-
                 introduce(token);
                 socket.addEventListener('message', function(event) {
                     message_received(event.data);
                 });
-
                 socket.addEventListener('close', function(event) {
                     connected = false;
                     showConnectionLostMessage();
@@ -226,11 +204,9 @@ if (isset($_COOKIE['token'])) {
                 var message;
 
                 message = JSON.parse(message);
-
                 //trae las salas actuales
                 if (message.type === 'sales') {
                     myId = message.userId;
-
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
                     var newvar = {};
@@ -252,12 +228,10 @@ if (isset($_COOKIE['token'])) {
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
                     //$('#game').html(message.messagesend);
-
                 }
                 //para traer datos del usuarhio
                 else if (message.type === 'welcome') {
                     myId = message.userId;
-
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
                     console.log(message.messagesend);
@@ -274,13 +248,11 @@ if (isset($_COOKIE['token'])) {
                     }
 
                     chatter_list_html = '<ul>' + chatter_list_html + '</ul>';
-
                     $('#chatter-list').html(chatter_list_html);
                 } else if (message.type === 'activity_typing' && parseInt(message.sender) !== parseInt(myId)) {
                     var activity_msg = message.name + ' is typing..';
                     $('#is-typig-status').html(activity_msg).fadeIn();
                     clearTimeout(is_typing_indicator);
-
                     is_typing_indicator = setTimeout(function() {
                         $('#is-typig-status').fadeOut();
                     }, 2000);
@@ -297,7 +269,6 @@ if (isset($_COOKIE['token'])) {
             function hideConnectionLostMessage() {
                 // $('#send-msg textarea, #send-msg span').hide();
                 $('#connection-lost-message').slideUp();
-
                 $('#user-conect').slideUp();
 
             }
@@ -332,8 +303,15 @@ if (isset($_COOKIE['token'])) {
                 var content = " <table class='table table-striped'><tr><th>SALA</th><th>APUESTA</th><th>MIN/MAX</th><th>MAX JUG</th></tr>";
                 var recorrido = arraycon;
                 for (var i in recorrido) {
-                    content += "<tr><th>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
+                var classtyle = "";
+                    if (recorrido[i].boolpass !== 0) {
+                        classtyle = "glyphicon glyphicon-lock";
+                    }
+
+
+                    content += "<tr><th><span class='"+classtyle+"'> </span>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
                 }
+
                 content += "<tr><td><p></p><p><span id='clients'>" + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default'  id='newsale' >Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
 
                 var classtyle = "";
@@ -346,6 +324,7 @@ if (isset($_COOKIE['token'])) {
                 }
                 content += "<tr><td><p></p><p><span id='clients'> " + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default'  id='newsale' >Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
 
+
                 content += "</tablet>";
                 $('#sales').html(content);
             }
@@ -353,9 +332,11 @@ if (isset($_COOKIE['token'])) {
 
 
         });
-             function refresh() {
+        function refresh() {
             $('#buttonreconect').click();
+
             }
+
 
     </script>
 
