@@ -38,6 +38,11 @@
 
         <div class="container">
             <div class="row">
+            <? if ($this->session->flashdata('message')!= null){
+                    echo "<div id='infoMessage' class='alert alert-danger' role='alert'>". $this->session->flashdata('message') ."</div>";
+                }
+            ?>
+              
                 <div class="col-md-4 col-md-offset-2">
                     <div class="login-panel panel panel-default">
                         <div class="panel-heading">

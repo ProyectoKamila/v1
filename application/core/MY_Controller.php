@@ -57,6 +57,10 @@ class MY_Controller extends CI_Controller {
 //        debug($this->session->userdata('session'));
 
         $check = $this->modelo_universal->select('user', 'nickname, id_user, id_role, id_user_account_status', array('nickname' => $n, 'pass' => md5($p)));
+        if($check == null){
+            $this->session->set_flashdata('message', 'Datos de Inicio de Sesión Incorrectos');
+            redirect('./');
+        }
         if($check[0]['id_user_account_status']==0){
             $this->load->view('page/header');
             $this->load->view('page/insert/insertado');
