@@ -327,7 +327,7 @@ if (isset($_COOKIE['token'])) {
 
                 content += "</tablet>";
                 $('#sales').html(content);
-            }
+            
 
 
 
