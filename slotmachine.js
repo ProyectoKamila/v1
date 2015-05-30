@@ -360,7 +360,7 @@ wsServer.on('request', function(request) {
                 rooms[numsale] = newrow;
                 sendsales();
             }
-//            consigo el numero de salas para añadir una al arreglo
+//            consigo el numero de salas para aÃ±adir una al arreglo
 
 
         });
