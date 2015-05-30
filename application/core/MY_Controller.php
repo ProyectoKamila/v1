@@ -152,6 +152,7 @@ class MY_Controller extends CI_Controller {
                     }
                     $this->session->set_userdata(array('session' => md5('true')));
                     $this->session->set_userdata(array('name' => $check[0]['nickname']));
+            $this->session->set_userdata(array('token' => $token));
                     $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
                     $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
                     if($this->session->userdata('id_role') == 1){
@@ -214,7 +215,7 @@ class MY_Controller extends CI_Controller {
         if($this->session->userdata('token')){
             $r = $this->modelo_universal->update('active_session', array('date_time' => $date), array('id_user' => $this->session->userdata('id_user'), 'token' => $this->session->userdata('token')));
             if ($r == null) {
-                $r = $this->modelo_universal->update('active_session', array('date_time' => $date, 'token' => $this->session->userdata('token')), array('id_user' => $this->session->userdata('id_user'), 'token' => 'asdfsfsf'));
+            $r = $this->modelo_universal->update('active_session', array('date_time' => $date, 'token' => $this->session->userdata('token')), array('id_user' => $this->session->userdata('id_user')));
             }
         }
         else{

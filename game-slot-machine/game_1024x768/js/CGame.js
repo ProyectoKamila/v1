@@ -107,7 +107,8 @@
             }
         };
         
-        this.generateFinalSymbols = function(){ //symbolos finales, a modificar
+        this.generateFinalSymbols = function(){ 
+        do { //symbolos finales, a modificar
             _anterior= new Array();
             _aFinalSymbolCombo = new Array();
             for(var i=0;i<NUM_ROWS;i++){
@@ -226,6 +227,37 @@
             }
              //alert(_aWinningLine.line);
         }
+//verificar el monto ganado antes de salir de esta función
+        var iTotWin = 0;
+            //INCREASE MONEY IF THERE ARE COMBOS
+            if(_aWinningLine.length > 0){
+                //HIGHLIGHT WIN COMBOS IN PAYTABLE
+                for(var i=0;i<_aWinningLine.length;i++){
+                    _oPayTable.highlightCombo(_aWinningLine[i].value,_aWinningLine[i].num_win);
+                   // _oInterface.showLine(_aWinningLine[i].line);
+                    var aList = _aWinningLine[i].list;
+                    for(var k=0;k<aList.length;k++){
+                      //  _aStaticSymbols[aList[k].row][aList[k].col].show(aList[k].value);
+                    }
+                    
+                    iTotWin += _aWinningLine[i].amount;
+                   //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea
+                }
+                
+                iTotWin *=_iCurBet;  // multiplica el monto a ganar por cada linea apostada
+               // _iMoney += iTotWin;
+              
+
+               /*  if (iTotWin >_iTotBet)  {
+                    alert(_iTotBet);
+                    alert(iTotWin);
+                }
+*/
+             } 
+
+            }
+                        while(iTotWin >_iTotBet)   //verificar el monto antes de salir de esta función
+                
     };
 
 
@@ -324,8 +356,10 @@
                 
                 iTotWin *=_iCurBet;  // multiplica el monto a ganar por cada linea apostada
                 _iMoney += iTotWin;
+
+               
                 
-                if(iTotWin>0){
+                if(iTotWin>0){ // aqui hay que verificar si el monto total ganado es menor que el bote
                     _oInterface.refreshMoney(_iMoney);
                     _oInterface.refreshWinText(iTotWin);
                 }
