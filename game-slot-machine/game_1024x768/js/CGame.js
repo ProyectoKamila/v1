@@ -246,16 +246,17 @@
                 
                 iTotWin *=_iCurBet;  // multiplica el monto a ganar por cada linea apostada
                // _iMoney += iTotWin;
+              
 
-                 if (iTotWin >_iTotBet)  {
+               /*  if (iTotWin >_iTotBet)  {
                     alert(_iTotBet);
                     alert(iTotWin);
                 }
-
+*/
              } 
 
             }
-                        while(iTotWin >10)   //verificar el monto antes de salir de esta función
+                        while(iTotWin >_iTotBet)   //verificar el monto antes de salir de esta función
                 
     };
 
