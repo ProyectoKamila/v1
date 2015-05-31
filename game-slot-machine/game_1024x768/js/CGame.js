@@ -585,8 +585,12 @@
         };
 
         this.send_message = function(message) {
-            alert('spin');
+
+       
+        socket = new WebSocket('ws://localhost:8804/', 'server');
+        //socket.addEventListener("open", connection_established);
     
+
         var message_to_send = {
             type: 'message',
             token: '',
@@ -594,7 +598,8 @@
             message: message,
             chatroom: 37
         };
-        socket && socket.send(JSON.stringify(message_to_send));
+        //alert(JSON.stringify(message_to_send));
+        socket.send(JSON.stringify(message_to_send));
         
         //add_new_msg_to_log(message_to_send);
     };

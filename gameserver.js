@@ -134,9 +134,16 @@ wsServer.on('request', function(request) {
                             connection.id_user = row[0]['id_user'];
                             if (row[0]['id_user'] == rooms[connection.chatroom]) {
                                 console.log('sendmessageuser1');
-                                sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
-                                connection.close();
                                 
+                                if(clients >0){
+                                    sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos1');
+                                    connection.close();
+                                }else {
+                                    rooms[connection.chatroom] = connection.id_user;   
+                                    rooms[connection.token] = connection.token;
+                        
+                                    sendmessageuser(connection, 'welcome', row);
+                                }
                             }
                             else {
                             console.log('sendmessageuser2');
@@ -156,16 +163,19 @@ wsServer.on('request', function(request) {
                     mysqlc.end();
                 ////
                 //connection.chatroom = msgObj.chatroom;
-                //console.log(rooms[connection.chatroom]);
+                console.log('rooms[connection.chatroom]');
+                console.log(rooms[connection.chatroom]);
                 if (rooms[connection.chatroom] !== undefined) {
                     //rooms[msgObj.token].push(connection);
-                    rooms[msgObj.chatroom].push(connection);
+                    //rooms[msgObj.chatroom].push(connection);
 
-                    //sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
-                    //connection.close();
-
+                     if(clients >0){
+                            sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos2');
+                            connection.close();
+                    }
                 } else {
-                     rooms[msgObj.chatroom] = [connection];
+                    clients = clients + 1;
+                    rooms[msgObj.chatroom] = [connection];
                     
                 }
 
