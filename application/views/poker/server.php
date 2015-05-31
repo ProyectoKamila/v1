@@ -8,6 +8,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
+
                             <div class="alert alert-danger" style="display: none;" role="alert" id="user-conect">!!Aff, Ya se encuentra conectado, revise los dispositivos conectados <a class="btn btn-default link-error" id="" href="./dispositivos">AQUI...</a></div>
 
                         </div>
@@ -84,6 +85,8 @@
     </div>
 
 
+                        </div>
+                       
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
@@ -101,12 +104,13 @@
             var connection_retry_timer;
             var server_url = 'ws://localhost:8804/';
             var token = "<?php
-if (isset($_COOKIE['token'])) {
-    echo $_COOKIE['token'];
-} elseif ($this->session->userdata('token')) {
-    echo $this->session->userdata('token');
-}
-?>";
+                        if (isset($_COOKIE['token'])) {
+                            echo $_COOKIE['token'];
+                        } elseif ($this->session->userdata('token')) {
+                            echo $this->session->userdata('token');
+                        }
+                        ?>";
+
             var msg_bubble_colors = [
                 '#FFFFFF',
                 '#E2EBC0',
@@ -119,6 +123,9 @@ if (isset($_COOKIE['token'])) {
                 '#FBFAEF',
                 '#EFF2FC'
             ];
+          
+
+
             //si le dan click a reconectar
             $('#buttonreconect').click(function() {
                 hideConnectionLostMessage();
@@ -145,6 +152,7 @@ if (isset($_COOKIE['token'])) {
 
                 socket.send(JSON.stringify(intro));
             });
+
             //si no soporta websocket
             if (!is_websocket_supported()) {
                 $('#game').html('Your browser <strong>doesnt</strong> support '
@@ -165,7 +173,9 @@ if (isset($_COOKIE['token'])) {
                 socket = new WebSocket('ws://localhost:8804/', 'server');
                 socket.addEventListener("open", connection_established);
             }
-            //cuando la conexion se establece
+
+//cuando la conexion se establece
+
             function connection_established(event) {
                 connected = true;
                 //hideConnectionLostMessage();
@@ -192,6 +202,7 @@ if (isset($_COOKIE['token'])) {
             //segun el mensaje que llegue realiza un caso especifico
             function message_received(message) {
                 var message;
+
                 message = JSON.parse(message);
                 //trae las salas actuales
                 if (message.type === 'sales') {
@@ -206,6 +217,7 @@ if (isset($_COOKIE['token'])) {
                     var array = $.map(myObj, function(value, index) {
                         return [value];
                     });
+
                     sales(array, message.clients);
                 }
                 //                si ya esta conectado
@@ -223,6 +235,7 @@ if (isset($_COOKIE['token'])) {
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
                     console.log(message.messagesend);
+
                 } else if (message.type === 'message' && parseInt(message.sender) !== parseInt(myId)) {
                     //add_new_msg_to_log(message);
                     blink_window_title('~ message poker ~');
@@ -257,6 +270,7 @@ if (isset($_COOKIE['token'])) {
                 // $('#send-msg textarea, #send-msg span').hide();
                 $('#connection-lost-message').slideUp();
                 $('#user-conect').slideUp();
+
             }
 
             //muestra el tiempo de espera al servidor
@@ -297,17 +311,33 @@ if (isset($_COOKIE['token'])) {
 
                     content += "<tr><th><span class='"+classtyle+"'> </span>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
                 }
+
+                content += "<tr><td><p></p><p><span id='clients'>" + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default'  id='newsale' >Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
+
+                var classtyle = "";
+                    if (recorrido[i].boolpass !== 0) {
+                        classtyle = "glyphicon glyphicon-lock";
+                    }
+
+
+                    content += "<tr><th><span class='"+classtyle+"'> </span>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
+                }
                 content += "<tr><td><p></p><p><span id='clients'> " + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default'  id='newsale' >Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
+
+
                 content += "</tablet>";
                 $('#sales').html(content);
-            }
+            
 
 
 
         });
         function refresh() {
             $('#buttonreconect').click();
-        }
+
+            }
+
+
     </script>
 
 </body>

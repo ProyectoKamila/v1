@@ -56,9 +56,9 @@ function CSlotSettings(){
         s_aSymbolWin[1] = [0,0,500,1000,2000];
         s_aSymbolWin[2] = [0,50,100,200,500];
         s_aSymbolWin[3] = [0,10,50,100,150];
-        s_aSymbolWin[4] = [0,10,50,100,150];
-        s_aSymbolWin[5] = [0,10,50,100,150];
-        s_aSymbolWin[6] = [0,10,50,100,150];
+        s_aSymbolWin[4] = [0,5,25,50,75];
+        s_aSymbolWin[5] = [0,2,10,20,30];
+        s_aSymbolWin[6] = [0,1,5,10,15];
     };
     
     this._initSymbolAnims = function(){
@@ -145,46 +145,46 @@ function CSlotSettings(){
         s_aSymbolAnims[7] = new createjs.SpriteSheet(oData);
     };
     
-    this._initSymbolsOccurence = function(){
+    this._initSymbolsOccurence = function() {  //probabilidades de que salgan los numeros 
         s_aRandSymbols = new Array();
         
         var i;
         //OCCURENCE FOR SYMBOL 1
-        for(i=0;i<1;i++){
+        for(i=0;i<2;i++){
             s_aRandSymbols.push(1);
         }
         
         //OCCURENCE FOR SYMBOL 2
-        for(i=0;i<2;i++){
+        for(i=0;i<4;i++){
             s_aRandSymbols.push(2);
         }
         
         //OCCURENCE FOR SYMBOL 3
-        for(i=0;i<3;i++){
+        for(i=0;i<6;i++){
             s_aRandSymbols.push(3);
         }
         
-        //OCCURENCE FOR SYMBOL 4
-        for(i=0;i<4;i++){
+        //OCCURENCE FOR SYMBOL 4 4
+        for(i=0;i<8;i++){
             s_aRandSymbols.push(4);
         }
         
-        //OCCURENCE FOR SYMBOL 5
-        for(i=0;i<4;i++){
+        //OCCURENCE FOR SYMBOL 5 4
+        for(i=0;i<10;i++){
             s_aRandSymbols.push(5);
         }
         
-        //OCCURENCE FOR SYMBOL 6
-        for(i=0;i<6;i++){
+        //OCCURENCE FOR SYMBOL 6 6
+        for(i=0;i<16;i++){
             s_aRandSymbols.push(6);
         }
         
-        //OCCURENCE FOR SYMBOL 7
-        for(i=0;i<6;i++){
+        //OCCURENCE FOR SYMBOL 7 6
+        for(i=0;i<20;i++){
             s_aRandSymbols.push(7);
         }
         
-        //OCCURENCE FOR SYMBOL WILD
+        //OCCURENCE FOR SYMBOL WILD  sergio, el simbolo comodin debe ser bloqueado segun el pote.
         for(i=0;i<1;i++){
             s_aRandSymbols.push(8);
         }

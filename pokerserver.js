@@ -141,9 +141,6 @@ wsServer.on('request', function(request) {
 
 
                     var string = 'SELECT * FROM user_session WHERE user_token= "' + connection.token + '"';
-
-
-
                     var mysqlc = mysql.createConnection(
                             {
                                 host: '23.229.215.154',
@@ -321,6 +318,7 @@ wsServer.on('request', function(request) {
 
         }));
     }
+    
     function newsales(ins) {
         var boolpass = 1;
         if (ins.clave == '' || ins.clave == undefined) {

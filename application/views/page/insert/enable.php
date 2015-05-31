@@ -6,7 +6,7 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Su cuenta de usuario fue activada satisfactoriamente, ya puede ingresar al sistema.</h3></div>
 					<div class="panel-body">
-						<?php echo form_open("/nuevo") ?>
+						<?php echo form_open("/newest") ?>
 						<!--     <form role="form" method="post" action="./registering"> -->
 						<fieldset>
 							

@@ -1,7 +1,7 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Datos del usuario</h1> 
+                    <h1 class="page-header">Datos del Usuario</h1> 
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -15,6 +15,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
+                              <h1 class="page-header">Datos Personales</h1> 
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-user">
                                     <thead>
                                         <tr>
@@ -27,7 +28,6 @@
                                     <tbody>
                                         <?php foreach ($this->data['user'] as $user=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                            <?php print_r($this->data['user']) ?>
                                             <td><?php echo $valor['first_name'].' '.$valor['last_name']; ?></td>
                                             <td><?php echo $valor['identity_card']; ?></td>
                                             <td><?php echo $valor['gender']; ?></td>
@@ -37,6 +37,8 @@
                                         <?php } ?>
                                     </tbody>
                                 </table>
+                                <br>
+                                <h1 class="page-header">Detalle Apuestas</h1> 
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-bet">
                                     <thead>
                                         <tr>
@@ -49,7 +51,6 @@
                                     <tbody>
                                         <?php foreach ($this->data['bet'] as $bet=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                        <?php print_r($this->data['bet']) ?>
                                             <td><?php echo $valor['id_activity_bet']; ?></td>
                                             <td><?php echo $valor['investment']; ?></td>
                                             <td><?php echo $valor['bet']; ?></td>
@@ -59,20 +60,21 @@
                                         <?php } ?>
                                     </tbody>
                                 </table>
+                                <br>
+                                <h1 class="page-header">Detalle Balance</h1> 
                                  <table class="table table-striped table-bordered table-hover" id="dataTables-balance">
                                     <thead>
                                         <tr>
-                                            <th>ID Bet</th>
-                                            <th>Invesment</th>
-                                            <th>Bet</th>
-                                            <th>Gain</th>
-                                            <th>Gain</th>
+                                            <th>ID </th>
+                                            <th>Reload</th>
+                                            <th>Withdrawal</th>
+                                            <th>Available Bbalance</th>
+                                            <th>New Balance</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($this->data['balance'] as $balance=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                        <?php print_r($this->data['balance']) ?>
                                             <td><?php echo $valor['id_activity_balance']; ?></td>
                                             <td><?php echo $valor['reload']; ?></td>
                                             <td><?php echo $valor['withdrawal']; ?></td>
@@ -83,21 +85,22 @@
                                         <?php } ?>
                                     </tbody>
                                 </table>
+                                <br>
+                                <h1 class="page-header">Detale Juegos</h1> 
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-game">
                                     <thead>
                                         <tr>
-                                            <th>ID Bet</th>
-                                            <th>Invesment</th>
-                                            <th>Bet</th>
-                                            <th>Gain</th>
-                                            <th>Bet</th>
-                                            <th>Gain</th>
+                                            <th>ID Game</th>
+                                            <th>Type</th>
+                                            <th>NAme</th>
+                                            <th>Minimum Bet</th>
+                                            <th>Minimum Bet</th>
+                                            <th>Jackpot</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($this->data['game'] as $game=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                            <?php print_r($this->data['game']) ?>
                                             <td><?php echo $valor['id_game']; ?></td>
                                             <td><?php echo $valor['type']; ?></td>
                                             <td><?php echo $valor['name']; ?></td>
