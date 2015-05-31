@@ -92,7 +92,7 @@ connetserver();
                 connected = true;
                 //hideConnectionLostMessage();
                 clearInterval(connection_retry_timer);
-                alert(token);
+               // alert(token);
                 introduce(token);
                 socket.addEventListener('message', function(event) {
                     message_received(event.data);
