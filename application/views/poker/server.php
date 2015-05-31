@@ -104,12 +104,12 @@
             var connection_retry_timer;
             var server_url = 'ws://localhost:8804/';
             var token = "<?php
-if (isset($_COOKIE['token'])) {
-    echo $_COOKIE['token'];
-} elseif ($this->session->userdata('token')) {
-    echo $this->session->userdata('token');
-}
-?>";
+                        if (isset($_COOKIE['token'])) {
+                            echo $_COOKIE['token'];
+                        } elseif ($this->session->userdata('token')) {
+                            echo $this->session->userdata('token');
+                        }
+                        ?>";
 
             var msg_bubble_colors = [
                 '#FFFFFF',

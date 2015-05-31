@@ -144,7 +144,7 @@ function CMain(oData){
         _oMenu = new CMenu();
         _iState = STATE_MENU;
     };
-    
+    //playbutton
     this.gotoGame = function(){
         _oGame = new CGame(_oData);   
 							
