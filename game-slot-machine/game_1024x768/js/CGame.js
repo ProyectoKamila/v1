@@ -1,4 +1,7 @@
     function CGame(oData){
+        var server_url = 'ws://localhost:8804/';
+            var socket;
+
         var _bUpdate = false;
         var _iCurState;
         var _iCurReelLoops;
@@ -23,6 +26,7 @@
         var _oFrontSkin;
         var _oInterface;
         var _oPayTable = null;
+
         
         this._init = function(){
             _iCurState = GAME_STATE_IDLE;
@@ -554,6 +558,10 @@
             _oInterface.disableBetBut(true);
             this.removeWinShowing();
             
+    ///node
+        this.send_message('spin');
+    
+
             this.generateFinalSymbols();
 
             _oInterface.hideAllLines();
@@ -575,6 +583,21 @@
                 _oPayTable.show();
             }
         };
+
+        this.send_message = function(message) {
+            alert('spin');
+    
+        var message_to_send = {
+            type: 'message',
+            token: '',
+            sender: 0,
+            message: message,
+            chatroom: 37
+        };
+        socket && socket.send(JSON.stringify(message_to_send));
+        
+        //add_new_msg_to_log(message_to_send);
+    };
 
         this.onExit = function(){
             this.unload();

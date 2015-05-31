@@ -36,6 +36,7 @@
     </head>
     <body ondragstart="return false;" ondrop="return false;" >
         <div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+   
       <script>
       $(document).ready(function(){
        var oMain = new CMain({
@@ -60,6 +61,7 @@
 
 //a penas cargue el juego abrir la conex
             'use strict';
+
             var socket;
             var protocol_identifier = 'server';
             var myId;
@@ -139,18 +141,21 @@
                 }
 
                 socket.send(JSON.stringify(intro));
+                
             }
             //segun el mensaje que llegue realiza un caso especifico
             function message_received(message) {
+            console.log('message');
                 var message;
 
                 message = JSON.parse(message);
                 //trae las salas actuales
+                 console.log(message);
                 if (message.type === 'sales') {
                     myId = message.userId;
                     var newvar = {};
                     newvar = new Object();
-                    newvar = message.messagesend;
+                    newvar = message.message;
                     var myObj = newvar
 
                     var array = $.map(myObj, function(value, index) {
@@ -173,7 +178,7 @@
                     myId = message.userId;
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
-                    console.log(message.messagesend);
+                     
 
                 } else if (message.type === 'message' && parseInt(message.sender) !== parseInt(myId)) {
                     //add_new_msg_to_log(message);

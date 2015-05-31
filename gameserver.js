@@ -103,17 +103,21 @@ wsServer.on('request', function(request) {
 
 
     connection.on('message', function(message) {
+        console.log('msgObj.utf8')
+         console.log(JSON.parse(message.utf8Data));
         if (message.type === 'utf8') {
-            var msgObj = JSON.parse(message.utf8Data);
+            var msgObj = JSON.parse(message.utf8Data)
             //datos del usuario traerlos de la vista            
             //para acceder y devolver datos del tokken
-
+            console.log('msgObj.type');
+            console.log(msgObj.type);
             if (msgObj.type === 'intro') {
                 connection.token = msgObj.token;
+                //rooms[connection.token] = connection.token;
                 connection.chatroom = 37;
                 //// hasta q se guarde el toquen se comenta
                 //var string = 'SELECT * FROM user_session WHERE user_token= "' + connection.token + '"';
-                var string = 'SELECT * FROM user WHERE id_user= "' + connection.chatroom + '"';
+                var string = 'SELECT * FROM user WHERE id_user= ' + 37 ;
                 console.log(string);
                 var mysqlc = mysql.createConnection(
                             {
@@ -126,31 +130,37 @@ wsServer.on('request', function(request) {
                     mysqlc.connect();
                     mysqlc.query(string, function(err, row, fields) {
                         if (typeof(row)) {
-                            connection.chatroom = row[0]['id_user'];
-
+                            //aqui debo evaluar la la cookie
+                            connection.id_user = row[0]['id_user'];
                             if (row[0]['id_user'] == rooms[connection.chatroom]) {
-
+                                console.log('sendmessageuser1');
                                 sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
                                 connection.close();
+                                
                             }
                             else {
-                                rooms[connection.chatroom] = connection.id_user;
+                            console.log('sendmessageuser2');
+                                rooms[connection.chatroom] = connection.id_user;   
+                                rooms[connection.token] = connection.token;
+                        
                                 sendmessageuser(connection, 'welcome', row);
                             }
                         }
                         else {
+                             console.log('sendmessageuser3');
                             sendmessageuser(connection, 'welcome', 'aqui falso');
                         }
                     });
-
-                    sendmessageuser(connection, 'welcome', rooms);
+                 
 
                     mysqlc.end();
                 ////
                 //connection.chatroom = msgObj.chatroom;
+                //console.log(rooms[connection.chatroom]);
+                if (rooms[connection.chatroom] !== undefined) {
+                    //rooms[msgObj.token].push(connection);
+                    rooms[msgObj.chatroom].push(connection);
 
-                if (rooms[connection.token] !== undefined) {
-                    rooms[msgObj.token].push(connection);
                     //sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
                     //connection.close();
 
@@ -159,19 +169,19 @@ wsServer.on('request', function(request) {
                     
                 }
 
-                connection.sendUTF(JSON.stringify({
+                    connection.sendUTF(JSON.stringify({
                     type: 'welcome',
                     userId: connection.id
                 }));
 
-                broadcast_chatters_list(msgObj.chatroom);
+               broadcast_chatters_list(msgObj.chatroom);
             } else if (msgObj.type === 'message') {
 
                 message_to_send = JSON.parse(message.utf8Data);
                 message_to_send['sender'] = connection.id.toString();
                 message_to_send = JSON.stringify(message_to_send);
 
-                console.log(message_to_send)
+                //console.log(message_to_send)
                 broadcast_message(message_to_send, msgObj.chatroom);
             } else if (msgObj.type.match(/^activity_/)) {
                 // echo back any message type that start with activity_
@@ -195,8 +205,8 @@ wsServer.on('request', function(request) {
         clients = clients - 1;
         var newarrayclient = {};
         var newarrayallclient = {};
-        delete rooms[connection.token];
-        delete rooms[connection.chatroom];
+        //delete rooms[connection.token];
+        //delete rooms[connection.chatroom];
 //saca de la conexion al cliente si esta conectado
         for (var i in rooms) {
             if (rooms[i] !== undefined) {
@@ -204,7 +214,7 @@ wsServer.on('request', function(request) {
             }
         }
 
-        clientsconection = newarrayclient;
+        rooms = newarrayclient;
 
 
         for (var i in users) {
@@ -217,10 +227,25 @@ wsServer.on('request', function(request) {
     });
 
     function broadcast_message(message, chatroom) {
-        var users = rooms[chatroom];
+        console.log('messagexxxxxxxx');
+        console.log(message);
+        console.log('chatroomxxxxxxx');
+        console.log(rooms[chatroom]);
+        console.log(message.type);
 
+        connection.sendUTF(JSON.stringify({
+            type: message.type,
+            userId: connection.id,
+            message: message,
+            clients: clients
+
+        }));
+
+
+        var users = rooms[chatroom];
         for (var i in users) {
-            users[i].sendUTF(message);
+
+            users[i].message;
         }
     }
 
@@ -271,16 +296,21 @@ wsServer.on('request', function(request) {
 
  
     function sendmessageuser(usersend, type, forsend) {
-        message_to_send = JSON.parse(message.utf8Data);
+        //message_to_send = JSON.parse(forsend.utf8Data); 
+        //console.log('forsend');
+        //console.log(forsend);
+
+        var message_to_send = {};
         message_to_send['sender'] = connection.id.toString();
         message_to_send = JSON.stringify({
             type: type,
             userId: connection.id,
-            messagesend: forsend,
+            message: forsend,
             clients: clients
 
         });
-        broadcast_message(message_to_send, msgObj.chatroom);
+        //console.log('message_to_send');
+        broadcast_message(message_to_send, usersend.chatroom);
     }
     
 
