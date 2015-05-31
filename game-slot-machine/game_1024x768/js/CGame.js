@@ -591,6 +591,8 @@
         //socket.addEventListener("open", connection_established);
     
 
+            alert('spin');
+    
         var message_to_send = {
             type: 'message',
             token: '',

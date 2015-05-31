@@ -97,7 +97,7 @@ wsServer.on('request', function(request) {
     connection.id = connection_id++;
     //conecciones
     cont = cont + 1;
-    console.log(cont);
+    console.log('a'+cont);
 
     //clientsconectionall[cont] = connection;
 
