@@ -1,4 +1,4 @@
-    <!--http://localhost/v1/game-slot-machine/game_1024x768/-->
+ <!--http://localhost/v1/game-slot-machine/game_1024x768/-->
     <!DOCTYPE html>
     <html>
     <head>
@@ -35,7 +35,7 @@
 
     </head>
     <body ondragstart="return false;" ondrop="return false;" >
-    	<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+        <div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
       <script>
       $(document).ready(function(){
        var oMain = new CMain({
@@ -134,7 +134,7 @@
 
             function introduce(tocken) {
                 var intro = {
-                    type: 'join',
+                    type: 'intro',
                     token: tocken,
                 }
 
