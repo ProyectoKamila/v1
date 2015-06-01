@@ -112,6 +112,23 @@
         };
         
         this.generateFinalSymbols = function(){ 
+var contador=0;
+var enviar= {
+    nrows: NUM_ROWS,
+    nreels: NUM_REELS,
+    rands: s_aRandSymbols,
+    winingl: _aWinningLine,
+    payline: s_aPaylineCombo,
+    finalcombo: _aFinalSymbolCombo,
+    symbolwin: s_aSymbolWin,
+    paytable: _oPayTable,
+    curbet: _iCurBet,
+    totalbet: _iTotBet,
+    lastline: _iLastLineActive,
+    wsymb: WILD_SYMBOL
+}
+            prueba(enviar);
+           
         do { //symbolos finales, a modificar
             _anterior= new Array();
             _aFinalSymbolCombo = new Array();
@@ -124,11 +141,12 @@
                     _aFinalSymbolCombo[i][j] = iRandSymbol;
                     _anterior[i][j] = iRandSymbol;
                    // if(j<2)
-                   // alert(_anterior[i][j]);
+                 //   alert(_anterior[i][j]);
 
                }
 
            }
+           
          //alert(NUM_REELS);   j=0-4  i=0-2
 
          // sergio. revisa la matriz y muestra un alert si hay 
@@ -237,7 +255,7 @@
             if(_aWinningLine.length > 0){
                 //HIGHLIGHT WIN COMBOS IN PAYTABLE
                 for(var i=0;i<_aWinningLine.length;i++){
-                    _oPayTable.highlightCombo(_aWinningLine[i].value,_aWinningLine[i].num_win);
+                  //  _oPayTable.highlightCombo(_aWinningLine[i].value,_aWinningLine[i].num_win);
                    // _oInterface.showLine(_aWinningLine[i].line);
                     var aList = _aWinningLine[i].list;
                     for(var k=0;k<aList.length;k++){
@@ -258,12 +276,27 @@
                 }
 */
              } 
+             contador=contador+1;
 
             }
                         while(iTotWin >_iTotBet)   //verificar el monto antes de salir de esta función
-                
-    };
 
+                               console.log('while!!!!!!!!!!!!!!!!: '+contador+ ' '+ iTotWin + ' '+ _iTotBet);
+             for(var i=0;i<NUM_ROWS;i++){
+                
+                for(var j=0;j<NUM_REELS;j++){
+                  
+                   // if(j<2)
+                 //   alert(_anterior[i][j]);
+                     console.log(_aFinalSymbolCombo[i][j]);
+
+               }
+
+           }    
+    };
+    this.pruebacgame = function(){
+        alert('llama a la funcion prueba');
+    }
 
     this._generateRandSymbols = function() {
         var aRandSymbols = new Array();
@@ -591,7 +624,7 @@
         //socket.addEventListener("open", connection_established);
     
 
-            alert('spin');
+            //alert('spin');
     
         var message_to_send = {
             type: 'message',
@@ -601,7 +634,7 @@
             chatroom: 37
         };
         //alert(JSON.stringify(message_to_send));
-        socket.send(JSON.stringify(message_to_send));
+        socket && socket.send(JSON.stringify(message_to_send));
         
         //add_new_msg_to_log(message_to_send);
     };

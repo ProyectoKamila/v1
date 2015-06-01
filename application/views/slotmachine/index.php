@@ -124,6 +124,7 @@
                 //hideConnectionLostMessage();
                 clearInterval(connection_retry_timer);
                 introduce(tocken);
+
                 socket.addEventListener('message', function(event) {
                     message_received(event.data);
                 });
@@ -145,11 +146,14 @@
             }
             //segun el mensaje que llegue realiza un caso especifico
             function message_received(message) {
-            console.log('message');
+            console.log('indexmessagesssssss');
                 var message;
 
                 message = JSON.parse(message);
                 //trae las salas actuales
+                //console.log('valor type en msje');
+                //console.log(message.message);
+                console.log('message en la vista');
                  console.log(message);
                 if (message.type === 'sales') {
                     myId = message.userId;
@@ -169,6 +173,15 @@
 
 
                     $('#user-conect').slideDown();
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    //$('#game').html(message.messagesend);
+                }
+                 else if (message.type === 'prueba') {
+
+
+                    alert('mensaje de prueba');
+                    alert(message.message);
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
                     //$('#game').html(message.messagesend);
@@ -241,9 +254,19 @@
                 }
                 return false;
             }
-           
+
+            prueba = function(enviar){
+          //public function prueba(){
+             enviar.type='prueba';
+
+              //alert(enviar.type);
+
+               socket.send(JSON.stringify(enviar));
+    }
 
     });
+
+          
 
     </script>
     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="game"></div>
