@@ -188,6 +188,12 @@ wsServer.on('request', function(request) {
 
 
             }
+            else if (msgObj.type === 'prueba') {
+                pruebaserver(msgObj);
+
+
+
+            }
             else if (msgObj.type === 'intro') {
                 connection.nickname = msgObj.nickname;
                 connection.chatroom = msgObj.chatroom;
@@ -310,6 +316,174 @@ wsServer.on('request', function(request) {
         );
 
         return mysqlconect;
+
+    }
+    function pruebaserver(objeto){
+         
+    var contador=0;
+        var s_aRandSymbols=objeto.rands;
+      var NUM_ROWS =  objeto.nrows;
+   var NUM_REELS= objeto.nreels;
+   var s_aRandSymbols=  objeto.rands;
+   var _aWinningLine=  objeto.winingl;
+   var s_aPaylineCombo=  objeto.payline;
+   var _aFinalSymbolCombo=  objeto.finalcombo;
+   var s_aSymbolWin= objeto.symbolwin;
+   var _oPayTable= objeto.paytable;
+   var _iCurBet= objeto.curbet;
+   var _iTotBet= objeto.totalbet;
+   var _iLastLineActive= objeto.lastline;
+   var WILD_SYMBOL= objeto.wsymb;
+
+
+       do { //symbolos finales, a modificar
+            _anterior= new Array();
+            _aFinalSymbolCombo = new Array();
+            for(var i=0;i<NUM_ROWS;i++){
+                _aFinalSymbolCombo[i] = new Array();
+                _anterior[i]= new Array();
+                for(var j=0;j<NUM_REELS;j++){
+                    var iRandIndex = Math.floor(Math.random()* s_aRandSymbols.length);
+                    var iRandSymbol = s_aRandSymbols[iRandIndex];
+                    _aFinalSymbolCombo[i][j] = iRandSymbol;
+                    _anterior[i][j] = iRandSymbol;
+                   // if(j<2)
+                 //   alert(_anterior[i][j]);
+                     console.log(_anterior[i][j]);
+
+               }
+
+           }
+           
+         //alert(NUM_REELS);   j=0-4  i=0-2
+
+         // sergio. revisa la matriz y muestra un alert si hay 
+         var ejecutar=false;
+         if(ejecutar==true){
+         for(var j=0;j<NUM_REELS;j++){
+
+            for(var i=0;i<NUM_ROWS;i++){
+              //  _rvs= new Array();
+                if (_aFinalSymbolCombo[i][j]==8){
+                    _aFinalSymbolCombo[i][j]=_aFinalSymbolCombo[i][j]-1;
+                }
+              //  _rvs[i]= _aFinalSymbolCombo[i][j];
+                if (j==1){
+                    for (var b=0;b<NUM_ROWS;b++){
+
+
+                        if(_aFinalSymbolCombo[i][j]==_anterior[b][j-1]){
+
+                          //  alert(_aFinalSymbolCombo[i][j]+' '+_anterior[b][j-1]+' '+b+(j-1)+' '+i+j);
+                          var p=i;
+                          var q=b;
+
+                           do { //while para quitar las combinaciones ganadoras... cada vez que cambia un numero se reinicia el contador para vlver a revisar...
+
+                            var iRandIndex = Math.floor(Math.random()* (s_aRandSymbols.length-1));
+                            var iRandSymbol = s_aRandSymbols[iRandIndex];
+                            _aFinalSymbolCombo[i][j] = iRandSymbol;
+                            
+                            i=0;
+                            b=0;
+
+                        }
+                        while(_aFinalSymbolCombo[i][j]==_anterior[b][j-1])
+                            console.log(_anterior[q][j-1]+' '+ _aFinalSymbolCombo[p][j]+' '+q+(j-1)+' '+p+j);
+         }
+          }
+      }
+    }
+    }
+    }
+        console.log('corteeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+            //CHECK IF THERE IS ANY COMBO
+            _aWinningLine = new Array();//linea ganadora arreglo
+            for(var k=0;k<_iLastLineActive;k++){ //desde 0 hasta el numero de lineas activas
+                var aCombos = s_aPaylineCombo[k];
+                    console.log(s_aPaylineCombo[k]);// carga la linea ganadora de cslotsettings.js
+               // alert(aCombos[0].row +' ' +aCombos[0].col);
+                var aCellList = new Array();  //lista de celdas
+                var iValue = _aFinalSymbolCombo[aCombos[0].row][aCombos[0].col];  //guarda el valor de la celda de la matriz que coincide con la posicion de la linea ganadora que está activa
+               // alert(iValue);
+                var iNumEqualSymbol = 1;
+                var iStartIndex = 1;
+           aCellList.push({row:aCombos[0].row,col:aCombos[0].col,value:_aFinalSymbolCombo[aCombos[0].row][aCombos[0].col]});
+                
+                while(iValue === WILD_SYMBOL && iStartIndex<NUM_REELS){
+                    iNumEqualSymbol++;
+                    iValue = _aFinalSymbolCombo[aCombos[iStartIndex].row][aCombos[iStartIndex].col];
+                    aCellList.push({row:aCombos[iStartIndex].row,col:aCombos[iStartIndex].col,
+                        value:_aFinalSymbolCombo[aCombos[iStartIndex].row][aCombos[iStartIndex].col]});
+                    iStartIndex++;
+                }
+                
+                for(var t=iStartIndex;t<aCombos.length;t++){  //mientras el simbolo de la columna siguiente sea igual al anterior o el comodin lo guarda
+                    if(_aFinalSymbolCombo[aCombos[t].row][aCombos[t].col] === iValue || 
+                        _aFinalSymbolCombo[aCombos[t].row][aCombos[t].col] === WILD_SYMBOL){
+                        iNumEqualSymbol++;
+
+                    aCellList.push({row:aCombos[t].row,col:aCombos[t].col,value:_aFinalSymbolCombo[aCombos[t].row][aCombos[t].col]});
+                }else{
+                    break;
+                }
+            }
+
+            if(s_aSymbolWin[iValue-1][iNumEqualSymbol-1] > 0){ //guarda la linea ganadora, siempre y cuando sea de dos en adelante
+                _aWinningLine.push({line:k+1,amount:s_aSymbolWin[iValue-1][iNumEqualSymbol-1],
+                    num_win:iNumEqualSymbol,value:iValue,list:aCellList});
+               
+            }
+             //alert(_aWinningLine.line);
+        }
+//verificar el monto ganado antes de salir de esta función
+        var iTotWin = 0;
+            //INCREASE MONEY IF THERE ARE COMBOS
+            if(_aWinningLine.length > 0){
+                //HIGHLIGHT WIN COMBOS IN PAYTABLE
+                for(var i=0;i<_aWinningLine.length;i++){
+                   // _oPayTable.highlightCombo(_aWinningLine[i].value,_aWinningLine[i].num_win);
+                   // _oInterface.showLine(_aWinningLine[i].line);
+                    var aList = _aWinningLine[i].list;
+                    for(var k=0;k<aList.length;k++){
+                      //  _aStaticSymbols[aList[k].row][aList[k].col].show(aList[k].value);
+                    }
+                    
+                    iTotWin += _aWinningLine[i].amount;
+                   //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea
+                }
+                
+                iTotWin *=_iCurBet;  // multiplica el monto a ganar por cada linea apostada
+               // _iMoney += iTotWin;
+              
+
+               /*  if (iTotWin >_iTotBet)  {
+                    alert(_iTotBet);
+                    alert(iTotWin);
+                }
+*/
+             } 
+             contador=contador+1;
+                
+            }
+             
+                        while(iTotWin >_iTotBet)   //verificar el monto antes de salir de esta función
+
+       // var vuelta = nrows.token*3;
+       console.log('while!!!!!!!!!!!!!!!!: '+contador+ ' '+ iTotWin + ' '+ _iTotBet);
+ for(var i=0;i<NUM_ROWS;i++){
+                
+                for(var j=0;j<NUM_REELS;j++){
+                  
+                   // if(j<2)
+                 //   alert(_anterior[i][j]);
+                     console.log(_aFinalSymbolCombo[i][j]);
+
+               }
+
+           }
+
+
 
     }
 
