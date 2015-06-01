@@ -170,15 +170,13 @@
                 }
                 //                si ya esta conectado
                 else if (message.type === 'readyconect') {
-
-
-                    $('#user-conect').slideDown();
+                    alert('redyconnect');
+                    window.location.href=('./login');
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
                     //$('#game').html(message.messagesend);
                 }
                  else if (message.type === 'prueba') {
-
 
                     alert('mensaje de prueba');
                     alert(message.message);

@@ -620,7 +620,7 @@ var enviar= {
         this.send_message = function(message) {
 
        
-        socket = new WebSocket('ws://localhost:8804/', 'server');
+        //socket = new WebSocket('ws://localhost:8804/', 'server');
         //socket.addEventListener("open", connection_established);
     
 
