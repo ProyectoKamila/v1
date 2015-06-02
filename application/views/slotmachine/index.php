@@ -144,17 +144,21 @@ connetserver();
                     //$('#loading-message').hide();
                     
                   var  newvar = message.messagesend;
-                    CGame._aWinningLine = newvar;
-                   
-                    alert(CGame._aWinningLine);
+                
 
-                 /*   var array = $.map(myObj, function(value, index) {
-                        return [value];
-                    });*/
-                    //$('#user-conect').slideDown();
+                   s_oGame.pruebacgame(newvar);
+
+                }
+                  else if (message.type === 'prueba2') {
+                    myId = message.userId;
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
-                    //$('#game').html(message.messagesend);
+                    
+                  var  newvar = message.messagesend;
+                
+
+                   s_oGame.pruebacgame2(newvar);
+
                 }
                 else if (message.type === 'readyconect') {
 

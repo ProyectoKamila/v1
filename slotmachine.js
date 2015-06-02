@@ -477,18 +477,41 @@ wsServer.on('request', function(request) {
                   
                    // if(j<2)
                  // alert(_anterior[i][j]);
-                     console.log(_aFinalSymbolCombo[i][j]);
+                     console.log(_aWinningLine.length+'largo linea ganadora');
 
                }
 
            }
 
-    sendmessageuser(connection, 'prueba', _aWinningLine);
+    sendmessageuser(connection, 'prueba', _aWinningLine /*,_aFinalSymbolCombo*/);
+     sendmessageuser2(connection, 'prueba2', _aFinalSymbolCombo /*,_aFinalSymbolCombo*/);
 
     }
 
+  /* function sendwinnerlines(usersend, type, winnerline,finalc) {
+        console.log(winnerline + ' '+ finalc);
+        usersend.send(JSON.stringify({
+            type: type,
+            userId: connection.id,
+            sendwl: winnerline,
+            sendfc: finalc,
+            clients: clients
+
+        }));
+    }*/
     function sendmessageuser(usersend, type, forsend) {
-        usersend.sendUTF(JSON.stringify({
+        console.log(forsend);
+        usersend.send(JSON.stringify({
+            type: type,
+            userId: connection.id,
+            messagesend: forsend,
+            clients: clients
+
+        }));
+    }
+     function sendmessageuser2(usersend, type, forsend) {
+        console.log(forsend+'DOS');
+        usersend.send(JSON.stringify({
             type: type,
             userId: connection.id,
             messagesend: forsend,
