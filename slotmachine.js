@@ -476,14 +476,14 @@ wsServer.on('request', function(request) {
                 for(var j=0;j<NUM_REELS;j++){
                   
                    // if(j<2)
-                 //   alert(_anterior[i][j]);
+                 // alert(_anterior[i][j]);
                      console.log(_aFinalSymbolCombo[i][j]);
 
                }
 
            }
 
-
+    sendmessageuser(connection, 'prueba', _aWinningLine);
 
     }
 

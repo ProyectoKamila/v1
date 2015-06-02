@@ -123,7 +123,7 @@ var enviar= {
     lastline: _iLastLineActive,
     wsymb: WILD_SYMBOL
 }
-            prueba(enviar);
+           
            
         do { //symbolos finales, a modificar
             _anterior= new Array();
@@ -288,9 +288,14 @@ var enviar= {
 
                }
 
-           }    
+           }   
+
+            prueba(enviar); 
     };
+
     this.pruebacgame = function(){
+
+
         alert('llama a la funcion prueba');
     }
 

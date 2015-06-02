@@ -130,7 +130,7 @@ connetserver();
                     var newvar = {};
                     newvar = new Object();
                     newvar = message.messagesend;
-                    var myObj = newvar
+                    var myObj = newvar;
 
                     var array = $.map(myObj, function(value, index) {
                         return [value];
@@ -138,6 +138,24 @@ connetserver();
                     //sales(array, message.clients);
                 }
                 //                si ya esta conectado
+                 else if (message.type === 'prueba') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    
+                  var  newvar = message.messagesend;
+                    CGame._aWinningLine = newvar;
+                   
+                    alert(CGame._aWinningLine);
+
+                 /*   var array = $.map(myObj, function(value, index) {
+                        return [value];
+                    });*/
+                    //$('#user-conect').slideDown();
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    //$('#game').html(message.messagesend);
+                }
                 else if (message.type === 'readyconect') {
 
 
