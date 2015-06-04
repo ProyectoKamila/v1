@@ -39,6 +39,10 @@ var cont = 0;
 var clientsconection = {};
 var clientsconectionall = [];
 var rooms = {};
+var saleonline = {};
+var saleonlineconex = {};
+//variable para permitir acceder a una sala si se encontro la password en la base de datos
+var accesstrue = false;
 //clientsconection['all'] = {};
 
 
@@ -73,6 +77,38 @@ var string = 'SELECT id,name,boolpass,apu_min,apu_max,max_jug,jug_min,jug_max FR
 mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
         rooms = row;
+        for (i in rooms) {
+            var maxjug = rooms[i].max_jug;
+            for (i2 = 0; i2 < maxjug; i2++) {
+                if (saleonline[i] !== undefined) {
+                    var conexarray = {
+                        name: undefined,
+                        coin: undefined,
+                        apos: undefined,
+                        id: undefined,
+                        imageprofile: undefined,
+                    }
+                    saleonline[i].push(conexarray);
+                    saleonlineconex[i].push(undefined);
+                }
+                else {
+                    var conexarray = {
+                        name: undefined,
+                        coin: undefined,
+                        apos: undefined,
+                        id: undefined,
+                        imageprofile: undefined
+                    }
+                    saleonline[i] = [conexarray];
+                    saleonlineconex[i] = [undefined];
+
+                }
+
+//                }
+
+            }
+        }
+
     }
 
 });
@@ -116,10 +152,7 @@ wsServer.on('request', function(request) {
 
     var connection = request.accept('server', request.origin);
     connection.id = connection_id++;
-    cont = cont + 1;
-    console.log(cont);
 
-    clientsconectionall[cont] = connection;
 
 
     connection.on('message', function(message) {
@@ -136,14 +169,7 @@ wsServer.on('request', function(request) {
                     sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
                     connection.close();
                 } else {
-
                     clientsconection[connection.token] = connection.token;
-
-
-                    var string = 'SELECT * FROM user_session WHERE user_token= "' + connection.token + '"';
-
-
-
                     var mysqlc = mysql.createConnection(
                             {
                                 host: '23.229.215.154',
@@ -153,19 +179,27 @@ wsServer.on('request', function(request) {
                             }
                     );
                     mysqlc.connect();
+                    var string = 'SELECT * FROM user_session INNER JOIN user_data WHERE user_data.id_user = user_session.id_user AND user_session.user_token= "' + connection.token + '"';
                     mysqlc.query(string, function(err, row, fields) {
                         if (typeof(row)) {
                             connection.id_user = row[0]['id_user'];
-
+                            connection.imageprofile = row[0]['imageprofile'];
+                            connection.first_name = row[0]['first_name'];
+                            connection.last_name = row[0]['last_name'];
+                            connection.gender = row[0]['gender'];
+                            connection.country = row[0]['country'];
+                            connection.city = row[0]['city'];
+                            connection.nationality = row[0]['nationality'];
+                            connection.coin = row[0]['coin'];
                             if (row[0]['id_user'] == clientsconection[connection.id_user]) {
-
                                 sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
                                 connection.close();
                             }
                             else {
+                                cont = cont + 1;
+
+                                clientsconectionall[cont] = connection;
                                 clientsconection[connection.id_user] = connection.id_user;
-
-
                                 sendmessageuser(connection, 'welcome', row);
                             }
                         }
@@ -175,7 +209,6 @@ wsServer.on('request', function(request) {
                     });
 
                     sendmessageuser(connection, 'sales', rooms);
-
                     mysqlc.end();
                 }
 
@@ -184,8 +217,76 @@ wsServer.on('request', function(request) {
             else if (msgObj.type === 'newsale') {
                 newsales(msgObj);
 
+            }
+            else if (msgObj.type === 'sitdown') {
+                joinsale(connection, connection.idsale, 'true', msgObj.idsit);
 
 
+            }
+            else if (msgObj.type === 'numcoin') {
+                var mysqlc = mysql.createConnection(
+                        {
+                            host: '23.229.215.154',
+                            user: 'v1',
+                            password: 'Temporal01',
+                            database: 'v1',
+                        }
+                );
+                mysqlc.connect();
+                var string = 'SELECT coins FROM user_data WHERE id_user= "' + connection.id_user + '"';
+                mysqlc.query(string, function(err, row, fields) {
+                    if (typeof(row)) {
+                        connection.coin = row[0].coins;
+                        var coin = {coin: connection.coin,
+                            apu_min: rooms[connection.idsale].apu_min,
+                            apu_max: rooms[connection.idsale].apu_max};
+                        sendmessageuser(connection, 'numcoin', coin, clients);
+                    }
+
+                });
+                mysqlc.end();
+            }
+            //con esto accede a la sala selecionada
+            else if (msgObj.type === 'joingame') {
+                if (rooms[msgObj.idsale].boolpass == 1) {
+                    var mysqlc = mysql.createConnection(
+                            {
+                                host: '23.229.215.154',
+                                user: 'v1',
+                                password: 'Temporal01',
+                                database: 'v1',
+                            }
+                    );
+                    mysqlc.connect();
+
+                    var string = 'SELECT password,apu_min,apu_max FROM salespoker WHERE id=' + rooms[msgObj.idsale].id + '';
+
+                    mysqlc.query(string, function(err, row, fields) {
+                        if (typeof(row)) {
+                            accesstrue = false;
+                            if (row[0].password == msgObj.pass) {
+                                accesstrue = true;
+                            }
+                            if (!accesstrue) {
+                                connection.idsale = msgObj.idsale;
+                                sendmessageuser(connection, 'passfalse', 'Intente de nuevo');
+                            }
+                            else {
+                                connection.idsale = msgObj.idsale;
+                                joinsale(connection, msgObj.idsale, 'find', msgObj.idsale);
+                            }
+                        }
+
+
+                    });
+                    mysqlc.end();
+                }
+                //si la sala no tiene password
+                else {
+                    connection.idsale = msgObj.idsale;
+                    joinsale(connection, msgObj.idsale, 'find', msgObj.idsale);
+
+                }
             }
             else if (msgObj.type === 'intro') {
                 connection.nickname = msgObj.nickname;
@@ -229,6 +330,7 @@ wsServer.on('request', function(request) {
     connection.on('close', function(reasonCode, description) {
         var chatroom = connection.chatroom;
         var users = rooms[chatroom];
+        var usersallinsale = saleonline[connection.idsale];
         var usersall = clientsconectionall;
         clients = clients - 1;
         var newarrayclient = {};
@@ -254,6 +356,13 @@ wsServer.on('request', function(request) {
             if (connection.id === users[i].id) {
                 rooms[chatroom].splice(i, 1);
                 broadcast_chatters_list(connection.chatroom);
+            }
+        }
+        for (var i in usersallinsale) {
+            if (connection.id === usersallinsale[i].id) {
+                saleonline[connection.idsale].splice(i, 1);
+                saleonlineconex[connection.idsale].splice(i, 1);
+                updatesale(connection.idsale);
             }
         }
         console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
@@ -325,7 +434,6 @@ wsServer.on('request', function(request) {
         var boolpass = 1;
         if (ins.clave == '' || ins.clave == undefined) {
             boolpass = 0;
-
         }
 
         var mysqlc = mysql.createConnection(
@@ -357,7 +465,9 @@ wsServer.on('request', function(request) {
 
                 };
                 rooms[numsale] = newrow;
+                connection.idsale = row.insertId;
                 sendsales();
+                joinsale(connection, connection.idsale, 'false', numsale);
             }
 //            consigo el numero de salas para añadir una al arreglo
 
@@ -373,6 +483,87 @@ wsServer.on('request', function(request) {
         for (var i in users) {
 //            console.log(clientsconection['all'][i].token);
             sendmessageuser(clientsconectionall[i], 'sales', rooms)
+        }
+    }
+//function para actualizar todas las salas
+    function updatesale(id) {
+
+        for (i in saleonline[id]) {
+            sendmessageuser(saleonlineconex[idsale][i], 'joinsale', saleonline[idsale]);
+        }
+    }
+    //funcion para meter a un usuario en una sala
+    function joinsale(conex, idsale, idsit, idkey) {
+        //si eligio la silla lo ubico en la silla y envio a todos los usuarios la conexion
+        conex.apos = 0;
+        //si yo elgi sentarme
+
+        if (idsit == 'true') {
+            var conexarray = {
+                name: conex.first_name + " " + conex.last_name,
+                coin: conex.coin,
+                apos: conex.apos,
+                id: conex.id,
+                imageprofile: conex.imageprofile
+            }
+            saleonline[idsale][idkey] = conexarray;
+            saleonlineconex[idsale][idkey] = conex;
+            console.log(idkey);
+            var send = 0;
+            console.log(saleonlineconex[idsale][send]);
+            for (i = 0; i < saleonlineconex[idsale].length; i++) {
+//                se le coloco esto ya que automaticamente le añade el ++;
+                console.log(i);
+                send = i - 1;
+                if (saleonlineconex[idsale][send] !== undefined) {
+                    sendmessageuser(saleonlineconex[idsale][send], 'joinsale', saleonline[idsale]);
+                }
+            }
+        }
+        else if (idsit == 'false') {
+//            if (saleonline[idsale] == undefined) {
+            var maxjug = rooms[idkey].max_jug;
+            for (i = 0; i < maxjug; i++) {
+                if (saleonline[idsale] !== undefined) {
+                    var conexarray = {
+                        name: undefined,
+                        coin: undefined,
+                        apos: undefined,
+                        id: undefined,
+                        imageprofile: undefined,
+                    }
+                    saleonline[idsale].push(conexarray);
+                    saleonlineconex[idsale].push(conex);
+                }
+                else {
+                    var conexarray = {
+                        name: undefined,
+                        coin: undefined,
+                        apos: undefined,
+                        id: undefined,
+                        imageprofile: undefined
+                    }
+                    saleonline[idsale] = [conexarray];
+                    saleonlineconex[idsale] = [conex];
+
+                }
+
+//                }
+
+            }
+//        if (saleonline[idsale] !== undefined) {
+//            saleonline[idsale].push(conex);
+//        } else {
+//            saleonline[idsale] = [conex];
+//        }
+            sendmessageuser(connection, 'joinsale', saleonline[idsale]);
+
+        }
+        //solo envia los que estan conctado en la sala
+        else if (idsit == 'find') {
+
+            sendmessageuser(connection, 'joinsale', saleonline[idsale]);
+
         }
     }
 
