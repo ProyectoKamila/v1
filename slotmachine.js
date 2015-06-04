@@ -500,7 +500,7 @@ wsServer.on('request', function(request) {
         }));
     }*/
     function sendmessageuser(usersend, type, forsend) {
-        console.log(forsend);
+        console.log(forsend.length);
         usersend.send(JSON.stringify({
             type: type,
             userId: connection.id,
@@ -510,7 +510,7 @@ wsServer.on('request', function(request) {
         }));
     }
      function sendmessageuser2(usersend, type, forsend) {
-        console.log(forsend+'DOS');
+        console.log(forsend);
         usersend.send(JSON.stringify({
             type: type,
             userId: connection.id,

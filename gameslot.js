@@ -39,6 +39,8 @@ var cont = 0;
 var clientsconection = {};
 var clientsconectionall = [];
 var rooms = {};
+var jackpot=0;
+var percent=0;
 //clientsconection['all'] = {};
 
 
@@ -59,6 +61,24 @@ var mysqlc = mysql.createConnection(
             database: 'v1',
         }
 );
+
+ mysqlc.connect();
+        var string = 'SELECT jackpot,percent FROM casino_jackpot where id_jackpot=1;';
+
+mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+        
+    var jackpot =  row[0]['jackpot'];
+     var percent =  row[0]['percent'];
+}
+
+//console.log(jackpot);
+});
+
+
+console.log(string);
+
+     mysqlc.end();
 
 var allowed_protocol = 'server';
 
@@ -83,6 +103,9 @@ function originIsAllowed(origin) {
 
     return false;
 }
+
+
+
 
 wsServer.on('request', function(request) {
     if (!originIsAllowed(request.origin)) {
@@ -296,6 +319,8 @@ wsServer.on('request', function(request) {
 
     }
     function pruebaserver(objeto){
+
+var jac_fw=(jackpot*percent);
          
     var contador=0;
         var s_aRandSymbols=objeto.rands;
@@ -444,7 +469,7 @@ wsServer.on('request', function(request) {
                 
             }
              
-                        while(iTotWin >_iTotBet)   //verificar el monto antes de salir de esta función
+                        while(iTotWin >jac_fw)   //verificar el monto antes de salir de esta función
 
        // var vuelta = nrows.token*3;
        console.log('while!!!!!!!!!!!!!!!!: '+contador+ ' '+ iTotWin + ' '+ _iTotBet);
@@ -459,23 +484,15 @@ wsServer.on('request', function(request) {
                }
 
            }
-
+var tw=iTotWin;
     sendmessageuser(connection, 'prueba', _aWinningLine /*,_aFinalSymbolCombo*/);
      sendmessageuser2(connection, 'prueba2', _aFinalSymbolCombo /*,_aFinalSymbolCombo*/);
 
+  update_jackpot(jac_fw,tw)
+
     }
 
-  /* function sendwinnerlines(usersend, type, winnerline,finalc) {
-        console.log(winnerline + ' '+ finalc);
-        usersend.send(JSON.stringify({
-            type: type,
-            userId: connection.id,
-            sendwl: winnerline,
-            sendfc: finalc,
-            clients: clients
 
-        }));
-    }*/
     function sendmessageuser(usersend, type, forsend) {
         console.log(forsend);
         usersend.send(JSON.stringify({
@@ -496,5 +513,26 @@ wsServer.on('request', function(request) {
 
         }));
     }
+    function update_jackpot(jack,tw){
+
+
+
+     mysqlc.connect();
+
+ var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + (jack - tw) + 'WHERE `casino_jackpot`.`id_jackpot` = 1;';
+
+ mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+        
+
+}
+});
+
+jackpot=(jack - tw);
+
+console.log(string);
+
+     mysqlc.end();
+}
     
 });
