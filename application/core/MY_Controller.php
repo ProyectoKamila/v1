@@ -118,6 +118,7 @@ class MY_Controller extends CI_Controller {
             $this->session->set_userdata(array('name' => $check[0]['nickname']));
             $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
 //            debug($ss);
+            
             redirect('./');
 //            return $_SESSION;
 //            }
