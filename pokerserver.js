@@ -72,6 +72,22 @@ mysqlc.query(string, function(err, row, fields) {
     }
 
 });
+var string = 'ALTER TABLE  `salespoker` AUTO_INCREMENT 7;';
+
+mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+
+    }
+
+});
+var string = 'DELETE FROM  `salespoker` WHERE  `user_create` <>0;';
+
+mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+
+    }
+
+});
 var string = 'SELECT id,name,boolpass,apu_min,apu_max,max_jug,jug_min,jug_max FROM salespoker';
 
 mysqlc.query(string, function(err, row, fields) {
@@ -170,16 +186,6 @@ wsServer.on('request', function(request) {
                     connection.close();
                 } else {
                     clientsconection[connection.token] = connection.token;
-<<<<<<< HEAD
-
-
-                    var string = 'SELECT * FROM user_session WHERE user_token= "' + connection.token + '"';
-                   
-
-
-
-=======
->>>>>>> master
                     var mysqlc = mysql.createConnection(
                             {
                                 host: '23.229.215.154',
@@ -189,32 +195,41 @@ wsServer.on('request', function(request) {
                             }
                     );
                     mysqlc.connect();
-                    var string = 'SELECT * FROM user_session INNER JOIN user_data WHERE user_data.id_user = user_session.id_user AND user_session.user_token= "' + connection.token + '"';
+                    var string = 'SELECT * FROM active_session INNER JOIN user_data WHERE user_data.id_user = active_session.id_user AND active_session.token= "' + connection.token + '"';
                     mysqlc.query(string, function(err, row, fields) {
                         if (typeof(row)) {
-                            connection.id_user = row[0]['id_user'];
-                            connection.imageprofile = row[0]['imageprofile'];
-                            connection.first_name = row[0]['first_name'];
-                            connection.last_name = row[0]['last_name'];
-                            connection.gender = row[0]['gender'];
-                            connection.country = row[0]['country'];
-                            connection.city = row[0]['city'];
-                            connection.nationality = row[0]['nationality'];
-                            connection.coin = row[0]['coin'];
-                            if (row[0]['id_user'] == clientsconection[connection.id_user]) {
-                                sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
-                                connection.close();
+                            if (row !== undefined && row[0].id_user !== undefined) {
+//                                console.log(row);
+//                                console.log(string);
+                                connection.id_user = row[0]['id_user'];
+                                connection.imageprofile = row[0]['imageprofile'];
+                                connection.first_name = row[0]['first_name'];
+                                connection.last_name = row[0]['last_name'];
+                                connection.gender = row[0]['gender'];
+                                connection.country = row[0]['country'];
+                                connection.city = row[0]['city'];
+                                connection.nationality = row[0]['nationality'];
+                                connection.coin = row[0]['coin'];
+                                if (row[0]['id_user'] == clientsconection[connection.id_user]) {
+                                    sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
+                                    connection.close();
+                                }
+                                else {
+                                    cont = cont + 1;
+
+                                    clientsconectionall[cont] = connection;
+                                    clientsconection[connection.id_user] = connection.id_user;
+                                    sendmessageuser(connection, 'welcome', row);
+                                }
                             }
                             else {
-                                cont = cont + 1;
-
-                                clientsconectionall[cont] = connection;
-                                clientsconection[connection.id_user] = connection.id_user;
-                                sendmessageuser(connection, 'welcome', row);
+                                sendmessageuser(connection, 'welcome', 'aqui falso');
+                                connection.close();
                             }
                         }
                         else {
                             sendmessageuser(connection, 'welcome', 'aqui falso');
+                            connection.close();
                         }
                     });
 
@@ -229,6 +244,10 @@ wsServer.on('request', function(request) {
 
             }
             else if (msgObj.type === 'sitdown') {
+                if (connection.idsit > 6) {
+                    desconectadesala();
+                }
+                connection.idsit = msgObj.idsit;
                 joinsale(connection, connection.idsale, 'true', msgObj.idsit);
 
 
@@ -247,6 +266,7 @@ wsServer.on('request', function(request) {
                 mysqlc.query(string, function(err, row, fields) {
                     if (typeof(row)) {
                         connection.coin = row[0].coins;
+                        console.log(connection.idsale);
                         var coin = {coin: connection.coin,
                             apu_min: rooms[connection.idsale].apu_min,
                             apu_max: rooms[connection.idsale].apu_max};
@@ -258,6 +278,18 @@ wsServer.on('request', function(request) {
             }
             //con esto accede a la sala selecionada
             else if (msgObj.type === 'joingame') {
+
+                //falta enviar tambien que al salirse revise la jugada
+//pendient                
+//pendient                
+//pendient                
+//pendient                
+//pendient                
+//pendient                
+
+
+                desconectadesala();
+
                 if (rooms[msgObj.idsale].boolpass == 1) {
                     var mysqlc = mysql.createConnection(
                             {
@@ -340,7 +372,7 @@ wsServer.on('request', function(request) {
     connection.on('close', function(reasonCode, description) {
         var chatroom = connection.chatroom;
         var users = rooms[chatroom];
-        var usersallinsale = saleonline[connection.idsale];
+        var usersallinsale = saleonlineconex[connection.idsale];
         var usersall = clientsconectionall;
         clients = clients - 1;
         var newarrayclient = {};
@@ -368,13 +400,11 @@ wsServer.on('request', function(request) {
                 broadcast_chatters_list(connection.chatroom);
             }
         }
-        for (var i in usersallinsale) {
-            if (connection.id === usersallinsale[i].id) {
-                saleonline[connection.idsale].splice(i, 1);
-                saleonlineconex[connection.idsale].splice(i, 1);
-                updatesale(connection.idsale);
-            }
-        }
+//        for (var i in usersallinsale) {
+//            console.log(i);
+//            if (connection.id === usersallinsale[i].id) {
+//                saleonline[connection.idsale].splice(i, 1);
+        desconectadesala();
         console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
     });
 
@@ -459,8 +489,8 @@ wsServer.on('request', function(request) {
 
         mysqlc.query(string, function(err, row) {
             if (typeof(row)) {
-                var numsale = rooms.length;
-                numsale = numsale++;
+//                var numsale = rooms.length;
+//                numsale = numsale++;
                 var newrow = {
                     'id': row.insertId,
                     'name': ins.namesale,
@@ -474,10 +504,11 @@ wsServer.on('request', function(request) {
                     'jug_max': ins.maxci
 
                 };
-                rooms[numsale] = newrow;
+                rooms[row.insertId] = newrow;
+//                var numsale = rooms.length - 1;
                 connection.idsale = row.insertId;
                 sendsales();
-                joinsale(connection, connection.idsale, 'false', numsale);
+                joinsale(connection, connection.idsale, 'false', row.insertId);
             }
 //            consigo el numero de salas para añadir una al arreglo
 
@@ -497,9 +528,11 @@ wsServer.on('request', function(request) {
     }
 //function para actualizar todas las salas
     function updatesale(id) {
-
-        for (i in saleonline[id]) {
-            sendmessageuser(saleonlineconex[idsale][i], 'joinsale', saleonline[idsale]);
+//        var send = 0;
+        for (i in saleonlineconex[id]) {
+            if (saleonlineconex[id][i] !== undefined) {
+                sendmessageuser(saleonlineconex[id][i], 'joinsale', saleonline[id]);
+            }
         }
     }
     //funcion para meter a un usuario en una sala
@@ -518,20 +551,19 @@ wsServer.on('request', function(request) {
             }
             saleonline[idsale][idkey] = conexarray;
             saleonlineconex[idsale][idkey] = conex;
-            console.log(idkey);
-            var send = 0;
-            console.log(saleonlineconex[idsale][send]);
-            for (i = 0; i < saleonlineconex[idsale].length; i++) {
+//            var send = 0;
+            for (i in saleonlineconex[idsale]) {
 //                se le coloco esto ya que automaticamente le añade el ++;
-                console.log(i);
-                send = i - 1;
-                if (saleonlineconex[idsale][send] !== undefined) {
-                    sendmessageuser(saleonlineconex[idsale][send], 'joinsale', saleonline[idsale]);
+//                send = i - 1;
+                if (saleonlineconex[idsale][i] !== undefined) {
+                    sendmessageuser(saleonlineconex[idsale][i], 'joinsale', saleonline[idsale]);
                 }
             }
         }
         else if (idsit == 'false') {
 //            if (saleonline[idsale] == undefined) {
+            console.log(idkey);
+            console.log(rooms[idkey]);
             var maxjug = rooms[idkey].max_jug;
             for (i = 0; i < maxjug; i++) {
                 if (saleonline[idsale] !== undefined) {
@@ -555,6 +587,7 @@ wsServer.on('request', function(request) {
                     }
                     saleonline[idsale] = [conexarray];
                     saleonlineconex[idsale] = [conex];
+                    console.log(saleonlineconex[idsale].length);
 
                 }
 
@@ -572,8 +605,35 @@ wsServer.on('request', function(request) {
         //solo envia los que estan conctado en la sala
         else if (idsit == 'find') {
 
+//            buscar cuando se crea ya que no esta creando cada uno de los campos tampoco crea saleonline
+//            console.log(saleonlineconex[idsale]);
+//            var cant = saleonlineconex[idsale].length;
+//            connection.idsit = cant;
+//            saleonlineconex[idsale].push(conex);
             sendmessageuser(connection, 'joinsale', saleonline[idsale]);
 
+        }
+    }
+    function desconectadesala() {
+        if (connection.idsale !== undefined) {
+            var conexarray = {
+                name: undefined,
+                coin: undefined,
+                apos: undefined,
+                id: undefined,
+                imageprofile: undefined,
+            }
+            if (saleonline[connection.idsale][connection.idsit] !== undefined) {
+                saleonline[connection.idsale][connection.idsit] = [conexarray];
+            }
+            if (connection.idsit !== undefined) {
+//                console.log(saleonlineconex[connection.idsale]);
+                saleonlineconex[connection.idsale].splice(connection.idsit, 1);
+//                console.log(saleonlineconex[connection.idsale]);
+                if (connection.idsit < 7) {
+                    updatesale(connection.idsale);
+                }
+            }
         }
     }
 
