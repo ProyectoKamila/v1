@@ -18,6 +18,9 @@
                     <li>
                         <a href="./myprofile"><i class="glyphicon glyphicon-user"></i> Perfil</a>
                     </li>
+                     <li>
+                        <a href="./load-payment"><i class="glyphicon glyphicon-user"></i> Cargar Saldo</a>
+                    </li>
                     <li>
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                     </li>

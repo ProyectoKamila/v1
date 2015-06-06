@@ -47,27 +47,47 @@ class Player extends MY_Controller {
 //        if($insert != null){
 //            $this->validar_post($n, $this->input->post('password'));
 //        }
-    }
+        }
     }
 
         public function user_profile() {
-        $role = parent::verify_role();
-        if($role == false){
-            //debug(print_r($this->session->userdata('id_user')));
-            $data = $this->modelo_universal->select('user_data', '*', array('id_user' =>  $this->session->userdata('id_user')));
-            //debug(print_r($data));
-        
+            $role = parent::verify_role();
+            if($role == false){
+                //debug(print_r($this->session->userdata('id_user')));
+                $data = $this->modelo_universal->select('user_data', '*', array('id_user' =>  $this->session->userdata('id_user')));
+                //debug(print_r($data));
+            
 
-           /* if (!$data){
-                redirect('./inser_controller/insertc');
-            }*/
-            $this->data['dat'] = $data;
-        //debug(print_r($this->session->userdata));
-             
-            $this->header('player');
-            $this->navigation();
-            $this->load->view('page/insert/registercompl');
-    }
-    }
+               /* if (!$data){
+                    redirect('./inser_controller/insertc');
+                }*/
+                $this->data['dat'] = $data;
+            //debug(print_r($this->session->userdata));
+                 
+                $this->header('player');
+                $this->navigation();
+                $this->load->view('page/insert/registercompl');
+            }
+        }
+
+        public function load_payment() {
+            $role = parent::verify_role();
+            if($role == false){
+                //debug(print_r($this->session->userdata('id_user')));
+                $data = $this->modelo_universal->select('user_data', '*', array('id_user' =>  $this->session->userdata('id_user')));
+                //debug(print_r($data));
+            
+
+               /* if (!$data){
+                    redirect('./inser_controller/insertc');
+                }*/
+                $this->data['id_user'] = $this->session->userdata('id_user');
+                //debug(print_r($this->data['id_user']));
+                 
+                $this->header('player');
+                $this->navigation();
+                $this->load->view('player/load_payment', $this->data);
+            }
+        }
 
 }
