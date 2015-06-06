@@ -16,7 +16,10 @@
                         <a href="./"><i class="fa fa-dashboard fa-fw"></i> Escritorio</a>
                     </li>
                     <li>
-                        <a href="./"><i class="glyphicon glyphicon-user"></i> Perfil</a>
+                        <a href="./myprofile"><i class="glyphicon glyphicon-user"></i> Perfil</a>
+                    </li>
+                     <li>
+                        <a href="./load-payment"><i class="glyphicon glyphicon-user"></i> Cargar Saldo</a>
                     </li>
                     <li>
                         <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
@@ -24,8 +27,24 @@
                     <li>
                         <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
                     </li>
+
                     <li>
-                        <a href="<?php echo site_url('slotmachine'); ?>"><i class="fa fa-edit fa-fw"></i> SlotMachine</a>
+                        <a href="#"><i class="fa fa-users fa-fw"></i> Juegos<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?php echo site_url('slotmachine'); ?>"><i class="fa fa-edit fa-fw"></i> SlotMachine</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('roulette'); ?>"><i class="fa fa-edit fa-fw"></i> Roulette</a>
+                            </li>
+                             <li>
+                                <a href="<?php echo site_url('blackjack'); ?>"><i class="fa fa-edit fa-fw"></i> Blacjack</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('jacks'); ?>"><i class="fa fa-edit fa-fw"></i> Jacks</a>
+                            </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>

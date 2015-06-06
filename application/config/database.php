@@ -52,6 +52,7 @@ $active_record = TRUE;
 //$db['default']['username'] = 'root';
 //$db['default']['password'] = 'root';
 //$db['default']['database'] = 'amz';
+
 $db['default']['hostname'] = '23.229.215.154';
 $db['default']['username'] = 'v1';
 $db['default']['password'] = 'Temporal01';

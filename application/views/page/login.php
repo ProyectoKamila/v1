@@ -40,6 +40,11 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-2">
                     <div class="login-panel panel panel-default">
+                    <?php if ($this->session->flashdata('message')!= null){
+                        echo "<div id='infoMessage' class='alert alert-danger' role='alert'>". $this->session->flashdata('message') ."</div>";
+                        }
+                    ?>
+              
                         <div class="panel-heading">
                             <h3 class="panel-title">Identificarse</h3>
                         </div>

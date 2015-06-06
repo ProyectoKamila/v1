@@ -48,22 +48,37 @@ $route['profile'] = "casino/profile/";
 $route['detail_profile'] = "casino/detail_profile/";
 $route['login'] = "casino/login/";
 $route['close'] = "casino/close/";
-$route['slotmachine'] = "casino/slotmachine/";
-$route['receivingdc'] = "insert_controller/recibirdc/";
-$route['newest'] = "insert_controller/newest/";
-$route['check'] = "insert_controller/receivingdata/";
-$route['completereg'] = "insert_controller/insertc/";
-$route['enable'] = "insert_controller/enable/";
-$route['enable/(:any)'] = "insert_controller/enable/$1";
-
 $route['dashboard'] = "casino/dashboard/";
+//////////////////////////////////////////////jugegos y demos de juegos////////////////////////////////////////////////////
+$route['close_home'] = "casino/close_home/";
+$route['slotmachine'] = "casino/slotmachine/";
+$route['demo-slotmachine'] = "casino/demo_slotmachine/";
+$route['roulette'] = "casino/roulette/";
+$route['blackjack'] = "casino/blackjack/";
+$route['jacks'] = "casino/jacks/";
 $route['game/watch-game'] ='casino/watch_game';
 /////////////////////////////////////////////////////controlador PLAYER/////////////////////////////////////////////////////
 $route['account'] = "player/index/";
 $route['registering'] = "player/registering/";
+$route['myprofile'] = "player/user_profile/";
+$route['load-payment'] = "player/load_payment/";
 /////////////////////////////////////////////////////controlador insert_controller/////////////////////////////////////////////////////
+$route['receivingdc'] = "insert_controller/recibirdc/";
+$route['nuevo'] = "insert_controller/nuevo/";
+$route['verificar'] = "insert_controller/recibirdatos/";
+$route['completereg'] = "insert_controller/insertc/";
+$route['check'] = "insert_controller/receivingdata/";
+$route['activar'] = "insert_controller/activar/";
+$route['activar/(:any)'] = "insert_controller/activar/$1";
 $route['newest'] = "insert_controller/newest/";
+$route['enable'] = "insert_controller/enable/";
+$route['enable/(:any)'] = "insert_controller/enable/$1";
+
+/////////////////////////////////////////////////////controlador nuevo/////////////////////////////////////////////////////
+
+
 /////////////////////////////////////////////////////controlador newest/////////////////////////////////////////////////////
+
 
 
 /////////////////////////////////////////////////////controlador OTRO/////////////////////////////////////////////////////

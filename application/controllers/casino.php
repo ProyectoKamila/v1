@@ -16,6 +16,9 @@ class Casino extends MY_Controller {
     }
 
     public function index() {
+//        $role = parent::verify_role();
+//        if($role == true){
+//        debug($role);
 //        debug($this->last_hour());
         $this->token_cokie();
 //        debug($this->session->userdata('id_role'));
@@ -27,16 +30,22 @@ class Casino extends MY_Controller {
         }elseif ($this->session->userdata('id_role') == false) {
             parent::index();
         }
+//    }
     }
 
     public function dashboard() {
+        $role = parent::verify_role();
+        if($role == true){
 //            $this->load->view('page/header');
         $this->header('admin');
         $this->navigation();
         $this->load->view('page/index');
     }
+    }
 
     public function profile($message = null) {
+        $role = parent::verify_role();
+        if($role == true){
 
         if ($message == 'online') {
             $users = $this->modelo_universal->query('SELECT * FROM `user` where `id_user_status` =1');
@@ -63,9 +72,12 @@ class Casino extends MY_Controller {
             $this->load->view('page/profile', $this->data);
         }
     }
+    }
     
 
     public function detail_profile($id = null) {
+        $role = parent::verify_role();
+        if($role == true){
 
         if(!$id){
             redirect('./casino/profile');
@@ -79,11 +91,11 @@ class Casino extends MY_Controller {
         $this->data['bet'] = $bet;
         $this->data['balance'] = $balance;
         $this->data['game'] = $game;
-        echo "detalle perfil";
         $this->navigation();
         $this->load->view('page/header');
         $this->load->view('page/detail_profile');
     
+    }
     }
     
 
@@ -93,6 +105,9 @@ class Casino extends MY_Controller {
 
     public function close() {
         parent::close();
+    }
+    public function close_home() {
+        parent::close_home();
     }
 
     public function pr() {
@@ -107,13 +122,32 @@ class Casino extends MY_Controller {
     }
 
     public function watch_game() {
-        $this->header('admin');
-        $this->navigation();
-        $this->load->view('page/watch-game');
+        $role = parent::verify_role();
+        if($role == true){
+            $this->header('admin');
+            $this->navigation();
+            $this->load->view('page/watch-game');
+        }
     }
     
     public function slotmachine(){
         $this->load->view('slotmachine/index');
     }
+
+    public function demo_slotmachine(){
+        $this->load->view('slotmachine/demo-index');
+    }
+
+     public function roulette(){
+        $this->load->view('roulette/index');
+    }
+
+     public function blackjack(){
+        $this->load->view('blackjack/index');
+    }
+    public function jacks(){
+        $this->load->view('jacks/index');
+    }
+
 
 }

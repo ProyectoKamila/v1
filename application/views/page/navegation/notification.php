@@ -46,7 +46,7 @@
             <li><a href="#"><i class="fa fa-gear fa-fw"></i> Ajustes</a>
             </li>
             <li class="divider"></li>
-            <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesi&oacute;n</a>
+            <li><a href="./close"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesi&oacute;n</a>
             </li>
         </ul>
         <!-- /.dropdown-user -->

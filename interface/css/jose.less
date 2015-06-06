@@ -1,0 +1,634 @@
+html{
+    background-color: @verde-oscuro;
+}
+body{
+    overflow-x: hidden;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif !important;
+    background-color: @verde-oscuro !important;	
+    -webkit-font-smoothing: antialiased;
+}
+.sin-padding{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+.vip{
+    width: 100%;
+    height: auto;
+    display: none;
+}
+
+.register-form{
+    border: 1px solid white;
+    border-radius: 5px;
+    margin-top: 40px;
+    padding-bottom: 40px;
+    margin-bottom: 50px;
+    position: relative;
+    h2{
+        text-align: center;
+        font-weight: 200;
+        border-bottom: 3px solid white;
+        width: 90%;
+        margin-left: 5%;
+        padding-bottom: 10px;
+        text-transform: uppercase;
+        font-size: 20px;
+    }
+    label{
+        color: white;
+        clear: both;
+        display: block;
+        margin: 0 auto;
+        margin-left: 10%;
+        font-weight: 200;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+    input.text{
+        width: 80%;
+        clear: both;
+        height: 35px;
+        display: block;
+        margin: 0 auto;
+        transition: 1s all ease-in-out;
+        margin-bottom: 10px;
+    }
+    input:focus{
+        outline: 2px solid @mostaza;
+    }
+    .btn-submit{
+        display: block;
+        margin: 0 auto;
+        padding-left: 25px;
+        padding-right: 25px;
+        background: @mostaza;
+        color: @verde-oscuro;
+        border: none;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    p{
+        text-align: center;
+        color: white;
+        font-weight: 200;
+        font-size: 16px;
+        margin-bottom: 40px;
+        margin-top: 25px;
+    }
+}
+.navegation{
+    height: 135px;
+    background: @rojo;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    box-shadow: -2px -8px 10px #000;
+    .nav, .nav-pills{
+        display: block;
+        z-index: 2;
+        li{
+            a{
+                padding-top: 60px;
+                padding-bottom: 55px;
+                padding-left: 15px;
+                padding-right: 15px;
+                background: none;
+                color: white;
+                display: block;
+                font-weight: bold;
+            }
+            a:hover , a.active{
+                background-color: none !important;
+                color: white;
+
+            }
+        }
+    }
+}
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+    background-color: @rojo !important;		
+    color: white;
+}
+.nav>li>a:focus, .nav>li>a:hover{
+    background-color: @rojo !important;			
+    color: white;
+}
+.acceder{
+    width: 100%;
+    height: 135px;
+
+    .activator{
+        width: 100%;
+        height: 62px;
+        background: url('../images/recortes/home/puntiagudo2.png') top center no-repeat;	
+        background-size: cover;
+        overflow: hidden;
+        cursor: pointer;
+        p{
+            color: white;
+            text-align: center;
+            padding-top: 10px;
+            font-size: 18px;
+            font-weight: 200;
+            -webkit-font-smoothing: antialiased;
+            text-shadow: 1px 2px 5px #333;
+        }
+    }
+
+}
+.redes{
+    width: 100%;
+
+    img{
+        float: left;
+        margin-top: 15px;
+        margin-left: 2px;
+    }
+}
+.logo{
+    width: 100%;
+    height: 210px;
+    background: url('../images/recortes/home/puntiagudo.png') top center no-repeat;
+    position: relative;
+    z-index: 20;
+    margin: 0 auto;
+    margin-top: 0px;
+    overflow: hidden;
+    img{
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        margin-top: 2%;
+    }
+
+}
+.content-slider{
+    padding: 0px;
+    position: relative;
+    display: block;
+    clear: both;
+    height: 600px;
+    margin-top: -20px;
+    ul{
+        padding: 0px;
+        margin: 0px;
+    }
+    li{
+        padding: 0px;
+        margin: 0px;	
+        position: relative;
+        overflow: hidden;	
+    }
+}
+.slider{
+    width: 100%;
+    height: 600px;
+    background: white;
+
+}
+.list-game{
+    margin-bottom: 20px;
+    margin-top: -216px;
+    .list{
+        width: 100%;
+        background: @gris-plomo;
+        min-height: 216px;
+        position: relative;	
+        border: none;
+        -webkit-border-image: url(../images/recortes/juegos/linea.png) 40 round; /* Safari 3.1-5 */
+        -o-border-image: url(../images/recortes/juegos/linea.png) 40 round; /* Opera 11-12.1 */
+        border-image: url(../images/recortes/juegos/linea.png) 40 round;
+        border-top: 5px solid transparent;
+        border-bottom: 0px;
+        .name-game{
+            width: 100%;
+            height: 216px;
+            background: none;
+            overflow: hidden;
+            cursor: pointer;
+            h4{
+                text-align: center;
+                padding-top: 10px;
+            }
+            .icon{
+                width:100px;
+                height: 100px;
+                opacity: 0.7;
+                position: relative;
+                margin: 0 auto;
+                overflow: hidden;
+                margin-top: 25px;
+                background-position-y:0%;
+                background-position-x:0%;
+                transition: 1s all ease-in-out;
+                img{
+                    width: 100%;
+                    height: auto;
+                    max-height: 100px;
+                }
+
+            }
+        }
+        .name-game:hover{
+            background: @rojo;
+            .icon{
+                opacity: 1.7;
+                background-position-y:100% !important;
+                background-position-x:0%;	
+
+            }
+        }
+    }
+    .option-game{
+        min-height: 210px;
+        width: 100%;
+        background: @rojo;
+        overflow: hidden;
+        display: none;
+        clear: both;
+        .resumen{
+            padding: 5px;
+
+            p{
+                text-align: justify;
+                color: white;
+                margin-top: 20px;
+            }
+        }
+        .mini-excerpt{
+            padding: 5px;
+            p{
+                color: #bb6a6a;
+                margin-top: 20px;
+                text-align: justify;
+            }
+        }
+        .read-more{
+            text-align: center;
+            color: white;
+            display: block;
+            margin-top: 40px;
+            font-size: 18px;
+
+        }
+        .btn-default{
+            text-align: center;
+            font-weight: 200;
+            width: 80%;
+            margin-left: 5%;
+            background: @gris-plomo;
+            color: white;	
+            height: 90px;
+            border: none;
+            font-size: 18px;
+            border-radius: 0px;
+            margin-top: 55px;
+        }
+
+    }
+    .game-in{
+        clear: both;
+    }
+}
+.informative{
+    position: relative;
+    clear: both;
+    .mesa{
+        width: 100%;
+        min-height: 655px;
+        height: auto;
+        background: url('../images/recortes/home/mesa1.png') top center no-repeat;
+        .section{
+            margin-top: 100px;
+            text-align: center;
+        }
+        .info{
+            color: white;
+
+            h2{
+                font-size: 20px;
+            }
+            p{
+                text-align: justify;
+                line-height: 1.5;
+            }
+        }
+        .logo-mesa{
+            background: url('../images/recortes/home/logo-centro.png') top center no-repeat;
+            background-size: contain;
+            width: 100%;
+            height: 292px;
+            margin-top: 200px;
+        }
+    }
+}
+.section-bottom{
+    color: white;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    position: relative;
+    display: block;
+
+    h2{
+        font-size: 20px;
+        text-align: center;
+    }
+    p{
+        text-align: justify;
+        line-height: 1.5;
+    }
+    .center{
+        text-align: center;
+        font-size: 28px;
+        margin: 0 auto;
+        position: relative;;
+        display: block;
+        cursor: pointer;
+        span{
+            color: white;
+            font-size: 32px;
+        }
+    }
+    .btn{
+        background: @rojo;
+        color: white;
+        font-size: 16px;
+    }
+    .btn:hover{
+        background: @rojo;
+        color: white;	
+    }
+}
+.cartas{
+    margin-top: 40px;
+    clear: both;
+    position: relative;
+    display: block;
+    margin-bottom: 40px;
+    .carta-efecto{
+        height: 328px;
+        overflow:hidden;
+    }
+    .carta-efecto:hover{
+        overflow: visible;
+        .carta{
+            -webkit-transform: translateY(328px);
+            transform: translateY(328px) rotateZ(180deg);
+            opacity: 0;
+        }
+        .carta-real{
+            -webkit-transform: translateY(-328px);
+            transform: translateY(-328px) rotateZ(360deg);
+            opacity: 1;
+        }
+    }
+    .carta{
+        height: 328px;
+        background: url('../images/recortes/home/carta-retiro.png')top center no-repeat;
+        margin: 0 auto;
+        width: 240px !important;
+        border-radius: 10px;
+        overflow: hidden;
+        transition:0.5s all ease-in-out;
+        z-index: 2;
+        background-size: 100%;
+    }
+    .pica{
+        background: url('../images/recortes/home/carta-tiro4.png')top center no-repeat;
+    }
+    .diamante{
+        background: url('../images/recortes/home/carta-tiro2.png')top center no-repeat;
+    }
+    .corazon{
+        background: url('../images/recortes/home/carta-tiro.png')top center no-repeat;
+    }
+    .trebol{
+        background: url('../images/recortes/home/carta-tiro3.png')top center no-repeat;
+    }
+    .carta-real{
+        width: 240px !important;
+        height: 328px;
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        transition:1s all ease-in-out;
+        margin: 0 auto;
+        z-index: 1;
+        opacity: 0;
+
+        .icon{
+            position: relative;
+            margin: 0 auto;
+            margin-top: 30px;
+            display: block;
+            width: 134px;
+            height: 134px;
+        }
+        p{
+            text-align: center;
+            font-size: 19px;
+            width: 80%;
+            margin-left:10%;
+            strong{
+                color:@rojo;
+            }
+
+        }
+    }
+}
+.mesa-baja{
+    width: 100%;
+    height:auto;
+    background: url(../images/recortes/home/mesa2.png) bottom  center no-repeat;
+    background-size: cover;
+    padding-bottom: 50px;
+    padding-bottom: 50px;
+    -webkit-animation: mesa 5s infinite; 
+    animation: mesa 5s infinite;
+    transition:0.3s all ease-in-out;
+    margin-bottom: 20px;
+    .section-bottom{
+        width: 90%;
+        margin-left: 10%; 
+        padding-bottom: 200px;
+
+    }
+
+}
+footer{
+    width: 100%;
+    background: @gris-plomo;
+    position:relative;
+    clear:both;
+    .pre{
+        border-bottom: 1px solid white;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        .redes{
+            width: 180px;
+            margin: 0 auto;
+            position: relative;
+            margin-bottom: 10px;
+        }
+    }
+    .copy{
+        color: white;
+        font-size: 18px;
+        padding-top: 20px;
+    }
+    a{
+        color: white;
+    }
+    .telefono{
+        color: white;
+        padding-top: 15px;
+        font-size: 20px;
+    }
+    .email{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+.menu-botones{
+    padding-top: 15px;
+    text-align: center;;
+    font-size: 36px;
+    color: white;
+    span{
+        cursor: pointer;
+    }
+}
+.menu-movil{
+    width: 100%;
+    top: -10px;
+    position: absolute;
+    z-index: 2;
+    background: @rojo;
+    display: none;
+    .nav{
+        width: 100%;
+        padding-top: 80px;
+        li{
+            width: 100%;
+            text-align: center;
+            float: none;
+            display: block;
+            position: relative;
+            a{
+                color: white;
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+        }
+    }
+}
+.content-canvas{
+    position: relative;
+    display: block;
+    
+    width: 100%;
+    height: auto;
+    canvas{
+        position:relative !important;
+        margin: 0 auto;
+        display:relative;
+    }
+}
+@media (max-width: @screen-xs-max) {
+    .informative{
+        .mesa{
+            background: @verde-oscuro;
+            .logo-mesa{
+                margin-top: 0px;
+            }
+        }
+    }
+    .carta-efecto{
+        margin-bottom: 10px;
+    }
+    .mesa-baja{
+        b
+        ackground-size: cover !important;
+    }	
+    .acceder{
+
+        .activator{
+            background: @mostaza;
+            height: 30px;
+            margin-right: 10px;
+            p{
+                font-size: 12px;
+
+            }
+        }
+    }
+}
+@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { 
+    .informative{
+        .mesa{
+            background: @verde-oscuro;
+        }
+        .logo-mesa{
+            margin-top: 0px;
+        }
+    }
+
+}
+@media (min-width: @screen-md-min) and (max-width: @screen-md-max) { 
+
+    .navegation{
+        .nav, .nav-pills{
+            li{
+                a{
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+            }
+        }
+    }
+
+}
+@media (min-width: @screen-lg-min) and (max-width: 1200px){ 
+    .navegation{
+        .nav, .nav-pills{
+            li{
+                a{
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+            }
+        }
+    }
+}
+/* Chrome, Safari, Opera */ 
+@-webkit-keyframes mesa {
+    0%   {
+        background: url(../images/recortes/home/mesa2.png) 100% 120% no-repeat;
+        background-size: cover;
+        padding-bottom: 50px;
+    }
+    80%   {
+        background: url(../images/recortes/home/mesa3.png) 100% 120% no-repeat;
+        background-size: cover;
+        padding-bottom: 50px;
+    }
+
+}
+
+/* Standard syntax */
+@keyframes mesa {
+    0%   {
+        background: url(../images/recortes/home/mesa2.png)  bottom  center no-repeat;
+        background-size: cover;
+        padding-bottom: 50px;
+    }
+    80%   {
+        background: url(../images/recortes/home/mesa3.png)  bottom  center no-repeat;
+        background-size: cover;
+        padding-bottom: 50px;
+    }
+}
