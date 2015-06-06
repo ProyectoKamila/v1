@@ -40,6 +40,7 @@ var clientsconection = {};
 var clientsconectionall = [];
 var rooms = {};
 var jackpot =  0;
+var debt =  0;
 var percent = 0.0;
 //clientsconection['all'] = {};
 
@@ -55,9 +56,9 @@ var allowed_origins = [
 
 var mysqlc = mysql.createConnection(
         {
-                    host: 'localhost',//'23.229.215.154',
-                    user: 'root',//'v1',
-                    password: '',//'Temporal01',
+                    host: '23.229.215.154',
+                    user: 'v1',
+                    password: 'Temporal01',
                     database: 'v1',
         }
 );
@@ -153,9 +154,9 @@ wsServer.on('request', function(request) {
 
                     var mysqlc = mysql.createConnection(
                             {
-                                host: 'localhost',//'23.229.215.154',
-                                user: 'root',//'v1',
-                                password: '',//'Temporal01',
+                                host: '23.229.215.154',
+                    user: 'v1',
+                    password: 'Temporal01',
                     database: 'v1',
                             }
                     );
@@ -309,9 +310,9 @@ wsServer.on('request', function(request) {
     function mysqlcreate() {
         var mysqlconect = mysql.createConnection(
                {
-                    host: 'localhost',//'23.229.215.154',
-                    user: 'root',//'v1',
-                    password: '',//'Temporal01',
+                    host: '23.229.215.154',
+                    user: 'v1',
+                    password: 'Temporal01',
                     database: 'v1',
                 }
         );
@@ -323,9 +324,9 @@ wsServer.on('request', function(request) {
   function update_jackpot(jack,tw){
 var mysqlconect = mysql.createConnection(
                {
-                    host: 'localhost',//'23.229.215.154',
-                    user: 'root',//'v1',
-                    password: '',//'Temporal01',
+                    host: '23.229.215.154',
+                    user: 'v1',
+                    password: 'Temporal01',
                     database: 'v1',
                 }
 
@@ -517,10 +518,10 @@ console.log(string);
                }
 
            }
-          // update_jackpot(jackpot,iTotWin);
+           
 
           jackpot= jac_fw - iTotWin;
-
+            update_jackpot(jackpot);
           console.log('actualizado '+ jackpot);
 
     sendmessageuser(connection, 'prueba', _aWinningLine /*,_aFinalSymbolCombo*/);
@@ -549,13 +550,20 @@ console.log(string);
 
         }));
     }
-    function update_jackpot(jack,tw){
+    function update_jackpot(jack){
 
-
+var mysqlc = mysql.createConnection(
+        {
+                    host: '23.229.215.154',
+                    user: 'v1',
+                    password: 'Temporal01',
+                    database: 'v1',
+        }
+);
 
      mysqlc.connect();
 
- var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + (jack - tw) + 'WHERE `casino_jackpot`.`id_jackpot` = 1;';
+ var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + jack+ ' WHERE `casino_jackpot`.`id_jackpot` = 1;';
 
  mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
@@ -564,7 +572,7 @@ console.log(string);
 }
 });
 
-jackpot=(jack - tw);
+
 
 console.log(string);
 

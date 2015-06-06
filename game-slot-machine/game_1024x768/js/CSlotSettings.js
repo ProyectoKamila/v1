@@ -150,37 +150,37 @@ function CSlotSettings(){
         
         var i;
         //OCCURENCE FOR SYMBOL 1
-        for(i=0;i<2;i++){
+        for(i=0;i<1;i++){
             s_aRandSymbols.push(1);
         }
         
         //OCCURENCE FOR SYMBOL 2
-        for(i=0;i<4;i++){
+        for(i=0;i<2;i++){
             s_aRandSymbols.push(2);
         }
         
         //OCCURENCE FOR SYMBOL 3
-        for(i=0;i<6;i++){
+        for(i=0;i<3;i++){
             s_aRandSymbols.push(3);
         }
         
         //OCCURENCE FOR SYMBOL 4 4
-        for(i=0;i<8;i++){
+        for(i=0;i<4;i++){
             s_aRandSymbols.push(4);
         }
         
         //OCCURENCE FOR SYMBOL 5 4
-        for(i=0;i<10;i++){
+        for(i=0;i<4;i++){
             s_aRandSymbols.push(5);
         }
         
         //OCCURENCE FOR SYMBOL 6 6
-        for(i=0;i<16;i++){
+        for(i=0;i<6;i++){
             s_aRandSymbols.push(6);
         }
         
         //OCCURENCE FOR SYMBOL 7 6
-        for(i=0;i<20;i++){
+        for(i=0;i<6;i++){
             s_aRandSymbols.push(7);
         }
         

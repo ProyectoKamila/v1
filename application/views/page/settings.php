@@ -1,50 +1,50 @@
 <script>
-<?php ?>
-var CANVAS_WIDTH = 1024;
-var CANVAS_HEIGHT = 768;
 
-var FPS_TIME      = 1000/24;
-var DISABLE_SOUND_MOBILE = true;
+var CANVAS_WIDTH = <?php echo $CANVAS_WIDTH ?>;
+var CANVAS_HEIGHT = <?php echo $CANVAS_HEIGHT ?>;
 
-var STATE_LOADING = 0;
-var STATE_MENU    = 1;
-var STATE_HELP    = 1;
-var STATE_GAME    = 3;
+var FPS_TIME      = <?php echo $FPS_TIME ?>;
+var DISABLE_SOUND_MOBILE = <?php echo $DISABLE_SOUND_MOBILE ?>;
 
-var GAME_STATE_IDLE         = 0;
-var GAME_STATE_SPINNING     = 1;
-var GAME_STATE_SHOW_ALL_WIN = 2;
-var GAME_STATE_SHOW_WIN     = 3;
+var STATE_LOADING = <?php echo $STATE_LOADING ?>;
+var STATE_MENU    = <?php echo $STATE_MENU ?>;
+var STATE_HELP    = <?php echo $STATE_HELP ?>;
+var STATE_GAME    = <?php echo $STATE_GAME ?>;
 
-var REEL_STATE_START   = 0;
-var REEL_STATE_MOVING = 1;
-var REEL_STATE_STOP    = 2;
+var GAME_STATE_IDLE         = <?php echo $GAME_STATE_IDLE ?>;
+var GAME_STATE_SPINNING     = <?php echo $GAME_STATE_SPINNING ?>;
+var GAME_STATE_SHOW_ALL_WIN = <?php echo $GAME_STATE_SHOW_ALL_WIN ?>;
+var GAME_STATE_SHOW_WIN     = <?php echo $GAME_STATE_SHOW_WIN ?>;
 
-var ON_MOUSE_DOWN = 0;
-var ON_MOUSE_UP   = 1;
-var ON_MOUSE_OVER = 2;
-var ON_MOUSE_OUT  = 3;
-var ON_DRAG_START = 4;
-var ON_DRAG_END   = 5;
+var REEL_STATE_START   = <?php echo $REEL_STATE_START ?>;
+var REEL_STATE_MOVING = <?php echo $REEL_STATE_MOVING ?>;
+var REEL_STATE_STOP    = <?php echo $REEL_STATE_STOP ?>;
 
-var REEL_OFFSET_X = 142;
-var REEL_OFFSET_Y = 148;
+var ON_MOUSE_DOWN = <?php echo $ON_MOUSE_DOWN ?>;
+var ON_MOUSE_UP   = <?php echo $ON_MOUSE_UP ?>;
+var ON_MOUSE_OVER = <?php echo $ON_MOUSE_OVER ?>;
+var ON_MOUSE_OUT  = <?php echo $ON_MOUSE_OUT ?>;
+var ON_DRAG_START = <?php echo $ON_DRAG_START ?>;
+var ON_DRAG_END   = <?php echo $ON_DRAG_END ?>;
 
-var NUM_REELS = 5;
-var NUM_ROWS = 3;
-var NUM_SYMBOLS = 8;
-var WILD_SYMBOL = 8;
-var NUM_PAYLINES = 20;
-var SYMBOL_SIZE = 140;
-var SPACE_BETWEEN_SYMBOLS = 10;
-var MAX_FRAMES_REEL_EASE = 16;
+var REEL_OFFSET_X = <?php echo $REEL_OFFSET_X ?>;
+var REEL_OFFSET_Y = <?php echo $REEL_OFFSET_Y ?>;
+
+var NUM_REELS = <?php echo $NUM_REELS ?>;
+var NUM_ROWS = <?php echo $NUM_ROWS ?>;
+var NUM_SYMBOLS = <?php echo $NUM_SYMBOLS ?>;
+var WILD_SYMBOL = <?php echo $WILD_SYMBOL ?>;
+var NUM_PAYLINES = <?php echo $NUM_PAYLINES ?>;
+var SYMBOL_SIZE = <?php echo $SYMBOL_SIZE ?>;
+var SPACE_BETWEEN_SYMBOLS = <?php echo $SPACE_BETWEEN_SYMBOLS ?>;
+var MAX_FRAMES_REEL_EASE = <?php echo $MAX_FRAMES_REEL_EASE ?>;
 var MIN_REEL_LOOPS;
 var REEL_DELAY;
-var REEL_START_Y = REEL_OFFSET_Y - (SYMBOL_SIZE * 3);
-var REEL_ARRIVAL_Y = REEL_OFFSET_Y + (SYMBOL_SIZE * 3);
+var REEL_START_Y = REEL_OFFSET_Y - (SYMBOL_SIZE * <?php echo $REEL_START_Y ?>);
+var REEL_ARRIVAL_Y = REEL_OFFSET_Y + (SYMBOL_SIZE * <?php echo $REEL_ARRIVAL_Y ?>);
 var TIME_SHOW_WIN;
 var TIME_SHOW_ALL_WINS;
-var MIN_BET = 0.05;
-var MAX_BET = 0.5;
+var MIN_BET = <?php echo $MIN_BET ?>;
+var MAX_BET = <?php echo $MAX_BET ?>;
 var TOTAL_MONEY;
 </script>
