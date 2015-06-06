@@ -92,7 +92,7 @@ connetserver();
                 connected = true;
                 //hideConnectionLostMessage();
                 clearInterval(connection_retry_timer);
-                alert(token);
+               // alert(token);
                 introduce(token);
                 socket.addEventListener('message', function(event) {
                     message_received(event.data);
@@ -119,8 +119,96 @@ connetserver();
                 return false;
             }
 
+            message_received= function(message) {
+                var message;
+                message = JSON.parse(message);
+                //trae las salas actuales
+                if (message.type === 'sales') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    var newvar = {};
+                    newvar = new Object();
+                    newvar = message.messagesend;
+                    var myObj = newvar;
+
+                    var array = $.map(myObj, function(value, index) {
+                        return [value];
+                    });
+                    //sales(array, message.clients);
+                }
+                //                si ya esta conectado
+                 else if (message.type === 'prueba') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    
+                  var  newvar = message.messagesend;
+                
+
+                   s_oGame.pruebacgame(newvar);
+
+                }
+                  else if (message.type === 'prueba2') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    
+                  var  newvar = message.messagesend;
+                
+
+                   s_oGame.pruebacgame2(newvar);
+
+                }
+                else if (message.type === 'readyconect') {
+
+
+                    $('#user-conect').slideDown();
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    //$('#game').html(message.messagesend);
+                }
+                //para traer datos del usuarhio
+                else if (message.type === 'welcome') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    console.log(message.messagesend);
+                } else if (message.type === 'message' && parseInt(message.sender) !== parseInt(myId)) {
+                    //add_new_msg_to_log(message);
+                    blink_window_title('~ message poker ~');
+                    //showNewMessageDesktopNotification(message.nickname, message.message);
+                } else if (message.type === 'nicklist') {
+                    var chatter_list_html = '';
+                    nicklist = message.nicklist;
+                    for (var i in nicklist) {
+                        chatter_list_html += '<li>' + nicklist[i] + '</li>';
+                    }
+
+                    chatter_list_html = '<ul>' + chatter_list_html + '</ul>';
+                    $('#chatter-list').html(chatter_list_html);
+                } else if (message.type === 'activity_typing' && parseInt(message.sender) !== parseInt(myId)) {
+                    var activity_msg = message.name + ' is typing..';
+                    $('#is-typig-status').html(activity_msg).fadeIn();
+                    clearTimeout(is_typing_indicator);
+                    is_typing_indicator = setTimeout(function() {
+                        $('#is-typig-status').fadeOut();
+                    }, 2000);
+                }
+
+            }
+            prueba = function(enviar){
+          //public function prueba(){
+             enviar.type='prueba';
+
+              //alert(enviar.type);
+
+               socket.send(JSON.stringify(enviar));
+    }
 
     });
+
+          
 
     </script>
     <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>

@@ -59,24 +59,6 @@ var mysqlc = mysql.createConnection(
             database: 'v1',
         }
 );
-mysqlc.connect();
-var string = 'DELETE FROM  `salespoker` WHERE  `user_create` <>0;';
-
-mysqlc.query(string, function(err, row, fields) {
-    if (typeof(row)) {
-
-    }
-
-});
-var string = 'SELECT id,name,boolpass,apu_min,apu_max,max_jug,jug_min,jug_max FROM salespoker';
-
-mysqlc.query(string, function(err, row, fields) {
-    if (typeof(row)) {
-        rooms = row;
-    }
-
-});
-mysqlc.end();
 
 var allowed_protocol = 'server';
 
@@ -182,12 +164,7 @@ wsServer.on('request', function(request) {
 
 
             }
-            else if (msgObj.type === 'newsale') {
-                newsales(msgObj);
-
-
-
-            }
+           
             else if (msgObj.type === 'prueba') {
                 pruebaserver(msgObj);
 
@@ -252,11 +229,11 @@ wsServer.on('request', function(request) {
         clientsconection = newarrayclient;
 
 //aqui borro en el arreglo la conexion del usuario que se fue
-        for (var i in usersall) {
+        /*for (var i in usersall) {
             if (connection.id === usersall[i].id) {
                 clientsconectionall.splice(i, 1);
             }
-        }
+        }*/
         for (var i in users) {
             if (connection.id === users[i].id) {
                 rooms[chatroom].splice(i, 1);
@@ -519,59 +496,5 @@ wsServer.on('request', function(request) {
 
         }));
     }
-    function newsales(ins) {
-        var boolpass = 1;
-        if (ins.clave == '' || ins.clave == undefined) {
-            boolpass = 0;
-
-        }
-
-        var mysqlc = mysql.createConnection(
-                {
-                    host: '23.229.215.154',
-                    user: 'v1',
-                    password: 'Temporal01',
-                    database: 'v1',
-                }
-        );
-        mysqlc.connect();
-        var string = 'INSERT INTO `v1`.`salespoker` (`id`, `name`, `password`, `boolpass`, `apu_min`, `apu_max`, `max_jug`, `user_create`, `jug_min`, `jug_max`) VALUES (NULL, \'' + ins.namesale + '\', \'' + ins.clave + '\', \'' + boolpass + '\', \'' + ins.minapos + '\', \'' + ins.maxapos + '\', \'' + ins.maxus + '\', \'' + connection.id_user + '\', \'' + ins.minci + '\', \'' + ins.maxci + '\');';
-
-        mysqlc.query(string, function(err, row) {
-            if (typeof(row)) {
-                var numsale = rooms.length;
-                numsale = numsale++;
-                var newrow = {
-                    'id': row.insertId,
-                    'name': ins.namesale,
-                    'password': ins.clave,
-                    'boolpass': boolpass,
-                    'apu_min': ins.minapos,
-                    'apu_max': ins.maxapos,
-                    'max_jug': ins.maxus,
-                    'user_create': connection.id_user,
-                    'jug_min': ins.minci,
-                    'jug_max': ins.maxci
-
-                };
-                rooms[numsale] = newrow;
-                sendsales();
-            }
-//            consigo el numero de salas para añadir una al arreglo
-
-
-        });
-        mysqlc.end();
-        return rooms;
-    }
-
-    function sendsales() {
-        var users = clientsconectionall;
-
-        for (var i in users) {
-//            console.log(clientsconection['all'][i].token);
-            sendmessageuser(clientsconectionall[i], 'sales', rooms)
-        }
-    }
-
+    
 });
