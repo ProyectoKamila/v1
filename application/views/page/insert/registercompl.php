@@ -41,7 +41,7 @@
                     <div class="col-md-4 col-md-offset-4">
                         <div class="login-panel panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Complete su Registro</h3>
+                                <h3 class="panel-title"><?php if($this->session->flashdata('mensaje')!= false){echo $this->session->flashdata('mensaje');}elseif(isset($dat)){ echo 'Datos Personales'; }else{ ?>Complete su Registro<?php } ?></h3>
                             </div>
                             <div class="panel-body">
                                 <?php echo form_open_multipart("/receivingdc") ?>
@@ -140,7 +140,7 @@
                                       <!-- Change this to a button or input when using this as a form -->
                                     <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
 
-                                    <input type="submit" name="login" class="btn btn-lg btn-success btn-block" value="Registrarme"/>
+                                    <input type="submit" name="login" class="btn btn-lg btn-success btn-block" value="<?php if(isset($dat)){echo 'Guardar Cambios';}else{ ?>Registrarme<?php } ?>"/>
 
                                 </fieldset>
                                 <?php echo form_close() ?>
