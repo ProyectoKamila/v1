@@ -170,6 +170,16 @@ wsServer.on('request', function(request) {
                     connection.close();
                 } else {
                     clientsconection[connection.token] = connection.token;
+<<<<<<< HEAD
+
+
+                    var string = 'SELECT * FROM user_session WHERE user_token= "' + connection.token + '"';
+                   
+
+
+
+=======
+>>>>>>> master
                     var mysqlc = mysql.createConnection(
                             {
                                 host: '23.229.215.154',

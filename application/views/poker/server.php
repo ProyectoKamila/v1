@@ -8,6 +8,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
+
                             <div class="alert alert-danger" style="display: none;" role="alert" id="user-conect">!!Aff, Ya se encuentra conectado, revise los dispositivos conectados <a class="btn btn-default link-error" id="" href="./dispositivos">AQUI...</a></div>
                             <div class="alert alert-info" style="display: none;" role="alert" id="boxsitdown"> <span class="input-group-addon glyphicon glyphicon-usd" id="sizing-addon3"></span>
                                 <input type="range" oninput="outputUpdate(value)" step="1" class="form-control" placeholder="Minimo de coin para apostar" min="" max="" aria-describedby="sizing-addon3" id="inputapos">
@@ -244,6 +245,8 @@
 
         </div>
 
+                        </div>
+                       
 
     </div>
     <style>.sin-pading{padding-left: 0px;padding-right: 0px;}.imagenprofile {
@@ -651,5 +654,6 @@ if (isset($_COOKIE['token'])) {
                         }
 
 </script>
+
 
 </body>

@@ -7,7 +7,7 @@
 						<h3 class="panel-title">Sus Datos Fueron Insertados Correctamente. Revise su correo para activar el usuario.</h3>
 					</div>
 					<div class="panel-body">
-						<?php echo form_open("/nuevo") ?>
+						<?php echo form_open("/newest") ?>
 						<!--     <form role="form" method="post" action="./registering"> -->
 						<fieldset>
 							<input type="hidden" class="form-control" name="nickname" value="<?php echo set_value('nickname') ?>" placeholder="Username" required="" pattern=".{5,12}"title="5 a 12 caracteres">
