@@ -39,6 +39,8 @@ var cont = 0;
 var clientsconection = {};
 var clientsconectionall = [];
 var rooms = {};
+var jackpot =  0;
+var percent = 0.0;
 //clientsconection['all'] = {};
 
 
@@ -53,12 +55,34 @@ var allowed_origins = [
 
 var mysqlc = mysql.createConnection(
         {
-            host: '23.229.215.154',
-            user: 'v1',
-            password: 'Temporal01',
-            database: 'v1',
+                    host: 'localhost',//'23.229.215.154',
+                    user: 'root',//'v1',
+                    password: '',//'Temporal01',
+                    database: 'v1',
         }
 );
+
+ mysqlc.connect();
+var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
+
+       mysqlc.query(string, function(err, row, fields) {
+
+        //console.log('verificar la variable row' + row);
+
+        if (typeof(row)) {
+            console.log('entre a jackpotcall' + row[0]['jackpot']);
+            console.log('entre a jackpotcall' + row[0]['percent']);
+           jackpot =  row[0]['jackpot'];
+           percent =  row[0]['percent'];
+
+    console.log('jackpot' + jackpot);
+    console.log('percent' + percent);
+        }
+
+    //console.log(jackpot);
+    });
+
+     mysqlc.end();
 
 var allowed_protocol = 'server';
 
@@ -129,10 +153,10 @@ wsServer.on('request', function(request) {
 
                     var mysqlc = mysql.createConnection(
                             {
-                                host: '23.229.215.154',
-                                user: 'v1',
-                                password: 'Temporal01',
-                                database: 'v1',
+                                host: 'localhost',//'23.229.215.154',
+                                user: 'root',//'v1',
+                                password: '',//'Temporal01',
+                    database: 'v1',
                             }
                     );
                     mysqlc.connect();
@@ -284,10 +308,10 @@ wsServer.on('request', function(request) {
 
     function mysqlcreate() {
         var mysqlconect = mysql.createConnection(
-                {
-                    host: '23.229.215.154',
-                    user: 'v1',
-                    password: 'Temporal01',
+               {
+                    host: 'localhost',//'23.229.215.154',
+                    user: 'root',//'v1',
+                    password: '',//'Temporal01',
                     database: 'v1',
                 }
         );
@@ -295,11 +319,44 @@ wsServer.on('request', function(request) {
         return mysqlconect;
 
     }
+
+  function update_jackpot(jack,tw){
+var mysqlconect = mysql.createConnection(
+               {
+                    host: 'localhost',//'23.229.215.154',
+                    user: 'root',//'v1',
+                    password: '',//'Temporal01',
+                    database: 'v1',
+                }
+
+);
+     mysqlc.connect();
+
+ var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + (jack - tw) + 'WHERE `casino_jackpot`.`id_jackpot` = 1;';
+
+       mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+
+}
+});
+
+jackpot=(jack - tw);
+
+console.log(string);
+
+     mysqlc.end();
+}
+
     function pruebaserver(objeto){
-         
+
+ 
+
+    var jac_fw=(jackpot*percent);
+    
+         console.log(jac_fw);
     var contador=0;
-        var s_aRandSymbols=objeto.rands;
-      var NUM_ROWS =  objeto.nrows;
+    var s_aRandSymbols=objeto.rands;
+    var NUM_ROWS =  objeto.nrows;
    var NUM_REELS= objeto.nreels;
    var s_aRandSymbols=  objeto.rands;
    var _aWinningLine=  objeto.winingl;
@@ -311,6 +368,7 @@ wsServer.on('request', function(request) {
    var _iTotBet= objeto.totalbet;
    var _iLastLineActive= objeto.lastline;
    var WILD_SYMBOL= objeto.wsymb;
+   jac_fw= jac_fw + (_iTotBet*percent);
 
 
        do { //symbolos finales, a modificar
@@ -378,7 +436,7 @@ wsServer.on('request', function(request) {
             _aWinningLine = new Array();//linea ganadora arreglo
             for(var k=0;k<_iLastLineActive;k++){ //desde 0 hasta el numero de lineas activas
                 var aCombos = s_aPaylineCombo[k];
-                    console.log(s_aPaylineCombo[k]);// carga la linea ganadora de cslotsettings.js
+                   // console.log(s_aPaylineCombo[k]);// carga la linea ganadora de cslotsettings.js
                // alert(aCombos[0].row +' ' +aCombos[0].col);
                 var aCellList = new Array();  //lista de celdas
                 var iValue = _aFinalSymbolCombo[aCombos[0].row][aCombos[0].col];  //guarda el valor de la celda de la matriz que coincide con la posicion de la linea ganadora que está activa
@@ -444,7 +502,7 @@ wsServer.on('request', function(request) {
                 
             }
              
-                        while(iTotWin >_iTotBet)   //verificar el monto antes de salir de esta función
+                        while(iTotWin >jac_fw)   //verificar el monto antes de salir de esta función
 
        // var vuelta = nrows.token*3;
        console.log('while!!!!!!!!!!!!!!!!: '+contador+ ' '+ iTotWin + ' '+ _iTotBet);
@@ -459,23 +517,18 @@ wsServer.on('request', function(request) {
                }
 
            }
+          // update_jackpot(jackpot,iTotWin);
+
+          jackpot= jac_fw - iTotWin;
+
+          console.log('actualizado '+ jackpot);
 
     sendmessageuser(connection, 'prueba', _aWinningLine /*,_aFinalSymbolCombo*/);
-     sendmessageuser2(connection, 'prueba2', _aFinalSymbolCombo /*,_aFinalSymbolCombo*/);
+    sendmessageuser2(connection, 'prueba2', _aFinalSymbolCombo /*,_aFinalSymbolCombo*/);
 
     }
 
-  /* function sendwinnerlines(usersend, type, winnerline,finalc) {
-        console.log(winnerline + ' '+ finalc);
-        usersend.send(JSON.stringify({
-            type: type,
-            userId: connection.id,
-            sendwl: winnerline,
-            sendfc: finalc,
-            clients: clients
 
-        }));
-    }*/
     function sendmessageuser(usersend, type, forsend) {
         console.log(forsend);
         usersend.send(JSON.stringify({
@@ -496,5 +549,26 @@ wsServer.on('request', function(request) {
 
         }));
     }
+    function update_jackpot(jack,tw){
+
+
+
+     mysqlc.connect();
+
+ var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + (jack - tw) + 'WHERE `casino_jackpot`.`id_jackpot` = 1;';
+
+ mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+        
+
+}
+});
+
+jackpot=(jack - tw);
+
+console.log(string);
+
+     mysqlc.end();
+}
     
 });
