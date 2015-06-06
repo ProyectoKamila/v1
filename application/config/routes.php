@@ -48,14 +48,19 @@ $route['profile'] = "casino/profile/";
 $route['detail_profile'] = "casino/detail_profile/";
 $route['login'] = "casino/login/";
 $route['close'] = "casino/close/";
+$route['dashboard'] = "casino/dashboard/";
+//////////////////////////////////////////////jugegos y demos de juegos////////////////////////////////////////////////////
 $route['slotmachine'] = "casino/slotmachine/";
 $route['demo-slotmachine'] = "casino/demo_slotmachine/";
-$route['dashboard'] = "casino/dashboard/";
+$route['roulette'] = "casino/roulette/";
+$route['blackjack'] = "casino/blackjack/";
+$route['jacks'] = "casino/jacks/";
 $route['game/watch-game'] ='casino/watch_game';
 /////////////////////////////////////////////////////controlador PLAYER/////////////////////////////////////////////////////
 $route['account'] = "player/index/";
 $route['registering'] = "player/registering/";
 $route['myprofile'] = "player/user_profile/";
+$route['load_credit'] = "player/load_credit/";
 /////////////////////////////////////////////////////controlador insert_controller/////////////////////////////////////////////////////
 $route['receivingdc'] = "insert_controller/recibirdc/";
 $route['nuevo'] = "insert_controller/nuevo/";

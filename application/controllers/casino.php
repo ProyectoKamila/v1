@@ -121,17 +121,30 @@ class Casino extends MY_Controller {
     public function watch_game() {
         $role = parent::verify_role();
         if($role == true){
-        $this->header('admin');
-        $this->navigation();
-        $this->load->view('page/watch-game');
-    }
+            $this->header('admin');
+            $this->navigation();
+            $this->load->view('page/watch-game');
+        }
     }
     
     public function slotmachine(){
         $this->load->view('slotmachine/index');
     }
+
     public function demo_slotmachine(){
         $this->load->view('slotmachine/demo-index');
     }
+
+     public function roulette(){
+        $this->load->view('roulette/index');
+    }
+
+     public function blackjack(){
+        $this->load->view('blackjack/index');
+    }
+    public function jacks(){
+        $this->load->view('jacks/index');
+    }
+
 
 }
