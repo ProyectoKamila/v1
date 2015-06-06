@@ -45,6 +45,7 @@ var percent = 0.0;
 //clientsconection['all'] = {};
 
 
+
 var allowed_origins = [
     'localhost',
     'springle.rebugged.com',
@@ -72,11 +73,14 @@ var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
 
         if (typeof(row)) {
             console.log('entre a jackpotcall' + row[0]['jackpot']);
+            console.log('entre a debt' + row[0]['debt']);
             console.log('entre a jackpotcall' + row[0]['percent']);
            jackpot =  row[0]['jackpot'];
+           debt =  row[0]['debt'];
            percent =  row[0]['percent'];
 
     console.log('jackpot' + jackpot);
+    console.log('debt' + debt);
     console.log('percent' + percent);
         }
 
@@ -90,7 +94,7 @@ var allowed_protocol = 'server';
 var connection_id = 0;
 
 server.listen(port, function() {
-    console.log(server_start_message);
+  //  console.log(server_start_message);
 });
 
 wsServer = new WebSocketServer({
@@ -124,7 +128,7 @@ wsServer.on('request', function(request) {
     var connection = request.accept('server', request.origin);
     connection.id = connection_id++;
     cont = cont + 1;
-    console.log(cont);
+  //  console.log(cont);
 
     clientsconectionall[cont] = connection;
 
@@ -218,7 +222,7 @@ wsServer.on('request', function(request) {
                 message_to_send['sender'] = connection.id.toString();
                 message_to_send = JSON.stringify(message_to_send);
 
-                console.log(message_to_send)
+               // console.log(message_to_send)
                 broadcast_message(message_to_send, msgObj.chatroom);
             } else if (msgObj.type.match(/^activity_/)) {
                 // echo back any message type that start with activity_
@@ -265,7 +269,7 @@ wsServer.on('request', function(request) {
                 broadcast_chatters_list(connection.chatroom);
             }
         }
-        console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
+       // console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
     });
 
     function broadcast_message(message, chatroom) {
@@ -321,43 +325,14 @@ wsServer.on('request', function(request) {
 
     }
 
-  function update_jackpot(jack,tw){
-var mysqlconect = mysql.createConnection(
-               {
-                    host: '23.229.215.154',
-                    user: 'v1',
-                    password: 'Temporal01',
-                    database: 'v1',
-                }
-
-);
-     mysqlc.connect();
-
- var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + (jack - tw) + 'WHERE `casino_jackpot`.`id_jackpot` = 1;';
-
-       mysqlc.query(string, function(err, row, fields) {
-        if (typeof(row)) {
-
-}
-});
-
-jackpot=(jack - tw);
-
-console.log(string);
-
-     mysqlc.end();
-}
 
     function pruebaserver(objeto){
 
- 
 
-    var jac_fw=(jackpot*percent);
-    
-         console.log(jac_fw);
-    var contador=0;
-    var s_aRandSymbols=objeto.rands;
-    var NUM_ROWS =  objeto.nrows;
+  
+   var contador=0;
+   var s_aRandSymbols=objeto.rands;
+   var NUM_ROWS =  objeto.nrows;
    var NUM_REELS= objeto.nreels;
    var s_aRandSymbols=  objeto.rands;
    var _aWinningLine=  objeto.winingl;
@@ -369,7 +344,22 @@ console.log(string);
    var _iTotBet= objeto.totalbet;
    var _iLastLineActive= objeto.lastline;
    var WILD_SYMBOL= objeto.wsymb;
-   jac_fw= jac_fw + (_iTotBet*percent);
+
+   
+    var availiable_jp= jackpot+(_iTotBet-(_iTotBet*percent));
+    var debito= debt + (_iTotBet*percent);
+
+    console.log('debt ' + debt);
+    
+    console.log('porcentaje '+(_iTotBet*percent));
+
+    console.log('totalbet '+_iTotBet);
+
+    console.log('debito '+debito);
+
+    console.log('pote '+availiable_jp);
+   
+   
 
 
        do { //symbolos finales, a modificar
@@ -385,7 +375,7 @@ console.log(string);
                     _anterior[i][j] = iRandSymbol;
                    // if(j<2)
                  //   alert(_anterior[i][j]);
-                     console.log(_anterior[i][j]);
+                  //   console.log(_anterior[i][j]);
 
                }
 
@@ -425,7 +415,7 @@ console.log(string);
 
                         }
                         while(_aFinalSymbolCombo[i][j]==_anterior[b][j-1])
-                            console.log(_anterior[q][j-1]+' '+ _aFinalSymbolCombo[p][j]+' '+q+(j-1)+' '+p+j);
+                           // console.log(_anterior[q][j-1]+' '+ _aFinalSymbolCombo[p][j]+' '+q+(j-1)+' '+p+j);
          }
           }
       }
@@ -503,26 +493,30 @@ console.log(string);
                 
             }
              
-                        while(iTotWin >jac_fw)   //verificar el monto antes de salir de esta función
+                        while(iTotWin >availiable_jp)   //verificar el monto antes de salir de esta función
 
        // var vuelta = nrows.token*3;
-       console.log('while!!!!!!!!!!!!!!!!: '+contador+ ' '+ iTotWin + ' '+ _iTotBet);
+       //console.log('while!!!!!!!!!!!!!!!!: '+contador+ ' '+ iTotWin + ' '+ _iTotBet);
  for(var i=0;i<NUM_ROWS;i++){
                 
                 for(var j=0;j<NUM_REELS;j++){
                   
                    // if(j<2)
                  // alert(_anterior[i][j]);
-                     console.log(_aWinningLine.length+'largo linea ganadora');
+                     //console.log(_aWinningLine.length+'largo linea ganadora');
 
                }
 
            }
            
 
-          jackpot= jac_fw - iTotWin;
-            update_jackpot(jackpot);
-          console.log('actualizado '+ jackpot);
+          jackpot= availiable_jp - iTotWin;
+          console.log('actualizado jackpot '+ jackpot);
+           console.log('totalwin '+ iTotWin);
+
+
+            update_jackpot(jackpot,debito);
+          
 
     sendmessageuser(connection, 'prueba', _aWinningLine /*,_aFinalSymbolCombo*/);
     sendmessageuser2(connection, 'prueba2', _aFinalSymbolCombo /*,_aFinalSymbolCombo*/);
@@ -531,7 +525,7 @@ console.log(string);
 
 
     function sendmessageuser(usersend, type, forsend) {
-        console.log(forsend);
+      //  console.log(forsend);
         usersend.send(JSON.stringify({
             type: type,
             userId: connection.id,
@@ -541,7 +535,7 @@ console.log(string);
         }));
     }
      function sendmessageuser2(usersend, type, forsend) {
-        console.log(forsend+'DOS');
+       // console.log(forsend+'DOS');
         usersend.send(JSON.stringify({
             type: type,
             userId: connection.id,
@@ -550,7 +544,7 @@ console.log(string);
 
         }));
     }
-    function update_jackpot(jack){
+    function update_jackpot(jack,debito){
 
 var mysqlc = mysql.createConnection(
         {
@@ -563,20 +557,60 @@ var mysqlc = mysql.createConnection(
 
      mysqlc.connect();
 
- var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + jack+ ' WHERE `casino_jackpot`.`id_jackpot` = 1;';
+ var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + jack+ ', `debt` = ' + debito + ' WHERE `casino_jackpot`.`id_jackpot` = 1;';
 
  mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
         
 
 }
+
+
 });
 
+ console.log(string);
 
+     mysqlc.end();
 
+     select_jackpot();
+}
+    
+
+        function select_jackpot(){
+
+var mysqlc = mysql.createConnection(
+        {
+                    host: '23.229.215.154',
+                    user: 'v1',
+                    password: 'Temporal01',
+                    database: 'v1',
+        }
+);
+
+     mysqlc.connect();
+
+var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
+
+       mysqlc.query(string, function(err, row, fields) {
+
+        //console.log('verificar la variable row' + row);
+
+        if (typeof(row)) {
+            console.log('entre a jackpotcall' + row[0]['jackpot']);
+            console.log('entre a debt' + row[0]['debt']);
+            console.log('entre a jackpotcall' + row[0]['percent']);
+           jackpot =  row[0]['jackpot'];
+           debt =  row[0]['debt'];
+           percent =  row[0]['percent'];
+
+    console.log('jackpot ' + jackpot);
+   
+    console.log('percent ' + percent);
+        }
+
+    });
 console.log(string);
 
      mysqlc.end();
 }
-    
 });
