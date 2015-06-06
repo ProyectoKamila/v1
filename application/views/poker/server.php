@@ -1,7 +1,9 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 <title>Poker</title>
+<base href="<?php echo base_url(); ?>" />
 </head>
 <body>
+ <?php include('./interface/header.php');?>
    <?php $this->load->view('poker/serveradd') ?>
 
 
@@ -34,7 +36,7 @@
     var flash_title_timer;
     var connected = false;
     var connection_retry_timer;
-    var server_url = 'ws://localhost:8804/';
+    var server_url = 'ws://162.252.57.97:8807/';
     var token = "<?php
 if (isset($_COOKIE['token'])) {
     echo $_COOKIE['token'];
@@ -124,7 +126,7 @@ if (isset($_COOKIE['token'])) {
     }
 
     function open_connection() {
-        socket = new WebSocket('ws://localhost:8804/', 'server');
+        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
         socket.addEventListener("open", connection_established);
     }
     //cuando la conexion se establece

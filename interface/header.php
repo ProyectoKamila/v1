@@ -1,3 +1,9 @@
+    <!--estilos header-->
+        <link rel="stylesheet" type="text/less" href="./interface/css/main.less">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.0/less.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="./interface/scripts/main.js"></script>
 <header class="vip " id="forms">
 	<div class="container">
 		<div class="row">
