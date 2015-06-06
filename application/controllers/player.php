@@ -74,20 +74,19 @@ class Player extends MY_Controller {
         public function load_payment() {
             $role = parent::verify_role();
             if($role == false){
-                //debug(print_r($this->session->userdata('id_user')));
-                $data = $this->modelo_universal->select('user_data', '*', array('id_user' =>  $this->session->userdata('id_user')));
-                //debug(print_r($data));
-            
-
-               /* if (!$data){
-                    redirect('./inser_controller/insertc');
-                }*/
-                $this->data['id_user'] = $this->session->userdata('id_user');
-                //debug(print_r($this->data['id_user']));
-                 
-                $this->header('player');
-                $this->navigation();
-                $this->load->view('player/load_payment', $this->data);
+               if (isset($_POST['register_payment'])) {
+                    $this->data['id_user'] = $this->session->userdata('id_user');
+                    //debug(print_r($this->data['id_user']));            
+                    $this->header('player');
+                    $this->navigation();
+                    
+                }else{
+                    $this->data['id_user'] = $this->session->userdata('id_user');
+                    //debug(print_r($this->data['id_user']));            
+                    $this->header('player');
+                    $this->navigation();
+                    $this->load->view('player/load_payment', $this->data);
+                }
             }
         }
 
