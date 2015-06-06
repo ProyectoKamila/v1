@@ -16,6 +16,8 @@ class Player extends MY_Controller {
     }
 
     public function index() {
+        $role = parent::verify_role();
+        if($role == false){
         $this->last_connection();
         //debug(print_r($this->session->userdata));
         if ($this->session->userdata('id_role') == false) {
@@ -31,7 +33,10 @@ class Player extends MY_Controller {
             $this->load->view('page/index');
         }
     }
+    }
     public function registering(){
+        $role = parent::verify_role();
+        if($role == false){
         $this->load->view('page/registering');
         
 //        $n = $this->input->post('namenick');
@@ -43,8 +48,11 @@ class Player extends MY_Controller {
 //            $this->validar_post($n, $this->input->post('password'));
 //        }
     }
+    }
 
         public function user_profile() {
+        $role = parent::verify_role();
+        if($role == false){
             //debug(print_r($this->session->userdata('id_user')));
             $data = $this->modelo_universal->select('user_data', '*', array('id_user' =>  $this->session->userdata('id_user')));
             //debug(print_r($data));
@@ -53,12 +61,13 @@ class Player extends MY_Controller {
            /* if (!$data){
                 redirect('./inser_controller/insertc');
             }*/
-            $this->data['user'] = $user;
+            $this->data['dat'] = $data;
         //debug(print_r($this->session->userdata));
              
             $this->header('player');
             $this->navigation();
-            $this->load->view('page/regisercompl');
+            $this->load->view('page/insert/registercompl');
+    }
     }
 
 }

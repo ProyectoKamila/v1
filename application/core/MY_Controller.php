@@ -207,6 +207,15 @@ class MY_Controller extends CI_Controller {
             redirect('./account');
         }
     }
+    public function verify_role() {// verificacion de roles, true para administradores y false para player
+        if (($this->session->userdata('id_role') != null) and ( $this->session->userdata('id_role') == 1)) {
+            return true;
+        } elseif (($this->session->userdata('id_role') != null) and ( $this->session->userdata('id_role') == 2)) {
+            return false;
+        }else{
+            $this->close();
+        }
+    }
 
     public function last_hour() {
         date_default_timezone_set("America/Caracas");

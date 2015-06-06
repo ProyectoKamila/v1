@@ -10,6 +10,7 @@ class Insert_controller extends MY_Controller {
         $this->load->model('modelo_universal');
         $this->load->library('session');
         $this->load->library('email');
+        $this->load->helper('cookie');
     }
 
     public function newest() {
@@ -123,7 +124,7 @@ class Insert_controller extends MY_Controller {
 
             //actualizar status
         $data2 = array(
-            'id_user_account_status' => '2'
+            'id_user_account_status' => '3'
             );
 
         $this->modelo_universal->update('user', $data2, array('id_user' => $id_user));
@@ -157,8 +158,37 @@ class Insert_controller extends MY_Controller {
             );
 
         $this->modelo_universal->update('user', $data, array('cod_validacion' => $id));
-        $this->load->view('page/header');
-        $this->load->view('page/insert/enable');
+        $check = $this->modelo_universal->select('user', '*', array('cod_validacion' => $id));
+        //debug($check);
+        if(empty($check)){
+        }else{
+            $this->session->set_userdata(array('token' => $this->session->userdata('session_id')));
+                    $token = $this->session->userdata('token');
+
+                    $s = $this->modelo_universal->select('active_session', '*', array('id_user' => $check[0]['id_user']));
+
+                    if ($s == null) {
+                        $date = $this->last_hour();
+                        $this->modelo_universal->insert('active_session', array('token' => $token, 'id_user' => $check[0]['id_user'], 'date_time' => $date));
+                    } else {
+                        $this->last_connection();
+                    }
+                    $this->session->set_userdata(array('session' => md5('true')));
+                    $this->session->set_userdata(array('name' => $check[0]['nickname']));
+            $this->session->set_userdata(array('token' => $token));
+                    $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
+                    $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
+                    if($this->session->userdata('id_role') == 1){
+                        redirect('./casino');
+                    }else{
+
+
+                        redirect('./account');
+                        
+                    }
+        }
+//        $this->load->view('page/header');
+//        $this->load->view('page/insert/enable');
     }
 
     function enviarcorreo($correo , $nick)
@@ -186,7 +216,7 @@ class Insert_controller extends MY_Controller {
 
             Debes Activar tu Usuario entrando en la sigiente dirección
 
-            <a href="http://localhost/v1/enable/' . md5($nick) . '">Casino4as.com</a>
+            <a href="'.base_url().'enable/' . md5($nick) . '">Casino4as.com</a>
 
             ');
 
