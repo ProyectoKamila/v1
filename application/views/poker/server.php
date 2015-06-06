@@ -582,7 +582,7 @@ if (isset($_COOKIE['token'])) {
 //                                con = arraycon.length;
 //                            }
                             con = arraycon.length;
-                            for (i = 0; i < con; i++) {
+                            for (i = 0; i < con && i<7; i++) {
                                 if (arraycon[i].name == undefined) {
                                     elementprofile(i, undefined, arraycon[i]);
                                 }
