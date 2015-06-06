@@ -50,6 +50,7 @@ $route['login'] = "casino/login/";
 $route['close'] = "casino/close/";
 $route['dashboard'] = "casino/dashboard/";
 //////////////////////////////////////////////jugegos y demos de juegos////////////////////////////////////////////////////
+$route['close_home'] = "casino/close_home/";
 $route['slotmachine'] = "casino/slotmachine/";
 $route['demo-slotmachine'] = "casino/demo_slotmachine/";
 $route['roulette'] = "casino/roulette/";

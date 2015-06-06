@@ -16,6 +16,7 @@ class Player extends MY_Controller {
     }
 
     public function index() {
+//        debug($_COOKIE);
         $role = parent::verify_role();
         if($role == false){
         $this->last_connection();

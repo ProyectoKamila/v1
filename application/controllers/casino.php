@@ -106,6 +106,9 @@ class Casino extends MY_Controller {
     public function close() {
         parent::close();
     }
+    public function close_home() {
+        parent::close_home();
+    }
 
     public function pr() {
         $insert = $this->modelo_universal->query('SELECT * FROM `user`');
