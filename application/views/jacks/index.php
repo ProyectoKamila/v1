@@ -32,6 +32,7 @@
         
     </head>
     <body ondragstart="return false;" ondrop="return false;" >
+    <?php include('./interface/header.php');?>
 	<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
           <script>
             $(document).ready(function(){
@@ -60,7 +61,16 @@
            });
 
         </script>
-        <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
-
+    <div class="container-fluid sin-padding">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">
+                <div class="content-canvas">
+                    <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
+                </div>  
+            </div>
+        </div>
+    </div>
+    <?php include('./interface/footer.php');?>
+    
     </body>
 </html>
