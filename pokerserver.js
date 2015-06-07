@@ -19,7 +19,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8805;
+    var port = 8806;
     var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
 } else {
     var http = require('http');
@@ -29,7 +29,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8804;
+    var port = 8806;
     var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
 }
 
@@ -247,9 +247,42 @@ wsServer.on('request', function(request) {
                 if (connection.idsit > 6) {
                     desconectadesala();
                 }
-                connection.idsit = msgObj.idsit;
-                joinsale(connection, connection.idsale, 'true', msgObj.idsit);
+//                connection.idsit=undefined;
+                if (connection.idsit == undefined && rooms[connection.idsale] !== undefined && rooms[connection.idsale].apu_min <= msgObj.inputapos && rooms[connection.idsale].apu_max >= msgObj.inputapos) {
 
+                    var mysqlc = mysql.createConnection(
+                            {
+                                host: '23.229.215.154',
+                                user: 'v1',
+                                password: 'Temporal01',
+                                database: 'v1',
+                            }
+                    );
+                    mysqlc.connect();
+                    var string = 'SELECT coins FROM user_data WHERE id_user= "' + connection.id_user + '"';
+                    mysqlc.query(string, function(err, row, fields) {
+                        if (typeof(row)) {
+                            connection.coin = row[0].coins;
+                            var coin = {coin: connection.coin,
+                                apu_min: rooms[connection.idsale].apu_min,
+                                apu_max: rooms[connection.idsale].apu_max};
+                            if (rooms[connection.idsale] !== undefined && rooms[connection.idsale].apu_min && connection.coin >= msgObj.inputapos) {
+                                console.log(rooms[connection.idsale]);
+                                console.log(connection.coin);
+                                connection.idsit = msgObj.idsit;
+                                connection.apos = msgObj.inputapos;
+                                joinsale(connection, connection.idsale, 'true', msgObj.idsit);
+                            }
+                            else {
+                                sendmessageuser(connection, 'numcoin', coin, clients);
+
+                            }
+
+                        }
+
+                    });
+                    mysqlc.end();
+                }
 
             }
             else if (msgObj.type === 'numcoin') {
@@ -538,9 +571,9 @@ wsServer.on('request', function(request) {
     //funcion para meter a un usuario en una sala
     function joinsale(conex, idsale, idsit, idkey) {
         //si eligio la silla lo ubico en la silla y envio a todos los usuarios la conexion
-        conex.apos = 0;
+//        conex.apos = con.apxos;
         //si yo elgi sentarme
-
+        console.log(conex.apos);
         if (idsit == 'true') {
             var conexarray = {
                 name: conex.first_name + " " + conex.last_name,
@@ -633,6 +666,8 @@ wsServer.on('request', function(request) {
                 if (connection.idsit < 7) {
                     updatesale(connection.idsale);
                 }
+//                setea a undefined para que no se vuelva a sentar el wey
+                connection.idsit = undefined;
             }
         }
     }
