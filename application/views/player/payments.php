@@ -1,11 +1,11 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Perfiles <?php if($this->data['message'] == 'online'){ echo 'El L&iacute;nea';}elseif($this->data['message'] == 'online'){ echo 'Desconectados'; }else{echo $this->data['message'];} ?></h1> 
+                    <h1 class="page-header">Mis Recargas</h1> 
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row --> 
+            <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
@@ -15,27 +15,35 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                              <h1 class="page-header">Recargas</h1> 
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-user">
                                     <thead>
                                         <tr>
-                                            <th>Id Usuer</th>
-                                            <th>nickname</th>
-                                            <th>email</th>
-                                            <th>Status Account</th>
+                                            <th>N°</th>
+                                            <th>Tipo de Instrumento</th>
+                                            <th>Banco</th>
+                                            <th>N° referencia</th>
+                                            <th>Monto</th>
+                                            <th>Fecha de Registro</th>
+                                            <th>Estatus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($this->data['users'] as $user=>$valor ){ ?>
+                                        <?php foreach ($this->data['data'] as $recarga=>$data ){ ?>
                                         <tr class="odd gradeX">
-                                            <td><a href='./casino/detail_profile/<? echo $valor['id_user']; ?>' class='glyphicon glyphicon-search'></a></td>
-                                            <td><?php echo $valor['nickname']; ?></td>
-                                            <td><?php echo $valor['email']; ?></td>
-                                            <td><?php echo $valor['name']; ?></td>
+                                            <td><?php echo $data['id_register_payment']; ?></td>
+                                            <td><?php echo $data['type']; ?></td>
+                                            <td><?php echo $data['bank']; ?></td>
+                                            <td><?php echo $data['nume_ref']; ?></td>
+                                            <td><?php echo $data['amount']; ?></td>
+                                            <td><?php echo $data['register_date']; ?></td>
+                                            <td><?php echo $data['name']; ?></td>
                                         </tr>
                                         
                                         <?php } ?>
                                     </tbody>
                                 </table>
+                                
                             </div>
                             <!-- /.table-responsive -->
                         </div>

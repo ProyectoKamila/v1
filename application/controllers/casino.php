@@ -48,7 +48,7 @@ class Casino extends MY_Controller {
         if($role == true){
 
         if ($message == 'online') {
-            $users = $this->modelo_universal->query('SELECT * FROM `user` where `id_user_status` =1');
+            $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`  where `user`.`id_user_status` =1 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` ');
             $this->data['message'] = $message;
             $this->data['users'] = $users;
             $this->load->view('page/header');
@@ -56,14 +56,14 @@ class Casino extends MY_Controller {
             $this->load->view('page/profile', $this->data);    
 
          } elseif ($message == 'offline') {
-            $users = $this->modelo_universal->query('SELECT * FROM `user` where `id_user_status` =2');
+            $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`  where `user`.`id_user_status` =2 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` ');
             $this->data['message'] = $message;
             $this->data['users'] = $users;
             $this->load->view('page/header');
             $this->navigation();
             $this->load->view('page/profile', $this->data);
         } else {
-            $users = $this->modelo_universal->query('SELECT * FROM `user`');
+            $users = $this->modelo_universal->query('SELECT * FROM `user` , `user_account_status` where `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status`');
 //            $this->index();
             $this->data['message'] = 'Todos';
             $this->data['users'] = $users;
@@ -80,23 +80,54 @@ class Casino extends MY_Controller {
         if($role == true){
 
         if(!$id){
-            redirect('./casino/profile');
-        }
+                redirect('./casino/profile');
+            }
 
-        $user = $this->modelo_universal->query('SELECT * FROM `user_data` where id_user='.$id);
-        $bet = $this->modelo_universal->query('SELECT * FROM `activity_bet` where id_user='.$id);
-        $balance = $this->modelo_universal->query('SELECT * FROM `activity_balance` where id_user='.$id);
-        $game = $this->modelo_universal->query('SELECT * FROM `game` where id_user='.$id);
-        $this->data['user'] = $user;
-        $this->data['bet'] = $bet;
-        $this->data['balance'] = $balance;
-        $this->data['game'] = $game;
-        $this->navigation();
-        $this->load->view('page/header');
-        $this->load->view('page/detail_profile');
-    
+            $user = $this->modelo_universal->query('SELECT * FROM `user_data` where id_user='.$id);
+            $bet = $this->modelo_universal->query('SELECT * FROM `activity_bet` where id_user='.$id);
+            $balance = $this->modelo_universal->query('SELECT * FROM `activity_balance` where id_user='.$id);
+            $game = $this->modelo_universal->query('SELECT * FROM `game` where id_user='.$id);
+            $where="register_payment_status.id_register_payment_status=register_payment.register_payment_status_id AND register_payment.id_user = ".$id;
+            $reload = $this->modelo_universal->selectjoin('register_payment','register_payment_status',$where,'*' );
+
+                    
+            //$this->data['data'] = $data;
+            $this->data['user'] = $user;
+            $this->data['bet'] = $bet;
+            $this->data['balance'] = $balance;
+            $this->data['game'] = $game;
+            $this->data['reload'] = $reload;
+            $this->navigation();
+            $this->load->view('page/header');
+            $this->load->view('page/detail_profile', $this->data);
+        
+        }   
     }
+
+    public function update_payment($id = null) {
+        $role = parent::verify_role();
+        if($role == true){
+
+        if(!$id){
+                redirect('./casino/profile');
+            }
+
+            $user = $this->modelo_universal->query('SELECT * FROM `user_data` where id_user='.$id);
+                                
+            $this->data['data'] = $data;
+            $this->data['user'] = $user;
+            $this->data['bet'] = $bet;
+            $this->data['balance'] = $balance;
+            $this->data['game'] = $game;
+            $this->data['reload'] = $game;
+            $this->navigation();
+            $this->load->view('page/header');
+            $this->load->view('page/detail_profile');
+        
+        }   
     }
+
+
     
 
     public function login() {

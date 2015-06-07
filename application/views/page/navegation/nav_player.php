@@ -22,10 +22,7 @@
                         <a href="./load-payment"><i class="glyphicon glyphicon-user"></i> Cargar Saldo</a>
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                        <a href="./payments"><i class="fa fa-edit fa-fw"></i> Mis Recargas</a>
                     </li>
 
                     <li>
