@@ -5,14 +5,18 @@
                 </div>
                 <!-- /.col-lg-12 -->
             <div class="panel-body">
-
-                                <?php echo form_open_multipart("/load-payment") ?>
+                               <?php if ($this->session->flashdata('message')!= null){
+                                    echo "<div id='infoMessage' class='alert alert-danger' role='alert'>". $this->session->flashdata('message') ."</div>";
+                                    }
+                                ?>
+                                <?php 
+                                    echo form_open_multipart("/load-payment") ?>
                                 <!--     <form role="form" method="post" action="./registering"> -->
                                 <fieldset>
 
                                     <div class="form-group input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
-                                        <input class="form-control" name="id_user" type="hidden" value="<?php if(isset($this->data)){ echo  $this->data['id_user']; }?>" required=""> 
+                                        <input class="form-control" name="id_user" id= 'id_user' type="hidden" value="<?php if(isset($this->data)){ echo  $this->data['id_user']; }?>" required=""> 
                                         <input class="form-control" placeholder="N° Referencia" name="nume_ref" id='nume_ref' type="text" pattern=".{4,10}" title="4 a 12 digitos"></font>
                                         <font color="red" style="font-weight: bold; font-size: 8px; text-decoration: underline"><?php echo form_error('nume_ref'); ?></font>
 
@@ -22,7 +26,7 @@
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
 
                                         <select class="form-control" name="type" id="type">
-                                            <option selected value="">...</option>
+                                            <option selected value="">Tipo De Instrumento</option>
                                             <option value="Transferencia">Transferencia</option>
                                             <option value="Deposito">Deposito</option>
                                         </select>

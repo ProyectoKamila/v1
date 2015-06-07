@@ -32,7 +32,6 @@
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CPayTablePanel.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CStaticSymbolCell.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CTweenController.js"></script>
-<<<<<<< HEAD
         <!--estilos header-->
         <link rel="stylesheet" type="text/less" href="./interface/css/main.less">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.0/less.min.js"></script>
@@ -40,9 +39,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <script src="./interface/scripts/main.js"></script>
 
-=======
-    
->>>>>>> master
+
     </head>
     <body ondragstart="return false;" ondrop="return false;" >
         <?php include('./interface/header.php');?>

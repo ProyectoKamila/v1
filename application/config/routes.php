@@ -62,6 +62,7 @@ $route['account'] = "player/index/";
 $route['registering'] = "player/registering/";
 $route['myprofile'] = "player/user_profile/";
 $route['load-payment'] = "player/load_payment/";
+$route['payments'] = "player/payments/";
 /////////////////////////////////////////////////////controlador insert_controller/////////////////////////////////////////////////////
 $route['receivingdc'] = "insert_controller/recibirdc/";
 $route['nuevo'] = "insert_controller/nuevo/";
