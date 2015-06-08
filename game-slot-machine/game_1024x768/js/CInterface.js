@@ -294,6 +294,8 @@ function CInterface(iCurBet,iTotBet,iMoney){
     };
 
     this.refreshMoney = function(iMoney){
+
+        console.log('refresca la moneda'+ ' ' +iMoney);
         _oMoneyText.text = TEXT_MONEY +"\n"+iMoney.toFixed(2);
     };
     

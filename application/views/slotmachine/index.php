@@ -1,7 +1,7 @@
      <!--http://localhost/v1/game-slot-machine/game_1024x768/-->
-    <!DOCTYPE html>
-    <html>
-    <head>
+     <!DOCTYPE html>
+     <html>
+     <head>
         <title></title>
         <link rel="stylesheet" href="./games/game-slot-machine/game_1024x768/css/reset.css" type="text/css">
         <link rel="stylesheet" href="./games/game-slot-machine/game_1024x768/css/main.css" type="text/css">
@@ -34,57 +34,109 @@
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CTweenController.js"></script>
         <!--estilos header-->
         <link rel="stylesheet" type="text/less" href="./interface/css/main.less">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.0/less.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="./interface/scripts/main.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.0/less.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="./interface/scripts/main.js"></script>
 
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     </head>
     <body ondragstart="return false;" ondrop="return false;" >
         <?php include('./interface/header.php');?>
-    	<!--<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>-->
-      <script>
-      $(document).ready(function(){
-       var oMain = new CMain({
+        <!--<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>-->
+        <script>
+        $(document).ready(function(){
+         var oMain = new CMain({
                                         min_reel_loop:2,          //NUMBER OF REEL LOOPS BEFORE SLOT STOPS  
                                         reel_delay: 6,            //NUMBER OF FRAMES TO DELAY THE REELS THAT START AFTER THE FIRST ONE
                                         time_show_win:2000,       //DURATION IN MILLISECONDS OF THE WINNING COMBO SHOWING
                                         time_show_all_wins: 2000, //DURATION IN MILLISECONDS OF ALL WINNING COMBO
-                                        money:100                //STARING CREDIT FOR THE USER
+                                        money:0                //STARING CREDIT FOR THE USER
                                     });
-       'use strict';
-       var socket;
-       var protocol_identifier = 'server';
-       var myId;
-       var nicklist;
-       var is_typing_indicator;
-       var window_has_focus = true;
-       var actual_window_title = document.title;
-       var flash_title_timer;
-       var connected = false;
-       var connection_retry_timer;
-       var server_url = 'ws://localhost:8804/';
-       var token = "<?php
-       if (isset($_COOKIE['token'])) {
-        echo $_COOKIE['token'];
-    } elseif ($this->session->userdata('token')) {
-        echo $this->session->userdata('token');
-    }
-    ?>";
-    $(oMain).on("game_start", function(evt) {
-                                // alert("game_start");
-                             });
+         'use strict';
+         var socket;
+         var protocol_identifier = 'server';
+         var myId;
+         var nicklist;
+         var is_typing_indicator;
+         var window_has_focus = true;
+         var actual_window_title = document.title;
+         var flash_title_timer;
+         var connected = false;
+         var connection_retry_timer;
+         var server_url = 'ws://localhost:8804/';
+         var token = "<?php
+         if (isset($_COOKIE['token'])) {
+            echo $_COOKIE['token'];
+        } elseif ($this->session->userdata('token')) {
+            echo $this->session->userdata('token');
+        }
+        ?>";
 
-    $(oMain).on("end_bet", function(evt,iMoney,iBetWin) {
+        $(oMain).on("game_start", function(evt) {
+
+            totalcoins();
+            var options = {
+                "backdrop" : "static"
+            }
+
+            $('#myModal').modal(options);
+                                // alert("game_start");
+                            });
+
+        $(oMain).on("end_bet", function(evt,iMoney,iBetWin) {
                                  //alert("iMoney: "+iMoney + " Win:"+iBetWin);
                              });
 
-    $(oMain).on("restart", function(evt) {
+        $(oMain).on("restart", function(evt) {
                                  //alert("restart");
                              });
+        $('#money-text').keyup(function(event) {
+
+            this.value = this.value.replace(/[^0-9\.]/g,'');
+
+        });
+
+        $('#buttonreconect').click(function() {
+            hideConnectionLostMessage();
+            connetserver();
+        });
+
+        $('#money-button').click(function() {
+
+            var value_mt=  $('#money-text').val();
+            var total_money= $('#money-hidden').val();
+  //  alert(total_money);
+  if (value_mt>10 && value_mt <= total_money) {
+  //  alert('llega aqui');
+    iMoney=value_mt;
+    s_oGame.TOTAL_MONEY=value_mt;
+    s_oGame._iMoney= value_mt;
+    s_oGame.moneyref(parseFloat(value_mt));
+console.log('iMoney' + iMoney);
+console.log('total Money' + TOTAL_MONEY);
+s_oInterface.refreshMoney(parseFloat(iMoney));
+s_oInterface.enableSpin();
+
+            $('#myModal').modal('toggle');
+
+          } else if (value_mt <10)
+          {
+            alert('Monto mínimo.');
+          } else
+          {
+            alert('saldo insuficiente.');
+        }
+
+
+
+    });
+
+//totalcoins();
 connetserver();
-            function connetserver() {
+function connetserver() {
                 //muestra el tiempo de espera al servidor revisar la funcion para que cargue si no hay conexion
                 // show_timer();
                 //abrir la conexion
@@ -101,35 +153,45 @@ connetserver();
                 //hideConnectionLostMessage();
                 clearInterval(connection_retry_timer);
                // alert(token);
-                introduce(token);
-                socket.addEventListener('message', function(event) {
-                    message_received(event.data);
-                });
-                socket.addEventListener('close', function(event) {
-                    connected = false;
-                    showConnectionLostMessage();
+               introduce(token);
+               socket.addEventListener('message', function(event) {
+                message_received(event.data);
+            });
+               socket.addEventListener('close', function(event) {
+                connected = false;
+                showConnectionLostMessage();
                     //reConnect();
                 });
-            }
+           }
+  //mensaje al perder la conexion
+  function showConnectionLostMessage() {
+        // $('#send-msg textarea, #send-msg span').hide();
+        $('#connection-lost-message').slideDown();
+    }
+    //esconde el mensaje de perder conexion
+    function hideConnectionLostMessage() {
+        // $('#send-msg textarea, #send-msg span').hide();
+        $('#connection-lost-message').slideUp();
+        $('#user-conect').slideUp();
+    }
+    function introduce(nickname) {
+        var intro = {
+            type: 'join',
+            token: nickname
+        }
 
-            function introduce(nickname) {
-                var intro = {
-                    type: 'join',
-                    token: nickname
-                }
+        socket.send(JSON.stringify(intro));
+    }
+    function is_websocket_supported() {
+        if ('WebSocket' in window) {
+            return true;
+        }
+        return false;
+    }
 
-                socket.send(JSON.stringify(intro));
-            }
-             function is_websocket_supported() {
-                if ('WebSocket' in window) {
-                    return true;
-                }
-                return false;
-            }
-
-            message_received= function(message) {
-                var message;
-                message = JSON.parse(message);
+    message_received= function(message) {
+        var message;
+        message = JSON.parse(message);
                 //trae las salas actuales
                 if (message.type === 'sales') {
                     myId = message.userId;
@@ -146,26 +208,35 @@ connetserver();
                     //sales(array, message.clients);
                 }
                 //                si ya esta conectado
-                 else if (message.type === 'prueba') {
+                else if (message.type === 'prueba') {
                     myId = message.userId;
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
                     
-                  var  newvar = message.messagesend;
-                
+                    var  newvar = message.messagesend;
 
-                   s_oGame.pruebacgame(newvar);
+
+                    s_oGame.pruebacgame(newvar);
 
                 }
-                  else if (message.type === 'prueba2') {
+                else if (message.type === 'money_total') {
+                    myId = message.userId;
+
+                    var  coinsvar = message.messagesend;
+                    coinslabel(coinsvar);
+
+                }
+
+                else if (message.type === 'prueba2') {
                     myId = message.userId;
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
                     
-                  var  newvar = message.messagesend;
-                
+                    var  newvar = message.messagesend;
 
-                   s_oGame.pruebacgame2(newvar);
+
+                    s_oGame.pruebacgame2(newvar);
+                    
 
                 }
                 else if (message.type === 'readyconect') {
@@ -205,22 +276,49 @@ connetserver();
                 }
 
             }
+         
             prueba = function(enviar){
           //public function prueba(){
-             enviar.type='prueba';
+           enviar.type='prueba';
 
               //alert(enviar.type);
 
-               socket.send(JSON.stringify(enviar));
-    }
+              socket.send(JSON.stringify(enviar));
+          }
+          function totalcoins(){
 
-    });
+           var money_total = {
 
-          
+            type: 'money_ws'
+        }
 
-    </script>
-    
-    <div class="container-fluid sin-padding">
+
+              //alert(enviar.type);
+
+              socket.send(JSON.stringify(money_total));
+          }
+          function coinslabel(coins){
+
+     //   alert(coins);
+
+     $('#total_coins').html(coins);
+     $('#money-hidden').val(coins);
+
+
+ }
+
+});
+
+
+
+     </script>
+
+     <div class="container">
+
+      <!-- Trigger the modal with a button -->
+
+
+      <div class="container-fluid sin-padding">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">
                 <div class="content-canvas">
@@ -229,6 +327,41 @@ connetserver();
             </div>
         </div>
     </div>
+
+    <button style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Cargar Saldo</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              Ingrese el monto para recargar su saldo. Saldo Disponible:  <label id="total_coins"></label>
+          </div>
+          <div class="modal-body">
+
+           <label>Cargar Saldo: </label>
+           <input type="hidden" name="money-hidden" id="money-hidden" >
+           <input type="numeric" name="money-text" id="money-text" maxlength="5" class="" title="0">
+           <button type="button" class="btn btn-default"  id="money-button">Aceptar</button>
+
+
+       </div>
+       <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+  </div>
+
+</div>
+</div>
+
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
+    <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
+
+</div>
 <?php include('./interface/footer.php');?>
-    </body>
-    </html>
+</body>
+</html>

@@ -193,6 +193,14 @@ wsServer.on('request', function(request) {
 
 
             }
+            else if (msgObj.type === 'money_ws') {
+
+
+                getmoneyuser(msgObj);
+
+
+
+            }
            
             else if (msgObj.type === 'prueba') {
                 pruebaserver(msgObj);
@@ -525,7 +533,7 @@ wsServer.on('request', function(request) {
 
 
     function sendmessageuser(usersend, type, forsend) {
-      //  console.log(forsend);
+       console.log('forsend ' + forsend);
         usersend.send(JSON.stringify({
             type: type,
             userId: connection.id,
@@ -571,8 +579,9 @@ var mysqlc = mysql.createConnection(
  console.log(string);
 
      mysqlc.end();
+     setTimeout(function () {select_jackpot()}, 1000);
 
-     select_jackpot();
+     
 }
     
 
@@ -612,5 +621,41 @@ var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
 console.log(string);
 
      mysqlc.end();
+
+
 }
+
+
+ function getmoneyuser(){
+
+var mysqlc = mysql.createConnection(
+        {
+                    host: '23.229.215.154',
+                    user: 'v1',
+                    password: 'Temporal01',
+                    database: 'v1',
+        }
+);
+     mysqlc.connect();
+var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_user + ';';
+console.log(string);
+       mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+
+        connection.coins =  row[0]['coins'];
+
+        
+         sendmessageuser(connection, 'money_total', connection.coins);
+
+         console.log('coins ' + connection.coins);
+
+        }
+    });
+
+     mysqlc.end();
+
+    
+}
+
+
 });
