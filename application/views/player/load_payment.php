@@ -25,7 +25,7 @@
                                     <div class="form-group input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
 
-                                        <select class="form-control" name="type" id="type">
+                                        <select class="form-control" name="type" id="type" >
                                             <option selected value="">Tipo De Instrumento</option>
                                             <option value="Transferencia">Transferencia</option>
                                             <option value="Deposito">Deposito</option>
@@ -43,7 +43,6 @@
 
                                     </div>                            
 
-                                    <input class="form-control" placeholder="" name="registration_date" type="hidden" value="<?php if(isset($dat)){ echo $dat[0]['registration_date'];}else echo set_value('registration_date') ?>"required=""> 
                                       <!-- Change this to a button or input when using this as a form -->
                                     <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
 

@@ -136,7 +136,14 @@
                                             <td><?php echo $valor['amount']; ?></td>
                                             <td><?php echo $valor['register_date']; ?></td>
                                             <td><?php echo $valor['name']; ?></td>
-                                            <td><a href='./casino/update_payment/<? echo $valor['id_register_payment']; ?>' class='glyphicon glyphicon-search'></a></td>
+                                            <? if($valor['id_register_payment_status'] != 2 ) {
+                                            echo "<td><a href='./casino/update_payment/".$valor['id_register_payment']."' class='glyphicon glyphicon-search'></a></td>";
+                                            } else {
+                                                echo "<td></td>";
+                                            }
+
+                                            ?>
+                                            
                                         </tr>
                                         <?php } ?>
                                     </tbody>
