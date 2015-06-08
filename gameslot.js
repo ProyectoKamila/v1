@@ -256,6 +256,7 @@ wsServer.on('request', function(request) {
         var newarrayallclient = {};
         delete clientsconection[connection.token];
         delete clientsconection[connection.id_user];
+        
 //saca de la conexion al cliente si esta conectado
         for (var i in clientsconection) {
             if (clientsconection[i] !== undefined) {
