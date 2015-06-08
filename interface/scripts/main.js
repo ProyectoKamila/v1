@@ -28,9 +28,16 @@ function mostrar_create_sala (){
     console.log('mostrar_create_sala');
     $('#sales').addClass('sales-close');
     $('.create-salas').addClass('create-salas-visible');
+    $('.playing').slideUp();
 }
 function ocultar_create_sala (){
     console.log('ocultar_create_sala');
     $('#sales').removeClass('sales-close');
     $('.create-salas').removeClass('create-salas-visible');
+    $('.playing').slideDown();
+}
+function ocultar_carga (){
+    console.log('ocultar_create_sala');
+    $('#torbo').slideUp('');
+    
 }

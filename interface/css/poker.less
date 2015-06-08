@@ -13,10 +13,10 @@
     -ms-transform: translate3d(-250%, -00%, 299px) ;
     transition:0.8s all ease-in;
     z-index:2;
-    
+
     .close{
         color: #FFF;
-        
+
         text-align: right;
         opacity: 1;
     }
@@ -55,25 +55,29 @@
 }
 .poker{
     padding-top: 80px;
-    /*overflow:hidden;*/
+    overflow:hidden;
     position: relative;
-    /*height: 600px;*/
-    
+    height: 780px;
+
 }
 .playing{
-    background: url(../images/recortes/poker/mesa-poker.png) center center no-repeat;
-    height: 480px;
-    background-size: 100%;
+    background: url(http://localhost:8888/wordpress/casino/v1/interface/images/recortes/poker/mesa-poker.png) center center no-repeat;
+    height: 720px;
+    /*background-size: 100%;*/
+    position: relative;
+    z-index:900;
+    margin-top:-20px;
+    
     .curpie{
         width: 100%;
         height: 200px;
-        margin-top: -230px;
+        margin-top: 60px;
     }
     .men{
-    background: url(../images/recortes/poker/dealer.png) center center no-repeat;    
+        background: url(../images/recortes/poker/dealer.png) center center no-repeat;    
     }
     .player{
-        height: 200px;
+        height: 280px;
         overflow: hidden;
         position: relative;
         .name{
@@ -85,32 +89,101 @@
             }
         }
         .img-profile{
-         width: 100px;
-         height: 100px;
-         border-radius: 50%;
-         overflow: hidden;
-         display: block;
-         margin: 0 auto;
-         border:5px dashed @rojo;
-         background: @gris-plomo;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: block;
+            margin: 0 auto;
+            border:5px dashed @rojo;
+            background: @gris-plomo;
+        }
+        .money{
+            width: 110px;
+            height: 20px;
+            background: @rojo;
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            margin-bottom:5px;
+            p{
+                &:before{
+                    content:'Bs.';
+                }
+                padding:2px;
+                font-size: 12px;
+                color: white;
+                text-align: center;
+            }
+        }
+        .tiempo{
+            width: 50px;
+            height: 50px;
+            position: relative;
+            background: @rojo;
+            color: white;
+            border-radius: 50%;
+            margin-top: -70px;
+        }
+        .cartas{
+            width: 100%;
+            height: 80px;
+            
+            position: relative;
+            margin-top: -30px;
+            margin-bottom: 0px;
+            .carta1, .carta2{
+                float:right;
+                margin-right: 5px;
+                height: 70px;
+                width: 40px;
+                background: violet;
+                border-radius:5px;
+            }
+        }
+        .thumbnail{
+            display: none;
         }
     }
     .player1{
-        margin-top: -200px;
+        margin-top: -50px;
     }
-    
+    .player2{
+        margin-top: -50px;
+    }
+    .player3{
+        margin-left: -100px;
+        margin-top: -50px;
+        .tiempo{
+            margin-left: 50px;
+        }
+        .cartas{
+            margin-left: -50px;
+        }
+    }
+    .player4{
+        margin-top: -50px;
+        margin-left: 130px;
+    }
+    .player5 , .player6 , .player7{
+        margin-top: -60px;
+    }
 }
 .sidebar-game{
     width: 100%;
-    height: 600px;
+    height: 780px;
     background: @mostaza;
     overflow:hidden;
+}
+#torbo{
+    z-index: 999;
 }
 #sales{
     background: @gris-plomo;
     padding: 10px;
     transition:1.2s all ease-in-out;
     border-radius:10px;
+    margin-bottom:200px;
     .list-sales{
         width: 100%;
         height: 450px;
@@ -145,13 +218,19 @@
     overflow: hidden;
     padding: 0px !important;
     min-height:0px !important;
+    margin-bottom:0px !important;
 }
 .create-salas-visible{
-    transform: translate3d(0%, -25%, 0px) !important;
-    -webkit-transform:  translate3d(0%, -25%, 0px) !important;
-    -moz-transform: translate3d(0%, -25%, 0px) !important;
-    -ms-transform:  translate3d(0%, -25%, 0px) !important;
+    transform: translate3d(0%, -20%, 0px) !important;
+    -webkit-transform:  translate3d(0%, -20%, 0px) !important;
+    -moz-transform: translate3d(0%, -20%, 0px) !important;
+    -ms-transform:  translate3d(0%, -20%, 0px) !important;
     height: auto;
     overflow: auto;
     padding:12px;
+    z-index: 1000;
+}
+.alert-info{
+    position: relative;
+    z-index: 11111;
 }
