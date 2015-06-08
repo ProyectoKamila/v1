@@ -82,24 +82,31 @@ class Casino extends MY_Controller {
         if(!$id){
                 redirect('./casino/profile');
             }
+            if (isset($_POST['register_payment'])) {
 
-            $user = $this->modelo_universal->query('SELECT * FROM `user_data` where id_user='.$id);
-            $bet = $this->modelo_universal->query('SELECT * FROM `activity_bet` where id_user='.$id);
-            $balance = $this->modelo_universal->query('SELECT * FROM `activity_balance` where id_user='.$id);
-            $game = $this->modelo_universal->query('SELECT * FROM `game` where id_user='.$id);
-            $where="register_payment_status.id_register_payment_status=register_payment.register_payment_status_id AND register_payment.id_user = ".$id;
-            $reload = $this->modelo_universal->selectjoin('register_payment','register_payment_status',$where,'*' );
+                //Aqui Actualizar
+            }
 
-                    
-            //$this->data['data'] = $data;
-            $this->data['user'] = $user;
-            $this->data['bet'] = $bet;
-            $this->data['balance'] = $balance;
-            $this->data['game'] = $game;
-            $this->data['reload'] = $reload;
-            $this->navigation();
-            $this->load->view('page/header');
-            $this->load->view('page/detail_profile', $this->data);
+            else{
+
+                $user = $this->modelo_universal->query('SELECT * FROM `user_data` where id_user='.$id);
+                $bet = $this->modelo_universal->query('SELECT * FROM `activity_bet` where id_user='.$id);
+                $balance = $this->modelo_universal->query('SELECT * FROM `activity_balance` where id_user='.$id);
+                $game = $this->modelo_universal->query('SELECT * FROM `game` where id_user='.$id);
+                $where="register_payment_status.id_register_payment_status=register_payment.register_payment_status_id AND register_payment.id_user = ".$id;
+                $reload = $this->modelo_universal->selectjoin('register_payment','register_payment_status',$where,'*' );
+
+                        
+                //$this->data['data'] = $data;
+                $this->data['user'] = $user;
+                $this->data['bet'] = $bet;
+                $this->data['balance'] = $balance;
+                $this->data['game'] = $game;
+                $this->data['reload'] = $reload;
+                $this->navigation();
+                $this->load->view('page/header');
+                $this->load->view('page/detail_profile', $this->data);
+            }
         
         }   
     }
@@ -112,17 +119,16 @@ class Casino extends MY_Controller {
                 redirect('./casino/profile');
             }
 
-            $user = $this->modelo_universal->query('SELECT * FROM `user_data` where id_user='.$id);
+            $payment = $this->modelo_universal->query('SELECT * FROM `register_payment` where id_register_payment='.$id);
+            $payment_status = $this->modelo_universal->select('register_payment_status', '*', null);
                                 
-            $this->data['data'] = $data;
-            $this->data['user'] = $user;
-            $this->data['bet'] = $bet;
-            $this->data['balance'] = $balance;
-            $this->data['game'] = $game;
-            $this->data['reload'] = $game;
+        
+            $this->data['status'] = $payment_status;
+            $this->data['payment'] = $payment;
+            //debug(print_r($this->data));
             $this->navigation();
             $this->load->view('page/header');
-            $this->load->view('page/detail_profile');
+            $this->load->view('page/update_payment', $this->data);
         
         }   
     }

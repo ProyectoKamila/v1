@@ -49,6 +49,7 @@ $route['detail_profile'] = "casino/detail_profile/";
 $route['login'] = "casino/login/";
 $route['close'] = "casino/close/";
 $route['dashboard'] = "casino/dashboard/";
+$route['update-payment'] = "casino/update_payment/";
 //////////////////////////////////////////////jugegos y demos de juegos////////////////////////////////////////////////////
 $route['close_home'] = "casino/close_home/";
 $route['slotmachine'] = "casino/slotmachine/";
