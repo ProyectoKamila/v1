@@ -115,12 +115,12 @@
     s_oGame.TOTAL_MONEY=value_mt;
     s_oGame._iMoney= value_mt;
     s_oGame.moneyref(parseFloat(value_mt));
-console.log('iMoney' + iMoney);
-console.log('total Money' + TOTAL_MONEY);
-s_oInterface.refreshMoney(parseFloat(iMoney));
-s_oInterface.enableSpin();
+    console.log('iMoney' + iMoney);
+    console.log('total Money' + TOTAL_MONEY);
+    s_oInterface.refreshMoney(parseFloat(iMoney));
+    s_oInterface.enableSpin();
 
-            $('#myModal').modal('toggle');
+        $('#myModal').modal('toggle');
 
           } else if (value_mt <10)
           {
