@@ -22,10 +22,7 @@ function cerrar_movil(){
 	$('.menu-movil').slideUp();
 	$('#menu-movil').attr('onclick','menu_movil();');
 }
-$(function() {
-        console.log('el documento está preparado');
 
-});
 
 function mostrar_create_sala (){
     console.log('mostrar_create_sala');
