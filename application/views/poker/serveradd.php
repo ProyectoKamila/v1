@@ -1,4 +1,4 @@
-<?php include('./interface/header.php');?>
+<?php include('./interface/header.php'); ?>
 <div class="container-fluid ">
     <div class="row" id='rowsales'>
         <div class="col-lg-8 col-md-8 col-sm-8 hidden-xs content-game poker" id="">
@@ -86,156 +86,162 @@
                 </div>
             </section>
             <section class="playing">
-                <div class="row" id='rowgame' style='display: none'>
-        <div class="col-lg-8 col-md-8 col-sm-8 hidden-xs content-game" id="">
-            <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player1' ondblclick="seeplayer('#player1', 0);">
-                    <div class="caption"><h3 id='player1name'>PLAYER1</h3></div>
-                    <div class="caption"><h3 id='player1coin'>13123</h3></div>
-                    <div class="caption"><h3 id='player1time'>TIME</h3></div>
-                    <div class="caption"><h3 id='player1apos'>apos</h3></div>
-                    <a class="thumbnail">
-                        <img id='player1imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/cartas.png" alt="..." id='player1cartas'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/corazon/10co.png" alt="..." id='player1cartasplay'>
-                        <img src="./imagen/poker/pica/8pic.png" alt="..." id='player1cartasplay2'>
-                    </a>
+                <div class="container-fluid">
+                    <div class="row" id='rowgame' >
+                        <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs content-game " id="">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs " id='player1' ondblclick="seeplayer('#player1', 0);">
+                                        <div class="player player1">
+                                            <div class="caption name"><h3 id='player1name'>PLAYER1</h3></div>
+                                            <div class="img-profile">
+                                                <img id='player1imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
+                                            </div>   
+                                            <div class="caption"><h3 id='player1coin'>13123</h3></div>
+                                            <div class="caption"><h3 id='player1time'>TIME</h3></div>
+                                            <div class="caption"><h3 id='player1apos'>apos</h3></div>
+                                            
+                                            <a class="thumbnail">
+                                                <img src="./imagen/poker/cartas.png" alt="..." id='player1cartas'>
+                                            </a>
+                                            <a class="thumbnail">
+                                                <img src="./imagen/poker/corazon/10co.png" alt="..." id='player1cartasplay'>
+                                                <img src="./imagen/poker/pica/8pic.png" alt="..." id='player1cartasplay2'>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs" id='crupier'>
+                                        <div class="curpie men">
 
+                                        </div>
+                                    </div>
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs " id='player2'ondblclick="seeplayer('#player2', 1);" >
+                                        <div class="caption name"><h3 id='player2name'>PLAYER1</h3></div>
+                                        <div class="caption"><h3 id='player2coin'>13123</h3></div>
+                                        <div class="caption"><h3 id='player2time'>TIME</h3></div>
+                                        <div class="caption"><h3 id='player2apos'>apos</h3></div>
+                                        <a class="thumbnail" >
+                                            <img id='player2imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/cartas.png" alt="..." id='player2cartas'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/corazon/10co.png" alt="..." id='player2cartasplay'>
+                                            <img src="./imagen/poker/pica/8pic.png" alt="..." id='player2cartasplay2'>
+                                        </a>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" >
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player3'>
+                                        <div class="caption"><h3 id='player3name'>PLAYER1</h3></div>
+                                        <div class="caption"><h3 id='player3coin'>13123</h3></div>
+                                        <div class="caption"><h3 id='player3time'>TIME</h3></div>
+                                        <div class="caption"><h3 id='player3apos'>apos</h3></div>
+                                        <a class="thumbnail" >
+                                            <img id='player3imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/cartas.png" alt="..." id='player3cartas'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/corazon/10co.png" alt="..." id='player3cartasplay'>
+                                            <img src="./imagen/poker/pica/8pic.png" alt="..." id='player3cartasplay2'>
+                                        </a>
+
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs" id='crupier'>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/mesa-poker.png" alt="..." id='crupier'>
+                                        </a>
+                                    </div>
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player4'>
+                                        <div class="caption"><h3 id='player4name'>PLAYER1</h3></div>
+                                        <div class="caption"><h3 id='player4coin'>13123</h3></div>
+                                        <div class="caption"><h3 id='player4time'>TIME</h3></div>
+                                        <div class="caption"><h3 id='player4apos'>apos</h3></div>
+                                        <a class="thumbnail">
+                                            <img id='player4imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/cartas.png" alt="..." id='player4cartas'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/corazon/10co.png" alt="..." id='player4cartasplay'>
+                                            <img src="./imagen/poker/pica/8pic.png" alt="..." id='player4cartasplay2'>
+                                        </a>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player5'>
+                                        <div class="caption"><h3 id='player5name'>PLAYER1</h3></div>
+                                        <div class="caption"><h3 id='player5coin'>13123</h3></div>
+                                        <div class="caption"><h3 id='player5time'>TIME</h3></div>
+                                        <div class="caption"><h3 id='player5apos'>apos</h3></div>
+                                        <a class="thumbnail" >
+                                            <img id='player5imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/cartas.png" alt="..." id='player5cartas'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/corazon/10co.png" alt="..." id='player5cartasplay'>
+                                            <img src="./imagen/poker/pica/8pic.png" alt="..." id='player5cartasplay2'>
+                                        </a>
+
+                                    </div>
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player6' onclick='seeplayer("player1");'>
+                                        <div class="caption"><h3 id='player6name'>PLAYER1</h3></div>
+                                        <div class="caption"><h3 id='player6coin'>13123</h3></div>
+                                        <div class="caption"><h3 id='player6time'>TIME</h3></div>
+                                        <div class="caption"><h3 id='player6apos'>apos</h3></div>
+                                        <a class="thumbnail">
+                                            <img id='player6imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/cartas.png" alt="..." id='player6cartas'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/corazon/10co.png" alt="..." id='player6cartasplay'>
+                                            <img src="./imagen/poker/pica/8pic.png" alt="..." id='player6cartasplay2'>
+                                        </a>
+
+                                    </div>
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player7'>
+                                        <div class="caption"><h3 id='player7name'>PLAYER1</h3></div>
+                                        <div class="caption"><h3 id='player7coin'>13123</h3></div>
+                                        <div class="caption"><h3 id='player7time'>TIME</h3></div>
+                                        <div class="caption"><h3 id='player7apos'>apos</h3></div>
+                                        <a class="thumbnail">
+                                            <img id='player7imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/cartas.png" alt="..." id='player7cartas'>
+                                        </a>
+                                        <a class="thumbnail">
+                                            <img src="./imagen/poker/corazon/10co.png" alt="..." id='player7cartasplay'>
+                                            <img src="./imagen/poker/pica/8pic.png" alt="..." id='player7cartasplay2'>
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs" id='crupier'>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/dealer.png" alt="..." id='crupier'>
-                    </a>
-                </div>
-                <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player2'ondblclick="seeplayer('#player2', 1);" >
-                    <div class="caption"><h3 id='player2name'>PLAYER1</h3></div>
-                    <div class="caption"><h3 id='player2coin'>13123</h3></div>
-                    <div class="caption"><h3 id='player2time'>TIME</h3></div>
-                    <div class="caption"><h3 id='player2apos'>apos</h3></div>
-                    <a class="thumbnail" >
-                        <img id='player2imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/cartas.png" alt="..." id='player2cartas'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/corazon/10co.png" alt="..." id='player2cartasplay'>
-                        <img src="./imagen/poker/pica/8pic.png" alt="..." id='player2cartasplay2'>
-                    </a>
-
-                </div>
-
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" >
-                <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player3'>
-                    <div class="caption"><h3 id='player3name'>PLAYER1</h3></div>
-                    <div class="caption"><h3 id='player3coin'>13123</h3></div>
-                    <div class="caption"><h3 id='player3time'>TIME</h3></div>
-                    <div class="caption"><h3 id='player3apos'>apos</h3></div>
-                    <a class="thumbnail" >
-                        <img id='player3imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/cartas.png" alt="..." id='player3cartas'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/corazon/10co.png" alt="..." id='player3cartasplay'>
-                        <img src="./imagen/poker/pica/8pic.png" alt="..." id='player3cartasplay2'>
-                    </a>
-
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs" id='crupier'>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/mesa-poker.png" alt="..." id='crupier'>
-                    </a>
-                </div>
-                <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player4'>
-                    <div class="caption"><h3 id='player4name'>PLAYER1</h3></div>
-                    <div class="caption"><h3 id='player4coin'>13123</h3></div>
-                    <div class="caption"><h3 id='player4time'>TIME</h3></div>
-                    <div class="caption"><h3 id='player4apos'>apos</h3></div>
-                    <a class="thumbnail">
-                        <img id='player4imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/cartas.png" alt="..." id='player4cartas'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/corazon/10co.png" alt="..." id='player4cartasplay'>
-                        <img src="./imagen/poker/pica/8pic.png" alt="..." id='player4cartasplay2'>
-                    </a>
-
-                </div>
-
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player5'>
-                    <div class="caption"><h3 id='player5name'>PLAYER1</h3></div>
-                    <div class="caption"><h3 id='player5coin'>13123</h3></div>
-                    <div class="caption"><h3 id='player5time'>TIME</h3></div>
-                    <div class="caption"><h3 id='player5apos'>apos</h3></div>
-                    <a class="thumbnail" >
-                        <img id='player5imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/cartas.png" alt="..." id='player5cartas'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/corazon/10co.png" alt="..." id='player5cartasplay'>
-                        <img src="./imagen/poker/pica/8pic.png" alt="..." id='player5cartasplay2'>
-                    </a>
-
-                </div>
-                <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player6' onclick='seeplayer("player1");'>
-                    <div class="caption"><h3 id='player6name'>PLAYER1</h3></div>
-                    <div class="caption"><h3 id='player6coin'>13123</h3></div>
-                    <div class="caption"><h3 id='player6time'>TIME</h3></div>
-                    <div class="caption"><h3 id='player6apos'>apos</h3></div>
-                    <a class="thumbnail">
-                        <img id='player6imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/cartas.png" alt="..." id='player6cartas'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/corazon/10co.png" alt="..." id='player6cartasplay'>
-                        <img src="./imagen/poker/pica/8pic.png" alt="..." id='player6cartasplay2'>
-                    </a>
-
-                </div>
-                <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player7'>
-                    <div class="caption"><h3 id='player7name'>PLAYER1</h3></div>
-                    <div class="caption"><h3 id='player7coin'>13123</h3></div>
-                    <div class="caption"><h3 id='player7time'>TIME</h3></div>
-                    <div class="caption"><h3 id='player7apos'>apos</h3></div>
-                    <a class="thumbnail">
-                        <img id='player7imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/cartas.png" alt="..." id='player7cartas'>
-                    </a>
-                    <a class="thumbnail">
-                        <img src="./imagen/poker/corazon/10co.png" alt="..." id='player7cartasplay'>
-                        <img src="./imagen/poker/pica/8pic.png" alt="..." id='player7cartasplay2'>
-                    </a>
-
-                </div>
-
-            </div>
-        </div>
-
-    </div>
             </section>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs sidebar-game"></div>
 
     </div>
     <!--<div class="row" id='rowgame'>--> 
-    
+
 
 </div>
 <script>
@@ -266,3 +272,4 @@
     }
 
 </script>
+<?php include('./interface/footer.php'); ?>

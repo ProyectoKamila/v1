@@ -1,5 +1,5 @@
 <!--estilos header-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
 <link rel="stylesheet" type="text/less" href="./interface/css/main.less">
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.0/less.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
