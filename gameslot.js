@@ -29,7 +29,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8804;
+    var port = 8808;
     var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
 }
 

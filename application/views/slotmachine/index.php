@@ -147,7 +147,7 @@ function connetserver() {
             }
 
             function open_connection() {
-                socket = new WebSocket('ws://localhost:8804/', 'server');
+                socket = new WebSocket('ws://localhost:8808/', 'server');
                 socket.addEventListener("open", connection_established);
             }
             //cuando la conexion se establece
