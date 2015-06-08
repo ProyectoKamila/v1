@@ -1,11 +1,28 @@
 .create-salas{
     margin-top: 100px;
     width: 100%;
-    height: auto;
+    height: 0px;
+    overflow: hidden;
     background: @rojo;
     overflow:hidden;
-    padding:12px;
+    padding:0px;
     border-radius: 5px;
+    transform: translate3d(-250%, -00%, 299px) ;
+    -webkit-transform: translate3d(-250%, -00%, 299px) ;
+    -mox-transform: translate3d(-250%, -00%, 299px) ;
+    -ms-transform: translate3d(-250%, -00%, 299px) ;
+    transition:0.8s all ease-in;
+    z-index:2;
+    
+    .close{
+        color: #FFF;
+        
+        text-align: right;
+        opacity: 1;
+    }
+    .close:hover{
+        color: #FFF;
+    }
     .input-group{
         margin-bottom: 10px;
         height: 35px;
@@ -28,11 +45,73 @@
             margin-top: 1px;
             width: 98%;
         }
-        
+
     }
     .label{
         background: white;
         color: @rojo;
         font-weight: 200;
     }
+}
+.poker{
+    padding-top: 80px;
+    overflow:hidden;
+    position: relative;
+    height: 600px;
+    
+}
+.sidebar-game{
+    width: 100%;
+    height: 600px;
+    background: @mostaza;
+    overflow:hidden;
+}
+#sales{
+    background: @gris-plomo;
+    padding: 10px;
+    transition:1.2s all ease-in-out;
+    border-radius:10px;
+    .list-sales{
+        width: 100%;
+        height: 450px;
+        overflow-y: scroll;
+        border-radius:10px;
+        color:white;
+        .titulo{
+            font-weight: bold;
+            font-size: 20px;
+        }
+        tr > th{
+            text-align: center;
+            font-weight: 200;
+            span{
+                font-size: 18px;
+                left: -10px;
+                position: relative;
+            }
+        }
+        tr:nth-of-type(odd){
+            background: @rojo;
+        }
+    }
+
+}
+.sales-close{
+    transform: translate3d(-10%, -180%, 299px);
+    -webkit-transform: translate3d(-10%, -180%, 299px) ;
+    -mox-transform: translate3d(-10%, -180%, 299px) ;
+    -ms-transform: translate3d(-10%, -180%, 299px) ;
+    height: 0px;
+    overflow: hidden;
+    padding: 0px !important;
+    min-height:0px !important;
+}
+.create-salas-visible{
+    transform: translate3d(0%, -25%, 0px) !important;
+    -webkit-transform:  translate3d(0%, -25%, 0px) !important;
+    -moz-transform: translate3d(0%, -25%, 0px) !important;
+    -ms-transform:  translate3d(0%, -25%, 0px) !important;
+    height: auto;
+    overflow: auto;
+    padding:12px;
 }

@@ -1,6 +1,7 @@
-<div class="container-fluid poker">
+<?php include('./interface/header.php');?>
+<div class="container-fluid ">
     <div class="row" id='rowsales'>
-        <div class="col-lg-8 col-md-8 col-sm-8 hidden-xs content-game" id="">
+        <div class="col-lg-8 col-md-8 col-sm-8 hidden-xs content-game poker" id="">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
@@ -11,22 +12,15 @@
                             <a class="btn btn-default link-error" id="buttonsitdown">SENTARSE</a>
                         </div>
                     </div>
-
-
-
-
+                    <div class="clearfix"></div>
                     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
                         <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">reconectar...</a></div>
-
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="game">
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="sales">
-                        <div class="clearfix"></div>
-
-
 
                     </div>
                     <div class="clearfix"></div>
@@ -38,15 +32,13 @@
                         </div>
                     </div>
                     <div class="clearfix"></div>
-
                 </div>
-
-                <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs sidebar-game"></div>
             </div>
-            <section class="create-salas register-form col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3">
+            <section class="create-salas register-form col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3" id="creating-sale">
+                <span class="glyphicon glyphicon-remove-circle close" onclick="ocultar_create_sala();"></span>
                 <div class="col-xs-12 ">
-				<h2>Crear una sala <span class="label label-default"> Diviertete!</span></h2>
-			</div>
+                    <h2>Crear una sala <span class="label label-default"> Diviertete!</span></h2>                    
+                </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs sin-pading" id="newsale">
                     <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
                         <span class="input-group-addon glyphicon glyphicon-ok" id="sizing-addon3">
@@ -88,17 +80,13 @@
                         </select>
                     </div>
                     <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                        <a class="btn btn-default link-error btn-submit" id="buttoncreate">Crear.</a>
+                        <a class="btn btn-default link-error btn-submit " id="buttoncreate" onclick="ocultar_create_sala();">Jugar Ahora</a>
                     </div>
 
                 </div>
             </section>
-        </div>
-
-
-    </div>
-    <!--<div class="row" id='rowgame'>-->
-    <div class="row" id='rowgame' style='display: none'>
+            <section class="playing">
+                <div class="row" id='rowgame' style='display: none'>
         <div class="col-lg-8 col-md-8 col-sm-8 hidden-xs content-game" id="">
             <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
                 <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player1' ondblclick="seeplayer('#player1', 0);">
@@ -241,11 +229,18 @@
         </div>
 
     </div>
+            </section>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs sidebar-game"></div>
+
+    </div>
+    <!--<div class="row" id='rowgame'>--> 
+    
 
 </div>
 <script>
     function sales(arraycon, clients) {
-        var content = " <table class='table table-striped'><tr><th>SALA</th><th>APUESTA</th><th>MIN/MAX</th><th>MAX JUG</th></tr>";
+        var content = " <table class='table table-striped list-sales '><tr class='titulo'><th class=''>SALA</th><th>APUESTA</th><th>MIN/MAX</th><th>MAX JUG</th></tr>";
         var recorrido = arraycon;
         var ide = 0;
         //                                console.log(recorrido);
@@ -265,7 +260,7 @@
 
             }
         }
-        content += "<tr><td><p></p><p><span id='clients'> " + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default'  id='newsale' >Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
+        content += "<tr><td><p></p><p><span id='clients'> " + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default btn-crear-sala'  id='newsale' onclick='mostrar_create_sala();'>Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
         content += "</tablet>";
         $('#sales').html(content);
     }
