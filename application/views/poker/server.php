@@ -291,6 +291,8 @@ if (isset($_COOKIE['token'])) {
 
     function joingame(id, pass) {
         $('#sales').addClass('sales-close');
+        $('.create-salas').slideUp();
+        
         idsale = id;
 //       idsit=undefined;
         if (pass == 1) {
@@ -367,6 +369,7 @@ if (isset($_COOKIE['token'])) {
     }
 //    function para ver el perfil del usuario o para sentarse en el puesto
     function seeplayer(player, idsit2) {
+        $('#torbo').slideDown();
         idsit = idsit2;
         var elem = player;
         var name = elem + 'name';
