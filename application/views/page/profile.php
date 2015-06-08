@@ -18,16 +18,17 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Id Usuer</th>
-                                            <th>nickname</th>
-                                            <th>email</th>
+                                            <!--<th>Id Usuer</th>-->
+                                            <th>Nickname</th>
+                                            <th>Nombre</th>
+                                            <th>Email</th>
                                             <th>Status Account</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($this->data['users'] as $user=>$valor ){ ?>
                                         <tr class="odd gradeX">
-                                            <td><a href='./casino/detail_profile/<? echo $valor['id_user']; ?>' class='glyphicon glyphicon-search'></a></td>
+                                            <td><a href='./detail-profile/<?php echo $valor['id_user']; ?>' class='glyphicon glyphicon-search'></a></td>
                                             <td><?php echo $valor['nickname']; ?></td>
                                             <td><?php echo $valor['email']; ?></td>
                                             <td><?php echo $valor['name']; ?></td>

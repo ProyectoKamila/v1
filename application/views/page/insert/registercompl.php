@@ -54,7 +54,7 @@
                                         <input class="form-control" name="id_user" type="hidden" value="<?php if(isset($data)){ echo $data; }?>" required=""> 
                                         <input class="form-control" name="id_user_account_status" type="hidden" value="2" required=""> 
 
-                                        <input class="form-control" placeholder="N° de Identificación" name="identity_card" type="text" value="<?php if(isset($dat)){ echo $dat[0]['identity_card'];}else echo set_value('identity_card') ?>"required=""> 
+                                        <input class="form-control" placeholder="N° de Identificación" name="identity_card" type="text" value="<?php if(isset($dat)){ echo $dat[0]['identity_card'];}else echo set_value('identity_card') ?>"required="" readonly="readonly"> 
                                         <font color="red" style="font-weight: bold; font-size: 8px; text-decoration: underline"><?php echo form_error('identity_card'); ?></font>
                                     </div>
 

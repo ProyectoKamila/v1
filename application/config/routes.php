@@ -43,13 +43,17 @@
 $route['default_controller'] = "casino";
 $route['404_override'] = '';
 /////////////////////////////////////////////////////controlador CASINO/////////////////////////////////////////////////////
+
 $route['profile/(:any)'] = "casino/profile/$1";
 $route['profile'] = "casino/profile/";
-$route['detail_profile'] = "casino/detail_profile/";
+$route['detail-profile'] = "casino/detail_profile/";
+$route['detail-profile/(:any)'] = "casino/detail_profile/$1";
 $route['login'] = "casino/login/";
+$route['update-payment/(:any)'] = "casino/update_payment/$1";
 $route['close'] = "casino/close/";
 $route['dashboard'] = "casino/dashboard/";
 $route['update-payment'] = "casino/update_payment/";
+
 //////////////////////////////////////////////jugegos y demos de juegos////////////////////////////////////////////////////
 $route['close_home'] = "casino/close_home/";
 $route['slotmachine'] = "casino/slotmachine/";

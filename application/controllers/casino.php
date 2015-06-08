@@ -89,11 +89,16 @@ class Casino extends MY_Controller {
 
             else{
 
-                $user = $this->modelo_universal->query('SELECT * FROM `user_data` where id_user='.$id);
+                $user = $this->modelo_universal->query('SELECT `user_data`.* ,`user`.* , `user_account_status`.`name` FROM `user_data`,`user`, `user_account_status` where `user_data`.id_user='.$id.' AND `user`.id_user='.$id.' AND `user`.`id_user_account_status` = `user_account_status`.`id_user_account_status`');
+                
                 $bet = $this->modelo_universal->query('SELECT * FROM `activity_bet` where id_user='.$id);
+                
                 $balance = $this->modelo_universal->query('SELECT * FROM `activity_balance` where id_user='.$id);
+                
                 $game = $this->modelo_universal->query('SELECT * FROM `game` where id_user='.$id);
+                
                 $where="register_payment_status.id_register_payment_status=register_payment.register_payment_status_id AND register_payment.id_user = ".$id;
+                
                 $reload = $this->modelo_universal->selectjoin('register_payment','register_payment_status',$where,'*' );
 
                         
@@ -114,50 +119,58 @@ class Casino extends MY_Controller {
     public function update_payment($id = null) {
         $role = parent::verify_role();
         if($role == true){
+            if(!isset($_POST["update_payment"])){
 
         /*if(!$id && !isset($_POST['update_payment'])){
                 redirect('./casino/profile');
             }*/
-            if (isset($_POST['update_payment'])) {
-               
-                 if($this->input->post('id_register_payment')!= ''){
-                     $data = array(
-                            'id_register_payment'=>$this->input->post('register_payment_status_id'),
-                           );
-                     $where = array( 'id_register_payment' => $this->input->post('id_register_payment'));
 
-                        $this->modelo_universal->update('register_payment', $data, $where);
-                        //$this->modelo_universal->update('user_data', $data, $where);
-                        $data = null;
-                        $this->session->set_flashdata('message', 'Estatus de Recarga Actualizado');
-                       // echo "<script>alert('Su pago fue registrado exitosamente y se encuentra en espera de aprobación');</script>";
-                        //$this->load->view('player/load_payment', $this->data);
-                        redirect('./casino/update_payment/'.$this->input->post('register_payment_status_id'));
-                                          
-                    }  else{
-                        $this->session->set_flashdata('message', 'Debe Cambiar el Estatus de Recarga');
-                       // echo "<script>alert('Su pago fue registrado exitosamente y se encuentra en espera de aprobación');</script>";
-                        //$this->load->view('player/load_payment', $this->data);
-                        redirect('./casino/update_payment/'.$this->input->post('register_payment_status_id') );
-                    }
-            }else
-            {
-                
-                $where="register_payment_status.id_register_payment_status=register_payment.register_payment_status_id AND register_payment.id_register_payment=".$id;
-                $payment = $this->modelo_universal->selectjoin('register_payment','register_payment_status',$where,'*' );
-                //$payment = $this->modelo_universal->query('SELECT * FROM `register_payment` where id_register_payment='.$id);
-                $payment_status = $this->modelo_universal->select('register_payment_status', '*', null);
-                                    
-            
-                $this->data['status'] = $payment_status;
-                $this->data['payment'] = $payment;
-                //debug(print_r($this->data));
-                $this->navigation();
-                $this->load->view('page/header');
-                $this->load->view('page/update_payment', $this->data);
-            }
+            $payment = $this->modelo_universal->query('SELECT * FROM `register_payment` where id_register_payment='.$id);
+            $payment_status = $this->modelo_universal->select('register_payment_status', '*');
+                                
         
-        }   
+            $this->data['status'] = $payment_status;
+            $this->data['payment'] = $payment;
+//            debug($this->data,false);
+            //debug(print_r($this->data));
+            $this->navigation();
+            $this->load->view('page/header');
+            $this->load->view('page/update_payment', $this->data);
+        
+        }else{
+//            debug($_POST);
+            $p= $this->modelo_universal->select('register_payment_status', 'id_register_payment_status',array('name' => $_POST["register_payment_status_id"]));
+//            debug($p[0]["id_register_payment_status"]);
+            $r = $this->modelo_universal->update('register_payment', array('register_payment_status_id' => $p[0]["id_register_payment_status"]), array('id_user' => $_POST["id_user"]));
+//            UPDATE  `v1`.`register_payment` SET  `register_payment_status_id` =  '1' WHERE  `register_payment`.`id_register_payment` =1;
+//            debug($r);
+            if(($r == 1) && ($p[0]["id_register_payment_status"] == 2)){
+//                ["amount"]
+                $pa= $this->modelo_universal->select('user_data', 'coins',array('id_user' => $_POST["id_user"]));
+//                    debug($pa);
+                    $amount = (int)$pa[0]["coins"]+(int)$_POST["amount"];
+//                    debug($amount);
+                $r1 = $this->modelo_universal->update('user_data', array('coins' => $amount), array('id_user' => $_POST["id_user"]));
+                if($r1 == 1){
+            $this->data['mensaje'] = "Estatus del Pago Actualizado";
+            
+                }
+                
+        }
+//            debug('otro');
+        $payment = $this->modelo_universal->query('SELECT * FROM `register_payment` where id_register_payment='.$_POST["id_register_payment"]);
+            $payment_status = $this->modelo_universal->select('register_payment_status', '*');
+            $this->data['status'] = $payment_status;
+            $this->data['payment'] = $payment;
+            
+            $this->navigation();
+            $this->load->view('page/header');
+            $this->load->view('page/update_payment', $this->data);
+                
+        }    
+        }else{
+            debug('no roll');
+        }  
     }
 
 
