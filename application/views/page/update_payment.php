@@ -13,6 +13,7 @@
 
                                      <div class="form-group input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                                        <input class="form-control" name="id_user" id= 'id_user' type="text" readonly value="<?php if(isset($this->data)){ echo $this->data['payment'][0]['id_register_payment']; }?>"> 
                                         <input class="form-control" name="id_user" id= 'id_user' type="text" readonly value="<?php if(isset($this->data)){ echo $this->data['payment'][0]['id_user']; }?>"> 
                                     </div>
                                     <div class="form-group input-group">
