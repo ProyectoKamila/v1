@@ -135,14 +135,23 @@ var enviar= {
 console.log('Linea Ganadora'+ ' ' +winline.length);
 _aWinningLine=winline;
         
-    }
+    };
      this.pruebacgame2 = function(finalc){
 
 //console.log('Linea Ganadora'+ ' ' +winline);
 console.log('combo de simbolo'+ ' ' +finalc);
 _aFinalSymbolCombo=finalc;
         
-    }
+    };
+
+
+    this.moneyref = function(money){
+       
+
+        TOTAL_MONEY= money;
+        _iMoney= money;
+
+    };
 
     this._generateRandSymbols = function() {
         var aRandSymbols = new Array();
@@ -193,6 +202,8 @@ _aFinalSymbolCombo=finalc;
             
         }
     };
+
+   
 
     this.stopNextReel = function() {
         _iNumReelsStopped++;
