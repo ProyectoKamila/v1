@@ -86,6 +86,9 @@ if (isset($_COOKIE['token'])) {
             var min = $('#inputapos').attr('min');
             var max = $('#inputapos').attr('max');
             var inputapos = $('#inputapos').val();
+            console.log(max);
+            console.log(inputapos);
+            console.log(min);
             if (min <= inputapos && max >= inputapos) {
 
                 $('#boxsitdown').slideUp();
@@ -288,7 +291,7 @@ if (isset($_COOKIE['token'])) {
 
     function joingame(id, pass) {
         idsale = id;
-        idsit=undefined;
+//       idsit=undefined;
         if (pass == 1) {
             $('#boxpass').slideDown();
         }
@@ -329,7 +332,7 @@ if (isset($_COOKIE['token'])) {
         var name = elem + 'name';
         var coin = elem + 'coin';
         var time = elem + 'time';
-        var apos = elem + apos;
+        var apos = elem + 'apos';
         var imageprofile = elem + 'imageprofile';
         var cartas = elem + 'cartas';
         var cartasplay = elem + 'cartasplay';
