@@ -13,6 +13,7 @@
 
                                      <div class="form-group input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                                        <input class="form-control" name="id_user" id= 'id_user' type="text" readonly value="<?php if(isset($this->data)){ echo $this->data['payment'][0]['id_register_payment']; }?>"> 
                                         <input class="form-control" name="id_user" id= 'id_user' type="text" readonly value="<?php if(isset($this->data)){ echo $this->data['payment'][0]['id_user']; }?>"> 
                                     </div>
                                     <div class="form-group input-group">
@@ -38,17 +39,21 @@
                                         <input class="form-control" placeholder="" name="register_date" type="text" readonly value="<?php if(isset($this->data)){ echo $this->data['payment'][0]['register_date'];}?>">
 
                                     </div>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+                                        <input class="form-control" title="Estatus Actual" placeholder="" name="status_id" type="text" readonly value="<?php if(isset($this->data)){ echo $this->data['payment'][0]['name'];}?>">
 
+                                    </div>
 
                                     <div class="form-group input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
-                                        <select name="register_payment_status_id">
-                                            <?php
-                                            foreach ($this->data['status'] as $this->data['status']['id_register_payment_status'] => $this->data['status']['name'])
-                                               echo '<option values="',$this->data['status']['id_register_payment_status'],'">',$this->data['status']['name'],'</option>';
-                                            ?>
-                                            </select>
-                                    </div>                            
+
+                                        <select class="form-control" name="type" id="type" >
+                                            <option selected value="">Cambiar Estatus</option>
+                                            <option value="2">Aprobar</option>
+                                            <option value="3">Rechazar</option>
+                                        </select>
+                                    </div>                     
 
                                       <!-- Change this to a button or input when using this as a form -->
                                     <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->

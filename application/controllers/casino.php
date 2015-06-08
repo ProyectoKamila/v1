@@ -115,20 +115,47 @@ class Casino extends MY_Controller {
         $role = parent::verify_role();
         if($role == true){
 
-        if(!$id){
+        /*if(!$id && !isset($_POST['update_payment'])){
                 redirect('./casino/profile');
-            }
+            }*/
+            if (isset($_POST['update_payment'])) {
+               
+                 if($this->input->post('id_register_payment')!= ''){
+                     $data = array(
+                            'id_register_payment'=>$this->input->post('register_payment_status_id'),
+                           );
+                     $where = array( 'id_register_payment' => $this->input->post('id_register_payment'));
 
-            $payment = $this->modelo_universal->query('SELECT * FROM `register_payment` where id_register_payment='.$id);
-            $payment_status = $this->modelo_universal->select('register_payment_status', '*', null);
-                                
-        
-            $this->data['status'] = $payment_status;
-            $this->data['payment'] = $payment;
-            //debug(print_r($this->data));
-            $this->navigation();
-            $this->load->view('page/header');
-            $this->load->view('page/update_payment', $this->data);
+                        $this->modelo_universal->update('register_payment', $data, $where);
+                        //$this->modelo_universal->update('user_data', $data, $where);
+                        $data = null;
+                        $this->session->set_flashdata('message', 'Estatus de Recarga Actualizado');
+                       // echo "<script>alert('Su pago fue registrado exitosamente y se encuentra en espera de aprobación');</script>";
+                        //$this->load->view('player/load_payment', $this->data);
+                        redirect('./casino/update_payment/'.$this->input->post('register_payment_status_id'));
+                                          
+                    }  else{
+                        $this->session->set_flashdata('message', 'Debe Cambiar el Estatus de Recarga');
+                       // echo "<script>alert('Su pago fue registrado exitosamente y se encuentra en espera de aprobación');</script>";
+                        //$this->load->view('player/load_payment', $this->data);
+                        redirect('./casino/update_payment/'.$this->input->post('register_payment_status_id') );
+                    }
+            }else
+            {
+                
+                $where="register_payment_status.id_register_payment_status=register_payment.register_payment_status_id AND register_payment.id_register_payment=".$id;
+                $payment = $this->modelo_universal->selectjoin('register_payment','register_payment_status',$where,'*' );
+                //$payment = $this->modelo_universal->query('SELECT * FROM `register_payment` where id_register_payment='.$id);
+                $payment_status = $this->modelo_universal->select('register_payment_status', '*', null);
+                                    
+            
+                $this->data['status'] = $payment_status;
+                $this->data['payment'] = $payment;
+                //debug(print_r($this->data));
+                $this->navigation();
+                $this->load->view('page/header');
+                $this->load->view('page/update_payment', $this->data);
+            }
         
         }   
     }
