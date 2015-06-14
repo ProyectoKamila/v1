@@ -1,4 +1,4 @@
-        <div id="page-wrapper">
+<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Datos del Usuario</h1> 
@@ -19,10 +19,13 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-user">
                                     <thead>
                                         <tr>
-                                            <th>Id Usuer</th>
-                                            <th>nickname</th>
-                                            <th>email</th>
-                                            <th>Status Account</th>
+                                            <th>Nombre y Apellido</th>
+                                            <th>N° Identidad</th>
+                                            <th>Nickname</th>
+                                            <th>Email</th>
+                                            <th>Nacionalidad</th>
+                                            <th>Saldo</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -30,8 +33,11 @@
                                         <tr class="odd gradeX">
                                             <td><?php echo $valor['first_name'].' '.$valor['last_name']; ?></td>
                                             <td><?php echo $valor['identity_card']; ?></td>
-                                            <td><?php echo $valor['gender']; ?></td>
+                                            <td><?php echo $valor['nickname']; ?></td>
+                                            <td><?php echo $valor['email']; ?></td>
                                             <td><?php echo $valor['nationality']; ?></td>
+                                            <td><?php echo $valor["coins"]; ?></td>
+                                            <td><?php echo $valor['name']; ?></td>
                                         </tr>
                                         
                                         <?php } ?>
@@ -61,7 +67,7 @@
                                     </tbody>
                                 </table>
                                 <br>
-                                <h1 class="page-header">Detalle Balance</h1> 
+<!--                                <h1 class="page-header">Detalle Balance</h1> 
                                  <table class="table table-striped table-bordered table-hover" id="dataTables-balance">
                                     <thead>
                                         <tr>
@@ -84,9 +90,9 @@
                                         
                                         <?php } ?>
                                     </tbody>
-                                </table>
+                                </table>-->
                                 <br>
-                                <h1 class="page-header">Detale Juegos</h1> 
+<!--                                <h1 class="page-header">Detalle Juegos</h1> 
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-game">
                                     <thead>
                                         <tr>
@@ -107,6 +113,36 @@
                                             <td><?php echo $valor['minimum_bet']; ?></td>
                                             <td><?php echo $valor['maximum_bet']; ?></td>
                                             <td><?php echo $valor['jackpot']; ?></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>-->
+                                <h1 class="page-header">Detalle Recargas</h1> 
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-game">
+                                    <thead>
+                                        <tr>
+                                            <th>ID Reload</th>
+                                            <th>Type</th>
+                                            <th>N° Referencia</th>
+                                            <th>Banco</th>
+                                            <th>Fecha Recarga</th>
+                                            <th>Monto</th>
+                                            <th>Estado</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($this->data['reload'] as $reload=>$valor ){ ?>
+                                        <tr class="odd gradeX">
+
+                                            <td><?php echo $valor['id_register_payment']; ?></td>
+                                            <td><?php echo $valor['type']; ?></td>
+                                            <td><?php echo $valor['bank']; ?></td>
+                                            <td><?php echo $valor['nume_ref']; ?></td>
+                                            <td><?php echo $valor['amount']; ?></td>
+                                            <td><?php echo $valor['register_date']; ?></td>
+                                            <td><?php echo $valor['name']; ?></td>
+                                            <td><a href='./casino/update_payment/<? echo $valor['id_register_payment']; ?>' class='glyphicon glyphicon-search'></a></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
@@ -155,3 +191,4 @@
 </body>
 
 </html>
+<?php // debug($this->data['user'],false); ?>

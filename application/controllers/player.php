@@ -71,23 +71,96 @@ class Player extends MY_Controller {
             }
         }
 
-        public function load_payment() {
+
+
+
+        public function payments() {
             $role = parent::verify_role();
             if($role == false){
                 //debug(print_r($this->session->userdata('id_user')));
-                $data = $this->modelo_universal->select('user_data', '*', array('id_user' =>  $this->session->userdata('id_user')));
-                //debug(print_r($data));
-            
+                $where="register_payment_status.id_register_payment_status=register_payment.register_payment_status_id AND register_payment.id_user = ".$this->session->userdata('id_user');
+                $data = $this->modelo_universal->selectjoin('register_payment','register_payment_status',$where,'*' );
 
-               /* if (!$data){
-                    redirect('./inser_controller/insertc');
-                }*/
-                $this->data['id_user'] = $this->session->userdata('id_user');
-                //debug(print_r($this->data['id_user']));
+                
+                $this->data['data'] = $data;
+                //debug(print_r($data[0]));
                  
                 $this->header('player');
                 $this->navigation();
-                $this->load->view('player/load_payment', $this->data);
+                $this->load->view('player/payments');
+            }
+        }
+
+        public function load_payment() {
+            $role = parent::verify_role();
+            if($role == false){
+               if (isset($_POST['register_payment'])) {
+                    $this->form_validation->set_rules('nume_ref', 'N° Referencia', 'required|trim|xss_clean|min_length[4]|max_length[10]|is_unique[register_payment.nume_ref]');
+                    $this->form_validation->set_rules('type', 'Tipo De Instrumento', 'required|trim|xss_clean');
+                    $this->form_validation->set_rules('bank', 'Banco', 'required|trim|xss_clean');
+                    $this->form_validation->set_rules('amount', 'Monto', 'required|xss_clean');
+
+                    $this->form_validation->set_message('required', 'El %s es requerido');
+                    $this->form_validation->set_message('is_unique', 'Este %s ya se encuentra en la base de datos');
+                    
+
+                    if ($this->form_validation->run() == FALSE) {
+                        $this->data['id_user'] = $this->session->userdata('id_user');
+                        $this->session->set_flashdata('message', 'Revisar Datos de Formulario');
+                        $this->header('player');
+                        $this->navigation();
+                        $this->load->view('player/load_payment');
+                    } else {
+                         //echo "validations true";
+
+                            if($this->input->post('id_user') != $this->session->userdata('id_user')){
+                                 //echo "session error";
+                                //$data = null;
+                                $this->session->set_flashdata('message', 'Error en la sesion, Inicie sesion nuevamente');
+                                //$this->header('player');
+                                //$this->navigation();
+                               // $this->load->view('player/load_payment');
+                                redirect('player/load_payment');
+                            }else{
+
+                    
+                        $data = array(
+                            'nume_ref' => $this->input->post('nume_ref'),
+                            'type' => $this->input->post('type'),
+                            'bank' => $this->input->post('bank'),
+                            'amount' => $this->input->post('amount'),
+                            'id_user' => $this->session->userdata('id_user'),
+                            'register_payment_status_id'=>'1',
+                            'register_date' => now()
+                            );
+
+                        $this->modelo_universal->insert('register_payment', $data);
+                        $data = null;
+                       // $this->header('player');
+                       // $this->navigation();
+                        $this->data['id_user'] = $this->session->userdata('id_user');
+                        $this->session->set_flashdata('message', 'Su pago fue registrado exitosamente y se encuentra en espera de aprobación');
+                       // echo "<script>alert('Su pago fue registrado exitosamente y se encuentra en espera de aprobación');</script>";
+                        //$this->load->view('player/load_payment', $this->data);
+                        redirect('player/load_payment');
+                        }                    
+                    }
+
+
+
+                    //debug(print_r($this->data['id_user']));            
+                    
+                    
+                }else{
+                     //echo "entrando";
+                    $data = null;
+                    $this->data['id_user'] = $this->session->userdata('id_user');
+                    $this->header('player');
+                    $this->session->set_flashdata('message', null);
+                    $this->navigation();
+                    $this->load->view('player/load_payment', $this->data);
+                    //redirect('player/load_payment');
+                }
             }
         }
 

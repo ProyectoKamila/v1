@@ -41,7 +41,7 @@
                     <div class="col-md-4 col-md-offset-4">
                         <div class="login-panel panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Complete su Registro</h3>
+                                <h3 class="panel-title"><?php if($this->session->flashdata('mensaje')!= false){echo $this->session->flashdata('mensaje');}elseif(isset($dat)){ echo 'Datos Personales'; }else{ ?>Complete su Registro<?php } ?></h3>
                             </div>
                             <div class="panel-body">
                                 <?php echo form_open_multipart("/receivingdc") ?>
@@ -54,7 +54,7 @@
                                         <input class="form-control" name="id_user" type="hidden" value="<?php if(isset($data)){ echo $data; }?>" required=""> 
                                         <input class="form-control" name="id_user_account_status" type="hidden" value="2" required=""> 
 
-                                        <input class="form-control" placeholder="N° de Identificación" name="identity_card" type="text" value="<?php if(isset($dat)){ echo $dat[0]['identity_card'];}else echo set_value('identity_card') ?>"required=""> 
+                                        <input class="form-control" placeholder="N° de Identificación" name="identity_card" type="text" value="<?php if(isset($dat)){ echo $dat[0]['identity_card'];}else echo set_value('identity_card') ?>"required="" readonly="readonly"> 
                                         <font color="red" style="font-weight: bold; font-size: 8px; text-decoration: underline"><?php echo form_error('identity_card'); ?></font>
                                     </div>
 
@@ -140,7 +140,7 @@
                                       <!-- Change this to a button or input when using this as a form -->
                                     <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
 
-                                    <input type="submit" name="login" class="btn btn-lg btn-success btn-block" value="Registrarme"/>
+                                    <input type="submit" name="login" class="btn btn-lg btn-success btn-block" value="<?php if(isset($dat)){echo 'Guardar Cambios';}else{ ?>Registrarme<?php } ?>"/>
 
                                 </fieldset>
                                 <?php echo form_close() ?>

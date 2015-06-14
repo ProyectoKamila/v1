@@ -66,7 +66,7 @@ class Insert_controller extends MY_Controller {
     }
 
     public function recibirDc() {
-
+//        debug($_POST);
 
         if (isset($_POST['id_user_account_status']) and $_POST['id_user_account_status'] == '0') {
             //SI EXISTE EL CAMPO OCULTO LLAMADO GRABAR CREAMOS LAS VALIDACIONES
@@ -99,9 +99,16 @@ class Insert_controller extends MY_Controller {
                } else {*/
 
                // $this->load->view('upload_success', $imagen);
+            
+            $very = $this->modelo_universal->select('user_data', '*', array('id_user' => $this->input->post('id_user')));
+            
+            
+//debug($very);
+            
+            if(!$very){
                 $data = array(
-                    'first_name' => $this->input->post('first_name'),
-                    'last_name' => $this->input->post('last_name'),
+                    'first_name' => $this->input->post('firstname'),
+                    'last_name' => $this->input->post('lastname'),
                     'identity_card' => $this->input->post('identity_card'),
                     'gender' => $this->input->post('gender'),
                     'date_of_birth' => $this->input->post('date_of_birth'),
@@ -112,12 +119,8 @@ class Insert_controller extends MY_Controller {
                     'address' => $this->input->post('address'),
                     'id_user' => $this->input->post('id_user')
                     );
-
-
                 $this->modelo_universal->insert('user_data', $data);
-
-
-                $title= 'Documento Identificación';
+                  $title= 'Documento Identificación';
                 $id_user= $this->input->post('id_user');
 
                 $this->save($title,$id_user);
@@ -132,6 +135,26 @@ class Insert_controller extends MY_Controller {
                 $this->insertado();
            // }
             
+            }else{
+                $data = array(
+                    'first_name' => $this->input->post('firstname'),
+                    'last_name' => $this->input->post('lastname'),
+//                    'identity_card' => $this->input->post('identity_card'),
+                    'gender' => $this->input->post('gender'),
+                    'date_of_birth' => $this->input->post('date_of_birth'),
+                    'phone' => $this->input->post('phone'),
+                    'nationality' => $this->input->post('nationality'),
+                    'country' => $this->input->post('country'),
+                    'city' => $this->input->post('city'),
+                    'address' => $this->input->post('address'),
+                    'id_user' => $this->input->post('id_user')
+                    );
+                $this->modelo_universal->update('user_data', $data, array('id_user' => $this->input->post('id_user')));
+                $this->session->set_flashdata('mensaje','Tus datos se han actualizado correctamente');
+                redirect('./myprofile');
+            }
+
+              
         }
     }
 
