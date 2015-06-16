@@ -102,10 +102,12 @@ function CMain(oData){
         s_oSpriteLibrary.addSprite("but_lines_bg","./sprites/but_lines_bg.png");
         s_oSpriteLibrary.addSprite("but_maxbet_bg","./sprites/but_maxbet_bg.png");
         s_oSpriteLibrary.addSprite("audio_icon","./sprites/audio_icon.png");
-        
+       
         for(var i=1;i<NUM_SYMBOLS+1;i++){
+           // alert('llega');
             s_oSpriteLibrary.addSprite("symbol_"+i,"./sprites/symbol_"+i+".png");
             s_oSpriteLibrary.addSprite("symbol_"+i+"_anim","./sprites/symbol_"+i+"_anim.png");
+           // alert('./sprites/symbol_'+i+'_anim.png' +'  '+NUM_SYMBOLS);
         }
         
         for(var j=1;j<NUM_PAYLINES+1;j++){

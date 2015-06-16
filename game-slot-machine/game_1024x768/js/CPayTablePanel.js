@@ -125,7 +125,22 @@ function CPayTablePanel(){
             
             iYPos += 36;
         }
-        
+
+         iXPos = 870;
+        iYPos = 360;
+        _aNumSymbolComboText[7] = new Array();
+        for(i=0;i<4;i++){
+            var oText = new createjs.Text("X"+(5-i),"bold 21px Arial", "#ffffff");
+            oText.textAlign = "center";
+            oText.x = iXPos;
+            oText.y = iYPos;
+            oText.textBaseline = "alphabetic";
+            _oContainer.addChild(oText);
+            
+            _aNumSymbolComboText[7][i] = oText;
+            
+            iYPos += 36;
+        }
         
         //LIST OF MONEY WIN
         _aWinComboText = new Array();
@@ -238,6 +253,21 @@ function CPayTablePanel(){
             _oContainer.addChild(oText);
             
             _aWinComboText[6][i] = oText;
+            
+            iYPos += 36;
+        }
+        iXPos = 930;
+        iYPos = 360;
+        _aWinComboText[7] = new Array();
+        for(i=0;i<4;i++){
+            var oText = new createjs.Text(s_aSymbolWin[7][4-i],"bold 21px Arial", "#ffff00");
+            oText.textAlign = "center";
+            oText.x = iXPos;
+            oText.y = iYPos;
+            oText.textBaseline = "alphabetic";
+            _oContainer.addChild(oText);
+            
+            _aWinComboText[7][i] = oText;
             
             iYPos += 36;
         }
