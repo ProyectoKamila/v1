@@ -3,18 +3,18 @@
      <html>
      <head>
         <title></title>
-        <link rel="stylesheet" href="./games/game-slot-machine/game_1024x768/css/reset.css" type="text/css">
-        <link rel="stylesheet" href="./games/game-slot-machine/game_1024x768/css/main.css" type="text/css">
+        <link rel="stylesheet" href="./game-slot-machine/game_1024x768/css/reset.css" type="text/css">
+        <link rel="stylesheet" href="./game-slot-machine/game_1024x768/css/main.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
         <meta name="msapplication-tap-highlight" content="no"/>
 
-        <script type="text/javascript" src="./games/game-slot-machine/game_1024x768/js/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="./games/game-slot-machine/game_1024x768/js/createjs-2013.12.12.min.js"></script>
-        <script type="text/javascript" src="./games/game-slot-machine/game_1024x768/js/ctl_utils.js"></script>
-        <script type="text/javascript" src="./games/game-slot-machine/game_1024x768/js/sprite_lib.js"></script>
-        <script type="text/javascript" src="./games/game-slot-machine/game_1024x768/js/settings.js"></script>
+        <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/createjs-2013.12.12.min.js"></script>
+        <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/ctl_utils.js"></script>
+        <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/sprite_lib.js"></script>
+        <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/settings.js"></script>
 
         <!--      <?php // $this->load->view('page/settings'); ?> -->
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CSlotSettings.js"></script>

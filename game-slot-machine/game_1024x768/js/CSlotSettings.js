@@ -59,6 +59,7 @@ function CSlotSettings(){
         s_aSymbolWin[4] = [0,5,25,50,75];
         s_aSymbolWin[5] = [0,2,10,20,30];
         s_aSymbolWin[6] = [0,1,5,10,15];
+        s_aSymbolWin[7] = [0,1,5,10,15];
     };
     
     this._initSymbolAnims = function(){
@@ -143,6 +144,16 @@ function CSlotSettings(){
         };
 
         s_aSymbolAnims[7] = new createjs.SpriteSheet(oData);
+
+         oData = {   
+                        framerate: 20,
+                        images: [s_oSpriteLibrary.getSprite('symbol_9_anim')], 
+                        // width, height & registration point of each sprite
+                        frames: {width: SYMBOL_SIZE, height: SYMBOL_SIZE, regX: 0, regY: 0}, 
+                        animations: {  static: [0, 1],anim:[1,14] }
+        };
+
+        s_aSymbolAnims[8] = new createjs.SpriteSheet(oData);
     };
     
     this._initSymbolsOccurence = function() {  //probabilidades de que salgan los numeros 
@@ -183,10 +194,14 @@ function CSlotSettings(){
         for(i=0;i<6;i++){
             s_aRandSymbols.push(7);
         }
-        
-        //OCCURENCE FOR SYMBOL WILD  sergio, el simbolo comodin debe ser bloqueado segun el pote.
-        for(i=0;i<1;i++){
+
+        for(i=0;i<20;i++){
             s_aRandSymbols.push(8);
+        }
+        
+        //OCCURENCE FOR SYMBOL WILD 
+        for(i=0;i<1;i++){
+            s_aRandSymbols.push(9);
         }
     };
     
