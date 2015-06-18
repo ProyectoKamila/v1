@@ -107,18 +107,21 @@
         $('#money-button').click(function() {
 
             var value_mt=  $('#money-text').val();
-            var total_money= $('#money-hidden').val();
-  //  alert(total_money);
-  if (value_mt>10 && value_mt <= total_money) {
-  //  alert('llega aqui');
+            var total_money= $('#total_coins').html();
+    //alert(total_money);
+    //alert(value_mt);
+  if (value_mt>10 && value_mt < parseFloat(total_money)) {
+  // alert('llega aqui');
     iMoney=value_mt;
     s_oGame.TOTAL_MONEY=value_mt;
     s_oGame._iMoney= value_mt;
     s_oGame.moneyref(parseFloat(value_mt));
-    console.log('iMoney' + iMoney);
-    console.log('total Money' + TOTAL_MONEY);
+
+ //   console.log('iMoney' + iMoney);
+ //  console.log('total Money' + TOTAL_MONEY);
     s_oInterface.refreshMoney(parseFloat(iMoney));
     s_oInterface.enableSpin();
+
 
         $('#myModal').modal('toggle');
 
@@ -144,7 +147,11 @@ function connetserver() {
             }
 
             function open_connection() {
-                socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
+
+                socket = new WebSocket('ws://localhost:8808/', 'server');
+
+              //  socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
+
                 socket.addEventListener("open", connection_established);
             }
             //cuando la conexion se establece
@@ -252,7 +259,7 @@ function connetserver() {
                     myId = message.userId;
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
-                    console.log(message.messagesend);
+                    //console.log(message.messagesend);
                 } else if (message.type === 'message' && parseInt(message.sender) !== parseInt(myId)) {
                     //add_new_msg_to_log(message);
                     blink_window_title('~ message poker ~');
@@ -300,9 +307,9 @@ function connetserver() {
           function coinslabel(coins){
 
      //   alert(coins);
-
+    //$('#money-hidden').val(coins);
      $('#total_coins').html(coins);
-     $('#money-hidden').val(coins);
+     
 
 
  }
@@ -343,7 +350,7 @@ function connetserver() {
           <div class="modal-body">
 
            <label>Cargar Saldo: </label>
-           <input type="hidden" name="money-hidden" id="money-hidden" >
+       <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
            <input type="numeric" name="money-text" id="money-text" maxlength="5" class="" title="0">
            <button type="button" class="btn btn-default"  id="money-button">Aceptar</button>
 

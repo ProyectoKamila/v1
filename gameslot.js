@@ -29,7 +29,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8804;
+    var port = 8808;
     var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
 }
 
@@ -256,6 +256,7 @@ wsServer.on('request', function(request) {
         var newarrayallclient = {};
         delete clientsconection[connection.token];
         delete clientsconection[connection.id_user];
+        
 //saca de la conexion al cliente si esta conectado
         for (var i in clientsconection) {
             if (clientsconection[i] !== undefined) {
