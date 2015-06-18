@@ -43,6 +43,12 @@ class Casino extends MY_Controller {
     }
     }
 
+    public function last_hour() {
+        date_default_timezone_set("America/Caracas");
+        $hora = date('Y-m-d H:i:s', time() - 3600 * date('I'));
+        return $hora;
+    }
+
     public function profile($message = null) {
         $role = parent::verify_role();
         if($role == true){
