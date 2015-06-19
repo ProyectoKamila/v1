@@ -60,6 +60,7 @@
          var protocol_identifier = 'server';
          var myId;
          var idgame=1;
+         var free_gameslot=0;
          var nicklist;
          var is_typing_indicator;
          var window_has_focus = true;
@@ -88,7 +89,17 @@
                             });
 
         $(oMain).on("end_bet", function(evt,iMoney,iBetWin) {
-                                 //alert("iMoney: "+iMoney + " Win:"+iBetWin);
+                                // alert("juegos gratis: "+ free_gameslot + " Win:"+iBetWin);
+                  if (free_gameslot>0){
+
+                                  var options = {
+                "backdrop" : "static"
+            }
+
+            $('#jgModal').modal(options);
+                            }
+
+
                              });
 
         $(oMain).on("restart", function(evt) {
@@ -141,6 +152,34 @@
           {
             alert('saldo insuficiente.');
         }
+
+
+
+    });
+
+        // CONFIG DEL BOTON JUEGOS GRATIS
+
+        $('#jg-button').click(function() {
+
+/*
+         var value_mt=  10;
+         
+    iMoney=value_mt;
+    s_oGame.TOTAL_MONEY=value_mt;
+    s_oGame._iMoney= value_mt;
+    s_oGame.moneyref(parseFloat(value_mt));
+
+
+    s_oInterface.refreshMoney(parseFloat(iMoney));*/
+
+
+          s_oGame.onMaxBet();
+
+          free_gameslot = 0;
+
+        $('#jgModal').modal('toggle');
+
+      
 
 
 
@@ -243,6 +282,13 @@ function connetserver() {
                     coinslabel(coinsvar);
 
                 }
+                 else if (message.type === 'free_game') {
+                    myId = message.userId;
+                    free_gameslot=0;
+                    var  freg = message.messagesend;
+                    openjg(freg);
+
+                }
 
                 else if (message.type === 'prueba2') {
                     myId = message.userId;
@@ -324,6 +370,21 @@ function connetserver() {
 
  }
 
+ function openjg(coins){
+
+
+ 
+     //   alert(coins);
+    //$('#money-hidden').val(coins);
+     $('#total_jg').html(coins);
+
+    
+ free_gameslot=coins;
+     
+
+
+ }
+
 });
 
 
@@ -373,6 +434,40 @@ function connetserver() {
 
 </div>
 </div>
+
+
+<!-- modal para los juegos gratis-->
+<button style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#jgModal">Jugar Gratis</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="jgModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+               <label>HA GANADO JUGADA GRATIS</label>
+          </div>
+          <div class="modal-body">
+
+          
+       <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
+           <label id="total_jg" style="display: none;"></label>
+           <button type="button" class="btn btn-default"  id="jg-button">Jugar</button>
+
+
+       </div>
+       <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+  </div>
+
+</div>
+</div>
+<!-- fin de modal juegos gratis-->
+
+
 
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">

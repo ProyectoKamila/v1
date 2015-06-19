@@ -72,16 +72,16 @@ var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
         //console.log('verificar la variable row' + row);
 
         if (typeof(row)) {
-            console.log('entre a jackpotcall' + row[0]['jackpot']);
-            console.log('entre a debt' + row[0]['debt']);
-            console.log('entre a jackpotcall' + row[0]['percent']);
+          //  console.log('entre a jackpotcall' + row[0]['jackpot']);
+         //   console.log('entre a debt' + row[0]['debt']);
+         //   console.log('entre a jackpotcall' + row[0]['percent']);
            jackpot =  row[0]['jackpot'];
            debt =  row[0]['debt'];
            percent =  row[0]['percent'];
 
-    console.log('jackpot' + jackpot);
-    console.log('debt' + debt);
-    console.log('percent' + percent);
+  //  console.log('jackpot' + jackpot);
+  //  console.log('debt' + debt);
+  //  console.log('percent' + percent);
         }
 
     //console.log(jackpot);
@@ -368,21 +368,22 @@ wsServer.on('request', function(request) {
    var _iTotBet= objeto.totalbet;
    var _iLastLineActive= objeto.lastline;
    var WILD_SYMBOL= objeto.wsymb;
+   var juegos_gratis = 0;
 
    connection.sitcoins = connection.sitcoins - _iTotBet; 
-    console.log('sitcoins antes de sp' + connection.sitcoins);
+   // console.log('sitcoins antes de sp' + connection.sitcoins);
     var availiable_jp= jackpot+(_iTotBet-(_iTotBet*percent));
     var debito= debt + (_iTotBet*percent);
 
-    console.log('debt ' + debt);
+  //  console.log('debt ' + debt);
     
-    console.log('porcentaje '+(_iTotBet*percent));
+  //  console.log('porcentaje '+(_iTotBet*percent));
 
-    console.log('totalbet '+_iTotBet);
+  //  console.log('totalbet '+_iTotBet);
 
-    console.log('debito '+debito);
+  //  console.log('debito '+debito);
 
-    console.log('pote '+availiable_jp);
+ //   console.log('pote '+availiable_jp);
    
    
 
@@ -452,7 +453,7 @@ wsServer.on('request', function(request) {
             _aWinningLine = new Array();//linea ganadora arreglo
             for(var k=0;k<_iLastLineActive;k++){ //desde 0 hasta el numero de lineas activas
                 var aCombos = s_aPaylineCombo[k];
-                   // console.log(s_aPaylineCombo[k]);// carga la linea ganadora de cslotsettings.js
+                  //  console.log('s_aPaylineCombo: ' + s_aPaylineCombo[k]);// carga la linea ganadora de cslotsettings.js
                // alert(aCombos[0].row +' ' +aCombos[0].col);
                 var aCellList = new Array();  //lista de celdas
                 var iValue = _aFinalSymbolCombo[aCombos[0].row][aCombos[0].col];  //guarda el valor de la celda de la matriz que coincide con la posicion de la linea ganadora que está activa
@@ -480,6 +481,10 @@ wsServer.on('request', function(request) {
                 }
             }
 
+
+
+
+
             if(s_aSymbolWin[iValue-1][iNumEqualSymbol-1] > 0){ //guarda la linea ganadora, siempre y cuando sea de dos en adelante
                 _aWinningLine.push({line:k+1,amount:s_aSymbolWin[iValue-1][iNumEqualSymbol-1],
                     num_win:iNumEqualSymbol,value:iValue,list:aCellList});
@@ -499,8 +504,21 @@ wsServer.on('request', function(request) {
                     for(var k=0;k<aList.length;k++){
                       //  _aStaticSymbols[aList[k].row][aList[k].col].show(aList[k].value);
                     }
-                    
+                     if (_aWinningLine[i].value!=8 && _aWinningLine[i].amount > 0 && connection.id_game==1)
                     iTotWin += _aWinningLine[i].amount;
+
+                if (_aWinningLine[i].value==8 && _aWinningLine[i].amount > 0 && connection.id_game==1){
+                        var juegos_gratis = juegos_gratis + 1;
+                        console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].amount);
+
+                       
+
+                        sendmessageuser(connection, 'free_game', juegos_gratis);
+                }
+                    
+                    console.log('lina ganadora  ' + _aWinningLine[i].value);
+                     
+                   
                    //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea
                 }
                 
@@ -521,7 +539,7 @@ wsServer.on('request', function(request) {
                         while(iTotWin >availiable_jp)   //verificar el monto antes de salir de esta función
 
        // var vuelta = nrows.token*3;
-       //console.log('while!!!!!!!!!!!!!!!!: '+contador+ ' '+ iTotWin + ' '+ _iTotBet);
+       console.log('juego gratis!!!!!!!!!!!!!!!!: '+ juegos_gratis);
 /* for(var i=0;i<NUM_ROWS;i++){
                 
                 for(var j=0;j<NUM_REELS;j++){
@@ -536,10 +554,10 @@ wsServer.on('request', function(request) {
            
 
           jackpot= availiable_jp - iTotWin;
-          console.log('actualizado jackpot '+ jackpot);
-           console.log('totalwin '+ iTotWin);
+         // console.log('actualizado jackpot '+ jackpot);
+         //  console.log('totalwin '+ iTotWin);
         connection.sitcoins = connection.sitcoins + iTotWin;
-        console.log('sitcoins despues de sp' + connection.sitcoins);
+       // console.log('sitcoins despues de sp' + connection.sitcoins);
             update_jackpot(jackpot,debito);
             updatetemp(connection.sitcoins);
           
@@ -551,7 +569,7 @@ wsServer.on('request', function(request) {
 
 
     function sendmessageuser(usersend, type, forsend) {
-       console.log('forsend ' + forsend);
+      // console.log('forsend ' + forsend);
         usersend.send(JSON.stringify({
             type: type,
             userId: connection.id,
@@ -594,7 +612,7 @@ var mysqlc = mysql.createConnection(
 
 });
 
- console.log(string);
+ //console.log(string);
 
      mysqlc.end();
      setTimeout(function () {select_jackpot()}, 1000);
@@ -623,20 +641,20 @@ var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
         //console.log('verificar la variable row' + row);
 
         if (typeof(row)) {
-            console.log('entre a jackpotcall' + row[0]['jackpot']);
-            console.log('entre a debt' + row[0]['debt']);
-            console.log('entre a jackpotcall' + row[0]['percent']);
+         //   console.log('entre a jackpotcall' + row[0]['jackpot']);
+         //   console.log('entre a debt' + row[0]['debt']);
+         //   console.log('entre a jackpotcall' + row[0]['percent']);
            jackpot =  row[0]['jackpot'];
            debt =  row[0]['debt'];
            percent =  row[0]['percent'];
 
-    console.log('jackpot ' + jackpot);
+  //  console.log('jackpot ' + jackpot);
    
-    console.log('percent ' + percent);
+  //  console.log('percent ' + percent);
         }
 
     });
-console.log(string);
+  //  console.log(string);
 
      mysqlc.end();
 
@@ -656,16 +674,18 @@ var mysqlc = mysql.createConnection(
 );
      mysqlc.connect();
 var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_user + ';';
-console.log(string);
+  //  console.log(string);
        mysqlc.query(string, function(err, row, fields) {
         if (typeof(row)) {
-
+            
         connection.coins =  row[0]['coins'];
+
+        
 
         
          sendmessageuser(connection, 'money_total', connection.coins);
 
-         console.log('coins ' + connection.coins);
+     //    console.log('coins ' + connection.coins);
 
         }
     });
@@ -690,6 +710,7 @@ var mysqlc = mysql.createConnection(
         }
 );
      mysqlc.connect();
+     if (connection.coins!= null)
 var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + connection.coins +  ' WHERE `user_data`.`id_user` ='+ connection.id_user  +';';
 
  mysqlc.query(string, function(err, row, fields) {
@@ -722,7 +743,7 @@ var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + connection.coins +  ' WH
 function updatetemp(coins_temp){
 
    
- console.log('updatetemp' + coins_temp);
+// console.log('updatetemp' + coins_temp);
 var mysqlc = mysql.createConnection(
         {
                     host: '23.229.215.154',
@@ -733,7 +754,7 @@ var mysqlc = mysql.createConnection(
 );
      mysqlc.connect();
 var string = 'UPDATE `v1`.`temp_bet` SET `coins_game` = ' + coins_temp + ' WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
- console.log('string de updatetemp' + string);
+ //console.log('string de updatetemp' + string);
  mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
         
@@ -752,8 +773,8 @@ var string = 'UPDATE `v1`.`temp_bet` SET `coins_game` = ' + coins_temp + ' WHERE
 function updtclose(sitc,coin){
 
 
- console.log('sitcoins' + sitc);
- console.log('coins' + coin);
+ //console.log('sitcoins' + sitc);
+ //console.log('coins' + coin);
 var cointotal = coin + sitc;
 var mysqlc = mysql.createConnection(
         {
@@ -764,8 +785,9 @@ var mysqlc = mysql.createConnection(
         }
 );
      mysqlc.connect();
+     if (connection.coins!= null)
 var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + cointotal +  ' WHERE `user_data`.`id_user` ='+ connection.id_user  +';';
-console.log('update close' + string);
+//console.log('update close' + string);
  mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
         
@@ -776,7 +798,7 @@ console.log('update close' + string);
 });
 
  var string = 'DELETE FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
-console.log('delete close' + string);
+//console.log('delete close' + string);
  mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
         

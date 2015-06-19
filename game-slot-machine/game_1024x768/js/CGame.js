@@ -391,6 +391,8 @@ _aFinalSymbolCombo=finalc;
             
             if(iNewTotalBet>_iMoney){
                 _oInterface.disableSpin();
+
+                //aqui debe llamar la recarga de saldo
             }else{
                 _oInterface.enableSpin();
             }

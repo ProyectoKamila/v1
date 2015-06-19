@@ -59,7 +59,7 @@ function CSlotSettings(){
         s_aSymbolWin[4] = [0,5,25,50,75];
         s_aSymbolWin[5] = [0,2,10,20,30];
         s_aSymbolWin[6] = [0,1,5,10,15];
-        s_aSymbolWin[7] = [0,1,5,10,15];
+        s_aSymbolWin[7] = [0,0,1,1,1];
     };
     
     this._initSymbolAnims = function(){
@@ -195,7 +195,7 @@ function CSlotSettings(){
             s_aRandSymbols.push(7);
         }
 
-        for(i=0;i<20;i++){
+        for(i=0;i<3;i++){
             s_aRandSymbols.push(8);
         }
         
