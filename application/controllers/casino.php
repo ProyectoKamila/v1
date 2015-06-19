@@ -43,11 +43,26 @@ class Casino extends MY_Controller {
     }
     }
 
+
     public function last_hour() {
         date_default_timezone_set("America/Caracas");
         $hora = date('Y-m-d H:i:s', time() - 3600 * date('I'));
         return $hora;
     }
+
+
+    public function activity() {
+        $role = parent::verify_role();
+        if($role == true){
+//            $this->load->view('page/header');
+            $activity_status = $this->modelo_universal->select('activity_bet', '*', null);
+            $this->data['activity'] = $activity_status;
+            $this->header('admin');
+            $this->navigation();
+            $this->load->view('page/activity');
+        }
+    }
+
 
     public function profile($message = null) {
         $role = parent::verify_role();
@@ -215,6 +230,9 @@ class Casino extends MY_Controller {
     
     public function slotmachine(){
         $this->load->view('slotmachine/index');
+    }
+     public function slotmachine_marino(){
+        $this->load->view('slot_marino/index');
     }
 
     public function demo_slotmachine(){

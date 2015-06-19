@@ -49,7 +49,7 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                        <a href="<?php echo site_url('activity'); ?>"><i class="fa fa-edit fa-fw"></i>Actividades en casino</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
