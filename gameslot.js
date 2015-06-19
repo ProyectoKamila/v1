@@ -143,6 +143,8 @@ wsServer.on('request', function(request) {
             if (msgObj.type === 'join') {
                 clients = clients + 1;
                 connection.token = msgObj.token;
+                connection.id_game = msgObj.idgame;
+                connection.sitcoins = 0;
                 if (clientsconection[connection.token] !== undefined) {
                     sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
                     connection.close();
@@ -201,6 +203,14 @@ wsServer.on('request', function(request) {
 
 
             }
+            else if (msgObj.type === 'sitmoney') {
+
+
+                setmoneyuser(msgObj);
+
+
+
+            }
            
             else if (msgObj.type === 'prueba') {
                 pruebaserver(msgObj);
@@ -211,6 +221,7 @@ wsServer.on('request', function(request) {
             else if (msgObj.type === 'intro') {
                 connection.nickname = msgObj.nickname;
                 connection.chatroom = msgObj.chatroom;
+
 
                 if (rooms[msgObj.chatroom] !== undefined) {
                     rooms[msgObj.chatroom].push(connection);
@@ -254,8 +265,12 @@ wsServer.on('request', function(request) {
         clients = clients - 1;
         var newarrayclient = {};
         var newarrayallclient = {};
+        updtclose(connection.sitcoins , connection.coins);
         delete clientsconection[connection.token];
         delete clientsconection[connection.id_user];
+        delete clientsconection[connection.sitcoins];
+        delete clientsconection[connection.coins];
+        delete clientsconection[connection.id_game];
         
 //saca de la conexion al cliente si esta conectado
         for (var i in clientsconection) {
@@ -354,7 +369,8 @@ wsServer.on('request', function(request) {
    var _iLastLineActive= objeto.lastline;
    var WILD_SYMBOL= objeto.wsymb;
 
-   
+   connection.sitcoins = connection.sitcoins - _iTotBet; 
+    console.log('sitcoins antes de sp' + connection.sitcoins);
     var availiable_jp= jackpot+(_iTotBet-(_iTotBet*percent));
     var debito= debt + (_iTotBet*percent);
 
@@ -506,7 +522,7 @@ wsServer.on('request', function(request) {
 
        // var vuelta = nrows.token*3;
        //console.log('while!!!!!!!!!!!!!!!!: '+contador+ ' '+ iTotWin + ' '+ _iTotBet);
- for(var i=0;i<NUM_ROWS;i++){
+/* for(var i=0;i<NUM_ROWS;i++){
                 
                 for(var j=0;j<NUM_REELS;j++){
                   
@@ -516,15 +532,16 @@ wsServer.on('request', function(request) {
 
                }
 
-           }
+           }*/
            
 
           jackpot= availiable_jp - iTotWin;
           console.log('actualizado jackpot '+ jackpot);
            console.log('totalwin '+ iTotWin);
-
-
+        connection.sitcoins = connection.sitcoins + iTotWin;
+        console.log('sitcoins despues de sp' + connection.sitcoins);
             update_jackpot(jackpot,debito);
+            updatetemp(connection.sitcoins);
           
 
     sendmessageuser(connection, 'prueba', _aWinningLine /*,_aFinalSymbolCombo*/);
@@ -658,5 +675,119 @@ console.log(string);
     
 }
 
+
+function setmoneyuser(objeto){
+
+    connection.sitcoins = connection.sitcoins + objeto.sitmoney;
+    connection.coins = connection.coins - objeto.sitmoney;
+
+var mysqlc = mysql.createConnection(
+        {
+                    host: '23.229.215.154',
+                    user: 'v1',
+                    password: 'Temporal01',
+                    database: 'v1',
+        }
+);
+     mysqlc.connect();
+var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + connection.coins +  ' WHERE `user_data`.`id_user` ='+ connection.id_user  +';';
+
+ mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+        
+
+}
+
+
+});
+
+ var string = 'INSERT INTO `temp_bet`(`id_user`, `id_game`, `coins_game` , `date` ) VALUES (' + connection.id_user + ',' + connection.id_game + ',' + connection.sitcoins + ', NOW() );';
+
+
+
+ mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+        
+
+}
+
+
+});
+
+     mysqlc.end();
+
+    
+}
+
+function updatetemp(coins_temp){
+
+   
+ console.log('updatetemp' + coins_temp);
+var mysqlc = mysql.createConnection(
+        {
+                    host: '23.229.215.154',
+                    user: 'v1',
+                    password: 'Temporal01',
+                    database: 'v1',
+        }
+);
+     mysqlc.connect();
+var string = 'UPDATE `v1`.`temp_bet` SET `coins_game` = ' + coins_temp + ' WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
+ console.log('string de updatetemp' + string);
+ mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+        
+
+}
+
+
+});
+
+
+     mysqlc.end();
+
+    
+}
+
+function updtclose(sitc,coin){
+
+
+ console.log('sitcoins' + sitc);
+ console.log('coins' + coin);
+var cointotal = coin + sitc;
+var mysqlc = mysql.createConnection(
+        {
+                    host: '23.229.215.154',
+                    user: 'v1',
+                    password: 'Temporal01',
+                    database: 'v1',
+        }
+);
+     mysqlc.connect();
+var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + cointotal +  ' WHERE `user_data`.`id_user` ='+ connection.id_user  +';';
+console.log('update close' + string);
+ mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+        
+
+}
+
+
+});
+
+ var string = 'DELETE FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
+console.log('delete close' + string);
+ mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+        
+
+}
+
+
+});
+
+     mysqlc.end();
+
+}
 
 });
