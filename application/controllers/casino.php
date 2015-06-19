@@ -43,6 +43,19 @@ class Casino extends MY_Controller {
     }
     }
 
+    public function activity() {
+        $role = parent::verify_role();
+        if($role == true){
+//            $this->load->view('page/header');
+            $activity_status = $this->modelo_universal->select('activity_bet', '*', null);
+            $this->data['activity'] = $activity_status;
+            $this->header('admin');
+            $this->navigation();
+            $this->load->view('page/activity');
+        }
+    }
+
+
     public function profile($message = null) {
         $role = parent::verify_role();
         if($role == true){
