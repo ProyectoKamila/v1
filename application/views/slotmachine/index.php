@@ -59,7 +59,7 @@
          var socket;
          var protocol_identifier = 'server';
          var myId;
-         var idgame=1;
+         var idgame=1; //aqui debe llevarse el nombre del juego que selecciono
          var free_gameslot=0;
          var nicklist;
          var is_typing_indicator;
