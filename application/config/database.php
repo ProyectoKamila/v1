@@ -53,9 +53,11 @@ $db['default']['username'] = 'v1';
 $db['default']['password'] = 'Temporal01';
 //$db['default']['database'] = 'amz';
 
+
 //$db['default']['hostname'] = 'localhost';
 //$db['default']['username'] = 'root';
 //$db['default']['password'] = '1234';
+
 $db['default']['database'] = 'v1';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';

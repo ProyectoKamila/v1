@@ -34,7 +34,7 @@
     var flash_title_timer;
     var connected = false;
     var connection_retry_timer;
-    var server_url = 'ws://localhost:8806/';
+    var server_url = 'ws://162.252.57.97:8807/';
     var token = "<?php
 if (isset($_COOKIE['token'])) {
     echo $_COOKIE['token'];
@@ -127,7 +127,7 @@ if (isset($_COOKIE['token'])) {
     }
 
     function open_connection() {
-        socket = new WebSocket('ws://localhost:8806/', 'server');
+        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
         socket.addEventListener("open", connection_established);
     }
     //cuando la conexion se establece
@@ -290,6 +290,9 @@ if (isset($_COOKIE['token'])) {
     }
 
     function joingame(id, pass) {
+        $('#sales').addClass('sales-close');
+        $('.create-salas').slideUp();
+        
         idsale = id;
 //       idsit=undefined;
         if (pass == 1) {
@@ -366,6 +369,7 @@ if (isset($_COOKIE['token'])) {
     }
 //    function para ver el perfil del usuario o para sentarse en el puesto
     function seeplayer(player, idsit2) {
+        $('#torbo').slideDown();
         idsit = idsit2;
         var elem = player;
         var name = elem + 'name';
