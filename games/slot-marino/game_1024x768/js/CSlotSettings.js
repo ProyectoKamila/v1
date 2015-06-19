@@ -56,9 +56,10 @@ function CSlotSettings(){
         s_aSymbolWin[1] = [0,0,500,1000,2000];
         s_aSymbolWin[2] = [0,50,100,200,500];
         s_aSymbolWin[3] = [0,10,50,100,150];
-        s_aSymbolWin[4] = [0,10,50,100,150];
-        s_aSymbolWin[5] = [0,10,50,100,150];
-        s_aSymbolWin[6] = [0,10,50,100,150];
+        s_aSymbolWin[4] = [0,5,25,50,75];
+        s_aSymbolWin[5] = [0,2,10,20,30];
+        s_aSymbolWin[6] = [0,1,5,10,15];
+
     };
     
     this._initSymbolAnims = function(){
