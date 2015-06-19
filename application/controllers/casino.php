@@ -223,6 +223,9 @@ class Casino extends MY_Controller {
     public function slotmachine(){
         $this->load->view('slotmachine/index');
     }
+     public function slotmachine_marino(){
+        $this->load->view('slot_marino/index');
+    }
 
     public function demo_slotmachine(){
         $this->load->view('slotmachine/demo-index');
