@@ -234,6 +234,7 @@ function connetserver() {
             type: 'join',
             token: nickname,
             idgame: idgame
+
         }
 
         socket.send(JSON.stringify(intro));
@@ -244,6 +245,7 @@ function connetserver() {
         }
         return false;
     }
+
 
     message_received= function(message) {
         var message;

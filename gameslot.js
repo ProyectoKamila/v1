@@ -145,6 +145,11 @@ wsServer.on('request', function(request) {
                 connection.token = msgObj.token;
                 connection.id_game = msgObj.idgame;
                 connection.sitcoins = 0;
+                connection.coins_i = 0;
+                connection.coins_f = 0;
+                connection.date_i = getDateTime();
+                connection.date_f = '0/0/0 0:0:0'
+
                 if (clientsconection[connection.token] !== undefined) {
                     sendmessageuser(connection, 'readyconect', 'Ya se encuentra conectado, verifique los dispositivos');
                     connection.close();
@@ -221,6 +226,7 @@ wsServer.on('request', function(request) {
             else if (msgObj.type === 'intro') {
                 connection.nickname = msgObj.nickname;
                 connection.chatroom = msgObj.chatroom;
+                connection.idgame = msgObj.idgame;
 
 
                 if (rooms[msgObj.chatroom] !== undefined) {
@@ -348,7 +354,32 @@ wsServer.on('request', function(request) {
         return mysqlconect;
 
     }
-
+    function getDateTime() {
+      var now     = new Date(); 
+      var year    = now.getFullYear();
+      var month   = now.getMonth()+1; 
+      var day     = now.getDate();
+      var hour    = now.getHours();
+      var minute  = now.getMinutes();
+      var second  = now.getSeconds(); 
+      if(month.toString().length == 1) {
+          var month = '0'+month;
+      }
+      if(day.toString().length == 1) {
+          var day = '0'+day;
+      }   
+      if(hour.toString().length == 1) {
+          var hour = '0'+hour;
+      }
+      if(minute.toString().length == 1) {
+          var minute = '0'+minute;
+      }
+      if(second.toString().length == 1) {
+          var second = '0'+second;
+      }   
+      var dateTime = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second;   
+       return dateTime;
+    }
 
     function pruebaserver(objeto){
 
@@ -697,7 +728,7 @@ var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_use
 
 
 function setmoneyuser(objeto){
-
+    connection.coinsinit = objeto.sitmoney;
     connection.sitcoins = connection.sitcoins + objeto.sitmoney;
     connection.coins = connection.coins - objeto.sitmoney;
 
@@ -770,10 +801,12 @@ var string = 'UPDATE `v1`.`temp_bet` SET `coins_game` = ' + coins_temp + ' WHERE
     
 }
 
+
+
 function updtclose(sitc,coin){
 
 
- //console.log('sitcoins' + sitc);
+ console.log('sitcoins' + sitc);
  //console.log('coins' + coin);
 var cointotal = coin + sitc;
 var mysqlc = mysql.createConnection(
@@ -796,6 +829,16 @@ var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + cointotal +  ' WHERE `us
 
 
 });
+
+var string = 'INSERT INTO `activity_bet`(`coins_i`, `coins_f`, `id_user`, `id_game`, `time_i`, `time_f`) VALUES ("' + connection.coinsinit + '","' +connection.sitcoins + '","' + connection.id_user +'","' + connection.id_game + '","' + connection.date_i +  '", NOW() );';
+console.log('update close' + string);
+ mysqlc.query(string, function(err, row, fields) {
+    if (typeof(row)) {
+        
+
+}
+});
+
 
  var string = 'DELETE FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
 //console.log('delete close' + string);
