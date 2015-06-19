@@ -59,6 +59,7 @@
          var socket;
          var protocol_identifier = 'server';
          var myId;
+         var idgame=1;
          var nicklist;
          var is_typing_indicator;
          var window_has_focus = true;
@@ -119,8 +120,16 @@
 
  //   console.log('iMoney' + iMoney);
  //  console.log('total Money' + TOTAL_MONEY);
+
+
     s_oInterface.refreshMoney(parseFloat(iMoney));
     s_oInterface.enableSpin();
+
+    var enviarm = {
+                type: 'sitmoney',
+                sitmoney: value_mt
+            }
+    socket.send(JSON.stringify(enviarm));
 
 
         $('#myModal').modal('toggle');
@@ -184,7 +193,8 @@ function connetserver() {
     function introduce(nickname) {
         var intro = {
             type: 'join',
-            token: nickname
+            token: nickname,
+            idgame: idgame
         }
 
         socket.send(JSON.stringify(intro));
