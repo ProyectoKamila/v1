@@ -51,7 +51,9 @@ var allowed_origins = [
     'springle.rebugged.com',
     'sky.rebugged.com',
     'developer.cdn.mozilla.net',
-    '192.168.0.118'
+    '192.168.0.118',
+    'casino4as.com',
+    'localhost:8888'
 ];
 
 
@@ -158,7 +160,7 @@ wsServer.on('request', function(request) {
                     clientsconection[connection.token] = connection.token;
 
 
-                    var string = 'SELECT * FROM user_session WHERE user_token= "' + connection.token + '"';
+                      var string = 'SELECT * FROM active_session INNER JOIN user_data WHERE user_data.id_user = active_session.id_user AND active_session.token= "' + connection.token + '"';
                    
 
 
@@ -265,6 +267,7 @@ wsServer.on('request', function(request) {
 
 
     connection.on('close', function(reasonCode, description) {
+        
         var chatroom = connection.chatroom;
         var users = rooms[chatroom];
         var usersall = clientsconectionall;

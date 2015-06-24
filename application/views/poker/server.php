@@ -2,7 +2,7 @@
 <title>Poker</title>
 </head>
 <body>
-   <?php $this->load->view('poker/serveradd') ?>
+    <?php $this->load->view('poker/serveradd') ?>
 
 
     <style>.sin-pading{padding-left: 0px;padding-right: 0px;}.imagenprofile {
@@ -24,6 +24,8 @@
     var socket;
 //                        guarda el idde la silla
     var idsit;
+    var enespera;
+    var sitenespera;
     var protocol_identifier = 'server';
     var myId;
     var idsale;
@@ -34,14 +36,131 @@
     var flash_title_timer;
     var connected = false;
     var connection_retry_timer;
-    var server_url = 'ws://162.252.57.97:8807/';
+//    var server_url = 'ws://162.252.57.97:8807/';
+    var serverc_url = 'ws://localhost:8806/';
+    var card2 = new Array("02tre"
+            , "03tre",
+            '04tre',
+            "05tre",
+            "06tre",
+            "07tre",
+            "08tre",
+            "09tre",
+            "10tre",
+            "11tre",
+            "12tre",
+            "13tre",
+            "14tre",
+            "02pic",
+            "03pic",
+            "04pic",
+            "05pic",
+            "06pic",
+            "07pic",
+            "08pic",
+            "09pic",
+            "10pic",
+            "11pic",
+            "12pic",
+            "13pic",
+            "14pic",
+            "02dia",
+            "03dia",
+            "04dia",
+            "05dia",
+            "06dia",
+            "07dia",
+            "08dia",
+            "09dia",
+            "10dia",
+            "11dia",
+            "12dia",
+            "13dia",
+            "14dia",
+            "02co",
+            "03co",
+            "04co",
+            "05co",
+            "06co",
+            "07co",
+            "08co",
+            "09co",
+            "10co",
+            "11co",
+            "12co",
+            "13co",
+            "14co"
+            );
+    var card = [];
+
+    //trebol
+
+    card["02tre"] = {'image': '2tre.png', 'carpeta': 'trebol'};
+    card["03tre"] = {'image': '3tre.png', 'carpeta': 'trebol'};
+    card["04tre"] = {'image': '4tre.png', 'carpeta': 'trebol'};
+    card["05tre"] = {'image': '5tre.png', 'carpeta': 'trebol'};
+    card["06tre"] = {'image': '6tre.png', 'carpeta': 'trebol'};
+    card["07tre"] = {'image': '7tre.png', 'carpeta': 'trebol'};
+    card["08tre"] = {'image': '8tre.png', 'carpeta': 'trebol'};
+    card["09tre"] = {'image': '9tre.png', 'carpeta': 'trebol'};
+    card["10tre"] = {'image': '10tre.png', 'carpeta': 'trebol'};
+    card["11tre"] = {'image': 'jtre.png', 'carpeta': 'trebol'};
+    card["12tre"] = {'image': 'qtre.png', 'carpeta': 'trebol'};
+    card["13tre"] = {'image': 'ktre.png', 'carpeta': 'trebol'};
+    card["14tre"] = {'image': 'as.png', 'carpeta': 'trebol'};
+    //trebol
+    card["02pic"] = {'image': '2pic.png', 'carpeta': 'pica'};
+    card["03pic"] = {'image': '3pic.png', 'carpeta': 'pica'};
+    card["04pic"] = {'image': '4pic.png', 'carpeta': 'pica'};
+    card["05pic"] = {'image': '5pic.png', 'carpeta': 'pica'};
+    card["06pic"] = {'image': '6pic.png', 'carpeta': 'pica'};
+    card["07pic"] = {'image': '7pic.png', 'carpeta': 'pica'};
+    card["08pic"] = {'image': '8pic.png', 'carpeta': 'pica'};
+    card["09pic"] = {'image': '9pic.png', 'carpeta': 'pica'};
+    card["10pic"] = {'image': '10pic.png', 'carpeta': 'pica'};
+    card["11pic"] = {'image': 'jpic.png', 'carpeta': 'pica'};
+    card["12pic"] = {'image': 'qpic.png', 'carpeta': 'pica'};
+    card["13pic"] = {'image': 'kpic.png', 'carpeta': 'pica'};
+    card["14pic"] = {'image': 'as.png', 'carpeta': 'pica'};
+
+    //diamante
+    card["02dia"] = {'image': '2dia.png', 'carpeta': 'diamante'};
+    card["03dia"] = {'image': '3dia.png', 'carpeta': 'diamante'};
+    card["04dia"] = {'image': '4dia.png', 'carpeta': 'diamante'};
+    card["05dia"] = {'image': '5dia.png', 'carpeta': 'diamante'};
+    card["06dia"] = {'image': '6dia.png', 'carpeta': 'diamante'};
+    card["07dia"] = {'image': '7dia.png', 'carpeta': 'diamante'};
+    card["08dia"] = {'image': '8dia.png', 'carpeta': 'diamante'};
+    card["09dia"] = {'image': '9dia.png', 'carpeta': 'diamante'};
+    card["10dia"] = {'image': '10dia.png', 'carpeta': 'diamante'};
+    card["101dia"] = {'image': 'jdia.png', 'carpeta': 'diamante'};
+    card["12dia"] = {'image': 'qdia.png', 'carpeta': 'diamante'};
+    card["13dia"] = {'image': 'kdia.png', 'carpeta': 'diamante'};
+    card["14dia"] = {'image': 'as.png', 'carpeta': 'diamante'};
+    //corazon
+    card["02co"] = {'image': '2co.png', 'carpeta': 'corazon'};
+    card["03co"] = {'image': '3co.png', 'carpeta': 'corazon'};
+    card["04co"] = {'image': '4co.png', 'carpeta': 'corazon'};
+    card["05co"] = {'image': '5co.png', 'carpeta': 'corazon'};
+    card["06co"] = {'image': '6co.png', 'carpeta': 'corazon'};
+    card["07co"] = {'image': '7co.png', 'carpeta': 'corazon'};
+    card["08co"] = {'image': '8co.png', 'carpeta': 'corazon'};
+    card["09co"] = {'image': '9co.png', 'carpeta': 'corazon'};
+    card["10co"] = {'image': '10co.png', 'carpeta': 'corazon'};
+    card["11co"] = {'image': 'jco.png', 'carpeta': 'corazon'};
+    card["12co"] = {'image': 'qco.png', 'carpeta': 'corazon'};
+    card["13co"] = {'image': 'kco.png', 'carpeta': 'corazon'};
+    card["14co"] = {'image': 'as2.png', 'carpeta': 'corazon'};
+    var pos = [1, 2, 4, 7, 6, 5, 3];
+//   console.log(card2.sort(function() {return Math.random() - 0.5}));
+//   console.log(card2.length);
     var token = "<?php
-if (isset($_COOKIE['token'])) {
-    echo $_COOKIE['token'];
-} elseif ($this->session->userdata('token')) {
-    echo $this->session->userdata('token');
-}
-?>";
+    if (isset($_COOKIE['token'])) {
+        echo $_COOKIE['token'];
+    } elseif ($this->session->userdata('token')) {
+        echo $this->session->userdata('token');
+    }
+    ?>";
     var msg_bubble_colors = [
         '#FFFFFF',
         '#E2EBC0',
@@ -127,7 +246,8 @@ if (isset($_COOKIE['token'])) {
     }
 
     function open_connection() {
-        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
+//        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
+        socket = new WebSocket('ws://localhost:8806/', 'server');
         socket.addEventListener("open", connection_established);
     }
     //cuando la conexion se establece
@@ -174,6 +294,7 @@ if (isset($_COOKIE['token'])) {
         }
         //                accede al juego para elegir una silla
         else if (message.type === 'joinsale') {
+            console.log('aqui');
 //             $('#chat-container').fadeIn();
 //            $('#loading-message').hide();
             var newvar = {};
@@ -189,13 +310,43 @@ if (isset($_COOKIE['token'])) {
 //                                else{
 //                                    var array = [];
 //                                }
-            console.log(array);
             gameposition(array);
 //            $('#rowsales').slideUp();
             $('#rowgame').slideDown();
             // $('#chat-container').fadeIn();
             //$('#loading-message').hide();
             //$('#game').html(message.messagesend);
+        }
+        else if (message.type === 'card1') {
+            var card3 = card[message.messagesend];
+            console.log(card3);
+            var url = "./imagen/poker/" + card3['carpeta'] + "/" + card3['image'];
+            var img = "<img src='" + url + "' style='width:40px;height:70px;' />";
+            var puesto = idsit + 1;
+            var player = ".player" + puesto + "carta1";
+            $(player).html(img);
+        }
+        else if (message.type === 'card2') {
+            var card3 = card[message.messagesend];
+            var url = "./imagen/poker/" + card3['carpeta'] + "/" + card3['image'];
+            var img = "<img src='" + url + "' style='width:40px;height:70px;' />";
+            var puesto = idsit + 1;
+            var player = ".player" + puesto + "carta2";
+            $(player).html(img);
+        }
+        else if (message.type === 'enespera') {
+
+            clearInterval(enespera);
+            var player1 = "#player" + pos[sitenespera] + 'time';
+            $(player1).html('');
+            sitenespera = message.messagesend;
+            console.log(sitenespera);
+            var player = "#player" + pos[sitenespera] + 'time';
+            console.log(player);
+            $(player).html('20');
+            enespera = setInterval(function() {
+                myTimer();
+            }, 1000);
         }
         else if (message.type === 'numcoin') {
             $('#inputapos').attr('min', message.messagesend.apu_min);
@@ -252,6 +403,16 @@ if (isset($_COOKIE['token'])) {
 
     }
 
+    function myTimer() {
+        var player1 = "#player" + pos[sitenespera] + 'time';
+        var time = $(player1).html()-1;
+        if(time==0){
+           clearInterval(enespera);
+        $(player1).html('');
+        }else{
+        $(player1).html(time);
+        }
+    }
     //mensaje al perder la conexion
     function showConnectionLostMessage() {
         // $('#send-msg textarea, #send-msg span').hide();
@@ -292,7 +453,7 @@ if (isset($_COOKIE['token'])) {
     function joingame(id, pass) {
         $('#sales').addClass('sales-close');
         $('.create-salas').slideUp();
-        
+
         idsale = id;
 //       idsit=undefined;
         if (pass == 1) {
