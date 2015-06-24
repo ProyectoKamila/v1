@@ -54,6 +54,9 @@
                     <li>
                         <a href="<?php echo site_url('activity'); ?>"><i class="fa fa-edit fa-fw"></i>Actividades en casino</a>
                     </li>
+                    <li>
+                        <a href="<?php echo site_url('status-payments'); ?>"><i class="fa fa-edit fa-fw"></i>Revisar Pagos</a>
+                    </li>
                     
                    <!-- <li>
                         <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>

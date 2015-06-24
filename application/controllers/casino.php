@@ -64,6 +64,22 @@ class Casino extends MY_Controller {
     }
 
 
+    public function status_payments() {
+        $role = parent::verify_role();
+        if($role == true){
+//            $this->load->view('page/header');
+            $where="register_payment_status.id_register_payment_status=register_payment.register_payment_status_id";
+                
+            $reload = $this->modelo_universal->selectjoin('register_payment','register_payment_status',$where,'*' );
+            $this->data['reload'] = $reload;
+
+            $this->header('admin');
+            $this->navigation();
+            $this->load->view('page/status_payments', $this->data);
+        }
+    }
+
+
     public function profile($message = null) {
         $role = parent::verify_role();
         if($role == true){
@@ -159,13 +175,16 @@ class Casino extends MY_Controller {
             $this->load->view('page/update_payment', $this->data);
         
         }else{
-//            debug($_POST);
+            //debug($_POST);
+            //echo "entro en el else del post";
+             //debug($this->input->post('register_payment_status_id'));
             $p= $this->modelo_universal->select('register_payment_status', 'id_register_payment_status',array('name' => $_POST["register_payment_status_id"]));
 //            debug($p[0]["id_register_payment_status"]);
-            $r = $this->modelo_universal->update('register_payment', array('register_payment_status_id' => $p[0]["id_register_payment_status"]), array('id_user' => $_POST["id_user"]));
+            $r = $this->modelo_universal->update('register_payment', array('register_payment_status_id' => $p[0]["id_register_payment_status"]), array('id_register_payment' => $id));
 //            UPDATE  `v1`.`register_payment` SET  `register_payment_status_id` =  '1' WHERE  `register_payment`.`id_register_payment` =1;
 //            debug($r);
             if(($r == 1) && ($p[0]["id_register_payment_status"] == 2)){
+                debug($p[0]["id_register_payment_status"]);
 //                ["amount"]
                 $pa= $this->modelo_universal->select('user_data', 'coins',array('id_user' => $_POST["id_user"]));
 //                    debug($pa);
