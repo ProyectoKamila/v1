@@ -35,9 +35,9 @@ class Modelo_Universal extends CI_Model {
             }
         } else {
             $this->db->insert($tabla, $insertar);
-            if ($tabla !='audit'){
             $insertado = $this->db->insert_id();
-                $data_audit = array(
+            if ($tabla !='audit'){
+                    $data_audit = array(
                     'operation' => 'insert',
                     'affected_module' =>'email',
                     'affected_table' => $tabla,
