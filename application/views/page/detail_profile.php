@@ -1,7 +1,7 @@
-<div id="page-wrapper">
+<div id="page-wrapper" class="custom-login-panel">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Datos del Usuario</h1> 
+                    <h1 class="page-header">Datos del Usuario s</h1> 
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -15,7 +15,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                              <h1 class="page-header">Datos Personales</h1> 
+                              <h1 class="page-header">Datos Personales ss</h1> 
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-user">
                                     <thead>
                                         <tr>

@@ -133,7 +133,7 @@
 
           } else if (value_mt <10)
           {
-            alert('Monto mínimo.');
+            alert('Monto mï¿½nimo.');
           } else
           {
             alert('saldo insuficiente.');
@@ -154,9 +154,9 @@ function connetserver() {
 
             function open_connection() {
 
-                socket = new WebSocket('ws://localhost:8808/', 'server');
+              //  socket = new WebSocket('ws://localhost:8808/', 'server');
 
-              //  socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
+                socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
 
                 socket.addEventListener("open", connection_established);
             }
@@ -373,7 +373,7 @@ function connetserver() {
 
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
-    <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
+    <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexiï¿½n. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
 </div>
 <?php include('./interface/footer.php');?>
