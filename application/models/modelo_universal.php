@@ -7,8 +7,8 @@ class Modelo_Universal extends CI_Model {
 
     public function __construct() {
         $this->load->database();
-        $this->load->helper('cookie');
-        $this->load->library('session');
+        //$this->load->helper('cookie');
+        //$this->load->library('session');
     }
 
     public function insert($tabla, $insertar, $campoprimary = NULL, $or = null) {
