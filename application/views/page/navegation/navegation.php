@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="./">Casino4As</a>
+            <a class="navbar-brand" href="./"><img src="/interface/images/recortes/home/logo-footer.png" alt="Logo"/></a>
         </div>
         <!-- /.navbar-header -->
 

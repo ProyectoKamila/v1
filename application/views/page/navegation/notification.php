@@ -1,6 +1,6 @@
 <!-- /.navbar-header -->
 
-<ul class="nav navbar-top-links navbar-right">
+<ul class="nav navbar-top-links navbar-right custom-navbar-right">
 
     <!-- /.dropdown -->
     <li class="dropdown">
