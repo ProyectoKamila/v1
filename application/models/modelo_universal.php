@@ -15,6 +15,19 @@ class Modelo_Universal extends CI_Model {
             if ($validar == 0) {
                 $this->db->insert($tabla, $insertar);
                 $insertado = true;
+                if ($tabla!='audit'){
+                $data_audit = array(
+                    'operation' => 'insert',
+                    'affected_module' =>'email',
+                    'affected_table' => $tabla,
+                    'id_user' => $this->session->userdata('id_user'),
+                    'information_of_the_operation'=>implode(";", $insertar), 
+                    'data'=>NOW(),
+                    'time'=>NOW(),
+                    'ip'=>'ip'
+                    );
+                    $this->insert_audit($data_audit);
+                }
                 return $this->db->insert_id();
             } else {
                 $insertado = false;
@@ -22,13 +35,38 @@ class Modelo_Universal extends CI_Model {
             }
         } else {
             $this->db->insert($tabla, $insertar);
+            if ($tabla !='audit'){
             $insertado = $this->db->insert_id();
+                $data_audit = array(
+                    'operation' => 'insert',
+                    'affected_module' =>'email',
+                    'affected_table' => $tabla,
+                    'id_user' => $this->session->userdata('id_user'),
+                    'information_of_the_operation'=>implode(";", $insertar), 
+                    'data'=>NOW(),
+                    'time'=>NOW(),
+                    'ip'=>'ip'
+                    );
+                    $this->insert_audit($data_audit);
+                }
             return $insertado;
         }
     }
 
     public function update($tabla, $cambiar, $condicion) {
         $this->db->update($tabla, $cambiar, $condicion);
+        $data_audit = array(
+                    'operation' => 'update',
+                    'affected_module' => 'email',
+                    'affected_table' => $tabla,
+                    'id_user' => $this->session->userdata('id_user'),
+                    'information_of_the_operation'=> implode(";", $cambiar),
+                    'data'=>NOW(),
+                    'time'=>NOW(),
+                    'ip'=>'ip'
+                    );
+            $this->insert_audit($data_audit);
+
         return $this->db->affected_rows();
     }
 
@@ -165,6 +203,20 @@ class Modelo_Universal extends CI_Model {
             $this->db->where($condicion);
             $this->db->delete($tablas);
             $validar = true;
+        $data_audit = array(
+                    'operation' => 'delete',
+                    'affected_module' => 'email',
+                    'affected_table' => $tablas,
+                    'id_user' => $this->session->userdata('id_user'),
+                    'information_of_the_operation'=>implode(";", $condicion),
+                    'data'=>NOW(),
+                    'time'=>NOW(),
+                    'ip'=>'ip'
+                    );
+            $this->insert_audit($data_audit);
+
+
+
         } else {
             $validar = false;
         }
@@ -177,6 +229,16 @@ class Modelo_Universal extends CI_Model {
         return $this->db->count_all_results();
     }
 
+    public function insert_audit($data_audit){
+        $this->insert('audit', $data_audit);
+    }
+
+
 }
 
+    
 ?>
+
+
+
+
