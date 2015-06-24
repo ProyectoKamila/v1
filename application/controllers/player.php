@@ -135,7 +135,7 @@ class Player extends MY_Controller {
                             );
 
                         $this->modelo_universal->insert('register_payment', $data);
-                        //$data = null;
+                        //$data = null;;
                        // $this->header('player');
                        // $this->navigation();
                         $this->data['id_user'] = $this->session->userdata('id_user');
