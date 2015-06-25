@@ -13,7 +13,7 @@
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/createjs-2013.12.12.min.js"></script>
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/ctl_utils.js"></script>
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/sprite_lib.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/settings.js"></script>
+      
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CSlotSettings.js"></script>
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CLang.js"></script>
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CPreloader.js"></script>
@@ -133,7 +133,7 @@
 
           } else if (value_mt <10)
           {
-            alert('Monto m�nimo.');
+            alert('Monto mínimo.');
           } else
           {
             alert('saldo insuficiente.');
@@ -373,7 +373,7 @@ function connetserver() {
 
 </div>
 <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
-    <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexi�n. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
+    <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
 </div>
 <?php include('./interface/footer.php');?>

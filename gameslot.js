@@ -267,7 +267,6 @@ wsServer.on('request', function(request) {
 
 
     connection.on('close', function(reasonCode, description) {
-        
         var chatroom = connection.chatroom;
         var users = rooms[chatroom];
         var usersall = clientsconectionall;
@@ -711,7 +710,7 @@ var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_use
   //  console.log(string);
        mysqlc.query(string, function(err, row, fields) {
         if (typeof(row)) {
-            
+             connection.coins = 0;
         connection.coins =  row[0]['coins'];
 
         

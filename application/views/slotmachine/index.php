@@ -14,9 +14,7 @@
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/createjs-2013.12.12.min.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/ctl_utils.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/sprite_lib.js"></script>
-        <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/settings.js"></script>
-
-        <!--      <?php // $this->load->view('page/settings'); ?> -->
+         <!--      <?php // $this->load->view('slotmachine/CSSettings'); ?> -->
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CSlotSettings.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CLang.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CPreloader.js"></script>
