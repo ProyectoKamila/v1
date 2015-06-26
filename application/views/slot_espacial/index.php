@@ -17,7 +17,7 @@
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CSlotSettings.js"></script>
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CLang.js"></script>
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CPreloader.js"></script>
-<!--        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CMain.js"></script>-->
+        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CMain.js"></script>
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CTextButton.js"></script>
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CGfxButton.js"></script>
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CToggle.js"></script>
