@@ -182,37 +182,36 @@ class Insert_controller extends MY_Controller {
             );
 
         $this->modelo_universal->update('user', $data, array('cod_validacion' => $id));
-        $check = $this->modelo_universal->select('user', '*', array('cod_validacion' => $id));
-        //debug($check);
-        if(empty($check)){
-        }else{
-            $this->session->set_userdata(array('token' => $this->session->userdata('session_id')));
-                    $token = $this->session->userdata('token');
-
-                    $s = $this->modelo_universal->select('active_session', '*', array('id_user' => $check[0]['id_user']));
-
-                    if ($s == null) {
-                        $date = $this->last_hour();
-                        $this->modelo_universal->insert('active_session', array('token' => $token, 'id_user' => $check[0]['id_user'], 'date_time' => $date));
-                    } else {
-                        $this->last_connection();
-                    }
-                    $this->session->set_userdata(array('session' => md5('true')));
-                    $this->session->set_userdata(array('name' => $check[0]['nickname']));
-                    $this->session->set_userdata(array('token' => $token));
-                    $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
-                    $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
-                    if($this->session->userdata('id_role') == 1){
-                        redirect('./casino');
-                    }else{
-
-
-                        redirect('./account');
-                        
-                    }
-        }
-//        $this->load->view('page/header');
-//        $this->load->view('page/insert/enable');
+//        $check = $this->modelo_universal->select('user', '*', array('cod_validacion' => $id));
+//        if(empty($check)){
+//        }else{
+//            $this->session->set_userdata(array('token' => $this->session->userdata('session_id')));
+//                    $token = $this->session->userdata('token');
+//
+//                    $s = $this->modelo_universal->select('active_session', '*', array('id_user' => $check[0]['id_user']));
+//
+//                    if ($s == null) {
+//                        $date = $this->last_hour();
+//                        $this->modelo_universal->insert('active_session', array('token' => $token, 'id_user' => $check[0]['id_user'], 'date_time' => $date));
+//                    } else {
+//                        $this->last_connection();
+//                    }
+//                    $this->session->set_userdata(array('session' => md5('true')));
+//                    $this->session->set_userdata(array('name' => $check[0]['nickname']));
+//                    $this->session->set_userdata(array('token' => $token));
+//                    $this->session->set_userdata(array('id_role' => $check[0]['id_role']));
+//                    $this->session->set_userdata(array('id_user' => $check[0]['id_user']));
+//                    if($this->session->userdata('id_role') == 1){
+//                        redirect('./casino');
+//                    }else{
+//
+//
+//                        redirect('./account');
+//                        
+//                    }
+//        }
+        $this->load->view('page/header');
+        $this->load->view('page/insert/enable');
     }
 
     function enviarcorreo($correo , $nick)
