@@ -33,7 +33,7 @@
                                         echo $dat[0]['identity_card'];
                                     } else
                                         echo set_value('identity_card')
-                                        ?>"required="" <?php if (!isset($dat[0]['identity_card'])) { echo 'readonly="readonly"';} ?>> 
+                                        ?>"required="" <?php if (isset($dat[0]['identity_card'])) { echo 'readonly="readonly"';} ?>> 
                                     <font color="red" style="font-weight: bold; font-size: 8px; text-decoration: underline"><?php echo form_error('identity_card'); ?></font>
                                 </div>
                             </div>
