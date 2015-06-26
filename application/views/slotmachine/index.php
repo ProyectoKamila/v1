@@ -14,9 +14,7 @@
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/createjs-2013.12.12.min.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/ctl_utils.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/sprite_lib.js"></script>
-        <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/settings.js"></script>
-
-        <!--      <?php // $this->load->view('page/settings'); ?> -->
+         <!--      <?php // $this->load->view('slotmachine/CSSettings'); ?> -->
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CSlotSettings.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CLang.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CPreloader.js"></script>
@@ -59,7 +57,7 @@
          var socket;
          var protocol_identifier = 'server';
          var myId;
-         var idgame=1;
+         var idgame=1; //aqui debe llevarse el nombre del juego que selecciono
          var free_gameslot=0;
          var nicklist;
          var is_typing_indicator;
@@ -196,9 +194,9 @@ function connetserver() {
 
             function open_connection() {
 
-                socket = new WebSocket('ws://localhost:8808/', 'server');
+             //   socket = new WebSocket('ws://162.252.57.97:8808/', 'server');socket = new WebSocket('ws://localhost:8808/', 'server');
 
-              //  socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
+              socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
 
                 socket.addEventListener("open", connection_established);
             }

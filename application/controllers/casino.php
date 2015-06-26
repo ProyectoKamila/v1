@@ -64,6 +64,22 @@ class Casino extends MY_Controller {
     }
 
 
+    public function status_payments() {
+        $role = parent::verify_role();
+        if($role == true){
+//            $this->load->view('page/header');
+            $where="register_payment_status.id_register_payment_status=register_payment.register_payment_status_id";
+                
+            $reload = $this->modelo_universal->selectjoin('register_payment','register_payment_status',$where,'*' );
+            $this->data['reload'] = $reload;
+
+            $this->header('admin');
+            $this->navigation();
+            $this->load->view('page/status_payments', $this->data);
+        }
+    }
+
+
     public function profile($message = null) {
         $role = parent::verify_role();
         if($role == true){
@@ -159,13 +175,16 @@ class Casino extends MY_Controller {
             $this->load->view('page/update_payment', $this->data);
         
         }else{
-//            debug($_POST);
+            //debug($_POST);
+            //echo "entro en el else del post";
+             //debug($this->input->post('register_payment_status_id'));
             $p= $this->modelo_universal->select('register_payment_status', 'id_register_payment_status',array('name' => $_POST["register_payment_status_id"]));
 //            debug($p[0]["id_register_payment_status"]);
-            $r = $this->modelo_universal->update('register_payment', array('register_payment_status_id' => $p[0]["id_register_payment_status"]), array('id_user' => $_POST["id_user"]));
+            $r = $this->modelo_universal->update('register_payment', array('register_payment_status_id' => $p[0]["id_register_payment_status"]), array('id_register_payment' => $id));
 //            UPDATE  `v1`.`register_payment` SET  `register_payment_status_id` =  '1' WHERE  `register_payment`.`id_register_payment` =1;
 //            debug($r);
             if(($r == 1) && ($p[0]["id_register_payment_status"] == 2)){
+                debug($p[0]["id_register_payment_status"]);
 //                ["amount"]
                 $pa= $this->modelo_universal->select('user_data', 'coins',array('id_user' => $_POST["id_user"]));
 //                    debug($pa);
@@ -229,12 +248,31 @@ class Casino extends MY_Controller {
     }
     
     public function slotmachine(){
+
+        $this->last_connection();
+        $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 1');
+        $this->load->view('slotmachine/settings',$data[0]);
+       $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 1');
+       $data = array('consulta' => $result );
+        $this->load->view('slotmachine/CSSettings', $data);
         $this->load->view('slotmachine/index');
     }
+
+
+
      public function slotmachine_marino(){
+         $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 2');
+    // $data1 = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 1');
+        $this->last_connection();
+    // debug(print_r($data));
+    //$this->load->view('slotmachine/header',$this->data);
+        $this->load->view('slot_marino/settings',$data[0]);
+        
         $this->load->view('slot_marino/index');
     }
-
+    public function slotmachine_espacial(){
+        $this->load->view('slot_espacial/index');
+    }
     public function demo_slotmachine(){
         $this->load->view('slotmachine/demo-index');
     }

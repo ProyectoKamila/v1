@@ -8,59 +8,45 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-
-        <title>Casino4As</title>
-
-
-        <link href="style.css" rel="stylesheet">
-        <!-- Bootstrap Core CSS -->
-        <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- MetisMenu CSS -->
-        <link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="dist/css/sb-admin-2.css" rel="stylesheet">
-
-        <!-- Custom Fonts -->
-        <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
+        <title>Acceder - Casino4As</title>
+        <link rel="stylesheet/less" type="text/css" href="css/main.less" />
+        <script src="js/less.min.js"></script>
     </head>
-
+    
     <body>
-
+        
         <div class="container">
             <div class="row">
+                <div class="col-lg-4 col-md-4 col-xs-12 col-sm-6  col-lg-offset-4 col-md-offset-4 col-sm-offset-3 col-xs-offset-0">
+                    <section class="logo">
+                        <img src="interface/images/recortes/home/logo.png" alt="Casino4as">
+                    </section>
+                </div>
+                <div class="clearfix"></div>
+                
                 <div class="col-md-4 col-md-offset-2">
-                    <div class="login-panel panel panel-default">
+                    <div class="login-panel panel panel-default  custom-login-panel">
                     <?php if ($this->session->flashdata('message')!= null){
                         echo "<div id='infoMessage' class='alert alert-danger' role='alert'>". $this->session->flashdata('message') ."</div>";
                         }
                     ?>
               
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Identificarse</h3>
+                        <div class="panel-heading custom-panel-heading">
+                            <h3 class="panel-title custom-panel-title">Identificarse</h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body custom-panel-body">
                             <form role="form" method="post" action="./login">
                                 <fieldset>
                                     <div class="form-group input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="text" class="form-control" name="namenick" placeholder="Username" value="sergio" required="" pattern=".{5,12}"title="5 a 12 caracteres">
+                                        <span class="input-group-addon "><span class="fa fa-user"></span></span>
+                                        <input type="text" class="form-control" name="namenick" placeholder="Username" value="" required="" pattern=".{5,12}"title="5 a 12 caracteres">
                                     </div>
                                     <!--                                    <div class="form-group">
                                                                             <input class="form-control" placeholder="E-mail / Nickname" name="email" type="email" autofocus>
                                                                         </div>-->
                                     <div class="form-group input-group">
                                         <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
-                                        <input class="form-control" placeholder="Password" name="password" type="password" value="123456" required=""><!-- Pr4y2ct4 -->
+                                        <input class="form-control" placeholder="Password" name="password" type="password" value="" required=""><!-- Pr4y2ct4 -->
                                     </div>
                                     <div class="checkbox">
                                         <label>
@@ -76,11 +62,11 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="login-panel panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Registrate</h3>
+                    <div class="login-panel panel panel-default custom-login-panel">
+                        <div class="panel-heading custom-panel-heading">
+                            <h3 class="panel-title custom-panel-title">Registrate</h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body custom-panel-body">
                             <?php echo form_open("/check") ?>
                         <!--     <form role="form" method="post" action="./registering"> -->
                                 <fieldset>

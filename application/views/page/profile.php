@@ -1,4 +1,4 @@
-        <div id="page-wrapper">
+        <div id="page-wrapper" class="custom-login-panel">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Perfiles <?php if($this->data['message'] == 'online'){ echo 'El L&iacute;nea';}elseif($this->data['message'] == 'online'){ echo 'Desconectados'; }else{echo $this->data['message'];} ?></h1> 

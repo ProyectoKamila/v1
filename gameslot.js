@@ -51,7 +51,9 @@ var allowed_origins = [
     'springle.rebugged.com',
     'sky.rebugged.com',
     'developer.cdn.mozilla.net',
-    '192.168.0.118'
+    '192.168.0.118',
+    'casino4as.com',
+    'localhost:8888'
 ];
 
 
@@ -158,7 +160,7 @@ wsServer.on('request', function(request) {
                     clientsconection[connection.token] = connection.token;
 
 
-                    var string = 'SELECT * FROM user_session WHERE user_token= "' + connection.token + '"';
+                      var string = 'SELECT * FROM active_session INNER JOIN user_data WHERE user_data.id_user = active_session.id_user AND active_session.token= "' + connection.token + '"';
                    
 
 
@@ -708,7 +710,7 @@ var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_use
   //  console.log(string);
        mysqlc.query(string, function(err, row, fields) {
         if (typeof(row)) {
-            
+             connection.coins = 0;
         connection.coins =  row[0]['coins'];
 
         

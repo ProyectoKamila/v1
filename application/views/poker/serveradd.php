@@ -104,8 +104,8 @@
                                             </div>   
                                             <div class="caption tiempo"><p id='player1time'>TIME</p></div>
                                             <div class="cartas">
-                                                <div class="carta1"></div>
-                                                <div class="carta2"></div>
+                                                <div class="carta1 player1carta1"></div>
+                                                <div class="carta2 player1carta2"></div>
                                             </div>  
                                             <a class="thumbnail">
                                                 <img src="./imagen/poker/cartas.png" alt="..." id='player1cartas'>
@@ -124,15 +124,15 @@
                                     <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs " id='player2' ondblclick="seeplayer('#player2', 1);" >
                                         <div class="player player2">
                                             <div class="caption name"><h3 id='player2name'>PLAYER1</h3></div>
-                                            <div class="caption money"><p id='player2coin'>13123</p></div>
-                                            <div class="caption money"><p id='player2apos'>apos</p></div>
+                                            <div class="caption money"><p id='player2apos'>13123</p></div>
+                                            <div class="caption money"><p id='player2coin'>apos</p></div>
                                             <div class="img-profile">
                                                 <img id='player2imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
                                             </div> 
                                             <div class="caption tiempo"><h3 id='player2time'>TIME</h3></div>
                                             <div class="cartas">
-                                                <div class="carta1"></div>
-                                                <div class="carta2"></div>
+                                                <div class="carta1 player2carta1"></div>
+                                                <div class="carta2 player2carta2"></div>
                                             </div> 
                                             <a class="thumbnail" >
                                                 <img id='player2imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
@@ -147,8 +147,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" >
-                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player3'>
+                                <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs"  >
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player3' ondblclick="seeplayer('#player3', 2);">
                                         <div class="player player3">
                                             <div class="caption name"><h3 id='player3name'>PLAYER1</h3></div>
                                             <div class="caption money"><p id='player3coin'>13123</p></div>
@@ -158,8 +158,8 @@
                                             </div>
                                             <div class="caption tiempo"><h3 id='player3time'>TIME</h3></div>
                                             <div class="cartas">
-                                                <div class="carta1"></div>
-                                                <div class="carta2"></div>
+                                                <div class="carta1 player3carta1"></div>
+                                                <div class="carta2 player3carta2" ></div>
                                             </div> 
                                             <a class="thumbnail" >
                                                 <img id='player3imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
@@ -179,7 +179,7 @@
                                             <!--<img src="./imagen/poker/mesa-poker.png" alt="..." id='crupier'>-->
                                         <!--</a>-->
                                     </div>
-                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player4'>
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player4' ondblclick="seeplayer('#player4', 3);" >
                                         <div class="player player4">
                                             <div class="caption name"><h3 id='player4name'>PLAYER1</h3></div>
                                             <div class="caption money"><p id='player4coin'>13123</p></div>
@@ -189,8 +189,8 @@
                                             </div>
                                             <div class="caption tiempo"><h3 id='player4time'>TIME</h3></div>
                                             <div class="cartas">
-                                                <div class="carta1"></div>
-                                                <div class="carta2"></div>
+                                                <div class="carta1 player4carta1"></div>
+                                                <div class="carta2 player4carta2"></div>
                                             </div> 
                                             <a class="thumbnail">
                                                 <img id='player4imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
@@ -207,7 +207,7 @@
 
                                 </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player5'>
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player5' ondblclick="seeplayer('#player5', 4);">
                                         <div class="player player5">
                                             <div class="caption name"><h3 id='player5name'>PLAYER1</h3></div>
                                             <div class="caption money"><p id='player5coin'>13123</p></div>
@@ -217,8 +217,8 @@
                                             </div>
                                             <div class="caption tiempo"><h3 id='player5time'>TIME</h3></div>
                                             <div class="cartas">
-                                                <div class="carta1"></div>
-                                                <div class="carta2"></div>
+                                                <div class="carta1 player5carta1"></div>
+                                                <div class="carta2 player5carta2"></div>
                                             </div> 
                                             <a class="thumbnail">
                                                 <img id='player5imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
@@ -233,7 +233,7 @@
                                         </div>
 
                                     </div>
-                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player6' onclick='seeplayer("player1");'>
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player6' ondblclick="seeplayer('#player6', 5);">
                                         <div class="player player6">
                                             <div class="caption name"><h3 id='player6name'>PLAYER1</h3></div>
                                             <div class="caption money"><p id='player6coin'>13123</p></div>
@@ -243,8 +243,8 @@
                                             </div>
                                             <div class="caption tiempo"><h3 id='player6time'>TIME</h3></div>
                                             <div class="cartas">
-                                                <div class="carta1"></div>
-                                                <div class="carta2"></div>
+                                                <div class="carta1 player6carta1"></div>
+                                                <div class="carta2 player6carta1"></div>
                                             </div> 
                                             <a class="thumbnail">
                                                 <img id='player6imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
@@ -258,8 +258,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player7'>
-                                      <div class="player player7">
+                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs" id='player7' ondblclick="seeplayer('#player7', 6);">
+                                        <div class="player player7">
                                             <div class="caption name"><h3 id='player7name'>PLAYER1</h3></div>
                                             <div class="caption money"><p id='player7coin'>13123</p></div>
                                             <div class="caption money"><h3 id='player7apos'>apos</h3></div>
@@ -268,8 +268,8 @@
                                             </div>
                                             <div class="caption tiempo"><h3 id='player7time'>TIME</h3></div>
                                             <div class="cartas">
-                                                <div class="carta1"></div>
-                                                <div class="carta2"></div>
+                                                <div class="carta1 player7carta1"></div>
+                                                <div class="carta2 player7carta2"></div>
                                             </div> 
                                             <a class="thumbnail">
                                                 <img id='player7imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
@@ -301,31 +301,31 @@
 
 </div>
 <script>
-    function sales(arraycon, clients) {
-        var content = " <table class='table table-striped list-sales '><tr class='titulo'><th class=''>SALA</th><th>APUESTA</th><th>MIN/MAX</th><th>MAX JUG</th></tr>";
-        var recorrido = arraycon;
-        var ide = 0;
-        //                                console.log(recorrido);
-        for (var i in recorrido) {
-            if (recorrido[i] !== null) {
+                                function sales(arraycon, clients) {
+                                    var content = " <table class='table table-striped list-sales '><tr class='titulo'><th class=''>SALA</th><th>APUESTA</th><th>MIN/MAX</th><th>MAX JUG</th></tr>";
+                                    var recorrido = arraycon;
+                                    var ide = 0;
+                                    //                                console.log(recorrido);
+                                    for (var i in recorrido) {
+                                        if (recorrido[i] !== null) {
 
-                //                                    console.log(recorrido[i]);
+                                            //                                    console.log(recorrido[i]);
 
-                var classtyle = "";
-                if (recorrido[i].boolpass !== 0) {
-                    classtyle = "glyphicon glyphicon-lock";
-                }
+                                            var classtyle = "";
+                                            if (recorrido[i].boolpass !== 0) {
+                                                classtyle = "glyphicon glyphicon-lock";
+                                            }
 
 
-                content += "<tr class='general'  ondblclick='joingame(" + i + "," + recorrido[i].boolpass + ")'><th><span class='" + classtyle + "' id=''> </span>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
-                ide++;
+                                            content += "<tr class='general'  ondblclick='joingame(" + i + "," + recorrido[i].boolpass + ")'><th><span class='" + classtyle + "' id=''> </span>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
+                                            ide++;
 
-            }
-        }
-        content += "<tr><td><p></p><p><span id='clients'> " + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default btn-crear-sala'  id='newsale' onclick='mostrar_create_sala();'>Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
-        content += "</tablet>";
-        $('#sales').html(content);
-    }
+                                        }
+                                    }
+                                    content += "<tr><td><p></p><p><span id='clients'> " + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default btn-crear-sala'  id='newsale' onclick='mostrar_create_sala();'>Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
+                                    content += "</tablet>";
+                                    $('#sales').html(content);
+                                }
 
 </script>
 <?php include('./interface/footer.php'); ?>

@@ -41,7 +41,7 @@
                                     <?php if($this->data["payment"][0]["register_payment_status_id"] != 2){ ?>
                                     <div class="form-group">
                                         <!--<span class="input-group-addon"></span>-->
-                                        <select name="register_payment_status_id" class="form-control" style="background-color: #eee;">
+                                        <select name="register_payment_status_id" id='register_payment_status_id' class="form-control" style="background-color: #eee;">
                                             <?php
                                             foreach ($this->data['status'] as $key => $status) {
                                                 
@@ -52,10 +52,10 @@
                                                 ?>
                                             <option selected="selected" values="<?=$status['id_register_payment_status']?>"><?=$status['name']?></option>
                                                <?php
-                                            }else{ ?>
+                                                }else{ ?>
                                                 <option values="<?=$status['id_register_payment_status']?>"><?=$status['name']?></option>
                                              <?php }
-                                            }
+                                        }
                                             ?>
                                             </select>
                                     </div> 
@@ -77,9 +77,9 @@
 
                                       <!-- Change this to a button or input when using this as a form -->
                                     <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
-<?php if($this->data["payment"][0]["register_payment_status_id"] != 2){ ?>
+                                <?php if($this->data["payment"][0]["register_payment_status_id"] != 2){ ?>
                                     <input type="submit" name="update_payment" class="btn btn-lg btn-success btn-block" value="Actualizar"/>
-<?php } ?>
+                                <?php } ?>
                                 </fieldset>
                                 <?php echo form_close() ?>
                             </div>
