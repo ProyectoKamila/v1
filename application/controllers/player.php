@@ -17,6 +17,9 @@ class Player extends MY_Controller {
 
     public function index() {
 //        debug($_COOKIE);
+        if (($this->input->cookie('token', true) != false)) {
+        $this->token_cokie();
+        }
         $role = parent::verify_role();
         if($role == false){
         $this->last_connection();
