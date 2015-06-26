@@ -30,8 +30,14 @@ class Player extends MY_Controller {
         }else{
             $this->header('player');
 //            $this->load->view('page/header');
+//            debug($this->session->userdata('id_user'));
+            $coins = $this->modelo_universal->select('user_data', 'coins,first_name,last_name', array('id_user'=>$this->session->userdata('id_user')));
+            $this->data['coins'] = $coins[0]['coins'];
+            $this->data['first_name'] = $coins[0]['first_name'];
+            $this->data['last_name'] = $coins[0]['last_name'];
+//            debug($coins);
             $this->navigation();
-            $this->load->view('page/index');
+            $this->load->view('page/index', $this->data);
         }
     }
     }

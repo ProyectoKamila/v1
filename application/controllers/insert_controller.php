@@ -66,7 +66,7 @@ class Insert_controller extends MY_Controller {
     }
 
     public function recibirDc() {
-//        debug($_POST);
+//        debug($_POST,false);
 
         if (isset($_POST['id_user_account_status']) and $_POST['id_user_account_status'] == '0') {
             //SI EXISTE EL CAMPO OCULTO LLAMADO GRABAR CREAMOS LAS VALIDACIONES
@@ -136,6 +136,7 @@ class Insert_controller extends MY_Controller {
            // }
             
             }else{
+//                debug($this->session->userdata('id_user'));
                 $data = array(
                     'first_name' => $this->input->post('firstname'),
                     'last_name' => $this->input->post('lastname'),
@@ -147,9 +148,9 @@ class Insert_controller extends MY_Controller {
                     'country' => $this->input->post('country'),
                     'city' => $this->input->post('city'),
                     'address' => $this->input->post('address'),
-                    'id_user' => $this->input->post('id_user')
+//                    'id_user' => $this->input->post('id_user')
                     );
-                $this->modelo_universal->update('user_data', $data, array('id_user' => $this->input->post('id_user')));
+                $this->modelo_universal->update('user_data', $data, array('id_user' => $this->session->userdata('id_user')));
                 $this->session->set_flashdata('mensaje','Tus datos se han actualizado correctamente');
                 redirect('./myprofile');
             }

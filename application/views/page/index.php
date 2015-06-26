@@ -1,7 +1,7 @@
 <div id="page-wrapper" class="custom-login-panel">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Bienvenido Nombre de usuario</h1>
+                <h1 class="page-header">Hola <?php echo $this->data['first_name'].' '.$this->data['last_name']; ?></h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -38,7 +38,7 @@
                                 <i class="fa fa-money fa-3x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">1102000</div>
+                                <div class="huge"><?php echo($this->data['coins']); ?></div>
                                 <div>Saldo Actual</div>
                             </div>
                         </div>

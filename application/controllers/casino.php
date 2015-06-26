@@ -18,9 +18,11 @@ class Casino extends MY_Controller {
     public function index() {
 //        $role = parent::verify_role();
 //        if($role == true){
-//        debug($role);
+//        debug($this->input->cookie('token'));
 //        debug($this->last_hour());
+        if (($this->input->cookie('token', true) != false)) {
         $this->token_cokie();
+        }
 //        debug($this->session->userdata('id_role'));
         if ($this->session->userdata('id_role') == 1) {
             redirect('./dashboard');
@@ -175,16 +177,17 @@ class Casino extends MY_Controller {
             $this->load->view('page/update_payment', $this->data);
         
         }else{
-            //debug($_POST);
+//            debug($_POST);
+            $id = $_POST['id_register_payment'];
             //echo "entro en el else del post";
              //debug($this->input->post('register_payment_status_id'));
             $p= $this->modelo_universal->select('register_payment_status', 'id_register_payment_status',array('name' => $_POST["register_payment_status_id"]));
-//            debug($p[0]["id_register_payment_status"]);
+//            debug($p[0]["id_register_payment_status"],false);
             $r = $this->modelo_universal->update('register_payment', array('register_payment_status_id' => $p[0]["id_register_payment_status"]), array('id_register_payment' => $id));
 //            UPDATE  `v1`.`register_payment` SET  `register_payment_status_id` =  '1' WHERE  `register_payment`.`id_register_payment` =1;
 //            debug($r);
             if(($r == 1) && ($p[0]["id_register_payment_status"] == 2)){
-                debug($p[0]["id_register_payment_status"]);
+//                debug($p[0]["id_register_payment_status"]);
 //                ["amount"]
                 $pa= $this->modelo_universal->select('user_data', 'coins',array('id_user' => $_POST["id_user"]));
 //                    debug($pa);
@@ -209,7 +212,8 @@ class Casino extends MY_Controller {
                 
         }    
         }else{
-            debug('no roll');
+//            debug('no roll');
+            $this->close();
         }  
     }
 

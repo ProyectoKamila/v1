@@ -68,6 +68,7 @@ class MY_Controller extends CI_Controller {
             $this->load->view('page/insert/insertado');
         } else {
             if ($check[0]['id_user_account_status'] == 1) {
+                $this->load->view('page/header');
                 $this->load->view('page/insert/registercompl', array('data' => $check[0]['id_user']));
             } else {
                 if ($check[0]['id_user_account_status'] == 2) {
@@ -278,7 +279,7 @@ class MY_Controller extends CI_Controller {
             } else {
                 $user = $this->modelo_universal->select('user', 'id_role', array('id_user' => $very[0]['id_user']));
 //                    debug($user,false);
-                if ($very != null) {
+                if ($user != null) {
 //                    SELECT `user`.`nickname` FROM `user`,`user_session` WHERE `user`.`id_user`=`user_session`.`id_user`
                     $check = $this->modelo_universal->query('SELECT `user`.`nickname`,`user`.`id_role` FROM `user`,`user_session` WHERE `user`.`id_user`=`user_session`.`id_user` AND `user`.`id_user` =' . $very[0]['id_user']);
 //                        debug($check,false);
@@ -287,6 +288,8 @@ class MY_Controller extends CI_Controller {
                     $this->session->set_userdata(array('name' => $check[0]['nickname']));
                 }
             }
+        }else{
+            $this->close();
         }
     }
 
