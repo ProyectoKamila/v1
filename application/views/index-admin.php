@@ -13,17 +13,17 @@
                     <div class="panel-heading ">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-plus fa-5x"></i>
+                                <i class="fa fa-users fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge"> ( ) </div>
-                                <div>Agregar Saldo</div>
+                                <div class="huge">26</div>
+                                <div>Usuarion Online</div>
                             </div>
                         </div>
                     </div>
-                    <a href="./load-payment">
+                    <a href="./profile/online">
                         <div class="panel-footer">
-                            <span class="pull-left">Ahora</span>
+                            <span class="pull-left">Ver Detalles</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                             <div class="clearfix"></div>
                         </div>
@@ -35,17 +35,17 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-money fa-3x"></i>
+                                <i class="fa fa-money fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">1102000</div>
-                                <div>Saldo Actual</div>
+                                <div class="huge">12</div>
+                                <div>Pagos sin Aprobar!</div>
                             </div>
                         </div>
                     </div>
-                    <a href="./payments">
+                    <a href="./status-payments">
                         <div class="panel-footer">
-                            <span class="pull-left">Ver Recargas</span>
+                            <span class="pull-left">Ver Detalles</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                             <div class="clearfix"></div>
                         </div>

@@ -39,7 +39,7 @@ class Casino extends MY_Controller {
 //            $this->load->view('page/header');
         $this->header('admin');
         $this->navigation();
-        $this->load->view('page/index');
+        $this->load->view('index-admin');
     }
     }
 
@@ -145,8 +145,8 @@ class Casino extends MY_Controller {
                 $this->data['balance'] = $balance;
                 $this->data['game'] = $game;
                 $this->data['reload'] = $reload;
-                $this->navigation();
                 $this->load->view('page/header');
+                $this->navigation();
                 $this->load->view('page/detail_profile', $this->data);
             }
         
@@ -170,8 +170,8 @@ class Casino extends MY_Controller {
             $this->data['payment'] = $payment;
 //            debug($this->data,false);
             //debug(print_r($this->data));
-            $this->navigation();
             $this->load->view('page/header');
+            $this->navigation();
             $this->load->view('page/update_payment', $this->data);
         
         }else{

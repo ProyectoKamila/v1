@@ -1,7 +1,7 @@
- <div id="page-wrapper">
+ <div id="page-wrapper" class="custom-login-panel">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Agregar Saldo<?php if(isset($this->data['mensaje'])){echo $this->data['mensaje'];}?></h1> 
+                    <h1 class="page-header">Aprobar Saldo<?php if(isset($this->data['mensaje'])){echo $this->data['mensaje'];}?></h1> 
                 </div>
                 <!-- /.col-lg-12 -->
             <div class="panel-body">
