@@ -38,6 +38,9 @@
                             <li>
                                 <a href="<?php echo site_url('jacks'); ?>"><i class="fa fa-edit fa-fw"></i> Jacks</a>
                             </li>
+                            <li>
+                                <a href="<?php echo site_url('poker'); ?>"><i class="fa fa-edit fa-fw"></i> Poker</a>
+                            </li>
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
