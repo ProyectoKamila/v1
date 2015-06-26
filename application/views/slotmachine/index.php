@@ -30,20 +30,17 @@
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CPayTablePanel.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CStaticSymbolCell.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CTweenController.js"></script>
-        <!--estilos header-->
-        <link rel="stylesheet" type="text/less" href="./interface/css/main.less">
-        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.0/less.min.js"></script>
-        <!-- Latest compiled and minified JavaScript -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-        <script src="./interface/scripts/main.js"></script>
 
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <?php $this->load->view('page/header');?>
     </head>
-    <body ondragstart="return false;" ondrop="return false;" >
-        <?php include('./interface/header.php');?>
-        <!--<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>-->
+    <body ondragstart="return false;" ondrop="return false;" style="background: #FF9603;">
+        <?php $this->load->view('page/navegation/header');?>
+        <?php $this->load->view('page/navegation/notification');?>
+    </div>
+        <div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+        <br/>
+        <br/>
+        
         <script>
         $(document).ready(function(){
          var oMain = new CMain({
@@ -391,14 +388,14 @@ function connetserver() {
 
      </script>
 
-     <div class="container">
+     <div class="container-fluid">
 
       <!-- Trigger the modal with a button -->
 
 
-      <div class="container-fluid sin-padding">
+      <div class="container sin-padding">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">    
                 <div class="content-canvas">
                     <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
                 </div>  
@@ -474,6 +471,6 @@ function connetserver() {
     <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
 </div>
-<?php include('./interface/footer.php');?>
+<?php $this->load->view('page/footer');?>
 </body>
 </html>

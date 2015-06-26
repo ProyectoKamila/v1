@@ -60,6 +60,7 @@ $route['close_home'] = "casino/close_home/";
 $route['slotmachine'] = "casino/slotmachine/";
 //$route['settings'] = "slotmachine/index/";   //prueba de carga de settings sergio.
 $route['slotmachine-marino'] = "casino/slotmachine_marino/";
+$route['slotmachine-espacial'] = "casino/slotmachine_espacial/";
 $route['demo-slotmachine'] = "casino/demo_slotmachine/";
 $route['roulette'] = "casino/roulette/";
 $route['blackjack'] = "casino/blackjack/";
