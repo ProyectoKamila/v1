@@ -36,7 +36,7 @@
                                         <tr class="odd gradeX">
                                             <td><?php echo $valor['id_activity_bet']; ?></td>
                                             <td><?php echo $valor['id_game']; ?></td>
-                                            <td><?php echo $valor['id_user']; ?></td>
+                                            <td><?php echo $valor['nickname']; ?></td>
                                             <td><?php echo $valor['time_i']; ?></td>
                                             <td><?php echo $valor['time_f']; ?></td>
                                             <td><?php echo $valor['coins_i']; ?></td>
