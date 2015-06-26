@@ -57,8 +57,10 @@ class Casino extends MY_Controller {
         $role = parent::verify_role();
         if($role == true){
 //            $this->load->view('page/header');
-            $activity_status = $this->modelo_universal->select('activity_bet', '*', null);
-            $this->data['activity'] = $activity_status;
+//            $activity_status = $this->modelo_universal->select('activity_bet', '*', null);
+            $this->data['activity'] = $this->modelo_universal->query('SELECT `activity_bet`.*,`user`.`nickname` FROM `activity_bet`,`user` WHERE `activity_bet`.`id_user` = `user`.`id_user` ORDER BY `id_activity_bet` DESC');
+//            $this->data['activity'] = $activity_status;
+//            debug($this->data);
             $this->header('admin');
             $this->navigation();
             $this->load->view('page/activity');

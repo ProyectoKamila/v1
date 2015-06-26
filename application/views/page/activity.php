@@ -18,7 +18,7 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>Id Activity</th>
+                                            <th id="">Id Activity</th>
                                             <th>Juego</th>
                                             <th>Usuario</th>
                                             <th>Fecha hora Inicial</th>
@@ -34,7 +34,7 @@
                                             foreach ($this->data['activity'] as $activity=>$valor ){ ?>
 
                                         <tr class="odd gradeX">
-                                            <td><? echo $valor['id_activity_bet']; ?></td>
+                                            <td><?php echo $valor['id_activity_bet']; ?></td>
                                             <td><?php echo $valor['id_game']; ?></td>
                                             <td><?php echo $valor['id_user']; ?></td>
                                             <td><?php echo $valor['time_i']; ?></td>
