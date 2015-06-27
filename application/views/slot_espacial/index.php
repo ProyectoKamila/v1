@@ -9,26 +9,26 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
         <meta name="msapplication-tap-highlight" content="no"/>
 
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/createjs-2013.12.12.min.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/ctl_utils.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/sprite_lib.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/createjs-2013.12.12.min.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/ctl_utils.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/sprite_lib.js"></script>
 
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CSlotSettings.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CLang.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CPreloader.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CMain.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CTextButton.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CGfxButton.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CToggle.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CBetBut.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CMenu.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CGame.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CReelColumn.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CInterface.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CPayTablePanel.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CStaticSymbolCell.js"></script>
-        <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CTweenController.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CSlotSettings.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CLang.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CPreloader.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CMain.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CTextButton.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CGfxButton.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CToggle.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CBetBut.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CMenu.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CGame.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CReelColumn.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CInterface.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CPayTablePanel.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CStaticSymbolCell.js"></script>
+        <script type="text/javascript" src="./games/slot-espacial/game_1024x768/js/CTweenController.js"></script>
         <!--estilos header-->
         <?php $this->load->view('page/header'); ?>
     </head>
@@ -53,7 +53,7 @@
             var socket;
             var protocol_identifier = 'server';
             var myId;
-            var idgame = 2;
+            var idgame = 3;
             var nicklist;
             var is_typing_indicator;
             var window_has_focus = true;
@@ -61,7 +61,8 @@
             var flash_title_timer;
             var connected = false;
             var connection_retry_timer;
-            var server_url = 'ws://162.252.57.97:8808/';
+           // var server_url = 'ws://162.252.57.97:8808/';
+            var server_url = 'ws://localhost:8808/'
             var token = "<?php
         if (isset($_COOKIE['token'])) {
             echo $_COOKIE['token'];
@@ -151,9 +152,9 @@
 
             function open_connection() {
 
-                //  socket = new WebSocket('ws://localhost:8808/', 'server');
+                  socket = new WebSocket('ws://localhost:8808/', 'server');
 
-                socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
+               // socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
 
                 socket.addEventListener("open", connection_established);
             }

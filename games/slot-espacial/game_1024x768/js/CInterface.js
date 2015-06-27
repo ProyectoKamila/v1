@@ -302,7 +302,7 @@ function CInterface(iCurBet,iTotBet,iMoney){
     };
     
     this.refreshTotalBet = function(iTotBet){
-        _oTotalBetText.text = TEXT_BET +": "+iTotBet.toFixed(2);
+        _oTotalBetText.text = TEXT_BET +" "+iTotBet.toFixed(2);
     };
     
     this.refreshNumLines = function(iLines){
