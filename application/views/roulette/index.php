@@ -59,6 +59,25 @@
                                                                 //SET THIS VALUE TO -1 IF YOU WANT WIN OCCURRENCE STRICTLY RELATED TO PLAYER BET ( SEE DOCUMENTATION)
                                             casino_cash:4000    //The starting casino cash that is recharged by the money lost by the user
                                 });
+         var socket;
+         var protocol_identifier = 'server';
+         var myId;
+         var idgame=2; //aqui debe llevarse el nombre del juego que selecciono
+         var nicklist;
+         var is_typing_indicator;
+         var window_has_focus = true;
+         var actual_window_title = document.title;
+         var flash_title_timer;
+         var connected = false;
+         var connection_retry_timer;
+         var server_url = 'ws://162.252.57.97:8809/';
+         var token = "<?php
+         if (isset($_COOKIE['token'])) {
+            echo $_COOKIE['token'];
+        } elseif ($this->session->userdata('token')) {
+            echo $this->session->userdata('token');
+        }
+        ?>";
 
                      $(oMain).on("game_start", function(evt) {
                              //alert("game_start");
@@ -77,6 +96,181 @@
                      });
            });
 
+        $('#buttonreconect').click(function() {
+            hideConnectionLostMessage();
+            connetserver();
+        });
+
+
+
+
+connetserver();
+function connetserver() {
+               
+                open_connection();
+            }
+
+            function open_connection() {
+
+             //   socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
+             socket = new WebSocket('ws://localhost:8809/', 'server');
+
+
+                socket.addEventListener("open", connection_established);
+            }
+            //cuando la conexion se establece
+            function connection_established(event) {
+                connected = true;
+                //hideConnectionLostMessage();
+                clearInterval(connection_retry_timer);
+               // alert(token);
+               introduce(token);
+               socket.addEventListener('message', function(event) {
+                message_received(event.data);
+            });
+               socket.addEventListener('close', function(event) {
+                connected = false;
+                showConnectionLostMessage();
+                    //reConnect();
+                });
+           }
+  //mensaje al perder la conexion
+  function showConnectionLostMessage() {
+        // $('#send-msg textarea, #send-msg span').hide();
+        $('#connection-lost-message').slideDown();
+    }
+    //esconde el mensaje de perder conexion
+    function hideConnectionLostMessage() {
+        // $('#send-msg textarea, #send-msg span').hide();
+        $('#connection-lost-message').slideUp();
+        $('#user-conect').slideUp();
+    }
+    function introduce(nickname) {
+        var intro = {
+            type: 'join',
+            token: nickname,
+            idgame: idgame
+
+        }
+
+        socket.send(JSON.stringify(intro));
+    }
+    function is_websocket_supported() {
+        if ('WebSocket' in window) {
+            return true;
+        }
+        return false;
+    }
+
+
+    message_received= function(message) {
+        var message;
+        message = JSON.parse(message);
+                //trae las salas actuales
+                if (message.type === 'sales') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    var newvar = {};
+                    newvar = new Object();
+                    newvar = message.messagesend;
+                    var myObj = newvar;
+
+                    var array = $.map(myObj, function(value, index) {
+                        return [value];
+                    });
+                    //sales(array, message.clients);
+                }
+                //                si ya esta conectado
+                else if (message.type === 'prueba') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    
+                    var  newvar = message.messagesend;
+
+
+                    s_oGame.pruebacgame(newvar);
+
+                }
+                else if (message.type === 'money_total') {
+                    myId = message.userId;
+
+                    var  coinsvar = message.messagesend;
+                    coinslabel(coinsvar);
+
+                }
+              
+                else if (message.type === 'prueba2') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    
+                    var  newvar = message.messagesend;
+
+
+                    s_oGame.pruebacgame2(newvar);
+                    
+
+                }
+                else if (message.type === 'readyconect') {
+
+
+                    $('#user-conect').slideDown();
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    //$('#game').html(message.messagesend);
+                }
+                //para traer datos del usuarhio
+                else if (message.type === 'welcome') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+                    //console.log(message.messagesend);
+                } else if (message.type === 'message' && parseInt(message.sender) !== parseInt(myId)) {
+                    //add_new_msg_to_log(message);
+                    blink_window_title('~ message poker ~');
+                    //showNewMessageDesktopNotification(message.nickname, message.message);
+                } else if (message.type === 'nicklist') {
+                    var chatter_list_html = '';
+                    nicklist = message.nicklist;
+                    for (var i in nicklist) {
+                        chatter_list_html += '<li>' + nicklist[i] + '</li>';
+                    }
+
+                    chatter_list_html = '<ul>' + chatter_list_html + '</ul>';
+                    $('#chatter-list').html(chatter_list_html);
+                } else if (message.type === 'activity_typing' && parseInt(message.sender) !== parseInt(myId)) {
+                    var activity_msg = message.name + ' is typing..';
+                    $('#is-typig-status').html(activity_msg).fadeIn();
+                    clearTimeout(is_typing_indicator);
+                    is_typing_indicator = setTimeout(function() {
+                        $('#is-typig-status').fadeOut();
+                    }, 2000);
+                }
+
+            }
+         
+            prueba = function(enviar){
+          //public function prueba(){
+           enviar.type='prueba';
+
+              //alert(enviar.type);
+
+              socket.send(JSON.stringify(enviar));
+          }
+          function totalcoins(){
+
+           var money_total = {
+
+            type: 'money_ws'
+        }
+
+
+              //alert(enviar.type);
+
+              socket.send(JSON.stringify(money_total));
+          }
         </script>
     <div class="container-fluid sin-padding">
         <div class="row">
