@@ -481,7 +481,7 @@ wsServer.on('request', function(request) {
     }
     }
     }
-        console.log('corteeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+      //  console.log('corteeeeeeeeeeeeeeeeeeeeeeeeeeeee');
             //CHECK IF THERE IS ANY COMBO
             _aWinningLine = new Array();//linea ganadora arreglo
             for(var k=0;k<_iLastLineActive;k++){ //desde 0 hasta el numero de lineas activas
@@ -542,14 +542,14 @@ wsServer.on('request', function(request) {
 
                 if (_aWinningLine[i].value==8 && _aWinningLine[i].amount > 0 && connection.id_game==1){
                         var juegos_gratis = juegos_gratis + 1;
-                        console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].amount);
+                       // console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].amount);
 
                        
 
                         sendmessageuser(connection, 'free_game', juegos_gratis);
                 }
                     
-                    console.log('lina ganadora  ' + _aWinningLine[i].value);
+                   // console.log('lina ganadora  ' + _aWinningLine[i].value);
                      
                    
                    //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea
@@ -572,7 +572,7 @@ wsServer.on('request', function(request) {
                         while(iTotWin >availiable_jp)   //verificar el monto antes de salir de esta función
 
        // var vuelta = nrows.token*3;
-       console.log('juego gratis!!!!!!!!!!!!!!!!: '+ juegos_gratis);
+      // console.log('juego gratis!!!!!!!!!!!!!!!!: '+ juegos_gratis);
 /* for(var i=0;i<NUM_ROWS;i++){
                 
                 for(var j=0;j<NUM_REELS;j++){
@@ -833,7 +833,7 @@ var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + cointotal +  ' WHERE `us
 });
 
 var string = 'INSERT INTO `activity_bet`(`coins_i`, `coins_f`, `id_user`, `id_game`, `time_i`, `time_f`) VALUES ("' + connection.coinsinit + '","' +connection.sitcoins + '","' + connection.id_user +'","' + connection.id_game + '","' + connection.date_i +  '", NOW() );';
-console.log('update close' + string);
+//console.log('update close' + string);
  mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
         

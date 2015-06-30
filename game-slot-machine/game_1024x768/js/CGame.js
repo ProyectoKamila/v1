@@ -132,14 +132,14 @@ var enviar= {
     this.pruebacgame = function(winline){
 
 //console.log('Linea Ganadora'+ ' ' +winline);
-console.log('Linea Ganadora'+ ' ' +winline.length);
+//console.log('Linea Ganadora'+ ' ' +winline.length);
 _aWinningLine=winline;
         
     };
      this.pruebacgame2 = function(finalc){
 
 //console.log('Linea Ganadora'+ ' ' +winline);
-console.log('combo de simbolo'+ ' ' +finalc);
+//console.log('combo de simbolo'+ ' ' +finalc);
 _aFinalSymbolCombo=finalc;
         
     };
@@ -150,6 +150,13 @@ _aFinalSymbolCombo=finalc;
 
         TOTAL_MONEY= money;
         _iMoney= money;
+
+    };
+    this.moneyrefjg = function(money){
+       
+
+        TOTAL_MONEY= TOTAL_MONEY + money;
+        _iMoney= _iMoney + money;
 
     };
 
@@ -418,6 +425,26 @@ _aFinalSymbolCombo=finalc;
                 this.onSpin();
             }
         };
+
+         this.onMaxBetjgXxx = function(){
+            var iNewBet = MAX_BET;
+            _iLastLineActive = NUM_PAYLINES;
+           // console.log('aqui si entra');
+            var iNewTotalBet = iNewBet * _iLastLineActive;
+
+            _iCurBet = MAX_BET;
+            _iTotBet = iNewTotalBet;
+            _oInterface.refreshBet(_iCurBet);
+           // _oInterface.refreshTotalBet(_iTotBet);
+            _oInterface.refreshNumLines(_iLastLineActive);
+            
+            if(iNewTotalBet>_iMoney){
+                _oInterface.disableSpin();
+            }else{
+                _oInterface.enableSpin();
+                this.onSpin2();
+            }
+        };
         
         this.removeWinShowing = function(){
             _oPayTable.resetHighlightCombo();
@@ -456,6 +483,29 @@ _aFinalSymbolCombo=finalc;
             _oInterface.disableGuiButtons();
             _iMoney -= _iTotBet;
             _oInterface.refreshMoney(_iMoney);
+            
+            _iCurState = GAME_STATE_SPINNING;
+        };
+        this.onSpin2 = function(){
+            
+            if(DISABLE_SOUND_MOBILE === false || s_bMobile === false){
+                if(_oCurSymbolWinSound){
+                    _oCurSymbolWinSound.stop();
+                }
+                _oReelSound = createjs.Sound.play("reels");
+            }
+            
+            
+            _oInterface.disableBetBut(true);
+            this.removeWinShowing();
+            
+            this.generateFinalSymbols();
+          //  console.log('aqui esta en onSpin2');
+            _oInterface.hideAllLines();
+            _oInterface.disableGuiButtons();
+            _iMoney -= _iTotBet;
+            _iMoney += _iTotBet;
+            //_oInterface.refreshMoney(_iMoney);
             
             _iCurState = GAME_STATE_SPINNING;
         };
