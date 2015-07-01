@@ -406,7 +406,7 @@
     function myTimer() {
         var player1 = "#player" + pos[sitenespera] + 'time';
         var time = $(player1).html()-1;
-        if(time==0){
+        if(time < 0){
            clearInterval(enespera);
         $(player1).html('');
         }else{

@@ -43,6 +43,7 @@ var saleonline = {};
 var play = {};
 var saleonlineconex = {};
 var saleonlineconexall = {};
+var roomespejo = 0;
 //variable para permitir acceder a una sala si se encontro la password en la base de datos
 var accesstrue = false;
 //clientsconection['all'] = {};
@@ -516,7 +517,6 @@ wsServer.on('request', function(request) {
                 newarrayclient[clientsconection[i]] = clientsconection[i];
             }
         }
-
         clientsconection = newarrayclient;
 //aqui borro en el arreglo la conexion del usuario que se fue
         for (var i in usersall) {
@@ -694,6 +694,7 @@ wsServer.on('request', function(request) {
                     console.log("logicpokerstart");
                     logicpokerstart(idsale);
                 }
+              
 
 
             }
@@ -773,6 +774,11 @@ wsServer.on('request', function(request) {
 //                saleonlineconex[connection.idsale].splice(connection.idsit, 1);
 //                console.log(saleonlineconex[connection.idsale]);
                 if (connection.idsit < 7) {
+                if(typeof play[connection.idsale] && play[connection.idsale]!==undefined && typeof play[connection.idsale] && play[connection.idsale].numjugactivos > 1){
+                    play[connection.idsale].gameover();
+                           clearInterval(play[connection.idsale].enespera);
+                    delete play[connection.idsale];
+                }
                     updatesale(connection.idsale);
                 }
 //                setea a undefined para que no se vuelva a sentar el wey
@@ -787,7 +793,9 @@ wsServer.on('request', function(request) {
         this.max_jug = rooms[room].max_jug;
         this.name = rooms[room].name;
         this.enespera = "";
+        //numero de jugadores activos
         this.jugactivos = [];
+        this.numjugactivos = 0;
         this.jugadorenespera = 0;
         this.pote1 = 0;
         this.pote2 = 0;
@@ -803,9 +811,19 @@ wsServer.on('request', function(request) {
     }
 //aqui seleciono los jugadores activos en la sala
     Sala.prototype.jugadoresactivos = function() {
+        var x = 0;
+        //creo todos los puestos
+        while (x < 7) {
+            var coarray = {'first_name': undefined};
+            this.jugactivos[x] = coarray;
+            x++;
+        }
+//        console.log(this.jugactivos);
+//        console.log(this.jugactivos[6]);
         for (i in saleonlineconex[this.room]) {
-            if (saleonlineconex[this.room][i] !== undefined) {
+            if (saleonlineconex[this.room][i] !== undefined && i < 7) {
                 this.jugactivos[i] = saleonlineconex[this.room][i];
+                this.numjugactivos++;
             }
         }
     };
@@ -823,83 +841,85 @@ wsServer.on('request', function(request) {
         for (i2 = 1; i2 < 3; i2++) {
             for (i in this.jugactivos) {
                 //aqui creo una variable con el nombre de la carta
-
-                namecard = "card" + i2;
-                this.jugactivos[i][namecard] = card2[this.numcard];
-                sendmessageuser(this.jugactivos[i], namecard, card2[this.numcard]);
-                this.numcard++;
+                if (this.jugactivos[i]['first_name'] !== undefined) {
+                    namecard = "card" + i2;
+                    this.jugactivos[i][namecard] = card2[this.numcard];
+                    sendmessageuser(this.jugactivos[i], namecard, card2[this.numcard]);
+                    this.numcard++;
+                }
             }
         }
     };
+    Sala.prototype.gameover = function() {
+         clearInterval(this.enespera);
+    };
     Sala.prototype.nextdiler = function() {
-        if (this.jugactivos[this.diler] == undefined) {
-            this.diler = 0;
-            this.ciegamin = this.diler++;
-            this.ciegamax = this.diler + 2;
-            this.jugadorenespera = this.ciegamax++;
-            while(this.jugactivos[this.jugadorenespera]==undefined){
-                this.jugadorenespera++;
-                if(this.jugadorenespera=7){
-                    this.jugadorenespera=0;
-                }
+        this.diler = 0;
+        while (this.jugactivos[this.diler]['first_name'] == undefined) {
+            this.diler++;
+            if (this.diler == 7) {
+                this.diler = 0;
             }
-            if (this.jugactivos[this.jugadorenespera] == undefined) {
+        }
+        this.ciegamin = this.diler++;
+        while (this.jugactivos[this.ciegamin]['first_name'] == undefined) {
+            this.ciegamin++;
+            if (this.ciegamin == 7) {
+                this.ciegamin = 0;
+            }
+        }
+        this.ciegamax = this.ciegamin++;
+        while (this.jugactivos[this.ciegamax]['first_name'] == undefined) {
+            this.ciegamax++;
+            if (this.ciegamax == 7) {
+                this.ciegamax = 0;
+            }
+        }
+        this.jugadorenespera = this.ciegamax++;
+        while (this.jugactivos[this.jugadorenespera]['first_name'] == undefined) {
+            this.jugadorenespera++;
+            if (this.jugadorenespera == 7) {
                 this.jugadorenespera = 0;
             }
         }
-        else {
-            this.diler = this.diler++;
-            this.ciegamin = this.diler++;
-            this.ciegamax = this.diler + 2;
-        }
     };
     Sala.prototype.play = function() {
-
-        clearInterval(this.enespera);
-//        if (jugadorenespera == this.jugadorenespera) {
-        var romper = false;
-        var lengthplayer = this.jugactivos.lenght;
-        for (i in saleonline[this.room]) {
-//            si es menor a 7 el puesto y no ha encontrado otro
-            if (i < 7 && romper == false && this.jugadorenespera == i && i < lengthplayer) {
-                this.jugadorenespera++;
-                if(this.jugadorenespera ==7){
-                    this.jugadorenespera=0;
-                }
-//                if (this.jugactivos[this.jugadorenespera] == undefined) {
-//                    this.jugadorenespera = 0;
-//                }
-//            si el puesto esta ocupado envio el tiempo
-                if (saleonline[this.room][i]['name'] !== undefined) {
-                    romper = true;
-                    console.log('aaaquuiuuu');
-                    this.enesperafu();
-                    this.intervalo();
-                }
-            }
-
+        var x = this.jugadorenespera + 1;
+        if (x == 7) {
+            this.jugadorenespera = 0;
+            x = 0;
         }
-//        }
-
+        while (this.jugactivos[x]['first_name'] == undefined) {
+            x++;
+            if (x == 7) {
+                x = 0;
+            }
+        }
+        this.jugadorenespera = x;
+        console.log(x);
+        if (this.jugactivos[this.jugadorenespera] !== undefined) {
+            console.log('aaaquuiuuu');
+            play[this.room].intervalo();
+            play[this.room].enesperafu();
+        }
     };
     Sala.prototype.enesperafu = function() {
         for (i in saleonlineconexall[this.room]) {
-//            console.log(this.jugactivos);
-            console.log("__________________aqui__________");
-            console.log(this.jugadorenespera);
-//            console.log( this.jugactivos[0]);
-            sendmessageuser(saleonlineconexall[this.room][i], 'enespera', this.jugactivos[this.jugadorenespera]['idsit']);
+            sendmessageuser(saleonlineconexall[this.room][i], 'enespera', this.jugadorenespera);
         }
     };
 
     Sala.prototype.intervalo = function() {
         //borro el intervalo
-        clearInterval(this.enespera);
+//        clearInterval(this.enespera);
         //seteo para que aa los 20 segundos llame a la funcion play
 //        this.enespera = setInterval(play[idsale].play(this.jugadorenespera), 5000);
-        var room = this.room;
-        this.enespera = setInterval(function() {
-            play[room].play();
+        var espejo = this.room;
+        this.enespera = setTimeout(function() {
+            console.log('en espera');
+            if(typeof  play[espejo] && play[espejo]!==undefined){
+            play[espejo].play();
+            }
         }, 5000);
 //        console.log(this.room);
 //        this.enespera = setInterval(function(){ console.log(room);}, 5000);
@@ -913,8 +933,6 @@ wsServer.on('request', function(request) {
         play[idsale].intervalo();
         play[idsale].enesperafu();
 //        console.log(play[idsale]);
-
-
     }
 
 });
