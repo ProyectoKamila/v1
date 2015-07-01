@@ -36,8 +36,8 @@
     var flash_title_timer;
     var connected = false;
     var connection_retry_timer;
-//    var server_url = 'ws://162.252.57.97:8807/';
-    var serverc_url = 'ws://localhost:8806/';
+    var server_url = 'ws://162.252.57.97:8807/';
+//    var serverc_url = 'ws://localhost:8806/';
     var card2 = new Array("02tre"
             , "03tre",
             '04tre',
@@ -173,14 +173,14 @@
         '#FBFAEF',
         '#EFF2FC'
     ];
-    $(document).ready(function() {
+    $(document).ready(function () {
         'use strict';
         //si le dan click a reconectar
-        $('#buttonreconect').click(function() {
+        $('#buttonreconect').click(function () {
             hideConnectionLostMessage();
             connetserver();
         });
-        $('#buttoncreate').click(function() {
+        $('#buttoncreate').click(function () {
             var namesale = $('#namesale').val();
             var clave = $('#passsale').val();
             var minapos = $('#minapos').val();
@@ -201,13 +201,15 @@
 
             socket.send(JSON.stringify(intro));
         });
-        $('#buttonsitdown').click(function() {
+        $('#buttonsitdown').click(function () {
+
             var min = $('#inputapos').attr('min');
             var max = $('#inputapos').attr('max');
             var inputapos = $('#inputapos').val();
             console.log(max);
             console.log(inputapos);
             console.log(min);
+            $('.sidebar-game').addClass('jugando');
             if (min <= inputapos && max >= inputapos) {
 
                 $('#boxsitdown').slideUp();
@@ -217,12 +219,16 @@
                     idsale: idsale,
                     idsit: idsit
                 }
+                if (idsit < 6 & idsit >= 0){
+                    console.log('puesto ' + idsit);
+                    $('.sit-' + idsit).removeClass('disponible');
+                }
 
                 socket.send(JSON.stringify(intro));
             }
         });
         //boton para acceder al juego
-        $('#buttonjoingame').click(function() {
+        $('#buttonjoingame').click(function () {
             $('#passloss').slideUp();
             var passbox = $('#passbox').val();
             $('#passbox').val('');
@@ -246,8 +252,8 @@
     }
 
     function open_connection() {
-//        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
-        socket = new WebSocket('ws://localhost:8806/', 'server');
+        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
+//        socket = new WebSocket('ws://localhost:8806/', 'server');
         socket.addEventListener("open", connection_established);
     }
     //cuando la conexion se establece
@@ -256,10 +262,10 @@
         //hideConnectionLostMessage();
         clearInterval(connection_retry_timer);
         introduce(token);
-        socket.addEventListener('message', function(event) {
+        socket.addEventListener('message', function (event) {
             message_received(event.data);
         });
-        socket.addEventListener('close', function(event) {
+        socket.addEventListener('close', function (event) {
             connected = false;
             showConnectionLostMessage();
             //reConnect();
@@ -287,7 +293,7 @@
             newvar = new Object();
             newvar = message.messagesend;
             var myObj = newvar;
-            var array = $.map(myObj, function(value, index) {
+            var array = $.map(myObj, function (value, index) {
                 return [value];
             });
             sales(array, message.clients);
@@ -303,7 +309,7 @@
             var myObj = newvar;
             console.log(myObj);
 //                                if (myObj.lenght !== undefined){
-            var array = $.map(myObj, function(value, index) {
+            var array = $.map(myObj, function (value, index) {
                 return [value];
             });
 //                                }
@@ -344,7 +350,7 @@
             var player = "#player" + pos[sitenespera] + 'time';
             console.log(player);
             $(player).html('20');
-            enespera = setInterval(function() {
+            enespera = setInterval(function () {
                 myTimer();
             }, 1000);
         }
@@ -396,7 +402,7 @@
             var activity_msg = message.name + ' is typing..';
             $('#is-typig-status').html(activity_msg).fadeIn();
             clearTimeout(is_typing_indicator);
-            is_typing_indicator = setTimeout(function() {
+            is_typing_indicator = setTimeout(function () {
                 $('#is-typig-status').fadeOut();
             }, 2000);
         }
@@ -405,12 +411,12 @@
 
     function myTimer() {
         var player1 = "#player" + pos[sitenespera] + 'time';
-        var time = $(player1).html()-1;
-        if(time < 0){
-           clearInterval(enespera);
-        $(player1).html('');
-        }else{
-        $(player1).html(time);
+        var time = $(player1).html() - 1;
+        if (time < 0) {
+            clearInterval(enespera);
+            $(player1).html('');
+        } else {
+            $(player1).html(time);
         }
     }
     //mensaje al perder la conexion
@@ -430,7 +436,7 @@
         if (connected == false) {
             var time_start = 5;
             var time_string;
-            var connection_retry_timer = window.setInterval(function() {
+            var connection_retry_timer = window.setInterval(function () {
                 if (time_start-- > 0) {
                     time_string = time_start + ' seconds';
                 } else {
@@ -503,6 +509,7 @@
         var cartasplay2 = elem + 'cartasplay2';
         if (disponible == undefined) {
 
+            $(elem).addClass('disponible');
             $(name).html('disponible');
             $(coin).html('');
             $(time).html('');
@@ -536,6 +543,7 @@
         var name = elem + 'name';
         var disp = $(name).html();
         if (disp == "disponible") {
+
             var intro = {
                 type: 'numcoin',
                 inputapos: inputapos,

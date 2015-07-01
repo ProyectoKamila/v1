@@ -5,33 +5,30 @@
     <!-- /.dropdown -->
     <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
+            <i class="fa fa-gamepad "></i>  <i class="fa fa-caret-down"></i>
         </a>
         <ul class="dropdown-menu dropdown-alerts">
             <li>
-                <a href="#">
-                    <div>
-                        <i class="glyphicon glyphicon-download-alt"></i> Solicitud de Retiro
-                        <span class="pull-right text-muted small">4 minutes ago</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="#">
-                    <div>
-                        <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                        <span class="pull-right text-muted small">4 minutes ago</span>
-                    </div>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a class="text-center" href="#">
-                    <strong>See All Alerts</strong>
-                    <i class="fa fa-angle-right"></i>
-                </a>
-            </li>
+                                <a href="<?php echo site_url('slotmachine'); ?>"><i class="fa fa-play fa-fw"></i> SlotMachine</a>
+                            </li>
+                             <li>
+                                <a href="<?php echo site_url('slotmachine-marino'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Marino</a>
+                            </li>
+                              <li>
+                                <a href="<?php echo site_url('slotmachine-espacial'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Espacial</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('roulette'); ?>"><i class="fa fa-play fa-fw"></i> Roulette</a>
+                            </li>
+                             <li>
+                                <a href="<?php echo site_url('blackjack'); ?>"><i class="fa fa-play fa-fw"></i> Blacjack</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('jacks'); ?>"><i class="fa fa-play fa-fw"></i> Jacks</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('poker'); ?>"><i class="fa fa-play fa-fw"></i> Poker</a>
+                            </li>
         </ul>
         <!-- /.dropdown-alerts -->
     </li>

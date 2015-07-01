@@ -3,6 +3,7 @@
      <html>
      <head>
         <title></title>
+        <?php $this->load->view('page/header');?>
         <link rel="stylesheet" href="./game-slot-machine/game_1024x768/css/reset.css" type="text/css">
         <link rel="stylesheet" href="./game-slot-machine/game_1024x768/css/main.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,13 +32,12 @@
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CStaticSymbolCell.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CTweenController.js"></script>
 
-    <?php $this->load->view('page/header');?>
+    
     </head>
     <body ondragstart="return false;" ondrop="return false;" style="background: #FF9603;">
         <?php $this->load->view('page/navegation/header');?>
         <?php $this->load->view('page/navegation/notification');?>
     </div>
-        <div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
         <br/>
         <br/>
         
@@ -466,6 +466,7 @@ function connetserver() {
 
 
 </div>
+    
 <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
     <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 

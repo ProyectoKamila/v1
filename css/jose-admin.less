@@ -19,8 +19,8 @@ body{
 }
 .custom-login-panel{
     background: none !important;
-    
-    
+
+
     .custom-panel-heading{
         background: none !important;
         border:0px;
@@ -60,34 +60,34 @@ body{
         padding-left: 10px;
     }
     .custom-navbar-right{
-    a{
-        color: white;
-        
-    }
-    li{
-        .dropdown-user , .dropdown-alerts{
-            background: @verde-oscuro;
+        a{
+            color: white;
+
         }
-        .text-muted {
-            color:white;
+        li{
+            .dropdown-user , .dropdown-alerts{
+                background: @verde-oscuro;
+            }
+            .text-muted {
+                color:white;
+            }
+            a:hover{
+                background: white;
+                color: @verde-oscuro;
+            }
         }
-        a:hover{
+        li>a:focus, .nav>li>a:hover{
             background: white;
-            color: @verde-oscuro;
-        }
-    }
-    li>a:focus, .nav>li>a:hover{
-        background: white;
-        color:@verde-oscuro;
-        
-    }
-    li:hover{
-        background: white;
-        .text-muted {
             color:@verde-oscuro;
+
+        }
+        li:hover{
+            background: white;
+            .text-muted {
+                color:@verde-oscuro;
+            }
         }
     }
-}
 }
 h1.page-header{
     color:white;
@@ -97,18 +97,19 @@ h1.page-header{
 .sidebar{
     background: #FFF;
     .sidebar-logo{
+        background: @rojo;
         img{
             margin-top:5%;
             display: block;
             margin: 0 auto;
         }
-}
-ul li{
-    border-bottom: 1px solid @verde-oscuro;
-}
-.nav>li>a{
-    color: @verde-oscuro;
-}
+    }
+    ul li{
+        border-bottom: 1px solid @verde-oscuro;
+    }
+    .nav>li>a{
+        color: @verde-oscuro;
+    }
 }
 .login-panel{
     margin-top:  20px;
@@ -131,9 +132,9 @@ ul li{
     border: 1px solid #fff;
 }
 .alert-info{
- border: 1px solid white    ;
- background: none;
- color:white;
+    border: 1px solid white    ;
+    background: none;
+    color:white;
 }
 .panel-primary{
     .panel-heading{
@@ -174,5 +175,565 @@ ul li{
         position:relative !important;
         margin: 0 auto;
         display:relative;
+    }
+}
+.sin-padding{
+    padding-left: 0px !important;
+    padding-right:  0px !important;
+}
+.create-salas{
+    margin-top: 100px;
+    width: auto;
+    height: 0px;
+    overflow: hidden;
+    background: @rojo;
+    overflow:hidden;
+    padding:0px;
+    border-radius: 5px;
+    transform: translate3d(-250%, -00%, 299px) ;
+    -webkit-transform: translate3d(-250%, -00%, 299px) ;
+    -mox-transform: translate3d(-250%, -00%, 299px) ;
+    -ms-transform: translate3d(-250%, -00%, 299px) ;
+    transition:0.8s all ease-in;
+    z-index:2;
+
+    .close{
+        color: #FFF;
+
+        text-align: right;
+        opacity: 1;
+    }
+    .close:hover{
+        color: #FFF;
+    }
+    .input-group{
+        margin-bottom: 10px;
+        height: 35px;
+        overflow:hidden;
+        span{
+            height: 35px;
+            background: white;
+            color: @rojo;
+            border:0px;
+            outline: 0px;
+        }
+        input[type="text"],input[type="number"],input[type="password"],select , select > option {
+            height: 36px;
+            -webkit-appearance: none;
+            border: none;
+            min-width: 180px;
+            margin-left: -2px;
+            border:0px solid;
+            outline: 0px;
+            margin-top: 1px;
+            width: 98%;
+        }
+
+    }
+    .label{
+        background: white;
+        color: @rojo;
+        font-weight: 200;
+    }
+}
+.poker{
+    padding-top: 80px;
+    overflow:hidden;
+    position: relative;
+    height: 780px;
+
+}
+.playing{
+    background: url(../interface/images/recortes/poker/mesa-poker.png) center center no-repeat;
+    height: 720px;
+    /*background-size: 100%;*/
+    position: relative;
+    z-index:900;
+    margin-top:-20px;
+
+    .curpie{
+        width: 100%;
+        height: 200px;
+        margin-top: 17px;
+    }
+    .men{
+        background: url(../interface/images/recortes/poker/dealer.png) center center no-repeat;    
+    }
+    .player{
+        height: 240px;
+        overflow: hidden;
+        position: relative;
+        /*background:yellow;*/
+
+        .name{
+            display: block;
+            width: 100%;
+            color:white;
+            h3{
+                text-align: center;
+                font-size: 12px;
+            }
+        }
+        .img-profile{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: block;
+            margin: 0 auto;
+            border:5px dashed @rojo;
+            background: @gris-plomo;
+            .img-vacio{
+                display: none;
+            }
+        }
+        .money{
+            width: 110px;
+            height: 20px;
+            background: @rojo;
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            margin-bottom:5px;
+            p{
+                &:before{
+                    content:'Bs.';
+                }
+                padding:2px;
+                font-size: 12px;
+                color: white;
+                text-align: center;
+            }
+        }
+        .tiempo{
+            width: 50px;
+            height: 50px;
+            position: relative;
+            background: @rojo;
+            color: white;
+            border-radius: 50%;
+            margin-top: -38px;
+            margin-left: 40px;
+        }
+        .cartas{
+            width: 100%;
+            height: 60px;
+
+            position: relative;
+            margin-top: -60px;
+            margin-bottom: 0px;
+            .carta1, .carta2{
+                float:right;
+                margin-right: 5px;
+                height: 60px;
+                width: 40px;
+                background: violet;
+                border-radius:5px;
+            }
+        }
+        .thumbnail{
+            display: none;
+        }
+    }
+    .player1{
+        margin-top: -20px;
+    }
+    .player2{
+        margin-top: -20px;
+        margin-left: -150px;
+        .tiempo{
+            margin-left: 31.5%;
+            margin-top: -38px;
+        }
+        .cartas{
+            margin-left: -80px;
+        }
+    }
+    .player3{
+        margin-left: -80px;
+        margin-top: -110px;
+        .tiempo{
+            margin-left: 80px;
+            margin-top: -49PX;
+        }
+        .cartas{
+            margin-left: -40px;
+        }
+    }
+    .player4{
+        margin-top: -110px;
+        margin-left: 40px;
+        .tiempo{
+            margin-left: 60px;
+            margin-top: -48px;
+        }
+        .cartas{
+            margin-left: -20px;
+        }
+    }
+    .player5{
+        .tiempo{
+            margin-top: -48px;
+            margin-left: 60px;
+        }
+        .cartas{
+            margin-left: -20px;
+        }
+    }
+    .player6{
+        .tiempo{
+            margin-top: -48px;
+            margin-left: 60px;
+        }
+        .cartas{
+            margin-left: -20px;
+        }
+    }
+    .player7{
+        .tiempo{
+            margin-top: -48px;
+            margin-left: 60px;
+        }
+        .cartas{
+            margin-left: -20px;
+        }
+    }
+
+    .player5 , .player6 , .player7{
+        margin-top: -60px;
+    }
+}
+.sidebar-game{
+    /*width: 100%;*/
+    height: 780px;
+    /*background: @mostaza;*/
+    border-left: 1px solid white;
+    overflow:hidden;
+    h3{
+        text-align: center;
+        color: white;
+        font-weight: 200;
+    }
+    .profile{
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+        overflow:hidden;
+        margin-top: 40px;
+        img{
+            width: 100%;
+            height: 100%;
+            background: yellow;
+        }
+    }
+    .saldo{
+        color: @rojo;
+        font-size: 18px;
+        text-align: center;
+        padding-top: 10px;
+        font-weight: bold;
+    }
+    .btn{
+        background: @rojo;
+        color: white;
+        font-weight: 200;
+        font-size: 16px;
+        border-radius: 0px;
+        border: none;
+    }
+    .btn-center{
+        display: block;
+        margin: 0 auto;
+        float: none;
+        max-width: 200px;
+    }
+    .content-chat{
+        width: 98%;
+        margin-left: 1%;
+        max-height: 260px;
+        height: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
+        .message{
+            padding-left: 5px;
+            padding-right: 5px;
+            color:white;
+            
+            border-bottom: 1px solid white;
+            margin-bottom: 5px;
+            p{
+                text-align: justify;
+            }
+            span{
+                font-weight: bold;
+                color: @rojo;
+            }
+            span.responder{
+                color: @mostaza;
+            }
+        }
+        
+    }
+    .text-message{
+            width: 98%;
+            margin-left: 1%;
+            overflow:hidden;
+            margin-top: 10px;
+            .text{
+                background: none;
+                border:1px solid white;
+                color:white;
+                min-height: 80px;
+                max-height: 120px;
+                width: 100%;
+                resize: none;
+            }
+        }
+}
+#torbo{
+    z-index: 999;
+}
+#sales{
+    background: @gris-plomo;
+    padding: 10px;
+    transition:1.2s all ease-in-out;
+    border-radius:10px;
+    margin-bottom:200px;
+    .list-sales{
+        width: 100%;
+        height: 450px;
+        overflow-y: scroll;
+        border-radius:10px;
+        color:white;
+        .titulo{
+            font-weight: bold;
+            font-size: 20px;
+        }
+        tr > th{
+            text-align: center;
+            font-weight: 200;
+            span{
+                font-size: 18px;
+                left: -10px;
+                position: relative;
+            }
+        }
+        tr:nth-of-type(odd){
+            background: @rojo;
+        }
+    }
+
+}
+.sales-close{
+    transform: translate3d(-10%, -180%, 299px);
+    -webkit-transform: translate3d(-10%, -180%, 299px) ;
+    -mox-transform: translate3d(-10%, -180%, 299px) ;
+    -ms-transform: translate3d(-10%, -180%, 299px) ;
+    height: 0px;
+    overflow: hidden;
+    padding: 0px !important;
+    min-height:0px !important;
+    margin-bottom:0px !important;
+}
+.create-salas-visible{
+    transform: translate3d(-20%, -20%, 0px) !important;
+    -webkit-transform:  translate3d(-20%, -20%, 0px) !important;
+    -moz-transform: translate3d(-20%, -20%, 0px) !important;
+    -ms-transform:  translate3d(-20%, -20%, 0px) !important;
+    height: auto;
+    overflow: auto;
+    padding:12px;
+    z-index: 1000;
+}
+.alert-info{
+    position: relative;
+    z-index: 11111;
+}
+.title-white{
+    color: white;
+}
+.disponible{
+    .player1 {
+        margin-top: 80px;
+    }
+    .player2{
+        margin-top: 60px;
+    }
+    .player3{
+        margin-top: -80px;
+    }
+    .player4{
+        margin-top: -90px;
+    }
+    .name{color: white;}
+    .money , .tiempo , .cartas{
+        display: none !important;
+    }
+    .img-profile{
+        .imagenprofile{
+            display: none !important;
+        }
+        .img-vacio{
+            display: block !important;
+        }
+    }
+
+
+}
+.alert-reward{
+    background: @rojo;
+    .input-group-addon{
+        background: @gris-plomo;
+        border:none;
+        color: white;
+        padding: 5px;
+    }
+    .drag{
+        background: white;
+        box-shadow: inset 1px 2px 0px 15px @verde-oscuro;
+        border: none;
+    }
+    output{
+        color:white;
+        font-weight: bold;
+        font-size: 16px;
+        display: inline-block;
+    }
+    .close{
+        color: white;
+        opacity: 1.0;
+    }
+}
+.titilar{
+    animation: time 20s infinite;
+    transition:0.1s all ease-in-out;
+}
+.img-responsive{
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+/* Chrome, Safari, Opera */ 
+@-webkit-keyframes time {
+    0%   {
+        opacity: 1;
+        background: green;
+    }
+    5%{
+        opacity: 0.5;
+    }
+    10%   {
+        opacity: 1;
+    }
+    15%{
+        opacity: 0.5;
+    }
+    20%   {
+        opacity: 1;
+    }
+    25%{
+        opacity: 0.5;
+    }	
+    30%   {
+        opacity: 1;
+    }
+    35%{
+        opacity: 0.5;
+    }
+    40%   {
+        opacity: 1;
+    }
+    45%{
+        opacity: 0.5;
+    }
+    50%   {
+        opacity: 1;
+    }
+    55%{
+        opacity: 0.5;
+    }
+    60%   {
+        opacity: 1;
+    }
+    75%{
+        opacity: 0.5;
+    }
+    80%   {
+        opacity: 1;
+    }
+    85%{
+        opacity: 1;
+        background: yellow;
+    }
+    90%   {
+        opacity: 1;
+    }
+    100%{
+        opacity: 1;
+        background: yellow;
+    }
+
+}
+
+/* Standard syntax */
+@keyframes time {
+    0%   {
+        opacity: 1;
+        background: green;
+    }
+    5%{
+        opacity: 0.5;
+    }
+    10%   {
+        opacity: 1;
+    }
+    15%{
+        opacity: 0.5;
+    }
+    20%   {
+        opacity: 1;
+    }
+    25%{
+        opacity: 0.5;
+    }	
+    30%   {
+        opacity: 1;
+    }
+    35%{
+        opacity: 0.5;
+    }
+    40%   {
+        opacity: 1;
+    }
+    45%{
+        opacity: 0.5;
+    }
+    50%   {
+        opacity: 1;
+    }
+    55%{
+        opacity: 0.5;
+    }
+    60%   {
+        opacity: 1;
+    }
+    75%{
+        opacity: 0.5;
+    }
+    80%   {
+        opacity: 1;
+    }
+    85%{
+        opacity: 1;
+        background: yellow;
+    }
+    90%   {
+        opacity: 1;
+    }
+    100%{
+        opacity: 1;
+        background: yellow;
     }
 }

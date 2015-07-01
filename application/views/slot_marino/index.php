@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <?php $this->load->view('page/header'); ?>
         <title></title>
         <link rel="stylesheet" href="css/reset.css" type="text/css">
         <link rel="stylesheet" href="css/main.css" type="text/css">
@@ -30,7 +31,7 @@
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CStaticSymbolCell.js"></script>
         <script type="text/javascript" src="./games/slot-marino/game_1024x768/js/CTweenController.js"></script>
         <!--estilos header-->
-        <?php $this->load->view('page/header'); ?>
+        
     </head>
     <body ondragstart="return false;" ondrop="return false;" style="background: #1490C7;">
         <?php $this->load->view('page/navegation/header'); ?>

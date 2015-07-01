@@ -2,6 +2,7 @@
 <html>
     <head>
         <title></title>
+        <?php $this->load->view('page/header'); ?>
         <link rel="stylesheet" href="./games/game-jacks-or-better/game1024x768/css/reset.css" type="text/css">
         <link rel="stylesheet" href="./games/game-jacks-or-better/game1024x768/css/main.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,9 +32,10 @@
         <script type="text/javascript" src="./games/game-jacks-or-better/game1024x768/js/CHandEvaluator.js"></script>
         
     </head>
-    <body ondragstart="return false;" ondrop="return false;" >
-    <?php include('./interface/header.php');?>
-	<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+    <body ondragstart="return false;" ondrop="return false;" style="  background: rgb(42, 89, 88);">
+        <?php $this->load->view('page/navegation/header');?>
+        <?php $this->load->view('page/navegation/notification');?>
+    </div>
           <script>
             $(document).ready(function(){
                      var oMain = new CMain({
@@ -70,7 +72,7 @@
             </div>
         </div>
     </div>
-    <?php include('./interface/footer.php');?>
+<?php $this->load->view('page/footer'); ?>
     
     </body>
 </html>

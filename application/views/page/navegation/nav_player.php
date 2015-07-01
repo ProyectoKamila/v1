@@ -29,6 +29,9 @@
                              <li>
                                 <a href="<?php echo site_url('slotmachine-marino'); ?>"><i class="fa fa-edit fa-fw"></i> Slotmachine Marino</a>
                             </li>
+                              <li>
+                                <a href="<?php echo site_url('slotmachine-espacial'); ?>"><i class="fa fa-edit fa-fw"></i> Slotmachine Espacial</a>
+                            </li>
                             <li>
                                 <a href="<?php echo site_url('roulette'); ?>"><i class="fa fa-edit fa-fw"></i> Roulette</a>
                             </li>

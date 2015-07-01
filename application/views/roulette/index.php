@@ -42,11 +42,12 @@
         <script type="text/javascript" src="./games/game-roulette/game750x600/js/CFinalBetPanel.js"></script>
         <script type="text/javascript" src="./games/game-roulette/game750x600/js/CNeighborsPanel.js"></script>
         <script type="text/javascript" src="./games/game-roulette/game750x600/js/CGameOver.js"></script>
-        
+        <?php $this->load->view('page/header');?>
     </head>
     <body ondragstart="return false;" ondrop="return false;" >
-    <?php include('./interface/header.php');?>
-	<div style="position: fixed; background-color: transparent; top: 0px; left: 0px; width: 100%; height: 100%"></div>
+       <?php $this->load->view('page/navegation/header');?>
+        <?php $this->load->view('page/navegation/notification');?>
+	
           <script>
             $(document).ready(function(){
                      var oMain = new CMain({
@@ -268,7 +269,7 @@ function connetserver() {
             </div>
         </div>
     </div>
-    <?php include('./interface/footer.php');?>
+    <?php $this->load->view('page/footer'); ?>
     
 
     </body>
