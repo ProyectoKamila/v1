@@ -218,7 +218,8 @@ wsServer.on('request', function(request) {
             }
            
             else if (msgObj.type === 'prueba') {
-                pruebaserver(msgObj);
+                console.log "mensaje de spin rouleta"
+                //pruebaserver(msgObj);
 
 
             }

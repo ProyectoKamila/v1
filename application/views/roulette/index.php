@@ -182,17 +182,7 @@ function connetserver() {
                     //sales(array, message.clients);
                 }
                 //                si ya esta conectado
-                else if (message.type === 'prueba') {
-                    myId = message.userId;
-                    // $('#chat-container').fadeIn();
-                    //$('#loading-message').hide();
-                    
-                    var  newvar = message.messagesend;
-
-
-                    s_oGame.pruebacgame(newvar);
-
-                }
+               
                 else if (message.type === 'money_total') {
                     myId = message.userId;
 
@@ -201,18 +191,7 @@ function connetserver() {
 
                 }
               
-                else if (message.type === 'prueba2') {
-                    myId = message.userId;
-                    // $('#chat-container').fadeIn();
-                    //$('#loading-message').hide();
-                    
-                    var  newvar = message.messagesend;
-
-
-                    s_oGame.pruebacgame2(newvar);
-                    
-
-                }
+               
                 else if (message.type === 'readyconect') {
 
 
@@ -264,13 +243,21 @@ function connetserver() {
            var money_total = {
 
             type: 'money_ws'
-        }
-
+          }
 
               //alert(enviar.type);
 
               socket.send(JSON.stringify(money_total));
           }
+
+      function coinslabel(coins){
+
+           //   alert(coins);
+          //$('#money-hidden').val(coins);
+           $('#total_coins').html(coins);
+           
+      }
+});
         </script>
     <div class="container-fluid sin-padding">
         <div class="row">

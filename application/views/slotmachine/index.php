@@ -118,25 +118,25 @@
             var total_money= $('#total_coins').html();
     //alert(total_money);
     //alert(value_mt);
-  if (value_mt>10 && value_mt < parseFloat(total_money)) {
-  // alert('llega aqui');
-    iMoney=value_mt;
-    s_oGame.TOTAL_MONEY=value_mt;
-    s_oGame._iMoney= value_mt;
-    s_oGame.moneyref(parseFloat(value_mt));
+          if (value_mt>10 && value_mt < parseFloat(total_money)) {
+          // alert('llega aqui');
+            iMoney=value_mt;
+            s_oGame.TOTAL_MONEY=value_mt;
+            s_oGame._iMoney= value_mt;
+            s_oGame.moneyref(parseFloat(value_mt));
 
- //   console.log('iMoney' + iMoney);
- //  console.log('total Money' + TOTAL_MONEY);
+         //   console.log('iMoney' + iMoney);
+         //  console.log('total Money' + TOTAL_MONEY);
 
 
-    s_oInterface.refreshMoney(parseFloat(iMoney));
-    s_oInterface.enableSpin();
+            s_oInterface.refreshMoney(parseFloat(iMoney));
+            s_oInterface.enableSpin();
 
-    var enviarm = {
-                type: 'sitmoney',
-                sitmoney: value_mt
-            }
-    socket.send(JSON.stringify(enviarm));
+          var enviarm = {
+                      type: 'sitmoney',
+                      sitmoney: value_mt
+                  }
+          socket.send(JSON.stringify(enviarm));
 
 
         $('#myModal').modal('toggle');
