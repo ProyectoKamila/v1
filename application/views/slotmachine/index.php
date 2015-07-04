@@ -406,30 +406,30 @@ function connetserver() {
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+      <div class="modal-dialog">
 
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              Ingrese el monto para recargar su saldo. Saldo Disponible:  <label id="total_coins"></label>
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            Ingrese el monto para recargar su saldo. Saldo Disponible:  <label id="total_coins"></label>
           </div>
           <div class="modal-body">
 
            <label>Cargar Saldo: </label>
-       <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
+           <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
            <input type="numeric" name="money-text" id="money-text" maxlength="5" class="" title="0">
            <button type="button" class="btn btn-default"  id="money-button">Aceptar</button>
 
 
-       </div>
-       <div class="modal-footer">
+         </div>
+         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
       </div>
-  </div>
 
-</div>
-</div>
+    </div>
+  </div>
 
 
 <!-- modal para los juegos gratis-->

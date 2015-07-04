@@ -81,6 +81,12 @@
         ?>";
 
                      $(oMain).on("game_start", function(evt) {
+                      totalcoins();
+            var options = {
+                "backdrop" : "static"
+            }
+
+            $('#myModal').modal(options);
                              //alert("game_start");
                      });
 
@@ -95,7 +101,7 @@
                      $(oMain).on("recharge", function(evt) {
                              //alert("recharge");
                      });
-           });
+        
 
         $('#buttonreconect').click(function() {
             hideConnectionLostMessage();
@@ -206,7 +212,7 @@ function connetserver() {
                     myId = message.userId;
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
-                    //console.log(message.messagesend);
+                    console.log(message.messagesend);
                 } else if (message.type === 'message' && parseInt(message.sender) !== parseInt(myId)) {
                     //add_new_msg_to_log(message);
                     blink_window_title('~ message poker ~');
@@ -269,6 +275,34 @@ function connetserver() {
             </div>
         </div>
     </div>
+    <button style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Cargar Saldo</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            Ingrese el monto para recargar su saldo. Saldo Disponible:  <label id="total_coins"></label>
+          </div>
+          <div class="modal-body">
+
+           <label>Cargar Saldo: </label>
+           <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
+           <input type="numeric" name="money-text" id="money-text" maxlength="5" class="" title="0">
+           <button type="button" class="btn btn-default"  id="money-button">Aceptar</button>
+
+
+         </div>
+         <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
     <?php $this->load->view('page/footer'); ?>
     
 

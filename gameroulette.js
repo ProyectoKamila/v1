@@ -86,7 +86,7 @@ var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
   //  console.log('percent' + percent);
         }
 
-    //console.log(jackpot);
+    console.log(jackpot);
     });
 
      mysqlc.end();
@@ -96,7 +96,7 @@ var allowed_protocol = 'server';
 var connection_id = 0;
 
 server.listen(port, function() {
-  //  console.log(server_start_message);
+    console.log(server_start_message);
 });
 
 wsServer = new WebSocketServer({
@@ -218,7 +218,7 @@ wsServer.on('request', function(request) {
             }
            
             else if (msgObj.type === 'prueba') {
-                console.log "mensaje de spin rouleta"
+               
                 //pruebaserver(msgObj);
 
 
@@ -247,7 +247,7 @@ wsServer.on('request', function(request) {
                 message_to_send['sender'] = connection.id.toString();
                 message_to_send = JSON.stringify(message_to_send);
 
-               // console.log(message_to_send)
+                console.log(message_to_send)
                 broadcast_message(message_to_send, msgObj.chatroom);
             } else if (msgObj.type.match(/^activity_/)) {
                 // echo back any message type that start with activity_
@@ -604,7 +604,7 @@ var mysqlc = mysql.createConnection(
      mysqlc.connect();
      if (connection.coins!= null)
 var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + cointotal +  ' WHERE `user_data`.`id_user` ='+ connection.id_user  +';';
-//console.log('update close' + string);
+console.log('update close' + string);
  mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
         
