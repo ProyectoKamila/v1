@@ -14,7 +14,7 @@
         <script type="text/javascript" src="./games/game-roulette/game750x600/js/createjs-2014.12.12.min.js"></script>
         <script type="text/javascript" src="./games/game-roulette/game750x600/js/ctl_utils.js"></script>
         <script type="text/javascript" src="./games/game-roulette/game750x600/js/sprite_lib.js"></script>
-        <script type="text/javascript" src="./games/game-roulette/game750x600/js/settings.js"></script>
+        
         <script type="text/javascript" src="./games/game-roulette/game750x600/js/CRouletteSettings.js"></script>
         <script type="text/javascript" src="./games/game-roulette/game750x600/js/CFichesController.js"></script>
         <script type="text/javascript" src="./games/game-roulette/game750x600/js/CLang.js"></script>
@@ -63,7 +63,7 @@
          var socket;
          var protocol_identifier = 'server';
          var myId;
-         var idgame=2; //aqui debe llevarse el nombre del juego que selecciono
+         var idgame=1; //aqui debe llevarse el nombre del juego que selecciono
          var nicklist;
          var is_typing_indicator;
          var window_has_focus = true;
@@ -107,7 +107,46 @@
             hideConnectionLostMessage();
             connetserver();
         });
+$('#money-button').click(function() {
 
+            var value_mt=  $('#money-text').val();
+            var total_money= $('#total_coins').html();
+    //alert(total_money);
+    //alert(value_mt);
+          if (value_mt>10 && value_mt < parseFloat(total_money)) {
+          // alert('llega aqui');
+            iMoney=value_mt;
+            s_oGame.TOTAL_MONEY=value_mt;
+            s_oGame._iMoney= value_mt;
+            s_oGame.moneyref(parseFloat(value_mt));
+
+         //   console.log('iMoney' + iMoney);
+         //  console.log('total Money' + TOTAL_MONEY);
+
+
+            s_oInterface.refreshMoney(parseFloat(iMoney));
+            s_oInterface.enableSpin();
+
+          var enviarm = {
+                      type: 'sitmoney',
+                      sitmoney: value_mt
+                  }
+          socket.send(JSON.stringify(enviarm));
+
+
+        $('#myModal').modal('toggle');
+
+          } else if (value_mt <10)
+          {
+            alert('Monto mínimo.');
+          } else
+          {
+            alert('saldo insuficiente.');
+        }
+
+
+
+    });
 
 
 

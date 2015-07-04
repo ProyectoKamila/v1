@@ -294,6 +294,8 @@ class Casino extends MY_Controller {
     }
 
      public function roulette(){
+        $data = $this->modelo_universal->select('game_roulette', '*', 'id_game_roulette = 1');
+        $this->load->view('roulette/settings',$data[0]);
         $this->load->view('roulette/index');
     }
 
