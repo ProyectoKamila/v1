@@ -177,6 +177,9 @@ function CInterface(){
     };
 
     this.refreshMoney = function(iMoney){
+        if (iMoney<0){
+            console.log('error');
+        }
         _oMoneyText.text = TEXT_MONEY +"\n"+iMoney+"$";
     };
     

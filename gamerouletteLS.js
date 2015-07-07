@@ -86,7 +86,7 @@ var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
   //  console.log('percent' + percent);
         }
 
-    //console.log(jackpot);
+    console.log(jackpot);
     });
 
      mysqlc.end();
@@ -96,7 +96,7 @@ var allowed_protocol = 'server';
 var connection_id = 0;
 
 server.listen(port, function() {
-  //  console.log(server_start_message);
+    console.log(server_start_message);
 });
 
 wsServer = new WebSocketServer({
@@ -208,7 +208,6 @@ wsServer.on('request', function(request) {
                 getmoneyuser(msgObj);
 
 
-
             }
             else if (msgObj.type === 'sitmoney') {
 
@@ -216,12 +215,11 @@ wsServer.on('request', function(request) {
                 setmoneyuser(msgObj);
 
 
-
             }
            
             else if (msgObj.type === 'prueba') {
-                pruebaserver(msgObj);
-
+               
+                //pruebaserver(msgObj);
 
 
             }
@@ -249,7 +247,7 @@ wsServer.on('request', function(request) {
                 message_to_send['sender'] = connection.id.toString();
                 message_to_send = JSON.stringify(message_to_send);
 
-               // console.log(message_to_send)
+                console.log(message_to_send)
                 broadcast_message(message_to_send, msgObj.chatroom);
             } else if (msgObj.type.match(/^activity_/)) {
                 // echo back any message type that start with activity_
@@ -383,8 +381,7 @@ wsServer.on('request', function(request) {
        return dateTime;
     }
 
-
-
+   
 
     function sendmessageuser(usersend, type, forsend) {
       // console.log('forsend ' + forsend);
@@ -594,7 +591,7 @@ function updtclose(sitc,coin){
 
 
  console.log('sitcoins' + sitc);
- console.log('coins' + coin);
+ //console.log('coins' + coin);
 var cointotal = coin + sitc;
 var mysqlc = mysql.createConnection(
         {
@@ -607,7 +604,7 @@ var mysqlc = mysql.createConnection(
      mysqlc.connect();
      if (connection.coins!= null)
 var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + cointotal +  ' WHERE `user_data`.`id_user` ='+ connection.id_user  +';';
-//console.log('update close' + string);
+console.log('update close' + string);
  mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
         
@@ -618,7 +615,7 @@ var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + cointotal +  ' WHERE `us
 });
 
 var string = 'INSERT INTO `activity_bet`(`coins_i`, `coins_f`, `id_user`, `id_game`, `time_i`, `time_f`) VALUES ("' + connection.coinsinit + '","' +connection.sitcoins + '","' + connection.id_user +'","' + connection.id_game + '","' + connection.date_i +  '", NOW() );';
-//console.log('update close' + string);
+console.log('update close' + string);
  mysqlc.query(string, function(err, row, fields) {
     if (typeof(row)) {
         
