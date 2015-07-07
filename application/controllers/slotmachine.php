@@ -17,9 +17,12 @@ class SlotMachine extends MY_Controller {
 
     public function index() {
 //        debug($this->session->userdata('token'));
-      $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 1');
-       $data = array('consulta' => $result );
-  $this->load->view('slotmachine/CSsettings',$data);
+$data = $this->modelo_universal->select('game_roulette', '*', 'id_game_roulette = 1');
+        $this->load->view('roulette/settings',$data[0]);
+      
+  //     $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 1');
+  //      $data = array('consulta' => $result );
+  // $this->load->view('slotmachine/CSsettings',$data);
  // $this->load->view('slotmachine/index');
   //$this->load->view('slotmachine/footer',$this->data);
     }

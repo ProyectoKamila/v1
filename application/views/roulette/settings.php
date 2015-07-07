@@ -21,9 +21,9 @@ var ON_MOUSE_OVER= <?php echo $ON_MOUSE_OVER ?>;
 var ON_MOUSE_OUT= <?php echo $ON_MOUSE_OUT ?>;
 var ON_DRAG_START= <?php echo $ON_DRAG_START ?>;
 var ON_DRAG_END= <?php echo $ON_DRAG_END ?>;
-var COLOR_RED= <?php echo $COLOR_RED ?>;
-var COLOR_BLACK= <?php echo $COLOR_BLACK ?>;
-var COLOR_ZERO= <?php echo $COLOR_ZERO ?>;
+var COLOR_RED= "<?php echo $COLOR_RED ?>";
+var COLOR_BLACK= "<?php echo $COLOR_BLACK ?>";
+var COLOR_ZERO= "<?php echo $COLOR_ZERO ?>";
 var NUM_FICHE_VALUES= <?php echo $NUM_FICHE_VALUES ?>;
 var NUMBERS_TO_BET= <?php echo $NUMBERS_TO_BET ?>;
 var NUM_FICHES= <?php echo $NUM_FICHES ?>;
@@ -32,5 +32,11 @@ var TIME_FICHES_MOV= <?php echo $TIME_FICHES_MOV ?>;
 var NUM_WHEEL_TOP_FRAMES= <?php echo $NUM_WHEEL_TOP_FRAMES ?>;
 var NUM_MASK_BALL_SPIN_FRAMES= <?php echo $NUM_MASK_BALL_SPIN_FRAMES ?>;
 var NUM_BALL_SPIN_FRAMES= <?php echo $NUM_BALL_SPIN_FRAMES ?>;
+var MIN_BET;
+var MAX_BET;
+var WIN_OCCURRENCE;
+var TIME_WAITING_BET;
+var TIME_SHOW_WINNER;
+
 
 </script>

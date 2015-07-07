@@ -426,7 +426,7 @@ function CGame(oData){
         _oMySeat.recharge(TOTAL_MONEY);
         _oInterface.refreshMoney(_oMySeat.getCredit());
 
-        this._setState(STATE_GAME_WAITING_FOR_BET);
+        this._setState(STATE_GAME_WAITING_FOR_BET);  //revisar sergio
         
         _oGameOverPanel.hide();
         
@@ -479,7 +479,7 @@ function CGame(oData){
         var iCurBet=_oMySeat.getCurBet();
 
         if( (iFicheValue * iNumFiches) > _oMySeat.getCredit() ){
-            //SHOW MSG BOX
+            //SHOW MSG BOX                              // validacion de creditos sergio
             _oMsgBox.show(TEXT_ERROR_NO_MONEY_MSG);
             _oNeighborsPanel.reset();
             return;
@@ -666,6 +666,14 @@ function CGame(oData){
                 _aFichesToMove[i].updatePos(fLerp);
             }
         }
+    };
+    this.moneyref = function(money){
+       
+
+        TOTAL_MONEY= money;
+        this.onRecharge();
+       // _oMySeat.recharge(TOTAL_MONEY);
+
     };
     
     this.update = function(){

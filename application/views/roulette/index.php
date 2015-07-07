@@ -51,14 +51,14 @@
           <script>
             $(document).ready(function(){
                      var oMain = new CMain({
-                                            money: 1000,      //STARING CREDIT FOR THE USER
+                                            money: 0,      //STARING CREDIT FOR THE USER
                                             min_bet: 0.1,     //MINIMUM BET
                                             max_bet: 100,     //MAXIMUM BET
                                             time_bet: 10000,  //TIME TO WAIT FOR A BET IN MILLISECONDS
                                             time_winner: 3000, //TIME FOR WINNER SHOWING IN MILLISECONDS    
-                                            win_occurrence: 25, //Win occurrence percentage (100 = always win). 
+                                            win_occurrence: 100, //Win occurrence percentage (100 = always win). 
                                                                 //SET THIS VALUE TO -1 IF YOU WANT WIN OCCURRENCE STRICTLY RELATED TO PLAYER BET ( SEE DOCUMENTATION)
-                                            casino_cash:4000    //The starting casino cash that is recharged by the money lost by the user
+                                            casino_cash:1    //The starting casino cash that is recharged by the money lost by the user
                                 });
          var socket;
          var protocol_identifier = 'server';
