@@ -496,14 +496,14 @@ var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_use
        mysqlc.query(string, function(err, row, fields) {
         if (typeof(row)) {
              connection.coins = 0;
-        connection.coins =  row[0]['coins'];
+          connection.coins =  row[0]['coins'];
 
         
 
         
          sendmessageuser(connection, 'money_total', connection.coins);
 
-     //    console.log('coins ' + connection.coins);
+        console.log('coins del query ' + connection.coins);
 
         }
     });
