@@ -180,7 +180,7 @@ function CSlotSettings(){
         }
         
         //OCCURENCE FOR SYMBOL 7
-        for(i=0;i<3;i++){
+        for(i=0;i<6;i++){
             s_aRandSymbols.push(7);
         }
         
