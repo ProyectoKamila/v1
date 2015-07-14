@@ -170,10 +170,6 @@
 
                 $('#jgModal').modal('toggle');
 
-
-
-
-
             });
 
 //totalcoins();
@@ -372,8 +368,6 @@
 
 
                 free_gameslot = coins;
-
-
 
             }
 

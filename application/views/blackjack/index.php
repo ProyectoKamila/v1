@@ -44,7 +44,7 @@
                     min_bet: 0.1, //MIN BET PLAYABLE BY USER
                     max_bet: 300, //MAX BET PLAYABLE BY USER
                     bet_time: 10000, //WAITING TIME FOR PLAYER BETTING
-                    money: 2000, //STARING CREDIT FOR THE USER
+                    money: 0, //STARING CREDIT FOR THE USER
                     blackjack_payout: 1.5        //PAYOUT WHEN USER WINS WITH BLACKJACK (DEFAULT IS 3 TO 2)
                 });
 
@@ -112,9 +112,8 @@
                    //   console.log('iMoney' + iMoney);
                    //  console.log('total Money' + TOTAL_MONEY);
 
-
-                    s_oInterface.refreshMoney(parseFloat(iMoney));
-                    s_oInterface.enableSpin();
+                    s_oInterface.refreshCredit(parseFloat(iMoney));
+                    s_oInterface.enableBetFiches();
 
                     var enviarm = {
                         type: 'sitmoney',
@@ -180,7 +179,6 @@
                           type: 'join',
                           token: nickname,
                           idgame: idgame
-
                       }
 
                     socket.send(JSON.stringify(intro));
@@ -191,7 +189,6 @@
                       }
                       return false;
                   }
-
 
                 message_received= function(message) {
                     var message;
@@ -278,9 +275,6 @@
                  
             }
       });
-
-
-
           
         </script>
         <div class="container-fluid sin-padding">
@@ -292,6 +286,51 @@
                 </div>
             </div>
         </div>
+
+
+
+ <button style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Cargar Saldo</button>
+
+        <!-- Modal -->
+        <div class="modal fade box-cargar-saldo" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <p>Ingrese el monto para recargar sus fichas.</p>
+                        <h2>Fichas Disponibles</h2>
+                        <label id="total_coins"></label>
+                    </div>
+                    <div class="modal-body">
+
+                        <label>Cargar Saldo: </label>
+                        <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
+                        <input type="numeric" name="money-text" id="money-text" maxlength="5" class="" title="0">
+                        <button type="button" class="btn btn-default"  id="money-button">Aceptar</button>
+
+
+                    </div>
+                    <div class="modal-footer">
+                          Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza.
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
         <?php $this->load->view('page/footer'); ?>
     </body>
    <!--     <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>

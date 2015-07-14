@@ -35,7 +35,19 @@ function CGame(oData){
     var _oSeat;
 	var _oGameOverPanel;
     
+
+        /*funcion para setar dinero*/
+    this.moneyref = function(money){
+       
+
+        TOTAL_MONEY= money;
+        _iMoney= money;
+        _oSeat.setCredit(TOTAL_MONEY);
+
+    };
+
     this._init = function(){
+        //alert(TOTAL_MONEY);
         _iMoney  = TOTAL_MONEY;
         _iMaxBet = MAX_BET;
         _iMinBet = MIN_BET;
@@ -159,7 +171,8 @@ function CGame(oData){
             }
         }
     };
-    
+
+
     this.attachCardToDeal = function(pStartingPoint,pEndingPoint,bDealer,iCardCount){
             var oCard = new CCard(_oStartingCardOffset.getX(),_oStartingCardOffset.getY(),_oCardContainer);
             
