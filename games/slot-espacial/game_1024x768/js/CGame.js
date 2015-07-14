@@ -15,7 +15,6 @@ function CGame(oData){
     var _aWinningLine;
     var _aReelSequence;
     var _aFinalSymbolCombo;
-        var _anterior;
     var _oReelSound;
     var _oCurSymbolWinSound;
     var _oBg;
@@ -107,49 +106,51 @@ function CGame(oData){
     };
     
     this.generateFinalSymbols = function(){
-var contador=0;
-var enviar= {
-    nrows: NUM_ROWS,
-    nreels: NUM_REELS,
-    rands: s_aRandSymbols,
-    winingl: _aWinningLine,
-    payline: s_aPaylineCombo,
-    finalcombo: _aFinalSymbolCombo,
-    symbolwin: s_aSymbolWin,
-    paytable: _oPayTable,
-    curbet: _iCurBet,
-    totalbet: _iTotBet,
-    lastline: _iLastLineActive,
-    wsymb: WILD_SYMBOL
-}
-           
-
-
-            prueba(enviar); 
-    };
-
-    this.pruebacgame = function(winline){
-
-//console.log('Linea Ganadora'+ ' ' +winline);
-console.log('Linea Ganadora'+ ' ' +winline.length);
-_aWinningLine=winline;
+        _aFinalSymbolCombo = new Array();
+        for(var i=0;i<NUM_ROWS;i++){
+            _aFinalSymbolCombo[i] = new Array();
+            for(var j=0;j<NUM_REELS;j++){
+                var iRandIndex = Math.floor(Math.random()* s_aRandSymbols.length);
+                var iRandSymbol = s_aRandSymbols[iRandIndex];
+                _aFinalSymbolCombo[i][j] = iRandSymbol;
+            }
+        }
         
-    };
-     this.pruebacgame2 = function(finalc){
-
-//console.log('Linea Ganadora'+ ' ' +winline);
-console.log('combo de simbolo'+ ' ' +finalc);
-_aFinalSymbolCombo=finalc;
-        
-    };
-
-
-    this.moneyref = function(money){
-       
-
-        TOTAL_MONEY= money;
-        _iMoney= money;
-
+        //CHECK IF THERE IS ANY COMBO
+        _aWinningLine = new Array();
+        for(var k=0;k<_iLastLineActive;k++){
+            var aCombos = s_aPaylineCombo[k];
+            
+            var aCellList = new Array();
+            var iValue = _aFinalSymbolCombo[aCombos[0].row][aCombos[0].col];
+            var iNumEqualSymbol = 1;
+            var iStartIndex = 1;
+            aCellList.push({row:aCombos[0].row,col:aCombos[0].col,value:_aFinalSymbolCombo[aCombos[0].row][aCombos[0].col]});
+            
+            while(iValue === WILD_SYMBOL && iStartIndex<NUM_REELS){
+                iNumEqualSymbol++;
+                iValue = _aFinalSymbolCombo[aCombos[iStartIndex].row][aCombos[iStartIndex].col];
+                aCellList.push({row:aCombos[iStartIndex].row,col:aCombos[iStartIndex].col,
+                                            value:_aFinalSymbolCombo[aCombos[iStartIndex].row][aCombos[iStartIndex].col]});
+                iStartIndex++;
+            }
+            
+            for(var t=iStartIndex;t<aCombos.length;t++){
+                if(_aFinalSymbolCombo[aCombos[t].row][aCombos[t].col] === iValue || 
+                                            _aFinalSymbolCombo[aCombos[t].row][aCombos[t].col] === WILD_SYMBOL){
+                    iNumEqualSymbol++;
+                    
+                    aCellList.push({row:aCombos[t].row,col:aCombos[t].col,value:_aFinalSymbolCombo[aCombos[t].row][aCombos[t].col]});
+                }else{
+                    break;
+                }
+            }
+            
+            if(s_aSymbolWin[iValue-1][iNumEqualSymbol-1] > 0){
+                _aWinningLine.push({line:k+1,amount:s_aSymbolWin[iValue-1][iNumEqualSymbol-1],
+                                                            num_win:iNumEqualSymbol,value:iValue,list:aCellList});
+            }
+        }
     };
     
     this._generateRandSymbols = function() {

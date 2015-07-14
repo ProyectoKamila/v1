@@ -3,8 +3,8 @@
     <head>
         <?php $this->load->view('page/header'); ?>
         <title></title>
-        <link rel="stylesheet" href="css/reset.css" type="text/css">
-        <link rel="stylesheet" href="css/main.css" type="text/css">
+        <link rel="stylesheet" href="./games/slot-marino/game_1024x768/css/reset.css" type="text/css">
+        <link rel="stylesheet" href="./games/slot-marino/game_1024x768/css/main.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
