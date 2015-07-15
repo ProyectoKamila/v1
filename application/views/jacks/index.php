@@ -108,8 +108,8 @@
 
                     //  console.log('iMoney' + parseFloat(iMoney));
                    //  console.log('total Money' + TOTAL_MONEY);
-
-                    s_oInterface.refreshMoney(parseFloat(iMoney));
+                    bet = BET_TYPE[0];
+                    s_oInterface.refreshMoney(parseFloat(iMoney), bet);
                     //s_oInterface.enableBetFiches();
 
                     var enviarm = {
