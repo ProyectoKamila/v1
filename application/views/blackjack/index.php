@@ -321,16 +321,6 @@
             </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-
         <?php $this->load->view('page/footer'); ?>
     </body>
    <!--     <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>

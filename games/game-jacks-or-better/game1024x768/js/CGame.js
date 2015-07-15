@@ -18,6 +18,14 @@ function CGame(oData){
     var _oPayTable;
     var _oGameOverPanel;
     var _oCardAttach;
+        /*funcion para setar dinero*/
+    this.moneyref = function(money){
+       
+
+        TOTAL_MONEY= money;
+        _iMoney= money;
+        
+    };
 
     this._init = function(){
         s_oPayTableSettings = new CPayTableSettings();
@@ -44,7 +52,7 @@ function CGame(oData){
         _iCurState = STATE_GAME_WAITING_FOR_BET;
 
         _oInterface = new CInterface(_iMoney,BET_TYPE[_iCurBetIndex]);
-	_oGameOverPanel = new CGameOver();
+	    _oGameOverPanel = new CGameOver();
         
         _oGameSettings=new CGameSettings();
         _oHandEvaluator = new CHandEvaluator();

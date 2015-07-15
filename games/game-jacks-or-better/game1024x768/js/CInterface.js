@@ -162,6 +162,7 @@ function CInterface(iMoney,iBet){
     };
     
     this.refreshMoney = function(iMoney,iBet){
+        alert(iMoney);
         _oMoneyText.text = iMoney.toFixed(2)+TEXT_CURRENCY;
         _oBetText.text = iBet.toFixed(2)+TEXT_CURRENCY;
     };
