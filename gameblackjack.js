@@ -18,7 +18,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.writeHead(404);
         response.end();
     });
-
+/*test comment*/
     var port = 8805;
     var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
 } else {
@@ -515,8 +515,8 @@ var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_use
 
 
 function setmoneyuser(objeto){
-    connection.coinsinit = objeto.sitmoney;
-    connection.sitcoins = connection.sitcoins + objeto.sitmoney;
+    connection.coinsinit = parseFloat(objeto.sitmoney);
+    connection.sitcoins = connection.sitcoins + parseFloat(objeto.sitmoney);
     connection.coins = connection.coins - objeto.sitmoney;
 
 var mysqlc = mysql.createConnection(

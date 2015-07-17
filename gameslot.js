@@ -730,8 +730,8 @@ var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_use
 
 
 function setmoneyuser(objeto){
-    connection.coinsinit = objeto.sitmoney;
-    connection.sitcoins = connection.sitcoins + objeto.sitmoney;
+   connection.coinsinit = parseFloat(objeto.sitmoney);
+    connection.sitcoins = connection.sitcoins + parseFloat(objeto.sitmoney);
     connection.coins = connection.coins - objeto.sitmoney;
 
 var mysqlc = mysql.createConnection(
