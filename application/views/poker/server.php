@@ -354,6 +354,19 @@
                 myTimer();
             }, 1000);
         }
+        else if (message.type === 'diler') {
+            console.log('diler');
+            console.log(pos[message.messagesend]);
+        }
+        else if (message.type === 'ciegamin') {
+            console.log('ciegamin');
+            console.log(pos[message.messagesend]);
+        }
+        else if (message.type === 'ciegamax') {
+                        console.log('ciegamax');
+
+            console.log(pos[message.messagesend]);
+        }
         else if (message.type === 'numcoin') {
             $('#inputapos').attr('min', message.messagesend.apu_min);
             $('#inputapos').attr('max', message.messagesend.apu_max);
