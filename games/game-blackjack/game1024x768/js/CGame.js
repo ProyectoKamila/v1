@@ -369,7 +369,7 @@ ncardp=0;
 
                     var e = 0;
 
-                   while (s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])===11) {
+                   while (s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])!==11) {
 
                      e = e + 1; 
 
@@ -386,9 +386,21 @@ ncardp=0;
                             oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
                     }
                 }else{
+
+                    var f = 0;
+                    while (s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f])!==11) {
+
+                     f = f + 1; 
+
+                        console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer  + f]) + ' carta player');
+                        s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]);
+
+                    }
+
+
                     
-                    oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[_iNextCardForPlayer],
-                                                    s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer]),
+                    oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[_iNextCardForPlayer + f],
+                                                    s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]),
                                                                     false,_oSeat.newCardDealed());
                     _iNextCardForPlayer++;	
                 }
