@@ -358,15 +358,26 @@ function CGame(oData){
                     _iCardDealedToDealer++;
                     pEndingPoint=new CVector2(_oDealerCardOffset.getX()+(CARD_WIDTH+2)*(_iCardIndexToDeal > 1?1:0),_oDealerCardOffset.getY());
 
-                    oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[_iNextCardForDealer],
-                                            s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer]),
-                                                            true,_iCardDealedToDealer);
+                    var e = 0;
 
+                   while (s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])===11) {
+
+                     e = e + 1; 
+
+                        console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer]) + ' carta dealer');
+                        s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]);
+
+                    }
+                    oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[_iNextCardForDealer + e],
+                                            s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]),
+                                                            true,_iCardDealedToDealer);
+                
                     _iNextCardForDealer++;
                     if(_iCardDealedToDealer === 2){
                             oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
                     }
                 }else{
+                    
                     oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[_iNextCardForPlayer],
                                                     s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer]),
                                                                     false,_oSeat.newCardDealed());
