@@ -147,9 +147,12 @@ function CGame(oData){
         _aCardsInCurHandForPlayer=new Array();
         _aCardsInCurHandForDealer=new Array();
         for(var k=0;k<_aCardDeck.length;k++){
+
             if(k%2 === 0){
+                console.log(_aCardDeck[k] + ' mazo de cartas player');
                     _aCardsInCurHandForPlayer.push(_aCardDeck[k]);
             }else{
+                console.log(_aCardDeck[k] + ' mazo de cartas dealer');
                     _aCardsInCurHandForDealer.push(_aCardDeck[k]);
             }
         }
