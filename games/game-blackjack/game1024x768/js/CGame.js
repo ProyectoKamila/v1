@@ -36,7 +36,7 @@ function CGame(oData){
 	var _oGameOverPanel;
     
 
-        /*funcion para setar dinero*/
+        /*funcion para setear dinero*/
     this.moneyref = function(money){
        
 
@@ -140,22 +140,31 @@ function CGame(oData){
 
         _oInterface.reset();
         _oInterface.enableBetFiches();
-
+//ARREGLOS TEMPORALES 
+acarddealer = new Array();
+acardplayer = new Array();
+ncardd=0;
+ncardp=0;
         _aCardDeck=new Array();
         _aCardDeck=s_oGameSettings.getShuffledCardDeck();
         
         _aCardsInCurHandForPlayer=new Array();
         _aCardsInCurHandForDealer=new Array();
         for(var k=0;k<_aCardDeck.length;k++){
-
             if(k%2 === 0){
-                console.log(_aCardDeck[k] + ' mazo de cartas player');
-                    _aCardsInCurHandForPlayer.push(_aCardDeck[k]);
+
+                _aCardsInCurHandForPlayer.push(_aCardDeck[k]);
+                acardplayer.push(s_oGameSettings.getCardValue(_aCardDeck[k])); // aca gaurdo del valor de la carta
             }else{
-                console.log(_aCardDeck[k] + ' mazo de cartas dealer');
-                    _aCardsInCurHandForDealer.push(_aCardDeck[k]);
+                _aCardsInCurHandForDealer.push(_aCardDeck[k]);
+                acarddealer.push(s_oGameSettings.getCardValue(_aCardDeck[k])); // aca gaurdo del valor de la carta
             }
         }
+        console.log(_aCardsInCurHandForPlayer + "mazo player");
+        console.log(acardplayer + "mazo vAlortes player");
+        console.log('+++++++++++++++++++++++++++++++++');
+        console.log(_aCardsInCurHandForDealer + "mazo dealer");
+        console.log(acarddealer + "mazo valores dealer");
 
 
         _iNextCardForPlayer=0;
