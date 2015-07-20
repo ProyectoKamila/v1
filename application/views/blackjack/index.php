@@ -113,7 +113,7 @@
                    //  console.log('total Money' + TOTAL_MONEY);
 
                     s_oInterface.refreshCredit(parseFloat(iMoney));
-                    s_oInterface.enableBetFiches();
+                    //s_oInterface.enableBetFiches();
 
                     var enviarm = {
                         type: 'sitmoney',
