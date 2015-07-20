@@ -9,7 +9,7 @@ function CGame(oData){
     var _iMinBet;
     var _iMoney;
     var _iState;
-    var _iCardIndexToDeal;
+    var _iCardIndexToDeal;  //indice de las cartas mostradas
     var _iDealerValueCard;
     var _iCardDealedToDealer;
     var _iAcesForDealer;
@@ -211,6 +211,7 @@ function CGame(oData){
             _oSeat.increaseHandValue(oCard.getValue());
             _oSeat.refreshCardValue();
         }else{
+            console.log(oCard.getValue() + ' Dealer');
             _iDealerValueCard += oCard.getValue();
             if(_iCardDealedToDealer > 2){
                     _oInterface.refreshDealerCardValue(_iDealerValueCard);
@@ -398,7 +399,7 @@ function CGame(oData){
         }
     };
 
-    this._checkWinner = function(){
+    this._checkWinner = function(){   //funcio a pasar a node
         for(var i=0;i<_oSeat.getNumHands();i++){
             if(_oSeat.getHandValue(i)>21){
                     this._playerLose(i);

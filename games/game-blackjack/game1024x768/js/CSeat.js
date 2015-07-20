@@ -392,7 +392,7 @@ function CSeat(){
     this.split = function(){
         _aPlayerCards[0].initSplit(new CVector2(_oGroup.x+_oCardOffset.getX(),_oGroup.y+_oCardOffset.getY()));
         _aPlayerCards[1].initSplit(new CVector2(_oGroup.x+_oSplitOffset.getX(),_oGroup.y+_oSplitOffset.getY()));
-        _aPlayerCards[1].addEventListener(SPLIT_CARD_END_ANIM,this._onSplitCardEndAnim);
+        _aPlayerCards[1].addEventListener(SPLIT_CARD_END_ANIM,this._onSplitCardEndAnim);//segio
     };
     
     this.insurance = function(iCurBet,iCredit,iInsuranceBet){

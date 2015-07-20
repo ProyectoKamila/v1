@@ -17,6 +17,7 @@ function CHandController(oAttachOffset,oFicheController){
     };
     
     this.addCard = function(oCard){
+        console.log(oCard.getValue() + ' Apostador');
         _aCards.push(oCard);
         if(oCard.getValue() === 11){
                 _iNumAces++;
