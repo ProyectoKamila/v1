@@ -195,6 +195,7 @@ function CSeat(){
     this.checkHand = function(){
         var iHandValue=_aHands[_iCurHand].getValue();
         //PLAYER MADE BLACK JACK
+        //console.log(iHandValue+'hand value');
         if(iHandValue === 21){
                 this.checkPlayerLastHand(PASS_TURN);
         }else if(iHandValue>21){

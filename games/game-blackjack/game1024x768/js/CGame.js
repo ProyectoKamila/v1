@@ -12,6 +12,7 @@ function CGame(oData){
     var _iCardIndexToDeal;  //indice de las cartas mostradas
     var _iDealerValueCard;
     var _iCardDealedToDealer;
+    var _iCardDealedToPlayer;
     var _iAcesForDealer;
     var _iCurFichesToWait;
     var _iNextCardForPlayer;
@@ -128,6 +129,7 @@ function CGame(oData){
 
         _iDealerValueCard=0;
         _iCardDealedToDealer=0;
+        _iCardDealedToPlayer=0;
         _iAcesForDealer=0;
         _iCurFichesToWait=0;
         _oSeat.reset();
@@ -250,7 +252,7 @@ ncardp=0;
         _oSeat.stand();
     };
     
-    this._checkHand = function(){
+    this._checkHand = function(){// chequea la mano luego de repartir las 2 primeras cartas
         var i;
 
         if(_bPlayerTurn){
@@ -386,7 +388,7 @@ ncardp=0;
                             oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
                     }
                 }else{
-
+                    _iCardDealedToPlayer++;
                     var f = 0;
                     while (s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f])!==11) {
 
@@ -395,14 +397,14 @@ ncardp=0;
                         console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer  + f]) + ' carta player');
                         s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]);
 
-                    }
-
-
-                    
+                    }                    
                     oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[_iNextCardForPlayer + f],
                                                     s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]),
                                                                     false,_oSeat.newCardDealed());
-                    _iNextCardForPlayer++;	
+                    _iNextCardForPlayer++;
+                    if(_iCardDealedToPlayer === 2){
+                            oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
+                    }	
                 }
 
                 _aCardsDealing.push(oCard);
@@ -632,7 +634,7 @@ ncardp=0;
     };
     
     this._onCardShown = function(){
-        s_oGame._checkHand();
+        s_oGame._checkHand(); //aqui deberia ver el valor de las cartas
     };
                 
     this._onRemoveCard = function(oCard){	
