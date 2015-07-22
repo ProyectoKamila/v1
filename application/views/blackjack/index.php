@@ -247,14 +247,16 @@
 
                 }
            
-                prueba = function(enviar){
+                resetindex = function(enviar){
                 //public function prueba(){
-                    enviar.type='prueba';
+                    var enviar = {
 
+                      type: 'reset'
+                    }
                     //alert(enviar.type);
-
                     socket.send(JSON.stringify(enviar));
                 }
+                
                 function totalcoins(){
 
                     var money_total = {

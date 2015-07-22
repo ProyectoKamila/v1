@@ -77,7 +77,8 @@ function CGame(oData){
         _oInterface = new CInterface(_iMoney);
         _oInterface.displayMsg(TEXT_DISPLAY_MSG_SIT_DOWN);
 
-        this.reset();
+        //this.reset();
+        resetindex('enviar');
         
         _oStartingCardOffset = new CVector2();
         _oStartingCardOffset.set(876,228);
@@ -118,8 +119,22 @@ function CGame(oData){
 		_oGameOverPanel.unload();
         s_oStage.removeAllChildren();
     };
-    
-    this.reset = function(){ //node
+    /*
+    var enviar= {
+    nrows: NUM_ROWS,
+    nreels: NUM_REELS,
+    rands: s_aRandSymbols,
+    winingl: _aWinningLine,
+    payline: s_aPaylineCombo,
+    finalcombo: _aFinalSymbolCombo,
+    symbolwin: s_aSymbolWin,
+    paytable: _oPayTable,
+    curbet: _iCurBet,
+    totalbet: _iTotBet,
+    lastline: _iLastLineActive,
+    wsymb: WILD_SYMBOL
+}
+      this.reset = function(){ //node
         _bPlayerTurn=true;
         _bSplitActive=false;
         _bDoubleForPlayer=false;
@@ -141,12 +156,13 @@ function CGame(oData){
         _aDealerCards.splice(0);
 
         _oInterface.reset();
-        _oInterface.enableBetFiches();
-//ARREGLOS TEMPORALES 
-acarddealer = new Array();
-acardplayer = new Array();
-ncardd=0;
-ncardp=0;
+        _oInterface.enableBetFiches();  
+        //ARREGLOS TEMPORALES 
+        acarddealer = new Array();
+        acardplayer = new Array();
+        ncardd=0;
+        ncardp=0;
+        //fin arreglos temporales
         _aCardDeck=new Array();
         _aCardDeck=s_oGameSettings.getShuffledCardDeck();
         
@@ -186,7 +202,11 @@ ncardp=0;
         }
     };
 
+     
 
+
+    */
+    
     this.attachCardToDeal = function(pStartingPoint,pEndingPoint,bDealer,iCardCount){
             var oCard = new CCard(_oStartingCardOffset.getX(),_oStartingCardOffset.getY(),_oCardContainer);
             

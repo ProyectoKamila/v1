@@ -109,6 +109,7 @@
         
         this.generateFinalSymbols = function(){ 
 var contador=0;
+
 var enviar= {
     nrows: NUM_ROWS,
     nreels: NUM_REELS,
