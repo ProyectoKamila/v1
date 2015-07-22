@@ -274,7 +274,7 @@ function CSeat(){
         }
     };
     
-    this.setSplitHand = function(){
+    this.setSplitHand = function(){ //hace split?
         var aSplitBet=new Array();
         for(var i=0;i<_aFichesOnTable.length;i++){
                 aSplitBet.push(_aFichesOnTable[i]);
@@ -289,7 +289,12 @@ function CSeat(){
         _aHands[1].addCard(_aHands[0].getCard(1));
         _aHands[0].removeCard(1);
         _aHands[1].setHandValue(_aHands[0].getValue());
+//prueba de manos splited
+        if(_aHands[0].getValue()===1){
+            _aHands[0].setHandValue(_aHands[0].getValue()+10);
+            _aHands[1].setHandValue(_aHands[1].getValue()+10);
 
+        }
         _iCurHand=_aHands.length-1;
 
     };

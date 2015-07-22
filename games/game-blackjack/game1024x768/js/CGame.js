@@ -119,7 +119,7 @@ function CGame(oData){
         s_oStage.removeAllChildren();
     };
     
-    this.reset = function(){
+    this.reset = function(){ //node
         _bPlayerTurn=true;
         _bSplitActive=false;
         _bDoubleForPlayer=false;
