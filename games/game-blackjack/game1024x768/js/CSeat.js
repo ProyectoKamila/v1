@@ -28,6 +28,8 @@ function CSeat(){
     
     var _aCbCompleted;
     var _aCbOwner;
+
+    var _pruebavar= 'hola';
     
     this._init = function(){
         _oGroup = new createjs.Container();
@@ -155,6 +157,16 @@ function CSeat(){
         _oCurCardValueText.text="";
         _oCurCardSplitValueText.text="";
     };
+
+    /*PRUEBA*/var PI = Math.PI;
+
+    this.area = function (r) {
+      return PI * r * r;
+    };
+    
+    this.circumference = function (r) {
+      return 2 * PI * r;
+    };/*END PRUEBA*/
     
     this.clearBet = function(){
         _oMainFichesController.reset();
@@ -531,4 +543,8 @@ function CSeat(){
     };
     
     this._init();
+   
 }
+
+
+exports.CSeat = CSeat;

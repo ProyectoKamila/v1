@@ -1,10 +1,24 @@
 var WebSocketServer = require('websocket').server;
 var mysql = require('mysql');
 //includes de archivos js
-var s_oGameSettings = require('./games/game-blackjack/game1024x768/js/CGameSettings.js');
-var _oSeat = require('./games/game-blackjack/game1024x768/js/CSeat.js');
+//var s_oGameSettings = require('./games/game-blackjack/game1024x768/js/CGameSettings.js');
+var _oSeatModule=require('./games/game-blackjack/game1024x768/js/CSeat.js');
+var _oSeat = new _oSeatModule.CSeat();
+console.log('cleartext'+_oSeat.area(4));
+/*
+var cmodule = require('./games/game-blackjack/game1024x768/js/circle.js');
+var oc =  new cmodule.circle();
+console.log( 'The area of a circle of radius 4 is '
+           + oc.area(4));
+*/
+//console.log('cseatmodule'+  CSeatModule);
+//_oSeat= new CSeatModule.CSeat;
+//console.log('cseatmodule'+ CSeatModule.reset());
+//console.log('cseatmodule'+  CSeatModule.CSeat());
+//var _oSeat = CSeatModule.CSeat();
+
 //eval(_oSeat.readFileSync('./games/game-blackjack/game1024x768/js/CSeat.js'));
-console.log('oseat'+ typeof _oSeat);
+//console.log('oseat'+ typeof _oSeat.pruebavar);
 // Check if SSL support is enabled
 if (process.argv.indexOf('--enable-ssl') !== -1) {
     //mensaje a enviar en los query
