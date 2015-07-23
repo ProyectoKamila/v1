@@ -3,7 +3,8 @@ var mysql = require('mysql');
 //includes de archivos js
 var s_oGameSettings = require('./games/game-blackjack/game1024x768/js/CGameSettings.js');
 var _oSeat = require('./games/game-blackjack/game1024x768/js/CSeat.js');
-console.log('oseat'+ typeof _oSeat.reset);
+//eval(_oSeat.readFileSync('./games/game-blackjack/game1024x768/js/CSeat.js'));
+console.log('oseat'+ typeof _oSeat);
 // Check if SSL support is enabled
 if (process.argv.indexOf('--enable-ssl') !== -1) {
     //mensaje a enviar en los query

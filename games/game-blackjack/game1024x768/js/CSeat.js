@@ -146,6 +146,7 @@ function CSeat(){
         _oSplitFichesController=null;
         
         this.clearText();
+        
     };
     
     this.clearText = function(){
