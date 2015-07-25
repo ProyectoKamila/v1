@@ -173,14 +173,14 @@
         '#FBFAEF',
         '#EFF2FC'
     ];
-    $(document).ready(function () {
+    $(document).ready(function() {
         'use strict';
         //si le dan click a reconectar
-        $('#buttonreconect').click(function () {
+        $('#buttonreconect').click(function() {
             hideConnectionLostMessage();
             connetserver();
         });
-        $('#buttoncreate').click(function () {
+        $('#buttoncreate').click(function() {
             var namesale = $('#namesale').val();
             var clave = $('#passsale').val();
             var minapos = $('#minapos').val();
@@ -201,7 +201,7 @@
 
             socket.send(JSON.stringify(intro));
         });
-        $('#buttonsitdown').click(function () {
+        $('#buttonsitdown').click(function() {
 
             var min = $('#inputapos').attr('min');
             var max = $('#inputapos').attr('max');
@@ -219,7 +219,7 @@
                     idsale: idsale,
                     idsit: idsit
                 }
-                if (idsit < 6 & idsit >= 0){
+                if (idsit < 6 & idsit >= 0) {
                     console.log('puesto ' + idsit);
                     $('.sit-' + idsit).removeClass('disponible');
                 }
@@ -228,11 +228,54 @@
             }
         });
         //boton para acceder al juego
-        $('#buttonjoingame').click(function () {
+        $('#exitgame').click(function() {
+            var intro = {
+                type: 'exitgame'
+            }
+            socket.send(JSON.stringify(intro));
+            $('#rowgame').slideUp();
+            $('#sales').removeClass('sales-close');
+            $('#playerdata').slideDown();
+            $('#playeroption').slideUp();
+        });
+        $('#newcomentglobal').keypress(function(e) {
+            if (e.which == 13) {
+                if ($('#newcomentglobal').val() !== "") {
+                    var intro = {
+                        type: 'comentglobal',
+                        text: $('#newcomentglobal').val()
+                    }
+                    socket.send(JSON.stringify(intro));
+                    text: $('#newcomentglobal').val('');
+                } else {
+                    $('#newcomentglobal').focus();
+                }
+            }
+        });
+        $('#comentglobal').click(function() {
+            if ($('#newcomentglobal').val() !== "") {
+                var intro = {
+                    type: 'comentglobal',
+                    text: $('#newcomentglobal').val()
+                }
+                socket.send(JSON.stringify(intro));
+                text: $('#newcomentglobal').val('');
+            } else {
+                $('#newcomentglobal').focus();
+            }
+        });
+        $('#buttonjoingame').click(function() {
             $('#passloss').slideUp();
             var passbox = $('#passbox').val();
             $('#passbox').val('');
             conexgame(passbox);
+        });
+        $('#apost').click(function() {
+            var intro = {
+                type: 'apost',
+                montapost: $('#montapost').val()
+            }
+            socket.send(JSON.stringify(intro));
         });
         //si no soporta websocket
         if (!is_websocket_supported()) {
@@ -262,10 +305,10 @@
         //hideConnectionLostMessage();
         clearInterval(connection_retry_timer);
         introduce(token);
-        socket.addEventListener('message', function (event) {
+        socket.addEventListener('message', function(event) {
             message_received(event.data);
         });
-        socket.addEventListener('close', function (event) {
+        socket.addEventListener('close', function(event) {
             connected = false;
             showConnectionLostMessage();
             //reConnect();
@@ -293,7 +336,7 @@
             newvar = new Object();
             newvar = message.messagesend;
             var myObj = newvar;
-            var array = $.map(myObj, function (value, index) {
+            var array = $.map(myObj, function(value, index) {
                 return [value];
             });
             sales(array, message.clients);
@@ -309,7 +352,7 @@
             var myObj = newvar;
             console.log(myObj);
 //                                if (myObj.lenght !== undefined){
-            var array = $.map(myObj, function (value, index) {
+            var array = $.map(myObj, function(value, index) {
                 return [value];
             });
 //                                }
@@ -341,7 +384,7 @@
             $(player).html(img);
         }
         else if (message.type === 'enespera') {
-
+            console.log('enespera');
             clearInterval(enespera);
             var player1 = "#player" + pos[sitenespera] + 'time';
             $(player1).html('');
@@ -350,7 +393,16 @@
             var player = "#player" + pos[sitenespera] + 'time';
             console.log(player);
             $(player).html('20');
-            enespera = setInterval(function () {
+            if (idsit !== sitenespera) {
+//                console.log('if: ' + idsit)
+                $('#playerdata').slideDown();
+                $('#playeroption').slideUp();
+            } else {
+//                console.log('else: ' + idsit)
+                $('#playerdata').slideUp();
+                $('#playeroption').slideDown();
+            }
+            enespera = setInterval(function() {
                 myTimer();
             }, 1000);
         }
@@ -363,7 +415,7 @@
             console.log(pos[message.messagesend]);
         }
         else if (message.type === 'ciegamax') {
-                        console.log('ciegamax');
+            console.log('ciegamax');
 
             console.log(pos[message.messagesend]);
         }
@@ -388,9 +440,32 @@
             //$('#loading-message').hide();
             //$('#game').html(message.messagesend);
         }
+        else if (message.type === 'alert') {
+            alert(message.messagesend);
+        }
         //para traer datos del usuarhio
+        else if (message.type === 'comentglobal') {
+//            console.log(message.messagesend);
+            var dt = message.messagesend;
+            var yo = $('.sidebar-game .nameprofile').html();
+            if (yo !== (dt.first_name + ' ' + dt.last_name)) {
+                var cls = 'responder';
+            } else {
+                var cls = '';
+            }
+//            console.log()
+            $('#globalchat').append('<div class="message"><p><span class="name ' + cls + '"> ' + dt.first_name + ' ' + dt.last_name + ' : </span>' + dt.mensaje + '</p></div>');
+            $('#globalchat').scrollTop(9999999999999999999999);
+
+        }
         else if (message.type === 'welcome') {
             myId = message.userId;
+            var datos = message.messagesend[0];
+            console.log(datos);
+            $('.profile img').attr('src', datos.imageprofile);
+            $('.sidebar-game .saldo').html('$ ' + datos.coins);
+            $('.sidebar-game .nameprofile').html(datos.first_name + ' ' + datos.last_name);
+//            $('.profile img').html('<img src="' + datos[0].imageprofile + '">');
             // $('#chat-container').fadeIn();
             //$('#loading-message').hide();
 //                                console.log(message.messagesend);
@@ -415,7 +490,7 @@
             var activity_msg = message.name + ' is typing..';
             $('#is-typig-status').html(activity_msg).fadeIn();
             clearTimeout(is_typing_indicator);
-            is_typing_indicator = setTimeout(function () {
+            is_typing_indicator = setTimeout(function() {
                 $('#is-typig-status').fadeOut();
             }, 2000);
         }
@@ -424,7 +499,7 @@
 
     function myTimer() {
         var player1 = "#player" + pos[sitenespera] + 'time';
-        var time = $(player1).html() - 1;
+        var time = parseInt($(player1).html()) - 1;
         if (time < 0) {
             clearInterval(enespera);
             $(player1).html('');
@@ -449,7 +524,7 @@
         if (connected == false) {
             var time_start = 5;
             var time_string;
-            var connection_retry_timer = window.setInterval(function () {
+            var connection_retry_timer = window.setInterval(function() {
                 if (time_start-- > 0) {
                     time_string = time_start + ' seconds';
                 } else {
@@ -533,7 +608,8 @@
             $(cartasplay2).slideUp();
         }
         else {
-            console.log(arraycon.imageprofile);
+//            console.log(arraycon.imageprofile);
+            $(elem).removeClass('disponible');
             $(name).html(arraycon.name);
             $(coin).html(arraycon.coin);
             $(time).html('');

@@ -39,10 +39,10 @@ var cont = 0;
 var clientsconection = {};
 var clientsconectionall = [];
 var rooms = {};
-var saleonline = {};
+var saleonline = {};//los que estan sentados son con os datos del usuario
 var play = {};
-var saleonlineconex = {};
-var saleonlineconexall = {};
+var saleonlineconex = {};//los que estan sentados con conexon
+var saleonlineconexall = {};//todos los usuarios que estan conectados en una sala
 var roomespejo = 0;
 //variable para permitir acceder a una sala si se encontro la password en la base de datos
 var accesstrue = false;
@@ -198,12 +198,7 @@ mysqlc.query(string, function(err, row, fields) {
 });
 var string = 'DELETE FROM  `salespoker` WHERE  `user_create` <>0;';
 
-mysqlc.query(string, function(err, row, fields) {
-    if (typeof(row)) {
-
-    }
-
-});
+mysqlc.query(string);
 var string = 'SELECT id,name,boolpass,apu_min,apu_max,max_jug,jug_min,jug_max FROM salespoker';
 
 mysqlc.query(string, function(err, row, fields) {
@@ -271,6 +266,7 @@ function originIsAllowed(origin) {
 }
 
 wsServer.on('request', function(request) {
+    console.log(request.origin);
     if (!originIsAllowed(request.origin)) {
 // Make sure we only accept requests from an allowed origin
         request.reject();
@@ -381,14 +377,29 @@ wsServer.on('request', function(request) {
                                 console.log(connection.coin);
                                 connection.idsit = msgObj.idsit;
                                 connection.apos = msgObj.inputapos;
+                                var mysqlc = mysql.createConnection(
+                                        {
+                                            host: '23.229.215.154',
+                                            user: 'v1',
+                                            password: 'Temporal01',
+                                            database: 'v1',
+                                        }
+                                );
+                                mysqlc.connect();
+                                var query = 'UPDATE user_data SET coins = (coins -' + parseInt(connection.apos) + ') WHERE id_user = "' + connection.id_user + '"';
+                                console.log(query);
+                                mysqlc.query(query, function(err, row, fields) {
+                                    if (typeof(row)) {
+
+                                    }
+                                });
+                                mysqlc.end();
                                 joinsale(connection, connection.idsale, 'true', msgObj.idsit);
                             }
                             else {
                                 sendmessageuser(connection, 'numcoin', coin, clients);
                             }
-
                         }
-
                     });
                     mysqlc.end();
                 }
@@ -417,6 +428,28 @@ wsServer.on('request', function(request) {
 
                 });
                 mysqlc.end();
+            }
+            //exitgame
+            else if (msgObj.type === 'exitgame') {
+                console.log('exitgame');
+                desconectadesala();
+            }
+            else if (msgObj.type === 'comentglobal') {
+                if ((msgObj.text).length < 256) {
+
+                    var enviar = {
+                        first_name: connection.first_name,
+                        last_name: connection.last_name,
+                        mensaje: msgObj.text,
+                    }
+                    var users = clientsconectionall;
+                    for (var i in users) {
+//                    console.log(connection);
+                        sendmessageuser(clientsconectionall[i], 'comentglobal', enviar)
+                    }
+                } else {
+                    sendmessageuser(connection, 'alert', 'Estamos verificando que usted esta mandando un mensaje con mas de 255 caraxcteres, por favor recargue su cliente, ya hemos enviado un mensaje de alerta a nuestro servidor');
+                }
             }
 //con esto accede a la sala selecionada
             else if (msgObj.type === 'joingame') {
@@ -468,6 +501,10 @@ wsServer.on('request', function(request) {
                     joinsale(connection, msgObj.idsale, 'find', msgObj.idsale);
                 }
             }
+            else if (msgObj.type === 'apost') {
+                connection.apos
+                apost(msgObj.montapost);
+            }
             else if (msgObj.type === 'intro') {
                 connection.nickname = msgObj.nickname;
                 connection.chatroom = msgObj.chatroom;
@@ -500,6 +537,7 @@ wsServer.on('request', function(request) {
 // At the moment, we are handling only text messages - no binary
             connection.sendUTF('Invalid message');
         }
+
     });
     connection.on('close', function(reasonCode, description) {
         var chatroom = connection.chatroom;
@@ -694,7 +732,7 @@ wsServer.on('request', function(request) {
                     console.log("logicpokerstart");
                     logicpokerstart(idsale);
                 }
-              
+
 
 
             }
@@ -769,22 +807,43 @@ wsServer.on('request', function(request) {
                 saleonline[connection.idsale][connection.idsit] = [conexarray];
             }
             if (connection.idsit !== undefined) {
-//                console.log(saleonlineconex[connection.idsale]);
+                var mysqlc = mysql.createConnection(
+                        {
+                            host: '23.229.215.154',
+                            user: 'v1',
+                            password: 'Temporal01',
+                            database: 'v1',
+                        }
+                );
+                mysqlc.connect();
+                var query = 'UPDATE user_data SET coins = (coins +' + parseInt(connection.apos) + ') WHERE id_user = "' + connection.id_user + '"';
+                console.log(query);
+                mysqlc.query(query, function(err, row, fields) {
+                    if (typeof(row)) {
+
+                    }
+                });
+                //                console.log(saleonlineconex[connection.idsale]);
+                mysqlc.end();
                 saleonlineconex[connection.idsale][connection.idsit] = undefined;
 //                saleonlineconex[connection.idsale].splice(connection.idsit, 1);
 //                console.log(saleonlineconex[connection.idsale]);
                 if (connection.idsit < 7) {
-                if(typeof play[connection.idsale] && play[connection.idsale]!==undefined && typeof play[connection.idsale] && play[connection.idsale].numjugactivos > 1){
-                    play[connection.idsale].gameover();
-                           clearInterval(play[connection.idsale].enespera);
-                    delete play[connection.idsale];
-                }
+                    if (typeof play[connection.idsale] && play[connection.idsale] !== undefined && typeof play[connection.idsale] && play[connection.idsale].numjugactivos > 1) {
+                        play[connection.idsale].gameover();
+                        clearInterval(play[connection.idsale].enespera);
+                        delete play[connection.idsale];
+                    }
                     updatesale(connection.idsale);
                 }
 //                setea a undefined para que no se vuelva a sentar el wey
                 connection.idsit = undefined;
             }
         }
+    }
+    function apost(montapost) {
+//        console.log(connection);
+        play[connection.idsale].roomapost[connection.idsit] = montapost;
     }
     function Sala(room) {
         this.room = room;
@@ -806,6 +865,7 @@ wsServer.on('request', function(request) {
         this.card = [];
         this.numcard = 0;
         this.diler = 0;
+        this.roomapost = [];
         this.ciegamin = 0;
         this.ciegamax = 0;
     }
@@ -814,11 +874,15 @@ wsServer.on('request', function(request) {
         var x = 0;
         //creo todos los puestos
         while (x < 7) {
-            var coarray = {'first_name': undefined};
+            var coarray = {
+                'first_name': undefined,
+                'apost': 0
+            };
             this.jugactivos[x] = coarray;
+            this.roomapost[x] = 0;
             x++;
         }
-//        console.log(this.jugactivos);
+        console.log(this.jugactivos);
 //        console.log(this.jugactivos[6]);
         for (i in saleonlineconex[this.room]) {
             if (saleonlineconex[this.room][i] !== undefined && i < 7) {
@@ -826,13 +890,14 @@ wsServer.on('request', function(request) {
                 this.numjugactivos++;
             }
         }
+        console.log(this.jugactivos);
     };
     //revuelvo las cartas
     Sala.prototype.cardfu = function() {
         this.card = card2;
         this.card.sort(function() {
-            return Math.random() - 0.5
-        })
+            return Math.random() - 0.5;
+        });
 
     };
     //doy las cartas a cada uno de los jugadores
@@ -851,7 +916,7 @@ wsServer.on('request', function(request) {
         }
     };
     Sala.prototype.gameover = function() {
-         clearInterval(this.enespera);
+        clearInterval(this.enespera);
     };
     Sala.prototype.nextdiler = function() {
         this.diler = 0;
@@ -882,6 +947,10 @@ wsServer.on('request', function(request) {
                 this.jugadorenespera = 0;
             }
         }
+        this.dilerfu();
+        this.ciegaminfu();
+        this.ciegamaxfu();
+
     };
     Sala.prototype.play = function() {
         var x = this.jugadorenespera + 1;
@@ -908,6 +977,24 @@ wsServer.on('request', function(request) {
             sendmessageuser(saleonlineconexall[this.room][i], 'enespera', this.jugadorenespera);
         }
     };
+    Sala.prototype.dilerfu = function() {
+        for (i in saleonlineconexall[this.room]) {
+            sendmessageuser(saleonlineconexall[this.room][i], 'diler', this.diler);
+        }
+    };
+    Sala.prototype.ciegaminfu = function() {
+        for (i in saleonlineconexall[this.room]) {
+            sendmessageuser(saleonlineconexall[this.room][i], 'ciegamin', this.ciegamin);
+        }
+    };
+    Sala.prototype.ciegamaxfu = function() {
+        for (i in saleonlineconexall[this.room]) {
+            sendmessageuser(saleonlineconexall[this.room][i], 'ciegamax', this.ciegamax);
+        }
+    };
+    Sala.prototype.montapost = function(user, apost) {
+        this.jugactivos[user].apost = apost;
+    };
 
     Sala.prototype.intervalo = function() {
         //borro el intervalo
@@ -917,8 +1004,8 @@ wsServer.on('request', function(request) {
         var espejo = this.room;
         this.enespera = setTimeout(function() {
             console.log('en espera');
-            if(typeof  play[espejo] && play[espejo]!==undefined){
-            play[espejo].play();
+            if (typeof  play[espejo] && play[espejo] !== undefined) {
+                play[espejo].play();
             }
         }, 5000);
 //        console.log(this.room);
