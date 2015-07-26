@@ -30,12 +30,6 @@ function CGame(oData){
     var _oFichesDealerOffset;
     var _oRemoveCardsOffset;
     var _oCardContainer;
-
-    var acarddealer; 
-    var acardplayer;
-
-    var ncardd;
-    var ncardp;
     
     var _oBg;
     var _oInterface;
@@ -83,8 +77,8 @@ function CGame(oData){
         _oInterface = new CInterface(_iMoney);
         _oInterface.displayMsg(TEXT_DISPLAY_MSG_SIT_DOWN);
 
-        this.reset();
-        //resetindex('enviar');
+        //this.reset();
+        resetindex('enviar');
         
         _oStartingCardOffset = new CVector2();
         _oStartingCardOffset.set(876,228);
@@ -143,10 +137,6 @@ function CGame(oData){
 
   */
       this.reset = function(){ //node
-
-       
-
-
         _bPlayerTurn=true;
         _bSplitActive=false;
         _bDoubleForPlayer=false;
@@ -180,33 +170,6 @@ function CGame(oData){
         
         _aCardsInCurHandForPlayer=new Array();
         _aCardsInCurHandForDealer=new Array();
-
-         var enviar= {
-_bPlayerTurnEnviar : _bPlayerTurn,
-_bSplitActiveEnviar : _bSplitActive,
-_bDoubleForPlayerEnviar : _bDoubleForPlayer,
-_iInsuranceBetEnviar : _iInsuranceBet,
-_iTimeElapsEnviar : _iTimeElaps,
-_iCardIndexToDealEnviar : _iCardIndexToDeal,
-_iDealerValueCardEnviar : _iDealerValueCard,
-_iCardDealedToDealerEnviar : _iCardDealedToDealer,
-_iCardDealedToPlayerEnviar : _iCardDealedToPlayer,
-_iAcesForDealerEnviar : _iAcesForDealer,
-_iCurFichesToWaitEnviar : _iCurFichesToWait,
-_oSeatEnviar : _oSeat,
-_aCardsDealingEnviar : _aCardsDealing,
-_aDealerCardsEnviar : _aDealerCards,
-_oInterfaceEnviar : _oInterface,
-acarddealerEnviar : acarddealer, 
-acardplayerEnviar : acardplayer,
-ncarddEnviar : ncardd,
-ncardpEnviar : ncardp,
-_aCardDeckEnviar : _aCardDeck,
-_aCardsInCurHandForPlayerEnviar : _aCardsInCurHandForPlayer,
-_aCardsInCurHandForDealerEnviar : _aCardsInCurHandForDealer,
-s_oGameSettingsEnviar: s_oGameSettings
-}
-           prueba(enviar); 
         for(var k=0;k<_aCardDeck.length;k++){
             if(k%2 === 0){
 
