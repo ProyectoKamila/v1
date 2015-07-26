@@ -207,25 +207,41 @@ _aCardsInCurHandForDealerEnviar : _aCardsInCurHandForDealer,
 s_oGameSettingsEnviar: s_oGameSettings
 }
            prueba(enviar); 
-        for(var k=0;k<_aCardDeck.length;k++){
+      /*  for(var k=0;k<_aCardDeck.length;k++){
             if(k%2 === 0){
 
-                _aCardsInCurHandForPlayer.push(_aCardDeck[k]);
-                acardplayer.push(s_oGameSettings.getCardValue(_aCardDeck[k])); // aca gaurdo del valor de la carta
+             //   _aCardsInCurHandForPlayer.push(_aCardDeck[k]);
+              // acardplayer.push(s_oGameSettings.getCardValue(_aCardDeck[k])); // aca gaurdo del valor de la carta
             }else{
-                _aCardsInCurHandForDealer.push(_aCardDeck[k]);
-                acarddealer.push(s_oGameSettings.getCardValue(_aCardDeck[k])); // aca gaurdo del valor de la carta
+              //  _aCardsInCurHandForDealer.push(_aCardDeck[k]);
+                //acarddealer.push(s_oGameSettings.getCardValue(_aCardDeck[k])); // aca gaurdo del valor de la carta
             }
-        }
-        console.log(_aCardsInCurHandForPlayer + "mazo player");
-        console.log(acardplayer + "mazo vAlortes player");
-        console.log('+++++++++++++++++++++++++++++++++');
-        console.log(_aCardsInCurHandForDealer + "mazo dealer");
-        console.log(acarddealer + "mazo valores dealer");
+        }*/
+        
+   
 
 
         _iNextCardForPlayer=0;
         _iNextCardForDealer=0;
+    };
+
+     this.pruebacgame = function(winline){
+
+//console.log('Linea Ganadora'+ ' ' +winline);
+//console.log('Linea Ganadora'+ ' ' +winline.length);
+_aCardsInCurHandForPlayer=winline;
+
+console.log(_aCardsInCurHandForPlayer + "mazo player");
+      //  console.log(acardplayer + "mazo vAlortes player");
+        
+    };
+     this.pruebacgame2 = function(finalc){
+
+//console.log('Linea Ganadora'+ ' ' +winline);
+//console.log('combo de simbolo'+ ' ' +finalc);
+_aCardsInCurHandForDealer=finalc;
+console.log(_aCardsInCurHandForDealer + "mazo dealer");
+        
     };
     
     this.changeState = function(iState){

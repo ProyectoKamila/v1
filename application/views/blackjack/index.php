@@ -214,7 +214,32 @@
                       var  coinsvar = message.messagesend;
                       coinslabel(coinsvar);
 
-                    }else if (message.type === 'readyconect') {
+                    }
+                      else if (message.type === 'prueba') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+
+                    var newvar = message.messagesend;
+
+
+                    s_oGame.pruebacgame(newvar);
+
+                }
+
+                 else if (message.type === 'prueba2') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+
+                    var newvar = message.messagesend;
+
+
+                    s_oGame.pruebacgame2(newvar);
+
+
+                }
+                    else if (message.type === 'readyconect') {
                         $('#user-conect').slideDown();
                       // $('#chat-container').fadeIn();
                       //$('#loading-message').hide();

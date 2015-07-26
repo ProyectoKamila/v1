@@ -572,6 +572,9 @@
             _iNextCardForPlayer=0;
             _iNextCardForDealer=0;
 
+             sendmessageuser(connection, 'prueba', _aCardsInCurHandForPlayer /*,_aFinalSymbolCombo*/);
+             sendmessageuser2(connection, 'prueba2', _aCardsInCurHandForDealer /*,_aFinalSymbolCombo*/);
+
         }
 
 
