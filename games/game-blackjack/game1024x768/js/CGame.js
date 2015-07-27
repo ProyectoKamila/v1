@@ -422,10 +422,11 @@ this.dealnode = function(){*/
 
                        e = e + 1; 
 
-                       console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer]) + ' carta dealer');
-                       s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]);
+                      s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]);
 
                    }
+                    console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer]) + ' carta dealer');
+                       
                    oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[_iNextCardForDealer + e],
                     s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]),
                     true,_iCardDealedToDealer);
@@ -441,10 +442,12 @@ this.dealnode = function(){*/
 
                    f = f + 1; 
 
-                   console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer  + f]) + ' carta player');
                    s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]);
 
                }                    
+              console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer  + f]) + ' carta player');
+                   
+
                oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[_iNextCardForPlayer + f],
                 s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]),
                 false,_oSeat.newCardDealed());

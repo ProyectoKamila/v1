@@ -542,7 +542,7 @@ var _iCardIndexToDeal= objeto._iCardIndexToDeal;
 
                        e = e + 1; 
 
-                       console.log(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer]) + ' carta dealer');
+                      
                         // valor que es necesario enviar
                        connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + e]);
 
@@ -556,7 +556,7 @@ var _iCardIndexToDeal= objeto._iCardIndexToDeal;
                   }*/
 
                 
-                
+                 console.log(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer]) + ' carta dealer');
 
                   _iNextCardForDealer++;
                   /* if(_iCardDealedToDealer === 2){
@@ -569,7 +569,7 @@ var _iCardIndexToDeal= objeto._iCardIndexToDeal;
 
                    f = f + 1; 
 
-                   console.log(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer  + f]) + ' carta player');
+                   
                    connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + f]);
 
                }                    
@@ -581,7 +581,7 @@ var _iCardIndexToDeal= objeto._iCardIndexToDeal;
                     valor: s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])
                   }*/
 
-              
+              console.log(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer  + f]) + ' carta player');
 
 
                _iNextCardForPlayer++;
