@@ -226,6 +226,15 @@
 
 
                 }
+
+                 else if (msgObj.type === 'dealer') {
+                    dealingnode(msgObj);
+
+
+
+                }
+
+
                 else if (msgObj.type === 'intro') {
                     connection.nickname = msgObj.nickname;
                     connection.chatroom = msgObj.chatroom;
@@ -383,6 +392,8 @@
       var dateTime = year+'/'+month+'/'+day+' '+hour+':'+minute+':'+second;   
       return dateTime;
   }
+
+  //////////////////////////////////////////////  Incio de clase cgamesetting 
   function CGameSettings(){
     
     var _aCardDeck;
@@ -498,6 +509,111 @@
     this._init();
 }
 
+
+//////////////////////////////////////////////////////////////77//fin de clase cgamesettings
+
+
+//////////////////////////////////////////////////////////////////funcion dealing inicio
+
+   function dealingnode(objeto){
+
+var _iCardIndexToDeal= objeto._iCardIndexToDeal;
+   var          _aCurActiveCardOffset= objeto._aCurActiveCardOffset;
+     var        _iCardDealedToDealer= objeto._iCardDealedToDealer;
+      var       _iCardDealedToPlayer= objeto._iCardDealedToPlayer;
+        var     _iNextCardForDealer= objeto._iNextCardForDealer;
+          var   _iNextCardForPlayer= objeto._iNextCardForPlayer;
+
+
+        if(_iCardIndexToDeal<_aCurActiveCardOffset){
+           /* var oCard = new CCard(_oStartingCardOffset.getX(),_oStartingCardOffset.getY(),_oCardContainer);
+
+            var pStartingPoint = new CVector2(_oStartingCardOffset.getX(),_oStartingCardOffset.getY());
+            var pEndingPoint;*/
+
+                //THIS CARD IS FOR THE DEALER
+                if((_iCardIndexToDeal%_aCurActiveCardOffset.length) === 1){
+                    _iCardDealedToDealer++;
+                   // pEndingPoint=new CVector2(_oDealerCardOffset.getX()+(CARD_WIDTH+2)*(_iCardIndexToDeal > 1?1:0),_oDealerCardOffset.getY());
+
+                    var e = 0;
+
+                    while (s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])!==11) {
+
+                       e = e + 1; 
+
+                       console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer]) + ' carta dealer');
+                        // valor que es necesario enviar
+                       s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]);
+
+                   }
+/*  oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[_iNextCardForDealer + e],
+                    s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]),
+                    true,_iCardDealedToDealer);*/
+                  var sendcardealer = {
+                    carta: _aCardsInCurHandForDealer[_iNextCardForDealer + e],
+                    valor: s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])
+                  }
+
+                
+                
+
+                  _iNextCardForDealer++;
+                  /* if(_iCardDealedToDealer === 2){
+                   // oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
+                }*/
+            }else{
+                _iCardDealedToPlayer++;
+                var f = 0;
+                while (s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f])!==11) {
+
+                   f = f + 1; 
+
+                   console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer  + f]) + ' carta player');
+                   s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]);
+
+               }                    
+              /* oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[_iNextCardForPlayer + f],
+                s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]),
+                false,_oSeat.newCardDealed());*/
+             var sendcarplayer = {
+                    carta: _aCardsInCurHandForDealer[_iNextCardForDealer + e],
+                    valor: s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])
+                  }
+
+              
+
+
+             //  _iNextCardForPlayer++;
+             /*  if(_iCardDealedToPlayer === 2){
+                //oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
+            }  */ 
+        }
+
+        
+
+
+        //oCard.addEventListener(ON_CARD_ANIMATION_ENDING,this.cardFromDealerArrived);
+        //oCard.addEventListener(ON_CARD_TO_REMOVE,this._onRemoveCard);
+
+        /*if(DISABLE_SOUND_MOBILE === false || s_bMobile === false){
+            createjs.Sound.play("card");
+        }*/
+    }else{
+        //this._checkAvailableActionForPlayer();
+
+        console.log('enviar');
+ //sendmessageuser(connection, 'dealer', sendcardealer /*,_aFinalSymbolCombo*/);
+          // sendmessageuser(connection, 'player', sendcardplayer /*,_aFinalSymbolCombo*/);
+    }
+
+}
+
+//////////////////////////////////////////////////////////////////funcion dealing fin
+
+
+
+
   function pruebaserver(objeto){
 
     //var objeto = JSON.parse(obj);
@@ -512,10 +628,10 @@
     var  _iCardDealedToPlayer = objeto._iCardDealedToPlayerEnviar ;
     var  _iAcesForDealer = objeto._iAcesForDealerEnviar ;
     var  _iCurFichesToWait = objeto._iCurFichesToWaitEnviar ;
-    var  _oSeat = objeto._oSeatEnviar ;
+   // var  _oSeat = objeto._oSeatEnviar ;
     var  _aCardsDealing = objeto._aCardsDealingEnviar ;
     var  _aDealerCards = objeto._aDealerCardsEnviar ;
-    var  _oInterface = objeto._oInterfaceEnviar ;
+   // var  _oInterface = objeto._oInterfaceEnviar ;
     var  acarddealer  = objeto.acarddealerEnviar ;
     var  acardplayer = objeto.acardplayerEnviar ;
     var  ncardd = objeto.ncarddEnviar ;
@@ -538,10 +654,10 @@
     console.log( _iCardDealedToPlayer+  ' _iCardDealedToPlayer');
     console.log( _iAcesForDealer+  ' _iAcesForDealer');
     console.log( _iCurFichesToWait+  ' _iCurFichesToWait');
-    console.log( _oSeat+  ' _oSeat');
+   // console.log( _oSeat+  ' _oSeat');
     console.log( _aCardsDealing+  ' _aCardsDealing');
     console.log( _aDealerCards+  ' _aDealerCards');
-    console.log( _oInterface+  ' _oInterface');
+    //console.log( _oInterface+  ' _oInterface');
     console.log( acarddealer +  ' acarddealer ');
     console.log( acardplayer+  ' acardplayer');
     console.log( ncardd+  ' ncardd');
@@ -588,6 +704,8 @@
 
         }));
       }
+
+
       function sendmessageuser2(usersend, type, forsend) {
            // console.log(forsend+'DOS');
            usersend.send(JSON.stringify({
@@ -598,6 +716,29 @@
 
         }));
        }
+
+       function sendcarddealer(usersend, type, forsend) {
+          // console.log('forsend ' + forsend);
+          usersend.send(JSON.stringify({
+            type: type,
+            userId: connection.id,
+            messagesend: forsend,
+            clients: clients
+
+        }));
+      }
+      function sendcardplayer(usersend, type, forsend) {
+          // console.log('forsend ' + forsend);
+          usersend.send(JSON.stringify({
+            type: type,
+            userId: connection.id,
+            messagesend: forsend,
+            clients: clients
+
+        }));
+      }
+
+
        function update_jackpot(jack,debito){
 
         var mysqlc = mysql.createConnection(

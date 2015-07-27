@@ -226,7 +226,6 @@
                     s_oGame.pruebacgame(newvar);
 
                 }
-
                  else if (message.type === 'prueba2') {
                     myId = message.userId;
                     // $('#chat-container').fadeIn();
@@ -239,6 +238,32 @@
 
 
                 }
+
+                 else if (message.type === 'dealer') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+
+                    var newvar = message.messagesend;
+
+
+                    s_oGame.oCardsetinfodealer(newvar);
+
+                }
+
+                 else if (message.type === 'player') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+
+                    var newvar = message.messagesend;
+
+
+                    s_oGame.oCardsetinfoplayer(newvar);
+
+                }
+
+                
                     else if (message.type === 'readyconect') {
                         $('#user-conect').slideDown();
                       // $('#chat-container').fadeIn();
@@ -276,6 +301,24 @@
                 prueba = function (enviar) {
                 //public function prueba(){
                 enviar.type = 'prueba';
+
+                //alert(enviar.type);
+
+                socket.send(JSON.stringify(enviar));
+            }
+
+            dealer = function (enviar) {
+                //public function prueba(){
+                enviar.type = 'dealer';
+
+                //alert(enviar.type);
+
+                socket.send(JSON.stringify(enviar));
+            }
+
+            player = function (enviar) {
+                //public function prueba(){
+                enviar.type = 'player';
 
                 //alert(enviar.type);
 
