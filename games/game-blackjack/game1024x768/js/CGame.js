@@ -254,7 +254,7 @@ this.cardFromDealerArrived = function(oCard,bDealerCard,iCount){
         _oSeat.increaseHandValue(oCard.getValue());
         _oSeat.refreshCardValue();
     }else{
-        console.log(oCard.getValue() + ' Dealer');
+       // console.log(oCard.getValue() + ' Dealer');
         _iDealerValueCard += oCard.getValue();
         if(_iCardDealedToDealer > 2){
             _oInterface.refreshDealerCardValue(_iDealerValueCard);
@@ -425,7 +425,7 @@ this.dealnode = function(){*/
                       s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]);
 
                    }
-                    console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer]) + ' carta dealer');
+                    console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]) + ' carta dealer');
                        
                    oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[_iNextCardForDealer + e],
                     s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]),
