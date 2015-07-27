@@ -538,22 +538,22 @@ var _iCardIndexToDeal= objeto._iCardIndexToDeal;
 
                     var e = 0;
 
-                    while (s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])!==11) {
+                    while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + e])!==11) {
 
                        e = e + 1; 
 
-                       console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer]) + ' carta dealer');
+                       console.log(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer]) + ' carta dealer');
                         // valor que es necesario enviar
-                       s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]);
+                       connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + e]);
 
                    }
 /*  oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[_iNextCardForDealer + e],
                     s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]),
                     true,_iCardDealedToDealer);*/
-                  var sendcardealer = {
+                 /* var sendcardealer = {
                     carta: _aCardsInCurHandForDealer[_iNextCardForDealer + e],
                     valor: s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])
-                  }
+                  }*/
 
                 
                 
@@ -565,26 +565,26 @@ var _iCardIndexToDeal= objeto._iCardIndexToDeal;
             }else{
                 _iCardDealedToPlayer++;
                 var f = 0;
-                while (s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f])!==11) {
+                while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + f])!==11) {
 
                    f = f + 1; 
 
-                   console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer  + f]) + ' carta player');
-                   s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]);
+                   console.log(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer  + f]) + ' carta player');
+                   connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + f]);
 
                }                    
               /* oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[_iNextCardForPlayer + f],
                 s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]),
                 false,_oSeat.newCardDealed());*/
-             var sendcarplayer = {
+            /* var sendcarplayer = {
                     carta: _aCardsInCurHandForDealer[_iNextCardForDealer + e],
                     valor: s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])
-                  }
+                  }*/
 
               
 
 
-             //  _iNextCardForPlayer++;
+               _iNextCardForPlayer++;
              /*  if(_iCardDealedToPlayer === 2){
                 //oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
             }  */ 
@@ -688,6 +688,9 @@ var _iCardIndexToDeal= objeto._iCardIndexToDeal;
             _iNextCardForPlayer=0;
             _iNextCardForDealer=0;
 
+            connection.s_oGameSettings = s_oGameSettings;
+            connection._aCardsInCurHandForPlayer= _aCardsInCurHandForPlayer;
+            connection._aCardsInCurHandForDealer= _aCardsInCurHandForDealer;
              sendmessageuser(connection, 'prueba', _aCardsInCurHandForPlayer /*,_aFinalSymbolCombo*/);
              sendmessageuser2(connection, 'prueba2', _aCardsInCurHandForDealer /*,_aFinalSymbolCombo*/);
 
