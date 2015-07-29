@@ -238,6 +238,18 @@
 
 
                 }
+                else if (message.type === 'dealreturn') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+
+                    var newvar = message.messagesend;
+
+
+                    s_oGame.dealnode(newvar);
+
+
+                }
 
                  else if (message.type === 'dealer') {
                     myId = message.userId;
