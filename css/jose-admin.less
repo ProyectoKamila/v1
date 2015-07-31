@@ -244,31 +244,13 @@ h1.page-header{
 
 }
 .playing{
-    background: url(../interface/images/recortes/poker/mesa-poker.png) center center no-repeat;
+    background: url(../interface/images/recortes/poker/mesa.png) center center no-repeat;
     height: 720px;
     /*background-size: 100%;*/
     position: relative;
     z-index:900;
     margin-top:-20px;
-    #mesa{
-        height: 73px;
-        margin-top: -32px;
-        .card {
-            height: 73px;
-            width: 53px;
-            float: left;
-            text-aling: center;
-            img {
-                margin: 1.5px;
-            }
-        }
-        .card + .card {
-            margin-left: 24px;
-        }
-        .one {
-            margin-left: 47px;
-        }
-    }
+
 
     .curpie{
         width: 100%;
@@ -277,6 +259,9 @@ h1.page-header{
     }
     .men{
         background: url(../interface/images/recortes/poker/dealer.png) center center no-repeat;    
+    }
+    .women{
+        background: url(../interface/images/recortes/poker/dealer-women.png) center center no-repeat;    
     }
     .player{
         height: 240px;
@@ -479,11 +464,46 @@ h1.page-header{
         width: 98%;
         overflow: hidden;
         margin: 20px auto;
+        height: 200px;
+        .izq{
+            input {
+                width: 90%;
+                padding: 10px;
+                margin: 10px;
+                text-transform: uppercase;
+            }
+        }
+        .der {
+            div {
+                background-color: #2B2A26 !important;
+                height: 25%;
+                width: 100%;
+                overflow: hidden;
+                padding: 13%;
+                box-shadow: none;
+                font-weight: 200;
+                font-size: 14px;
+                text-transform: uppercase;
+                input {
+                    width: 100%;
+                    height: 100%;
+                    background-color: transparent;
+                    border: 1px solid #9C9B97;
+                    text-align: center;
+                    font-size: 13px;
+                    font-weight: 200;
+                }
+            }
+            div + div {
+                border-top: 1px solid white !important;
+            }
+        }
     }
     .content-chat{
         width: 98%;
         margin-left: 1%;
         max-height: 260px;
+        min-height: 260px;
         height: auto;
         overflow-x: hidden;
         overflow-y: auto;
