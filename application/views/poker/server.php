@@ -24,6 +24,7 @@
 
     var socket;
 //                        guarda el idde la silla
+    var pote;
     var idsit;
     var enespera;
     var sitenespera;
@@ -286,7 +287,7 @@
         $('#apost').click(function() {
             var intro = {
                 type: 'apost',
-                montapost: $('#montapost').val()
+                montapost: $('#apost-toal').val()
             }
             socket.send(JSON.stringify(intro));
         });
@@ -441,6 +442,7 @@
             console.log(message);
         }
         else if (message.type === 'pote') {
+            pote = message.messagesend;
             $('.pote').html(message.messagesend);
         }
         else if (message.type === 'numcoin') {

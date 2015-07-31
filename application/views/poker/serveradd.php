@@ -566,7 +566,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="vert" style="width: 50%">
+                                    <div class="vert" style="width: 50%; padding-top: 2%">
                                         <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id='mesa'>
                                             <div class="col-lg-2 col-md-2 col-sm-2 pos one">
                                                 <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
@@ -712,28 +712,28 @@
             <div class="content-option-user" id="playeroption" style="display: none;">
                 <h3>Opciones del Jugador</h3>
                 <p class="saldo apost-resume"> $ 000</p>
-                <input type="number" class="input-group" id="apost-toal" onkeypress="return justNumbers(event);">
+                <input type="number" class="input-group" id="apost-toal" style="float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
                 <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
                 <div class="option-user">
                     <div class="container-fluid sin-padding">
                         <div class="row sin-padding">
-                            <div class="col-lg-7 col-md-7 col-sm-7 ">
+                            <div class="col-lg-7 col-md-7 col-sm-7 izq">
                                 <input type="submit" class="btn btn-default " id="apost" value="Apostar">
                                 <input type="submit" class="btn btn-default " id="past" value="Pasar">
                                 <input type="submit" class="btn btn-default " id="leave" value="Retirarse">
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 sin-padding">
+                            <div class="col-lg-4 col-md-4 col-sm-4 sin-padding der">
                                 <div class="btn btn-default" id="apost-bote">
                                     BOTE
                                 </div>
                                 <div class="btn btn-default" id="apost-bote-mid">
-                                    mitad de bite
+                                    1/2 BOTE
                                 </div>
                                 <div class="btn btn-default" id="apost-all">
                                     todo
                                 </div>
                                 <div class="btn btn-default">
-                                    <input type="text" class="input" id="apost-mont" onkeypress="return justNumbers(event);">
+                                    <input type="text" class="input" id="apost-mont" placeholder="OTRO" onkeypress="return justNumbers(event);">
                                 </div>
                             </div>
                         </div>
@@ -743,7 +743,7 @@
             <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
             <h3>Chat del Jugador <span class="fa fa-weixin"></span></h3>
             <div class="content-chat" id="globalchat">
-                <div class="message">
+<!--                <div class="message">
                     <p><span class="name"> Jugador : </span> Hola que tal</p>
                 </div>
                 <div class="message">
@@ -754,7 +754,7 @@
                 </div>
                 <div class="message">
                     <p><span class="name responder"> Jugador : </span> You asked, Font Awesome delivers with 40 shiny new icons in version 4.3. Want to request new icons? Here's how. Need vectors or want to use on the desktop? Check the cheatsheet.</p>
-                </div>
+                </div>-->
 
             </div>
             <div class="text-message">
