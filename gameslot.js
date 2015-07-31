@@ -19,7 +19,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8081;
+    var port = 8082;
     var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
 } else {
     var http = require('http');
@@ -29,7 +29,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8081;
+    var port = 8082;
     var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
 }
 
@@ -387,6 +387,7 @@ wsServer.on('request', function(request) {
 
     function pruebaserver(objeto){
 console.log(objeto.nrows);
+console.log(objeto.nreels);
 console.log(objeto.nreels);
 console.log(objeto.payline);
 

@@ -61,7 +61,7 @@
             var connected = false;
             var connection_retry_timer;
             //var server_url = 'ws://162.252.57.97:8808/';
-          var server_url = 'ws://localhost:8808/';
+          //var server_url = 'ws://localhost:8808/';
             var token = "<?php
         if (isset($_COOKIE['token'])) {
             echo $_COOKIE['token'];
@@ -183,7 +183,7 @@
 
             function open_connection() {
 
-             socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
+             socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
 
             //    socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
 
