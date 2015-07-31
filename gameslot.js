@@ -19,7 +19,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8805;
+    var port = 8081;
     var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
 } else {
     var http = require('http');
@@ -29,7 +29,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8808;
+    var port = 8081;
     var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
 }
 
@@ -53,7 +53,8 @@ var allowed_origins = [
     'developer.cdn.mozilla.net',
     '192.168.0.118',
     'casino4as.com',
-    'localhost:8888'
+    'localhost:8888',
+    'casino4as-krondon.c9.io'
 ];
 
 
@@ -96,7 +97,7 @@ var allowed_protocol = 'server';
 var connection_id = 0;
 
 server.listen(port, function() {
-  //  console.log(server_start_message);
+    console.log(server_start_message);
 });
 
 wsServer = new WebSocketServer({
@@ -116,6 +117,7 @@ function originIsAllowed(origin) {
 }
 
 wsServer.on('request', function(request) {
+    console.log('acceder');
     if (!originIsAllowed(request.origin)) {
         // Make sure we only accept requests from an allowed origin
         request.reject();
@@ -384,7 +386,9 @@ wsServer.on('request', function(request) {
     }
 
     function pruebaserver(objeto){
-
+console.log(objeto.nrows);
+console.log(objeto.nreels);
+console.log(objeto.payline);
 
   
    var contador=0;
@@ -542,6 +546,7 @@ wsServer.on('request', function(request) {
 
                 if (_aWinningLine[i].value==8 && _aWinningLine[i].amount > 0 && connection.id_game==1){
                         var juegos_gratis = juegos_gratis + 1;
+                        connection.free=true;
                        // console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].amount);
 
                        
@@ -672,7 +677,6 @@ var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
        mysqlc.query(string, function(err, row, fields) {
 
         //console.log('verificar la variable row' + row);
-
         if (typeof(row)) {
          //   console.log('entre a jackpotcall' + row[0]['jackpot']);
          //   console.log('entre a debt' + row[0]['debt']);
