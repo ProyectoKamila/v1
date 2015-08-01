@@ -9,6 +9,7 @@ function CGame(oData){
     var _iCurIndexDeck;
     var _iCurState;
     var _aCurHand;
+    var _aCurHandValue; //evaluar mano
     var _aCardDeck;
     var _oGameSettings;
     var _oHandEvaluator;
@@ -60,8 +61,6 @@ function CGame(oData){
         _iCurIndexDeck = 0;
         _aCardDeck = new Array();
         _aCardDeck = _oGameSettings.getShuffledCardDeck();
-
-        console.log('ashufle'+_aCardDeck);
 
         this.placeFakeCardForStarting();
         if(DISABLE_SOUND_MOBILE === false || s_bMobile === false){
@@ -154,6 +153,7 @@ function CGame(oData){
             
             iX += 180;
         }
+        console.log('objeto:',_oCardAttach);
     };
 
     this.dealCards = function(){
@@ -167,23 +167,34 @@ function CGame(oData){
         _bBlock = true;
         
         _oCardAttach.removeAllChildren();
-        
-        var iX = 0;
-        var iY = 0;
-        _aCurHand = new Array();
-        for(var i=0;i<5;i++){
-            var oCard = new CCard(iX,iY,_oCardAttach,_aCardDeck[_iCurIndexDeck].fotogram,_aCardDeck[_iCurIndexDeck].rank,_aCardDeck[_iCurIndexDeck].suit);
-            oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
-            oCard.addEventListener(ON_CARD_HIDE,this._onCardHide);
-            _aCurHand.push(oCard);
-            _iCurIndexDeck++;
-            iX += 180;
-            
-            console.log('acardked'+_aCardDeck[_iCurIndexDeck].rank);
-            console.log('acardfotogram'+_aCardDeck[_iCurIndexDeck].fotogram);
-            console.log('acardsuitt'+_aCardDeck[_iCurIndexDeck].suit);
-            oCard.showCard();
+
+        this.cehckhandeal();
+        //do{
+            console.log(_oHandEvaluator.evaluate(_aCurHandValue));
+            console.log(JACKS_OR_BETTER);
+        if( _oHandEvaluator.evaluate(_aCurHandValue) !== JACKS_OR_BETTER){
+            console.log("resethand deal cards");
+            this.resetHand();
+            this.dealCards();
         }
+        console.log("sale del while");
+           /////
+        //var iX = 0;
+        //var iY = 0;
+        _aCurHand = new Array();
+        //_aCurHandValue = new Array(); //arreglo para evaluar mano
+            for(var n=0;n<5;n++){
+                console.log("valor n"+n);
+                var oCard = _aCurHandValue[n];
+                oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
+                oCard.addEventListener(ON_CARD_HIDE,this._onCardHide);
+                //_aCurHandValue.push(oCard);
+                _aCurHand.push(oCard);
+                //_iCurIndexDeck++;
+                //iX += 180;
+                oCard.showCard();
+                console.log('acardfotogram'+_aCardDeck[_iCurIndexDeck].fotogram+ ' - '+ 'acardked'+_aCardDeck[_iCurIndexDeck].rank);
+            }
         
         //DECREASE MONEY
         _iMoney -= _iCurBet;
@@ -196,7 +207,23 @@ function CGame(oData){
         
         _iCurState = STATE_GAME_DEAL;
     };
-    
+     this.cehckhandeal = function(){
+        var iX = 0;
+        var iY = 0;
+        _aCurHand = new Array();
+        _aCurHandValue = new Array(); //arreglo para evaluar mano
+            for(var i=0;i<5;i++){
+                var oCard = new CCard(iX,iY,_oCardAttach,_aCardDeck[_iCurIndexDeck].fotogram,_aCardDeck[_iCurIndexDeck].rank,_aCardDeck[_iCurIndexDeck].suit);
+                //oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
+                //oCard.addEventListener(ON_CARD_HIDE,this._onCardHide);
+                _aCurHandValue.push(oCard);
+                //_aCurHand.push(oCard);
+                _iCurIndexDeck++;
+                iX += 180;
+                //oCard.showCard();
+                //console.log('acardfotogram'+_aCardDeck[_iCurIndexDeck].fotogram+ ' - '+ 'acardked'+_aCardDeck[_iCurIndexDeck].rank);
+            }
+    };
     this.drawCards = function(){
         if(_bBlock){
             return;
@@ -414,7 +441,7 @@ function CGame(oData){
         _oInterface.refreshMoney(_iMoney,_iCurBet);
         _oPayTable.setCreditColumn(_iCurCreditIndex);
         
-	this.resetHand();
+	    this.resetHand();
         this.dealCards();
     };
     

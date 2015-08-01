@@ -16,9 +16,11 @@ function CGameSettings(){
             }else if(iRest === 0){
                 iRest = 13;
             }
+             console.log('acardekPush'+ 'fotogram:'+j +'rank:'+iRest+ 'suit:'+iSuit);
             _aCardDeck.push({fotogram:j,rank:iRest,suit:iSuit});
         }
         
+
     };
 	
     this.timeToString = function( iMillisec ){		

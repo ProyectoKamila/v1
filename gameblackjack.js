@@ -98,7 +98,7 @@
     var connection_id = 0;
 
     server.listen(port, function() {
-      //  console.log(server_start_message);
+    console.log(server_start_message);
   });
 
     wsServer = new WebSocketServer({

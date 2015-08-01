@@ -119,6 +119,7 @@ function CCard(iX,iY,oContainer,szFotogram,iRank,iSuit){
     };
 		
     this.hideCard = function(){
+        //console.log('hide card');
         var oParent = this;
         createjs.Tween.get(_oCardSprite).to({scaleX:0.1}, 200).call(function(){oParent.setBack()});
     };
