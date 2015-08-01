@@ -56,7 +56,9 @@ function CGameSettings(){
                 _aShuffledCardDecks.push(aTmpDeck.splice(Math.round(Math.random() * (aTmpDeck.length - 1)), 1)[0]);
         }
         
+        
         return _aShuffledCardDecks;	
+
     };
 		
     this.getCardValue = function(iId){

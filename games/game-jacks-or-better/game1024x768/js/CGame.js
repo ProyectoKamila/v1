@@ -61,6 +61,8 @@ function CGame(oData){
         _aCardDeck = new Array();
         _aCardDeck = _oGameSettings.getShuffledCardDeck();
 
+        console.log('ashufle'+_aCardDeck);
+
         this.placeFakeCardForStarting();
         if(DISABLE_SOUND_MOBILE === false || s_bMobile === false){
             s_oSoundTrack.setVolume(0.5);
@@ -148,6 +150,7 @@ function CGame(oData){
             oBackCard.y = iY;
             oBackCard.shadow = new createjs.Shadow("#000000", 5, 5, 5);
             _oCardAttach.addChild(oBackCard);
+
             
             iX += 180;
         }
@@ -176,6 +179,9 @@ function CGame(oData){
             _iCurIndexDeck++;
             iX += 180;
             
+            console.log('acardked'+_aCardDeck[_iCurIndexDeck].rank);
+            console.log('acardfotogram'+_aCardDeck[_iCurIndexDeck].fotogram);
+            console.log('acardsuitt'+_aCardDeck[_iCurIndexDeck].suit);
             oCard.showCard();
         }
         
