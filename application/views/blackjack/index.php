@@ -262,6 +262,17 @@
                     s_oGame.oCardsetinfodealer(newvar);
 
                 }
+                else if (message.type === 'attachdealreturn') {
+                    myId = message.userId;
+                    // $('#chat-container').fadeIn();
+                    //$('#loading-message').hide();
+
+                    var newvar = message.messagesend;
+
+
+                    s_oGame.attachCardToDealR(newvar);
+
+                }
 
                  else if (message.type === 'player') {
                     myId = message.userId;
@@ -319,6 +330,14 @@
                 socket.send(JSON.stringify(enviar));
             }
 
+            attachdealtonode = function (enviar) {
+                //public function prueba(){
+                enviar.type = 'attachdealtonode';
+
+                //alert(enviar.type);
+
+                socket.send(JSON.stringify(enviar));
+            }
             dealer = function (enviar) {
                 //public function prueba(){
                 enviar.type = 'dealer';

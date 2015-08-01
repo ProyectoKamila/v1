@@ -208,6 +208,7 @@ function CSeat(){
     
     this.checkHand = function(){
         var iHandValue=_aHands[_iCurHand].getValue();
+
         //PLAYER MADE BLACK JACK
         //console.log(iHandValue+'hand value');
         if(iHandValue === 21){
@@ -262,6 +263,7 @@ function CSeat(){
                 }
             }
         }
+      //  console.log(_aHands[_iCurHand].getValue() + ' iHandValue');
     };
     
     this.checkPlayerLastHand = function(szAction){
