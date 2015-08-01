@@ -97,7 +97,7 @@
 
                 </div>
             </section>
-            <section class="playing">
+<!--            <section class="playing">
 
                 <div class="container-fluid">
                     <div class="row" id='rowgame' >
@@ -181,9 +181,9 @@
                                         <div class="card five">
                                             c5                                            
                                         </div>
-                                        <!--<a class="thumbnail">-->
-                                            <!--<img src="./imagen/poker/mesa-poker.png" alt="..." id='crupier'>-->
-                                        <!--</a>-->
+                                        <div class="card pote">
+                                            pote                                            
+                                        </div>
                                     </div>
                                     <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs sin-padding col-lg-offset-0 col-md-offset-0 col-sm-offset-0 sit-3" id='player4' ondblclick="seeplayer('#player4', 3);" >
                                         <div class="player player4">
@@ -217,7 +217,7 @@
                                                     <div class="carta1 player5carta1"></div>
                                                     <div class="carta2 player5carta2"></div>
                                                 </div> 
-                                                s
+
                                             </div>
 
                                         </div>
@@ -263,6 +263,440 @@
                         </div>
                     </div>
                 </div>
+            </section>-->
+            <section class="playing">
+                <style>
+                    .hori {
+                        height: 20%;
+                    }
+                    .playing {
+                        height: 515px !important;
+                    }
+                    .vert {
+                        float: left;
+                        width: 20%;
+                        height: 100%;
+                        position: relative;
+                    }
+                    #exitgame{
+                        background-image: url(./imagen/poker/salir.png);
+                        border: 0px;
+                        border-radius: 0;
+                        height: 43px;
+                        width: 69px;
+                        background-size: contain;
+                    }
+                    #exitgame:hover {
+                        background-position: 1;
+                    }
+                    .nameusr {
+                        color: white;
+                        font-weight: 200;
+                        font-size: 12;
+                        margin: 0 auto;
+                        clear: both;
+                        width: 100%;
+                    }
+                    .fichsit {
+                        background-image: url(./imagen/poker/jugadores.png);
+                        height: 75px;
+                        width: 71px;
+                        border-radius: 100%;
+                        position: relative;
+                        float: left;
+                    }
+                    .profile-mesa {
+                        position: absolute;
+                        background-color: #2b2a27;
+                        height: 50px;
+                        width: 52px;
+                        margin-top: 13px;
+                        margin-left: 10px;
+                        border-radius: 100%;
+                        background-repeat: round;
+                        background-size: contain;
+                    }
+                    .apostonline {
+                        float: left;
+                        color: white;
+                        background-color: #920B18;
+                        vertical-align: bottom;
+                        text-align: center;
+                        width: 60px;
+                        margin-top: 16%;
+                        margin-left: 5px;
+                        font-size: 10px;
+                    }
+                    .timeturn {
+                        position: absolute;
+                        color: white;
+                        width: 20px;
+                        height: 20px;
+                        background-color: #920b18;
+                        font-size: 16px;
+                        padding: 0;
+                        margin: 0;
+                        border-radius: 100%;
+                        bottom: 0px;
+                    }
+                    .diler {
+                        height: 100%;
+                        width: 100%;
+                    }
+                    .right {
+                        float: right !important;
+                        text-align: right;
+                        right: 0 !important;
+                    }
+                    .vert.c>* {
+                        float: none;
+                        margin: 0 auto !important;
+                        text-align: center;
+                        position: relative;
+                    }
+                    p.right {
+                        margin-right: 5px;
+                        text-align: center;
+                    }
+                    .c > p.apostonline {
+                        margin: 5px auto !important;
+                    }
+                    .profile-mesa.right {
+                        margin-right: 9px;
+                    }
+                    @media (max-width: 774px){
+                        .playing{
+                            background-size: contain;
+                        }
+                    }
+                    .fichas {
+                        height: 100%;
+                        text-align: center;
+                        width: 100%;
+                        padding: 0;
+                        margin: 0;
+                    }
+                    .card img {
+                        height: 45px;
+                    }
+                    .card .img {
+                        height: 45px !important;
+                        width: 33px !important;
+                        background-image: url(./imagen/poker/naipe.png);
+                        background-size: cover;
+                        float: left;
+                    }
+                    .card .img img{
+                        height: 45px !important;
+                        width: 33px !important;
+                    }
+
+                    p.montapuest {
+                        color: white;
+                        background-color: #920B18;
+                        text-align: center;
+                        width: 60px;
+                        font-size: 10px;
+                        position: absolute;
+                        top: 40px;
+                        border: 0px;
+                        padding: 0px;
+                    }
+
+                    .card {
+                        float: left;
+                        height: 100%;
+                        padding-top: 10px;
+                        position: relative;
+                        width: 50%;
+                    }
+
+                    .fichapuest {
+                        float: left;
+                        position: relative;
+                        height: 100%;
+                        width: 50%;
+                    }
+
+                    .fichapuest img {
+                        position: absolute;
+                        top: 10;
+                        height: 20px;
+                    }
+                    .fichapuest img + img {
+                        margin-left: 5px;
+                    }
+                    .pos img {
+                        height: 45px;
+                    }
+                    .puest img {
+                        position: absolute;
+                        top: 10;
+                        height: 20px;
+                    }
+                    .puest img + img {
+                        margin-left: 5px;
+                    }
+                    .tabcard.c>* {
+                        float: none;      margin: 0 auto !important;      text-align: center;      position: relative;
+                    }
+
+                    .card.c {
+                        width: 100%;
+                        height: 50px;
+                        display: inline-flex;
+                    }
+                    .imgc {
+                        margin: 0 auto;
+                    }
+
+                    .fichapuest.c {
+                        height: 50%;
+                        width: 100%;
+                    }
+                    .fichsit.c img {
+                        margin: 0 auto;
+                        position: relative;
+                        margin-top: 12px;
+                    }
+
+                    .fichapuest.c>* {
+                        float: none;      margin: 0 auto !important;      text-align: center;      position: relative;
+                        top: 10px;
+                    }
+                    .oculto{
+                        display: none;
+                    }
+                </style>
+                <div class="container-fluid">
+                    <div class="row" id='rowgame' >
+                        <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs content-game " id="">
+                            <div class="container-fluid hori">
+                                <div class="row" id='rowgame' >
+                                    <div class="vert">
+                                        <a href="./poker#" class="btn btn-default" id="exitgame"></a>
+                                    </div>
+                                    <div class="vert " id='player1' ondblclick="seeplayer('#player1', 0);">
+                                        <h3 class="nameusr" id='player1name'>Disponible</h3>
+                                        <div class="fichsit">
+                                            <img src="" alt="Player 1" id='player1imageprofile' class="profile-mesa">
+                                        </div>
+                                        <p class="apostonline " id='player1apos'>Bs. 20</p>
+                                        <p class="timeturn " id='player1time'>99</p>
+                                    </div>
+                                    <div class="vert">
+                                        <div class="diler men"></div>
+                                    </div>
+                                    <div class="vert" id='player2' ondblclick="seeplayer('#player2', 1);">
+                                        <h3 class="nameusr right" id='player2name'>Disponible</h3>
+                                        <div class="fichsit right">
+                                            <img src="" alt="Player 2" id='player2imageprofile' class="profile-mesa right">
+                                        </div>
+                                        <p class="apostonline right " id='player2apos'>Bs. 20</p>
+                                        <p class="timeturn right " id='player2time'>99</p>
+                                    </div>
+                                    <div class="vert">
+                                        <!--<a href="./poker#" class="btn btn-default" id="exitgame">Abandonar Sala</a>-->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid hori">
+                                <div class="row" id='rowgame' >
+                                    <div class="vert">
+                                        <!--<a href="./poker#" class="btn btn-default" id="exitgame">Abandonar Sala</a>-->
+                                    </div>
+                                    <div class="vert">
+                                        <div class="tabcard oculto mesaplayer1">
+                                            <div class="card">
+                                                <div class="img player1carta1"></div>
+                                                <div class="img player1carta2"></div>
+                                            </div>
+                                            <div class="fichapuest">
+                                                <img src="./imagen/poker/ficha-5.png" alt="montapuest">
+                                                <p class="montapuest">Bs. 200</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vert">
+                                        <div class="fichas">
+                                            <img src="./imagen/poker/fichas-enteras.png" alt="Fichas">
+                                        </div>
+                                        <!--<a href="./poker#" class="btn btn-default" id="exitgame">Abandonar Sala</a>-->
+                                    </div>
+                                    <div class="vert">
+                                        <div class="tabcard oculto mesaplayer2">
+                                            <div class="card right">
+                                                <div class="img player2carta1 right"></div>
+                                                <div class="img player2carta2 right"></div>
+                                                <!--<img src="./imagen/poker/naipe.png" alt="carta1" class="carta1 player2carta1">-->
+                                                <!--<img src="./imagen/poker/naipe.png" alt="carta2" class="carta2 player2carta2">-->
+                                            </div>
+                                            <div class="fichapuest right">
+                                                <img src="./imagen/poker/ficha-5.png" alt="montapuest" class="right">
+                                                <p class="montapuest right">Bs. 200</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vert">
+                                        <!--<a href="./poker#" class="btn btn-default" id="exitgame">Abandonar Sala</a>-->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid hori">
+                                <div class="row" id='rowgame' >
+                                    <div class="vert " id='player7' ondblclick="seeplayer('#player7', 6);" style="width: 10%">
+                                        <h3 class="nameusr" id='player7name'>Disponible</h3>
+                                        <div class="fichsit">
+                                            <img src="" alt="Player 7" id='player7imageprofile' class="profile-mesa">
+                                        </div>
+                                        <p class="apostonline " id='player7apos'>Bs. 20</p>
+                                        <p class="timeturn " id='player7time'>99</p>
+                                    </div>
+                                    <div class="vert" style="width: 15%">
+                                        <div class="tabcard oculto mesaplayer7">
+                                            <div class="card">
+                                                <div class="img player7carta1"></div>
+                                                <div class="img player7carta2"></div>
+                                            </div>
+                                            <div class="fichapuest">
+                                                <img src="./imagen/poker/ficha-5.png" alt="montapuest">
+                                                <p class="montapuest">Bs. 200</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vert" style="width: 50%; padding-top: 2%">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id='mesa'>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 pos one">
+                                                <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 pos two">
+                                                <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 pos three">
+                                                <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 pos four">
+                                                <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 pos five">
+                                                <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
+                                            </div>
+                                            <div class="col-lg-2 col-md-2 col-sm-2 puest">
+                                                <img src="./imagen/poker/ficha-5.png" alt="montapuest">
+                                                <p class="montapuest pote">Bs. 200</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vert" style="width: 15%">
+                                        <div class="tabcard oculto mesaplayer3">
+                                            <div class="card right">
+                                                <div class="img player3carta1 right"></div>
+                                                <div class="img player3carta2 right"></div>
+                                            </div>
+                                            <div class="fichapuest right">
+                                                <img src="./imagen/poker/ficha-5.png" alt="montapuest" class="right">
+                                                <p class="montapuest right">Bs. 200</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vert" id='player3' ondblclick="seeplayer('#player3', 2);" style="width: 10%">
+                                        <h3 class="nameusr right" id='player3name'>Disponible</h3>
+                                        <div class="fichsit right">
+                                            <img id='player3imageprofile' src="" alt="Player3" class="profile-mesa right">
+                                        </div>
+                                        <p class="apostonline right " id='player3apos'>Bs. 20</p>
+                                        <p class="timeturn right " id='player3time'>99</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container-fluid hori">
+                                <div class="row" id='rowgame' >
+                                    <div class="vert">
+                                        <!--<a href="./poker#" class="btn btn-default" id="exitgame">Abandonar Sala</a>-->
+                                    </div>
+                                    <div class="vert">
+                                        <div class="tabcard oculto mesaplayer6" style="padding-top: 20%">
+                                            <div class="card">
+                                                <div class="img player6carta1"></div>
+                                                <div class="img player6carta2"></div>
+                                            </div>
+                                            <div class="fichapuest">
+                                                <img src="./imagen/poker/ficha-5.png" alt="montapuest">
+                                                <p class="montapuest">Bs. 200</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vert c">
+                                        <div class="tabcard c  mesaplayer5">
+                                            <div class="card c">
+                                                <div class="imgc">
+                                                    <div class="img player5carta1"></div>
+                                                    <div class="img player5carta2"></div>
+                                                </div>
+                                            </div>
+                                            <div class="fichapuest c">
+                                                <img src="./imagen/poker/ficha-5.png" alt="montapuest">
+                                                <p class="montapuest">Bs. 200</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vert">
+                                        <div class="tabcard oculto mesaplayer4" style="padding-top: 20%">
+                                            <div class="card right">
+                                                <div class="img player4carta1 right"></div>
+                                                <div class="img player4carta2 right"></div>
+                                            </div>
+                                            <div class="fichapuest right">
+                                                <img src="./imagen/poker/ficha-5.png" alt="montapuest" class="right">
+                                                <p class="montapuest right">Bs. 200</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vert">
+                                        <!--<a href="./poker#" class="btn btn-default" id="exitgame">Abandonar Sala</a>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid hori">
+                                <div class="row" id='rowgame' >
+                                    <div class="vert">
+
+                                    </div>
+                                    <div class="vert " id='player6' ondblclick="seeplayer('#player6', 5);">
+                                        <h3 class="nameusr" id='player5name'>Disponible</h3>
+                                        <div class="fichsit">
+                                            <img src="" alt="Player 6" id='player6imageprofile' class="profile-mesa">
+                                        </div>
+                                        <p class="apostonline " id='player6apos'>Bs. 20</p>
+                                        <p class="timeturn " id='player6time'>99</p>
+                                    </div>
+                                    <div class="vert c" id='player5' ondblclick="seeplayer('#player5', 4);">
+                                        <h3 class="nameusr" id='player5name'>Disponible</h3>
+                                        <div class="fichsit c">
+                                            <img src="" alt="Player 5" id='player5imageprofile' class="profile-mesa">
+                                        </div>
+                                        <p class="apostonline " id='player5apos'>Bs. 20</p>
+                                        <p class="timeturn " id='player5time'>99</p>
+                                    </div>
+                                    <div class="vert" id='player4' ondblclick="seeplayer('#player4', 3);">
+                                        <h3 class="nameusr right" id='player4name'>Disponible</h3>
+                                        <div class="fichsit right">
+                                            <img id='player4imageprofile' src="" alt="Player 4" class="profile-mesa right">
+                                        </div>
+                                        <p class="apostonline right " id='player4apos'>Bs. 20</p>
+                                        <p class="timeturn right " id='player4time'>99</p>
+                                    </div>
+                                    <div class="vert">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
         <div class="col-lg-3 col-md-2 col-sm-2 hidden-xs sidebar-game">
@@ -277,28 +711,29 @@
             </div>
             <div class="content-option-user" id="playeroption" style="display: none;">
                 <h3>Opciones del Jugador</h3>
-                <p class="saldo"> $ 000</p>>
+                <p class="saldo apost-resume"> $ 000</p>
+                <input type="number" class="input-group" id="apost-toal" style="float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
                 <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
                 <div class="option-user">
                     <div class="container-fluid sin-padding">
                         <div class="row sin-padding">
-                            <div class="col-lg-7 col-md-7 col-sm-7 ">
+                            <div class="col-lg-7 col-md-7 col-sm-7 izq">
                                 <input type="submit" class="btn btn-default " id="apost" value="Apostar">
                                 <input type="submit" class="btn btn-default " id="past" value="Pasar">
                                 <input type="submit" class="btn btn-default " id="leave" value="Retirarse">
                             </div>
-                            <div class="col-lg-3 col-md-3 col-sm-3 sin-padding">
+                            <div class="col-lg-4 col-md-4 col-sm-4 sin-padding der">
                                 <div class="btn btn-default" id="apost-bote">
                                     BOTE
                                 </div>
                                 <div class="btn btn-default" id="apost-bote-mid">
-                                    mitad de bite
+                                    1/2 BOTE
                                 </div>
                                 <div class="btn btn-default" id="apost-all">
                                     todo
                                 </div>
                                 <div class="btn btn-default">
-                                    <input type="text" class="input" id="apost-mont">
+                                    <input type="text" class="input" id="apost-mont" placeholder="OTRO" onkeypress="return justNumbers(event);">
                                 </div>
                             </div>
                         </div>
@@ -308,7 +743,7 @@
             <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
             <h3>Chat del Jugador <span class="fa fa-weixin"></span></h3>
             <div class="content-chat" id="globalchat">
-                <div class="message">
+<!--                <div class="message">
                     <p><span class="name"> Jugador : </span> Hola que tal</p>
                 </div>
                 <div class="message">
@@ -319,7 +754,7 @@
                 </div>
                 <div class="message">
                     <p><span class="name responder"> Jugador : </span> You asked, Font Awesome delivers with 40 shiny new icons in version 4.3. Want to request new icons? Here's how. Need vectors or want to use on the desktop? Check the cheatsheet.</p>
-                </div>
+                </div>-->
 
             </div>
             <div class="text-message">

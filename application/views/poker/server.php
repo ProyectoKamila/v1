@@ -2,7 +2,7 @@
 <title>Poker</title>
 </head>
 <body>
-    <?php $this->load->view('poker/serveradd') ?>
+    <?php $this->load->view('poker/serveradd'); ?>
 
 
     <style>.sin-pading{padding-left: 0px;padding-right: 0px;}.imagenprofile {
@@ -21,8 +21,10 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script>
+
     var socket;
 //                        guarda el idde la silla
+    var pote;
     var idsit;
     var enespera;
     var sitenespera;
@@ -173,6 +175,11 @@
         '#FBFAEF',
         '#EFF2FC'
     ];
+    Number.prototype.format = function(n, x, s, c) {
+        var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+                num = this.toFixed(Math.max(0, ~~n));
+        return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+    };
     $(document).ready(function() {
         'use strict';
         //si le dan click a reconectar
@@ -228,15 +235,22 @@
             }
         });
         //boton para acceder al juego
+        $('#apost-mont').keyup(function() {
+            $('#apost-toal').val($('#apost-mont').val());
+            apostresume()
+        });
+
         $('#exitgame').click(function() {
             var intro = {
                 type: 'exitgame'
             }
+            $('.mesaplayer' + (idsit + 1)).addClass('oculto');
             socket.send(JSON.stringify(intro));
             $('#rowgame').slideUp();
             $('#sales').removeClass('sales-close');
             $('#playerdata').slideDown();
             $('#playeroption').slideUp();
+            $('.pote').html('0');
         });
         $('#newcomentglobal').keypress(function(e) {
             if (e.which == 13) {
@@ -273,7 +287,7 @@
         $('#apost').click(function() {
             var intro = {
                 type: 'apost',
-                montapost: $('#montapost').val()
+                montapost: $('#apost-toal').val()
             }
             socket.send(JSON.stringify(intro));
         });
@@ -287,15 +301,23 @@
 
         connetserver();
     });
+    function justNumbers(e) {
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+            return true;
+        return /\d/.test(String.fromCharCode(keynum));
+    }
+    function apostresume() {
+        $('.apost-resume').html('Bs. ' + parseFloat($('#apost-toal').val()).format(2, 3, '.', ','));
+    }
     function connetserver() {
-        //muestra el tiempo de espera al servidor revisar la funcion para que cargue si no hay conexion
-        // show_timer();
+        //muestra el tiempo de espera al servidor revisar la funcion para que cargue si no hay conexion         // show_timer();
         //abrir la conexion
         open_connection();
     }
 
     function open_connection() {
-//        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
+        //        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
         socket = new WebSocket('ws://localhost:8806/', 'server');
         socket.addEventListener("open", connection_established);
     }
@@ -344,7 +366,7 @@
         //                accede al juego para elegir una silla
         else if (message.type === 'joinsale') {
             console.log('aqui');
-//             $('#chat-container').fadeIn();
+            //             $('#chat-container').fadeIn();
 //            $('#loading-message').hide();
             var newvar = {};
             newvar = new Object();
@@ -355,12 +377,12 @@
             var array = $.map(myObj, function(value, index) {
                 return [value];
             });
-//                                }
-//                                else{
-//                                    var array = [];
-//                                }
+            //                                }
+            //                                else{
+            //                                    var array = [];
+            //                                }
             gameposition(array);
-//            $('#rowsales').slideUp();
+            //            $('#rowsales').slideUp();
             $('#rowgame').slideDown();
             // $('#chat-container').fadeIn();
             //$('#loading-message').hide();
@@ -384,21 +406,21 @@
             $(player).html(img);
         }
         else if (message.type === 'enespera') {
-            console.log('enespera');
+            console.log(message.messagesend);
             clearInterval(enespera);
-            var player1 = "#player" + pos[sitenespera] + 'time';
+            var player1 = "#player" + sitenespera + 'time';
             $(player1).html('');
-            sitenespera = message.messagesend;
+            sitenespera = message.messagesend+1;
             console.log(sitenespera);
-            var player = "#player" + pos[sitenespera] + 'time';
+            var player = "#player" + sitenespera + 'time';
             console.log(player);
             $(player).html('20');
-            if (idsit !== sitenespera) {
-//                console.log('if: ' + idsit)
+            if (idsit !== (sitenespera-1)) {
+                //                console.log('if: ' + idsit)
                 $('#playerdata').slideDown();
                 $('#playeroption').slideUp();
             } else {
-//                console.log('else: ' + idsit)
+                //                console.log('else: ' + idsit)
                 $('#playerdata').slideUp();
                 $('#playeroption').slideDown();
             }
@@ -408,23 +430,27 @@
         }
         else if (message.type === 'diler') {
             console.log('diler');
-            console.log(pos[message.messagesend]);
+            console.log(message.messagesend);
         }
         else if (message.type === 'ciegamin') {
             console.log('ciegamin');
-            console.log(pos[message.messagesend]);
+            console.log(message.messagesend);
         }
         else if (message.type === 'ciegamax') {
             console.log('ciegamax');
 
-            console.log(pos[message.messagesend]);
+            console.log(message);
+        }
+        else if (message.type === 'pote') {
+            pote = message.messagesend;
+            $('.pote').html(message.messagesend);
         }
         else if (message.type === 'numcoin') {
             $('#inputapos').attr('min', message.messagesend.apu_min);
             $('#inputapos').attr('max', message.messagesend.apu_max);
             $('#boxsitdown').slideDown();
         }
-//                            /si el password es falso
+        //                            /si el password es falso
         else if (message.type === 'passfalse') {
 
             $('#passloss').html(message.messagesend);
@@ -433,7 +459,6 @@
         }
         //                si ya esta conectado
         else if (message.type === 'readyconect') {
-
 
             $('#user-conect').slideDown();
             // $('#chat-container').fadeIn();
@@ -445,7 +470,7 @@
         }
         //para traer datos del usuarhio
         else if (message.type === 'comentglobal') {
-//            console.log(message.messagesend);
+            //            console.log(message.messagesend);
             var dt = message.messagesend;
             var yo = $('.sidebar-game .nameprofile').html();
             if (yo !== (dt.first_name + ' ' + dt.last_name)) {
@@ -465,10 +490,10 @@
             $('.profile img').attr('src', datos.imageprofile);
             $('.sidebar-game .saldo').html('$ ' + datos.coins);
             $('.sidebar-game .nameprofile').html(datos.first_name + ' ' + datos.last_name);
-//            $('.profile img').html('<img src="' + datos[0].imageprofile + '">');
+            //            $('.profile img').html('<img src="' + datos[0].imageprofile + '">');
             // $('#chat-container').fadeIn();
             //$('#loading-message').hide();
-//                                console.log(message.messagesend);
+            //                                console.log(message.messagesend);
             if (message.messagesend == 'aqui falso') {
                 var url = "./close";
                 $(location).attr("href", url);
@@ -483,7 +508,6 @@
             for (var i in nicklist) {
                 chatter_list_html += '<li>' + nicklist[i] + '</li>';
             }
-
             chatter_list_html = '<ul>' + chatter_list_html + '</ul>';
             $('#chatter-list').html(chatter_list_html);
         } else if (message.type === 'activity_typing' && parseInt(message.sender) !== parseInt(myId)) {
@@ -498,7 +522,9 @@
     }
 
     function myTimer() {
-        var player1 = "#player" + pos[sitenespera] + 'time';
+//        console.log(pos[sitenespera]);
+//        console.log(sitenespera);
+        var player1 = "#player" + sitenespera + 'time';
         var time = parseInt($(player1).html()) - 1;
         if (time < 0) {
             clearInterval(enespera);
@@ -518,7 +544,6 @@
         $('#connection-lost-message').slideUp();
         $('#user-conect').slideUp();
     }
-
     //muestra el tiempo de espera al servidor
     function show_timer() {
         if (connected == false) {
@@ -549,7 +574,7 @@
         $('.create-salas').slideUp();
 
         idsale = id;
-//       idsit=undefined;
+        //       idsit=undefined;
         if (pass == 1) {
             $('#boxpass').slideDown();
         }
@@ -570,10 +595,9 @@
     //construye la tabla
 
     function gameposition(arraycon) {
-        var con = 0;
-//                            if (arraycon.length !== undefined) {
-//                                con = arraycon.length;
-//                            }
+        var con = 0; //                            if (arraycon.length !== undefined) {
+        //                                con = arraycon.length;
+        //                            }
         con = arraycon.length;
         for (i = 0; i < con && i < 7; i++) {
             if (arraycon[i].name == undefined) {
@@ -595,6 +619,7 @@
         var cartas = elem + 'cartas';
         var cartasplay = elem + 'cartasplay';
         var cartasplay2 = elem + 'cartasplay2';
+        var mesaplayer = '.mesaplayer' + i;
         if (disponible == undefined) {
 
             $(elem).addClass('disponible');
@@ -606,9 +631,10 @@
             $(cartas).slideUp();
             $(cartasplay).slideUp();
             $(cartasplay2).slideUp();
+            $(mesaplayer).addClass('oculto');
         }
         else {
-//            console.log(arraycon.imageprofile);
+            //            console.log(arraycon.imageprofile);
             $(elem).removeClass('disponible');
             $(name).html(arraycon.name);
             $(coin).html(arraycon.coin);
@@ -618,13 +644,14 @@
             $(cartas).slideDown();
             $(cartasplay).slideUp();
             $(cartasplay2).slideUp();
+            $(mesaplayer).removeClass('oculto');
         }
     }
     function refresh() {
         socket.close();
         $('#buttonreconect').click();
     }
-//    function para ver el perfil del usuario o para sentarse en el puesto
+    //    function para ver el perfil del usuario o para sentarse en el puesto
     function seeplayer(player, idsit2) {
         $('#torbo').slideDown();
         idsit = idsit2;

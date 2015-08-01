@@ -61,7 +61,7 @@
             var connected = false;
             var connection_retry_timer;
             //var server_url = 'ws://162.252.57.97:8808/';
-          var server_url = 'ws://localhost:8808/';
+          //var server_url = 'ws://localhost:8808/';
             var token = "<?php
         if (isset($_COOKIE['token'])) {
             echo $_COOKIE['token'];
@@ -183,7 +183,7 @@
 
             function open_connection() {
 
-             socket = new WebSocket('ws://localhost:8808/', 'server');
+             socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
 
             //    socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
 
@@ -443,8 +443,9 @@
 
 <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
                         <label id="total_jg" style="display: none;"></label>
-                        <button type="button" class="btn btn-default"  id="jg-button">Jugar</button>
-
+                        <button type="button" class="btn btn-default"  id="jg-button">Jugar 5 x 20</button>
+                        <button type="button" class="btn btn-default"  id="jg-button2">Jugar 10 x 10</button>
+                        <button type="button" class="btn btn-default"  id="jg-button3">Jugar 20 x 5</button>
                       
                     </div>
                     <div class="modal-footer">
