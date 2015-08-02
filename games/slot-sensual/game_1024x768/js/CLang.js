@@ -1,0 +1,12 @@
+TEXT_GAMEOVER  = "FIN DEL JUEGO";
+TEXT_CONGRATS  = "FELICITACIONES";
+TEXT_MONEY     = "Fichas";
+TEXT_PLAY      = "Jugar";
+TEXT_BET       = "";
+TEXT_COIN      = "FICHA";
+TEXT_MAX_BET   = "AP. MAXIMA";
+TEXT_INFO      = "INFO";
+TEXT_LINES     = "LINEAS";
+TEXT_SPIN      = "GIRAR";
+TEXT_WIN       = "GANO";
+TEXT_HELP_WILD = "";

@@ -1,4 +1,4 @@
-function CBetBut(iXPos,iYPos,oSprite){
+function CBetBut(iXPos,iYPos,oSprite){ //botón de apuestas
     var _bDisable;
     var _aCbCompleted;
     var _aCbOwner;

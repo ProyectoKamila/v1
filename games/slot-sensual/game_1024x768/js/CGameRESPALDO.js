@@ -105,14 +105,14 @@ function CGame(oData){
         }
     };
     
-    this.generateFinalSymbols = function(){
+    this.generateFinalSymbols = function(){ //symbolos finales, a modificar
         _aFinalSymbolCombo = new Array();
         for(var i=0;i<NUM_ROWS;i++){
             _aFinalSymbolCombo[i] = new Array();
             for(var j=0;j<NUM_REELS;j++){
                 var iRandIndex = Math.floor(Math.random()* s_aRandSymbols.length);
                 var iRandSymbol = s_aRandSymbols[iRandIndex];
-                _aFinalSymbolCombo[i][j] = iRandSymbol;
+                _aFinalSymbolCombo[i][j] = 4;//iRandSymbol;
             }
         }
         
