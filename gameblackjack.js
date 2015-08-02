@@ -234,6 +234,13 @@
 
 
                 }
+                 else if (msgObj.type === 'attachdealtonode') {
+                
+                attachCardToDealNode(msgObj);
+
+
+
+                }
 
 
                 else if (msgObj.type === 'intro') {
@@ -518,12 +525,12 @@
 
 function dealingnode(objeto){
 
-    var _iCardIndexToDeal= objeto._iCardIndexToDeal;
-    var          _aCurActiveCardOffset= objeto._aCurActiveCardOffset;
-    var        _iCardDealedToDealer= objeto._iCardDealedToDealer;
-    var       _iCardDealedToPlayer= objeto._iCardDealedToPlayer;
-    var     _iNextCardForDealer= objeto._iNextCardForDealer;
-    var   _iNextCardForPlayer= objeto._iNextCardForPlayer;
+    var  _iCardIndexToDeal= objeto._iCardIndexToDeal;
+    var  _aCurActiveCardOffset= objeto._aCurActiveCardOffset;
+    connection._iCardDealedToDealer= parseFloat(objeto._iCardDealedToDealer);
+     connection._iCardDealedToPlayer= parseFloat(objeto._iCardDealedToPlayer);
+    var  _iNextCardForDealer= objeto._iNextCardForDealer;
+    var  _iNextCardForPlayer= objeto._iNextCardForPlayer;
 
 
 
@@ -535,7 +542,7 @@ function dealingnode(objeto){
 
                 //THIS CARD IS FOR THE DEALER
                 if((_iCardIndexToDeal%_aCurActiveCardOffset) === 1){
-                    _iCardDealedToDealer++;
+                    connection._iCardDealedToDealer = connection._iCardDealedToDealer +1;
                    // pEndingPoint=new CVector2(_oDealerCardOffset.getX()+(CARD_WIDTH+2)*(_iCardIndexToDeal > 1?1:0),_oDealerCardOffset.getY());
 
                    
@@ -569,16 +576,22 @@ function dealingnode(objeto){
                    // oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
                }*/
            }else{
-            _iCardDealedToPlayer++;
-         
-            while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])!==11) {
+            connection._iCardDealedToPlayer = parseFloat(connection._iCardDealedToPlayer) + 1;
+          var r=0;
+           do {
 
              connection.f = connection.f + 1; 
 
+             if (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])==11){
+                connection.aces++;
+             }
 
-             connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
 
-         }                  
+             connection.sumaCartasPlayer= parseFloat(connection.sumaCartasPlayer) + connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
+             console.log(connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
+      r++;
+         }     
+          while (!_checkHandNodePlayer(connection._iCardDealedToPlayer,connection.sumaCartasPlayer) &&  r==10);           
               /* oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[_iNextCardForPlayer + f],
                 s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]),
                 false,_oSeat.newCardDealed());*/
@@ -619,7 +632,211 @@ function dealingnode(objeto){
   }
 
 //////////////////////////////////////////////////////////////////funcion dealing fin
+//////////////////////////////////////////////////////////////////funcion attachcardtodeal inicio
 
+function attachCardToDealNode(objeto){
+var retornar={
+bDealer: objeto.bDealer,
+iCardCount: objeto.iCardCount
+   }
+    connection._iNextCardForDealer= objeto._iNextCardForDealer;
+    connection._iNextCardForPlayer= objeto._iNextCardForPlayer;
+
+
+   // var oCard = new CCard(_oStartingCardOffset.getX(),_oStartingCardOffset.getY(),_oCardContainer);
+
+    if(objeto.bDealer){
+        /*oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[_iNextCardForDealer],
+            s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer]),bDealer,iCardCount);*/
+        connection.carta = _iNextCardForDealer + connection.e;
+        console.log(connection._aCardsInCurHandForDealer[connection.carta] + ' carta dealer');
+        connection._iNextCardForDealer++;
+    }else{
+        /*oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForPlayer[_iNextCardForPlayer],
+            s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer]),bDealer,iCardCount);*/
+        connection.carta = _iNextCardForPlayer + connection.f;
+        console.log(connection._aCardsInCurHandForPlayer[connection.carta] + ' carta player');
+        connection._iNextCardForPlayer++;
+    }
+    retornar.carta= connection.carta;
+
+    console.log(retornar.pStartingPointx + ' '+ retornar.pStartingPointy + ' carta dealer');
+    sendcard(connection, 'attachdealreturn', retornar);
+    //oCard.addEventListener(ON_CARD_ANIMATION_ENDING,this.cardFromDealerArrived);
+
+    //_aCardsDealing.push(oCard);
+
+    /*if(DISABLE_SOUND_MOBILE === false || s_bMobile === false){
+        createjs.Sound.play("card");
+    }*/
+}
+
+//////////////////////////////////////////////////////////////////funcion attachcardtodeal fin
+////////////////////////////////////////////////////////////////// funcion checkhand
+ function _checkHandNodePlayer(carddealedsum,sumcartpl){
+
+    //primero hacer el if para chequear el bote
+ console.log(' llama a _checkHandNodePlayer');
+ console.log('sumacart'+sumcartpl);
+    if((sumcartpl>21 || sumcartpl<17) && carddealedsum>1){
+    if(connection.aces>0 && carddealedsum>1){
+        removeAcePlayer();
+
+        console.log(' false ' + sumcartpl);
+        return false;
+        
+    }else{
+        console.log(' true a ' + sumcartpl);
+        return false;
+        
+    }
+
+    }else{
+        console.log(' true b ' + sumcartpl);
+        return false;
+        
+    }
+    
+ }
+   /* function _checkHandNode(){// chequea la mano luego de repartir las 2 primeras cartas
+        var i;
+
+        if(_bPlayerTurn){
+            _oSeat.checkHand();
+        }else{
+            _oInterface.refreshDealerCardValue(_iDealerValueCard);
+            if(_iDealerValueCard === 21){
+                if(_iInsuranceBet > 0 && _aDealerCards.length === 2){
+                    _oSeat.increaseCredit((_iInsuranceBet*2));
+                    _oInterface.refreshCredit(_oSeat.getCredit());
+                }
+
+
+                for(i=0;i<_oSeat.getNumHands();i++){
+                   if(_oSeat.getHandValue(i) === 21){
+                      if(_aDealerCards.length === 2 && _oSeat.getNumCardsForHand(i) === 2){
+                            //STANDOFF
+                            this.playerStandOff(i);
+                        }else if(_aDealerCards.length > 2 && _oSeat.getNumCardsForHand(i) === 2){
+                            //PLAYER WINS
+                            this._playerWin(i);
+                        }else if(_aDealerCards.length === 2 && _oSeat.getNumCardsForHand(i) > 2){
+                            //PLAYER LOSES
+                            this._playerLose(i);
+                        }else{
+                            //STANDOFF
+                            this.playerStandOff(i);
+                        }
+                    }else{
+                        this._playerLose(i);
+                    }
+                }
+
+            }else if(_iDealerValueCard>21){
+                if(_iAcesForDealer>0){
+                    _iAcesForDealer--;
+                    _iDealerValueCard -= 10;
+                    _oInterface.refreshDealerCardValue(_iDealerValueCard);
+                    if(_iDealerValueCard<17){
+                        this.hitDealer();
+                    }else{
+                        this._checkWinner();
+                    }
+                }else{
+                    this._checkWinner();
+                }
+            }else if(_iDealerValueCard<17){
+                this.hitDealer();
+            }else{
+                this._checkWinner();
+            }
+        }
+    };
+
+    this.checkHandOseat = function(){
+        var iHandValue=_aHands[_iCurHand].getValue();
+
+        //PLAYER MADE BLACK JACK
+        //console.log(iHandValue+'hand value');
+        if(iHandValue === 21){
+                this.checkPlayerLastHand(PASS_TURN);
+        }else if(iHandValue>21){
+            if(_aHands[_iCurHand].getAces()>0){
+                _aHands[_iCurHand].removeAce();
+
+                if(_aHands[_iCurHand].getValue() === 21){
+                        this.checkPlayerLastHand(PASS_TURN);
+                }else if(_bDoubleActive){
+                        this.checkPlayerLastHand(PASS_TURN);
+                }else{
+                        
+                    if(_aCbCompleted[RESTORE_ACTION]){
+                        _aCbCompleted[RESTORE_ACTION].call(_aCbOwner[RESTORE_ACTION],false,true,true,false,false);
+                    }
+                }
+            }else{
+                if(_aHands.length>1 || _bInsuranceActive){
+                        this.checkPlayerLastHand(PASS_TURN);
+                }else{
+                        this.checkPlayerLastHand(PLAYER_LOSE);
+                }
+            }
+        }else{
+            if(_bDoubleActive){
+                    this.checkPlayerLastHand(PASS_TURN);
+            }else{
+
+                var bActivateDouble=false;
+                if(_aHands[_iCurHand].getNumCards() === 2 && iHandValue>8 && iHandValue<16){
+                        bActivateDouble=true;
+                }else if(this.getAces()>0){ //IF PLAYER HAVE ACE IN FIRST DEAL
+                    if(iHandValue>21){
+                        iHandValue-=10;
+                        this.removeAce();
+                        if((iHandValue>8) && (iHandValue<16)){
+                                bActivateDouble=true;
+                        }
+
+                    }else{
+                        var iTmpValue=iHandValue-10;
+                        if(iTmpValue>8 && iTmpValue<16){
+                                bActivateDouble=true;
+                        }
+                    }
+                }
+
+                if(_aCbCompleted[RESTORE_ACTION]){
+                    _aCbCompleted[RESTORE_ACTION].call(_aCbOwner[RESTORE_ACTION],false,true,true,bActivateDouble,false);
+                }
+            }
+        }
+      //  console.log(_aHands[_iCurHand].getValue() + ' iHandValue');
+    };
+
+    this._checkWinner = function(){   //funcio a pasar a node
+        for(var i=0;i<_oSeat.getNumHands();i++){
+            if(_oSeat.getHandValue(i)>21){
+                this._playerLose(i);
+            }else if(_iDealerValueCard>21){
+                this._playerWin(i);
+            }else if(_oSeat.getHandValue(i)<22 && _oSeat.getHandValue(i)>_iDealerValueCard){
+                this._playerWin(i);
+            }else if(_oSeat.getHandValue(i) === _iDealerValueCard){
+                this.playerStandOff(i);
+            }else{
+                this._playerLose(i);
+            }
+        }
+    };*/
+    function removeAcePlayer(){
+
+        connection.sumaCartasPlayer -= 10;
+        connection._iNumAces--;
+        console.log(connection.sumaCartasPlayer +  '  remover as');
+       // _checkHandNodePlayer();
+    }
+
+    /////////////////////////////////////////////////////// funcion checkhand fin
 
 
 
@@ -633,8 +850,8 @@ function pruebaserver(objeto){
     var  _iTimeElaps = objeto._iTimeElapsEnviar ;
     var  _iCardIndexToDeal = objeto._iCardIndexToDealEnviar ;
     var  _iDealerValueCard = objeto._iDealerValueCardEnviar ;
-    var  _iCardDealedToDealer = objeto._iCardDealedToDealerEnviar ;
-    var  _iCardDealedToPlayer = objeto._iCardDealedToPlayerEnviar ;
+        connection._iCardDealedToDealer = 0 ;
+        connection._iCardDealedToPlayer = 0 ;
     var  _iAcesForDealer = objeto._iAcesForDealerEnviar ;
     var  _iCurFichesToWait = objeto._iCurFichesToWaitEnviar ;
    // var  _oSeat = objeto._oSeatEnviar ;
@@ -646,8 +863,11 @@ function pruebaserver(objeto){
    var  ncardd = objeto.ncarddEnviar ;
    var  ncardp = objeto.ncardpEnviar ;
    var  _aCardDeck = objeto._aCardDeckEnviar ;
-     connection._aCardsInCurHandForPlayer = objeto._aCardsInCurHandForPlayerEnviar ;
+    connection._aCardsInCurHandForPlayer = objeto._aCardsInCurHandForPlayerEnviar ;
     connection._aCardsInCurHandForDealer = objeto._aCardsInCurHandForDealerEnviar ;
+    connection.sumaCartasDealer=0;
+    connection.sumaCartasPlayer=0;
+    connection._iNumAces=0;
     //var s_oGameSettings=  objeto.s_oGameSettingsEnviar;
     var s_oGameSettings=new CGameSettings();
 
@@ -659,8 +879,8 @@ function pruebaserver(objeto){
     console.log( _iTimeElaps+  ' _iTimeElaps');
     console.log( _iCardIndexToDeal+  ' _iCardIndexToDeal');
     console.log( _iDealerValueCard+  ' _iDealerValueCard');
-    console.log( _iCardDealedToDealer+  ' _iCardDealedToDealer');
-    console.log( _iCardDealedToPlayer+  ' _iCardDealedToPlayer');
+    console.log( connection._iCardDealedToDealer+  ' _iCardDealedToDealer');
+    console.log( connection._iCardDealedToPlayer+  ' _iCardDealedToPlayer');
     console.log( _iAcesForDealer+  ' _iAcesForDealer');
     console.log( _iCurFichesToWait+  ' _iCurFichesToWait');
    // console.log( _oSeat+  ' _oSeat');
@@ -687,7 +907,7 @@ function pruebaserver(objeto){
                     acarddealer.push(s_oGameSettings.getCardValue(_aCardDeck[k])); // aca gaurdo del valor de la carta
                 }
             }
-            console.log(connection._aCardsInCurHandForPlayer + "mazo player");
+            console.log(connection._aCardsInCurHandForDealer + "mazo player");
             console.log(acardplayer + "mazo vAlortes player");
             console.log('+++++++++++++++++++++++++++++++++');
             console.log(connection._aCardsInCurHandForPlayer + "mazo dealer");
@@ -741,26 +961,7 @@ function pruebaserver(objeto){
         }));
       }
 
-       function sendcarddealer(usersend, type, forsend) {
-          // console.log('forsend ' + forsend);
-          usersend.send(JSON.stringify({
-            type: type,
-            userId: connection.id,
-            messagesend: forsend,
-            clients: clients
-
-        }));
-      }
-      function sendcardplayer(usersend, type, forsend) {
-          // console.log('forsend ' + forsend);
-          usersend.send(JSON.stringify({
-            type: type,
-            userId: connection.id,
-            messagesend: forsend,
-            clients: clients
-
-        }));
-      }
+      
 
 
       function update_jackpot(jack,debito){
