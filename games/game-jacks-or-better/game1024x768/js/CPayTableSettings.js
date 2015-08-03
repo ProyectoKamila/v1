@@ -11,6 +11,7 @@ function CPayTableSettings(){
                 _aWins[i][j] = COMBO_PRIZES[j] * (i+1);
             }
         }
+        
     };
     
     this.getWin = function(iBet,iCombo){

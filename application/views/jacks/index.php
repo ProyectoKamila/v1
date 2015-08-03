@@ -49,7 +49,7 @@
                     var socket;
                     var protocol_identifier = 'server';
                     var myId;
-                    var idgame=11; //aqui debe llevarse el nombre del juego que selecciono
+                    var idgame=31; //aqui debe llevarse el nombre del juego que selecciono
                     var nicklist;
                     var is_typing_indicator;
                     var window_has_focus = true;
@@ -57,7 +57,7 @@
                     var flash_title_timer;
                     var connected = false;
                     var connection_retry_timer;
-                    //var server_url = 'ws://162.252.57.97:8811';
+                    var server_url = 'ws://162.252.57.97:8811';
                     var token = "<?php
                          if (isset($_COOKIE['token'])) {
                             echo $_COOKIE['token'];
@@ -139,7 +139,7 @@
                 function open_connection() {
 
                    //   socket = new WebSocket('ws://162.252.57.97:8808/', 'server');
-                    socket = new WebSocket('ws://casino4as-krondon.c9.io:8084/', 'server');
+                    socket = new WebSocket('ws://localhost:8811/', 'server');
 
 
                     socket.addEventListener("open", connection_established);
@@ -244,13 +244,11 @@
 
                 }
            
-                prueba = function(enviar){
+                dealcards_node = function(e){
                 //public function prueba(){
-                    enviar.type='prueba';
-
+                    e.type='dealcards';
                     //alert(enviar.type);
-
-                    socket.send(JSON.stringify(enviar));
+                    socket.send(JSON.stringify(e));
                 }
                 function totalcoins(){
 
@@ -320,4 +318,5 @@
 <?php $this->load->view('page/footer'); ?>
     
     </body>
+
 </html>

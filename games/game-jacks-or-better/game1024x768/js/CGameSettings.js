@@ -16,9 +16,11 @@ function CGameSettings(){
             }else if(iRest === 0){
                 iRest = 13;
             }
+             //console.log('acardekPush'+ 'fotogram:'+j +'rank:'+iRest+ 'suit:'+iSuit);
             _aCardDeck.push({fotogram:j,rank:iRest,suit:iSuit});
         }
         
+
     };
 	
     this.timeToString = function( iMillisec ){		
@@ -54,8 +56,7 @@ function CGameSettings(){
         _aShuffledCardDecks = new Array();
         while (aTmpDeck.length > 0) {
                 _aShuffledCardDecks.push(aTmpDeck.splice(Math.round(Math.random() * (aTmpDeck.length - 1)), 1)[0]);
-        }
-        
+        }        
         return _aShuffledCardDecks;	
     };
 		

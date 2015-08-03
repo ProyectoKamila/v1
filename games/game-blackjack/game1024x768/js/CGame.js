@@ -198,11 +198,11 @@ function CGame(oData){
 
     this.pruebacgame = function(winline){
 _aCardsInCurHandForPlayer=winline;
-console.log(_aCardsInCurHandForPlayer + "mazo player");
+//console.log(_aCardsInCurHandForPlayer + "mazo player");
 };
   this.pruebacgame2 = function(finalc){
 _aCardsInCurHandForDealer=finalc;
-console.log(_aCardsInCurHandForDealer + "mazo dealer");
+//console.log(_aCardsInCurHandForDealer + "mazo dealer");
 };
 
 this.changeState = function(iState){
@@ -220,7 +220,44 @@ this.changeState = function(iState){
 
 
 
-this.attachCardToDeal = function(pStartingPoint,pEndingPoint,bDealer,iCardCount){
+this.attachCardToDeal = function(bDealer,iCardCount){
+   var enviar={
+   // pStartingPoint: pStartingPoint,
+//pEndingPoint: pEndingPoint,
+bDealer: bDealer,
+iCardCount: iCardCount,
+ _iNextCardForDealer: _iNextCardForDealer,
+    _iNextCardForPlayer: _iNextCardForPlayer
+   }
+   attachdealtonode(enviar);
+};
+
+this.attachCardToDealR = function(objeto){
+//error devolviendo las variables objetos...
+//var     pStartingPoint= objeto.pStartingPoint;
+//var     pEndingPoint=   objeto.pEndingPoint;
+var     bDealer=        objeto.bDealer;
+var     iCardCount=     objeto.iCardCount;
+var   _iNextCardForDealer = objeto.carta;
+var  _iNextCardForPlayer = objeto.carta;
+
+if(bDealer){
+  var pStartingPoint=new CVector2(_oStartingCardOffset.getX(),_oStartingCardOffset.getY());
+  var pEndingPoint=new CVector2(_oDealerCardOffset.getX()+((CARD_WIDTH+3)*_iCardDealedToDealer),_oDealerCardOffset.getY());
+  this.changeState(STATE_GAME_HITTING);
+
+    if(DISABLE_SOUND_MOBILE === false || s_bMobile === false){
+        createjs.Sound.play("card");
+    }
+
+}else{
+
+    var pStartingPoint=new CVector2(_oStartingCardOffset.getX(),_oStartingCardOffset.getY());
+    var pEndingPoint=new CVector2(_oSeat.getAttachCardOffset().getX(),_oSeat.getAttachCardOffset().getY());
+//this.attachCardToDeal(pStartingPoint,pEndingPoint,false,_oSeat.newCardDealed());
+ this.changeState(STATE_GAME_HITTING);
+}
+
     var oCard = new CCard(_oStartingCardOffset.getX(),_oStartingCardOffset.getY(),_oCardContainer);
 
     if(bDealer){
@@ -433,8 +470,8 @@ this.dealnode = function(carta){
                    }*/
                 //    console.log(carta);
                    // console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]) + ' carta dealer');
-                    console.log(_aCardsInCurHandForDealer[carta] + ' carta dealer');
-                       console.log(carta + ' cartad');
+                  //  console.log(_aCardsInCurHandForDealer[carta] + ' carta dealer');
+                   //    console.log(carta + ' cartad');
                    oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[carta],
                     s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[carta]),
                     true,_iCardDealedToDealer);
@@ -455,9 +492,9 @@ this.dealnode = function(carta){
                } */
              //   console.log(carta);                  
              // console.log(s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer  + f]) + ' carta player');
-             console.log(_aCardsInCurHandForPlayer[carta] + ' carta player');
+           //  console.log(_aCardsInCurHandForPlayer[carta] + ' carta player');
                    
-                console.log(carta + ' cartap');
+             //   console.log(carta + ' cartap');
                oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[carta],
                 s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[carta]),
                 false,_oSeat.newCardDealed());
@@ -483,17 +520,18 @@ this.dealnode = function(carta){
 };
 
 this.hitDealer = function(){
-    var pStartingPoint=new CVector2(_oStartingCardOffset.getX(),_oStartingCardOffset.getY());
-    var pEndingPoint=new CVector2(_oDealerCardOffset.getX()+((CARD_WIDTH+3)*_iCardDealedToDealer),_oDealerCardOffset.getY());
+  
+  //  var pStartingPoint=new CVector2(_oStartingCardOffset.getX(),_oStartingCardOffset.getY());
+  //  var pEndingPoint=new CVector2(_oDealerCardOffset.getX()+((CARD_WIDTH+3)*_iCardDealedToDealer),_oDealerCardOffset.getY());
     _iCardDealedToDealer++;
 
-    this.attachCardToDeal(pStartingPoint,pEndingPoint,true,_iCardDealedToDealer);
+    this.attachCardToDeal(true,_iCardDealedToDealer);
+  //  console.log(pStartingPoint+' '+pEndingPoint +' true '+_iCardDealedToDealer);
+  //  this.changeState(STATE_GAME_HITTING);
 
-    this.changeState(STATE_GAME_HITTING);
-
-    if(DISABLE_SOUND_MOBILE === false || s_bMobile === false){
+    /*if(DISABLE_SOUND_MOBILE === false || s_bMobile === false){
         createjs.Sound.play("card");
-    }
+    }*/
 };
 
     this._checkWinner = function(){   //funcio a pasar a node
@@ -621,13 +659,14 @@ this.hitDealer = function(){
         };
 
         this.onHit = function(){
-            var pStartingPoint=new CVector2(_oStartingCardOffset.getX(),_oStartingCardOffset.getY());
+         //   var pStartingPoint=new CVector2(_oStartingCardOffset.getX(),_oStartingCardOffset.getY());
 
-            var pEndingPoint=new CVector2(_oSeat.getAttachCardOffset().getX(),_oSeat.getAttachCardOffset().getY());
+           // var pEndingPoint=new CVector2(_oSeat.getAttachCardOffset().getX(),_oSeat.getAttachCardOffset().getY());
 
-            this.attachCardToDeal(pStartingPoint,pEndingPoint,false,_oSeat.newCardDealed());
-
-            this.changeState(STATE_GAME_HITTING);
+           // this.attachCardToDeal(pStartingPoint,pEndingPoint,false,_oSeat.newCardDealed());
+            this.attachCardToDeal(false,_oSeat.newCardDealed());
+            console.log(' false '+_oSeat.newCardDealed());
+           // this.changeState(STATE_GAME_HITTING);
         };
 
         this.onStand= function(){

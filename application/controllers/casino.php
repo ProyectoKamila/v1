@@ -330,6 +330,7 @@ class Casino extends MY_Controller {
         $this->load->view('slot_4as/index');
     }
     public function slotmachine_sensual() {
+<<<<<<< HEAD
             $this->last_connection();
     
             $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 10');
@@ -339,6 +340,16 @@ class Casino extends MY_Controller {
             $this->load->view('slot_sensual/CSSettings', $data);
             $this->load->view('slot_sensual/index');
         }
+=======
+        $this->last_connection();
+        $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 10');
+        $this->load->view('slot_sensual/settings', $data[0]);
+        $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 10');
+        $data = array('consulta' => $result);
+        $this->load->view('slot_sensual/CSSettings', $data);
+        $this->load->view('slot_sensual/index');
+    }
+>>>>>>> origin/master
     public function demo_slotmachine() {
         $this->load->view('slotmachine/demo-index');
     }
