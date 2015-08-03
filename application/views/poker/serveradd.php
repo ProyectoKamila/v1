@@ -17,7 +17,7 @@
                             <p>Arraste para selecionar la cantidad que deseas recargar... </p>
                             <span class="input-group-addon" id="sizing-addon3">Bs</span>
                             <input type="range" oninput="outputUpdate(value)" step="1" class="form-control drag" placeholder="Minimo de coin para apostar" min="" max="" aria-describedby="sizing-addon3" id="inputapos">
-                            <p>Entrar con Bs <output for=fader id=volume>50</output> </p>
+                            <p>Entrar con Bs <output for="fader" id="volume">--</output> </p>
 
 
                             <a class="btn btn-default link-error" id="buttonsitdown">SENTARSE</a>
@@ -481,8 +481,8 @@
                                         <div class="fichsit">
                                             <img src="" alt="Player 1" id='player1imageprofile' class="profile-mesa">
                                         </div>
-                                        <p class="apostonline " id='player1apos'>Bs. 20</p>
-                                        <p class="timeturn " id='player1time'>99</p>
+                                        <p class="apostonline " id='player1apos'>0</p>
+                                        <p class="timeturn " id='player1time'>0</p>
                                     </div>
                                     <div class="vert">
                                         <div class="diler men"></div>
@@ -492,8 +492,8 @@
                                         <div class="fichsit right">
                                             <img src="" alt="Player 2" id='player2imageprofile' class="profile-mesa right">
                                         </div>
-                                        <p class="apostonline right " id='player2apos'>Bs. 20</p>
-                                        <p class="timeturn right " id='player2time'>99</p>
+                                        <p class="apostonline right " id='player2apos'>0</p>
+                                        <p class="timeturn right " id='player2time'>0</p>
                                     </div>
                                     <div class="vert">
                                         <!--<a href="./poker#" class="btn btn-default" id="exitgame">Abandonar Sala</a>-->
@@ -514,7 +514,7 @@
                                             </div>
                                             <div class="fichapuest">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest">
-                                                <p class="montapuest">Bs. 200</p>
+                                                <p class="montapuest" id="montapuestplayer1">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -534,7 +534,7 @@
                                             </div>
                                             <div class="fichapuest right">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest" class="right">
-                                                <p class="montapuest right">Bs. 200</p>
+                                                <p class="montapuest right" id="montapuestplayer2">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -551,7 +551,7 @@
                                         <div class="fichsit">
                                             <img src="" alt="Player 7" id='player7imageprofile' class="profile-mesa">
                                         </div>
-                                        <p class="apostonline " id='player7apos'>Bs. 20</p>
+                                        <p class="apostonline " id='player7apos'>0</p>
                                         <p class="timeturn " id='player7time'>99</p>
                                     </div>
                                     <div class="vert" style="width: 15%">
@@ -562,30 +562,30 @@
                                             </div>
                                             <div class="fichapuest">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest">
-                                                <p class="montapuest">Bs. 200</p>
+                                                <p class="montapuest" id="montapuestplayer7">0</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="vert" style="width: 50%; padding-top: 2%">
                                         <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id='mesa'>
                                             <div class="col-lg-2 col-md-2 col-sm-2 pos one">
-                                                <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
+                                                <img src="./imagen/poker/naipe.png" alt="carta1" id="one" class="">                                           
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-sm-2 pos two">
-                                                <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
+                                                <img src="./imagen/poker/naipe.png" alt="carta1" id="two" class="">                                           
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-sm-2 pos three">
-                                                <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
+                                                <img src="./imagen/poker/naipe.png" alt="carta1" id="three" class="">                                           
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-sm-2 pos four">
-                                                <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
+                                                <img src="./imagen/poker/naipe.png" alt="carta1" id="four" class="">                                           
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-sm-2 pos five">
-                                                <img src="./imagen/poker/naipe.png" alt="carta1" class="">                                           
+                                                <img src="./imagen/poker/naipe.png" alt="carta1" id="five" class="">                                           
                                             </div>
                                             <div class="col-lg-2 col-md-2 col-sm-2 puest">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest">
-                                                <p class="montapuest pote">Bs. 200</p>
+                                                <p class="montapuest pote">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -597,7 +597,7 @@
                                             </div>
                                             <div class="fichapuest right">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest" class="right">
-                                                <p class="montapuest right">Bs. 200</p>
+                                                <p class="montapuest right" id="montapuestplayer3">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -606,7 +606,7 @@
                                         <div class="fichsit right">
                                             <img id='player3imageprofile' src="" alt="Player3" class="profile-mesa right">
                                         </div>
-                                        <p class="apostonline right " id='player3apos'>Bs. 20</p>
+                                        <p class="apostonline right " id='player3apos'>0</p>
                                         <p class="timeturn right " id='player3time'>99</p>
                                     </div>
                                 </div>
@@ -625,7 +625,7 @@
                                             </div>
                                             <div class="fichapuest">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest">
-                                                <p class="montapuest">Bs. 200</p>
+                                                <p class="montapuest" id="montapuestplayer6">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -639,7 +639,7 @@
                                             </div>
                                             <div class="fichapuest c">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest">
-                                                <p class="montapuest">Bs. 200</p>
+                                                <p class="montapuest" id="montapuestplayer5">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -651,7 +651,7 @@
                                             </div>
                                             <div class="fichapuest right">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest" class="right">
-                                                <p class="montapuest right">Bs. 200</p>
+                                                <p class="montapuest right" id="montapuestplayer4">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -666,11 +666,11 @@
 
                                     </div>
                                     <div class="vert " id='player6' ondblclick="seeplayer('#player6', 5);">
-                                        <h3 class="nameusr" id='player5name'>Disponible</h3>
+                                        <h3 class="nameusr" id='player6name'>Disponible</h3>
                                         <div class="fichsit">
                                             <img src="" alt="Player 6" id='player6imageprofile' class="profile-mesa">
                                         </div>
-                                        <p class="apostonline " id='player6apos'>Bs. 20</p>
+                                        <p class="apostonline " id='player6apos'>0</p>
                                         <p class="timeturn " id='player6time'>99</p>
                                     </div>
                                     <div class="vert c" id='player5' ondblclick="seeplayer('#player5', 4);">
@@ -678,7 +678,7 @@
                                         <div class="fichsit c">
                                             <img src="" alt="Player 5" id='player5imageprofile' class="profile-mesa">
                                         </div>
-                                        <p class="apostonline " id='player5apos'>Bs. 20</p>
+                                        <p class="apostonline " id='player5apos'>0</p>
                                         <p class="timeturn " id='player5time'>99</p>
                                     </div>
                                     <div class="vert" id='player4' ondblclick="seeplayer('#player4', 3);">
@@ -686,7 +686,7 @@
                                         <div class="fichsit right">
                                             <img id='player4imageprofile' src="" alt="Player 4" class="profile-mesa right">
                                         </div>
-                                        <p class="apostonline right " id='player4apos'>Bs. 20</p>
+                                        <p class="apostonline right " id='player4apos'>0</p>
                                         <p class="timeturn right " id='player4time'>99</p>
                                     </div>
                                     <div class="vert">
@@ -707,12 +707,12 @@
                     <img src="" />
                 </div>
                 <p class="nameprofile"> Player</p>
-                <p class="saldo"> $ 000</p>
+                <p class="saldo">0</p>
             </div>
             <div class="content-option-user" id="playeroption" style="display: none;">
                 <h3>Opciones del Jugador</h3>
-                <p class="saldo apost-resume"> $ 000</p>
-                <input type="number" class="input-group" id="apost-toal" style="float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
+                <p class="saldo apost-resume">0</p>
+                <input type="hidden" value="0" class="input-group" id="apost-toal" style="float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
                 <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
                 <div class="option-user">
                     <div class="container-fluid sin-padding">
@@ -733,7 +733,7 @@
                                     todo
                                 </div>
                                 <div class="btn btn-default">
-                                    <input type="text" class="input" id="apost-mont" placeholder="OTRO" onkeypress="return justNumbers(event);">
+                                    <input type="number" class="input" id="apost-mont" placeholder="OTRO" onkeypress="return justNumbers(event);">
                                 </div>
                             </div>
                         </div>

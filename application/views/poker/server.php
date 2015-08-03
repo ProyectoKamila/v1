@@ -23,14 +23,18 @@
 <script>
 
     var socket;
-//                        guarda el idde la silla
     var pote;
+//                        guarda el idde la silla
     var idsit;
     var enespera;
     var sitenespera;
     var protocol_identifier = 'server';
     var myId;
+<<<<<<< HEAD
+    var myapos = 0;
+=======
     var apostini;
+>>>>>>> origin/master
     var idsale;
     var nicklist;
     var is_typing_indicator;
@@ -211,16 +215,11 @@
             socket.send(JSON.stringify(intro));
         });
         $('#buttonsitdown').click(function() {
-
             var min = $('#inputapos').attr('min');
             var max = $('#inputapos').attr('max');
             var inputapos = $('#inputapos').val();
-            console.log(max);
-            console.log(inputapos);
-            console.log(min);
             $('.sidebar-game').addClass('jugando');
             if (min <= inputapos && max >= inputapos) {
-
                 $('#boxsitdown').slideUp();
                 var intro = {
                     type: 'sitdown',
@@ -232,7 +231,6 @@
                     console.log('puesto ' + idsit);
                     $('.sit-' + idsit).removeClass('disponible');
                 }
-
                 socket.send(JSON.stringify(intro));
             }
         });
@@ -260,6 +258,40 @@
 //            console.log($('#player' + (idsit + 1) + 'apos').html());
             $('#apost-toal').val(parseFloat($('#player' + (idsit + 1) + 'apos').html()));
             apostresume()
+        });
+        $('#apost-bote').click(function() {
+            $('#apost-toal').val(pote, function() {
+                apostresume()
+            });
+        });
+        $('#apost-bote-mid').click(function() {
+            $('#apost-toal').val((pote / 2), function() {
+                apostresume()
+            });
+        });
+        $('#apost-all').click(function() {
+            $('#apost-toal').val(parseFloat($('#player' + (idsit + 1) + 'apos').html()), function() {
+                apostresume();
+            });
+        });
+        $('#gmover').click(function() {
+            var intro = {
+                type: 'gmover',
+                idsale: idsale,
+                idsit: idsit
+            }
+            socket.send(JSON.stringify(intro));
+        });
+        $('#leave').click(function() {
+            var intro = {
+                type: 'leave',
+                idsale: idsale,
+                idsit: idsit
+            }
+            socket.send(JSON.stringify(intro));
+            $('#apost-toal').val(0, function() {
+                apostresume()
+            });
         });
 
         $('#exitgame').click(function() {
@@ -307,11 +339,17 @@
             conexgame(passbox);
         });
         $('#apost').click(function() {
+
             var intro = {
                 type: 'apost',
+                idsale: idsale,
+                idsit: idsit,
                 montapost: $('#apost-toal').val()
             }
+            console.log(intro);
             socket.send(JSON.stringify(intro));
+            $('#apost-toal').val(0);
+            apostresume();
         });
         //si no soporta websocket
         if (!is_websocket_supported()) {
@@ -349,8 +387,13 @@
 
     function open_connection() {
         //        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
+<<<<<<< HEAD
+        //socket = new WebSocket('ws://localhost:8806/', 'server');
+        socket = new WebSocket('ws://milagros-pc:8806/', 'server');
+=======
         // socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
         socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
+>>>>>>> origin/master
         console.log(socket);
         socket.addEventListener("open", connection_established);
     }
@@ -398,7 +441,11 @@
         }
         //                accede al juego para elegir una silla
         else if (message.type === 'joinsale') {
+<<<<<<< HEAD
+            console.log('joinsale');
+=======
             //console.log('aqui');
+>>>>>>> origin/master
             //             $('#chat-container').fadeIn();
 //            $('#loading-message').hide();
             var newvar = {};
@@ -421,6 +468,60 @@
             //$('#loading-message').hide();
             //$('#game').html(message.messagesend);
         }
+        else if (message.type === 'gameover') {
+            for (i = 1; i < 8; i++) {
+                $('#montapuestplayer' + i).html('0');
+            }
+            $('#apost-toal').val(0);
+            $('.one').html('');
+            $('.two').html('');
+            $('.three').html('');
+            $('.four').html('');
+            $('.five').html('');
+        }
+        else if (message.type === 'cardmesa') {
+            for (i in message.messagesend) {
+                if (i == 0) {
+                    var card3 = card[message.messagesend[i]];
+                    var url = "./imagen/poker/" + card3['carpeta'] + "/" + card3['image'];
+                    var img = "<img src='" + url + "' style='height:45px;' />";
+                    $('#one').attr('src', url);
+                    $('.one').html(img);
+                } else if (i == 1) {
+                    var card3 = card[message.messagesend[i]];
+                    var url = "./imagen/poker/" + card3['carpeta'] + "/" + card3['image'];
+                    var img = "<img src='" + url + "' style='height:45px;' />";
+                    $('#two').attr('src', url);
+                    $('.two').html(img);
+                } else if (i == 2) {
+                    var card3 = card[message.messagesend[i]];
+                    var url = "./imagen/poker/" + card3['carpeta'] + "/" + card3['image'];
+                    var img = "<img src='" + url + "' style='height:45px;' />";
+                    $('#three').attr('src', url);
+                    $('.three').html(img);
+                } else if (i == 3) {
+                    var card3 = card[message.messagesend[i]];
+                    var url = "./imagen/poker/" + card3['carpeta'] + "/" + card3['image'];
+                    var img = "<img src='" + url + "' style='height:45px;' />";
+                    $('#four').attr('src', url);
+                    $('.four').html(img);
+                } else if (i == 4) {
+                    var card3 = card[message.messagesend[i]];
+                    var url = "./imagen/poker/" + card3['carpeta'] + "/" + card3['image'];
+                    var img = "<img src='" + url + "' style='height:45px;' />";
+                    $('#five').attr('src', url);
+                    $('.five').html(img);
+                } else {
+                    $('.one').html('');
+                    $('.two').html('');
+                    $('.three').html('');
+                    $('.four').html('');
+                    $('.five').html('');
+                }
+            }
+            console.log('cardmesa');
+            console.log(message.messagesend);
+        }
         else if (message.type === 'card1') {
             var card3 = card[message.messagesend];
             console.log(card3);
@@ -438,6 +539,14 @@
             var player = ".player" + puesto + "carta2";
             $(player).html(img);
         }
+        else if (message.type === 'minapost') {
+            $('.apost-resume').html('Bs. ' + parseFloat(message.messagesend.format(2, 3, '.', ',')));
+            $('#apost-toal').val(message.messagesend);
+            $('#apost-toal').attr('min', message.messagesend);
+            $('#apost-toal').attr('max', parseFloat($('#player' + (idsit + 1) + 'apos').html()));
+            $('#apost-mont').attr('min', message.messagesend);
+            $('#apost-mont').attr('max', parseFloat($('#player' + (idsit + 1) + 'apos').html()));
+        }
         else if (message.type === 'enespera') {
             console.log(message.messagesend);
             clearInterval(enespera);
@@ -449,11 +558,15 @@
             console.log(player);
             $(player).html('20');
             if (idsit !== (sitenespera - 1)) {
+<<<<<<< HEAD
+                //descomentar
+=======
                 //                console.log('if: ' + idsit)
+>>>>>>> origin/master
                 $('#playerdata').slideDown();
                 $('#playeroption').slideUp();
             } else {
-                //                console.log('else: ' + idsit)
+                //descomentar
                 $('#playerdata').slideUp();
                 $('#playeroption').slideDown();
             }
@@ -475,12 +588,29 @@
             console.log(message);
         }
         else if (message.type === 'pote') {
-            pote = message.messagesend;
-            $('.pote').html(message.messagesend);
+            console.log('pote');
+            pote = message.messagesend.pote;
+            console.log(message.messagesend.apost);
+            for (i in message.messagesend.apost) {
+                if (message.messagesend.apost[i] > 0) {
+                    var player = parseInt(i) + 1;
+                    var s = parseFloat($('#player' + player + 'apos').html());
+                    console.log('#player' + player + 'apos');
+                    $("#montapuestplayer" + player).html(parseFloat(message.messagesend.apost[i]));
+                    $('#player' + player + 'apos').html((s - parseFloat(message.messagesend.apost[i])));
+                }
+            }
+            $('.pote').html(pote);
         }
         else if (message.type === 'numcoin') {
+            console.log(message);
             $('#inputapos').attr('min', message.messagesend.apu_min);
             $('#inputapos').attr('max', message.messagesend.apu_max);
+            var min = $('#inputapos').attr('min');
+            var max = $('#inputapos').attr('max');
+            var volume = (max - min / 2);
+            console.log(volume);
+            $('#volume').html(volume);
             $('#boxsitdown').slideDown();
         }
         //                            /si el password es falso
