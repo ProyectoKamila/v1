@@ -5,23 +5,24 @@
 
 
     // Check if SSL support is enabled
+    // Check if SSL support is enabled
     if (process.argv.indexOf('--enable-ssl') !== -1) {
-        //mensaje a enviar en los query
+    //mensaje a enviar en los query
 
         var https = require('https');
         var fs = require('fs');
-
+    
         var options = {
             key: fs.readFileSync('/home/conf/ssl.key'),
             cert: fs.readFileSync('/home/conf/ssl.crt')
         };
-
+    
         var server = https.createServer(options, function(request, response) {
             response.writeHead(404);
             response.end();
         });
-
-        var port = 8805;
+    
+        var port = 8083;
         var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
     } else {
         var http = require('http');
@@ -30,11 +31,10 @@
             response.writeHead(404);
             response.end();
         });
-
-        var port = 8810;
+    
+        var port = 8083;
         var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
     }
-
     var messagesend = [];
     var clients = 0;
     var cont = 0;
@@ -98,7 +98,7 @@
     var connection_id = 0;
 
     server.listen(port, function() {
-      //  console.log(server_start_message);
+    console.log(server_start_message);
   });
 
     wsServer = new WebSocketServer({
