@@ -258,6 +258,7 @@ class Casino extends MY_Controller {
         $this->load->view('slot_marino/CSSettings', $data);
         $this->load->view('slot_marino/index');
     }
+    
 
     public function slotmachine_espacial() {
         $this->last_connection();
@@ -321,13 +322,23 @@ class Casino extends MY_Controller {
     }
      public function slotmachine_4as() {
         $this->last_connection();
-        $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 8');
+        $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 9');
         $this->load->view('slot_4as/settings', $data[0]);
-        $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 8');
+        $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 9');
         $data = array('consulta' => $result);
         $this->load->view('slot_4as/CSSettings', $data);
         $this->load->view('slot_4as/index');
     }
+    public function slotmachine_sensual() {
+            $this->last_connection();
+    
+            $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 10');
+            $this->load->view('slot_sensual/settings', $data[0]);
+            $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 10');
+            $data = array('consulta' => $result);
+            $this->load->view('slot_sensual/CSSettings', $data);
+            $this->load->view('slot_sensual/index');
+        }
     public function demo_slotmachine() {
         $this->load->view('slotmachine/demo-index');
     }

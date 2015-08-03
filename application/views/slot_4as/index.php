@@ -467,5 +467,6 @@ function connetserver() {
 </div>
 </div>
 <?php $this->load->view('page/footer');?>
+<?php $this->load->view('page/pie');?>
 </body>
 </html>

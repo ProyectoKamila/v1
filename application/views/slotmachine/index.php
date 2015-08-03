@@ -53,6 +53,7 @@
             var idgame = 1; //aqui debe llevarse el nombre del juego que selecciono
             var free_gameslot = 0;
             var free=0;
+            var free2=0;
             var freeselect=0;
             var nicklist;
             var is_typing_indicator;
@@ -84,7 +85,18 @@
 
             $(oMain).on("end_bet", function (evt, iMoney, iBetWin) {
                 // alert("juegos gratis: "+ free_gameslot + " Win:"+iBetWin);
-                if (free_gameslot > 0) {
+                     if (free2 > 0) {
+                           free2=free2-1;
+                           NUM_PAYLINES=10;
+                            s_oGame.onMaxBetjgXxx();
+                }
+                     else if (free > 0) {
+                           free=free-1;
+                           NUM_PAYLINES=freeselect;
+               s_oGame.onMaxBetjgXxx();
+                }
+            
+                else if (free_gameslot > 0) {
 
                     var options = {
                         "backdrop": "static"
@@ -92,15 +104,11 @@
 
                     $('#jgModal').modal(options);
                 }
-                       if (free > 0) {
-                           free=free-1;
-                           NUM_PAYLINES=freeselect;
-               s_oGame.onMaxBetjgXxx();
-                }
-                else{
+                else if(free == 0){
                     freeselect=20;
                 }
                 
+                  
 
 
             });
@@ -335,6 +343,26 @@
                
 
                 }
+                      else if (message.type === 'free_game_play2') {
+                         myId = message.userId;
+                            if(free2 > 0){
+                                free2 += message.messagesend;
+                            }
+                            else{
+                                free2 = message.messagesend;
+                             if (free2 > 0) {
+                                   free2=free2 -1;
+                                   NUM_PAYLINES=freeselect;
+                       s_oGame.onMaxBetjgXxx();
+                            }
+                             else{
+                    freeselect=20;
+                }
+                            
+                        }
+               
+
+                }
 
                 else if (message.type === 'prueba2') {
                     myId = message.userId;
@@ -521,5 +549,6 @@
     </div>
     </div>
     <?php $this->load->view('page/footer'); ?>
+    <?php $this->load->view('page/pie');?>
 </body>
 </html>

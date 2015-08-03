@@ -382,12 +382,8 @@ function connetserver() {
 
 
      </script>
-
      <div class="container-fluid sin-padding fondo-game" style="background: url(./games/slot-egipcio/game_1024x768/sprites/landscape.jpg) top center no-repeat; background-size: cover;">
-
       <!-- Trigger the modal with a button -->
-
-
       <div class="container sin-padding">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">    

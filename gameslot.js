@@ -586,7 +586,8 @@ console.log(objeto.payline);
     console.log("numwin:" +_aWinningLine[i].num_win);
 
                 if (_aWinningLine[i].value==8 && _aWinningLine[i].amount > 0 && connection.id_game==1){
-         if (connection.free ==true){
+                    console.log('freec: '+connection.free);
+         if (connection.free == true){
                switch (connection.free_game_play){
                    case 5:
                         sendmessageuser(connection, 'free_game_play', 5);
@@ -616,6 +617,32 @@ console.log(objeto.payline);
 
                         sendmessageuser(connection, 'free_game', juegos_gratis);
          }
+                }
+                else if(_aWinningLine[i].value!=8 && _aWinningLine[i].amount > 0 && connection.id_game==1){
+                                 if (_aWinningLine[i].value==8 && _aWinningLine[i].amount > 0 && connection.id_game==1){
+                    console.log('freec: '+connection.free);
+         if (connection.free == true){
+               switch (_aWinningLine[i].num_win){
+                   case 3:
+                        sendmessageuser(connection, 'free_game_play2', 5);
+                        connection.free_game_play= 5;
+                        connection.numfree+= 5;
+                    
+                    break;
+                   case 4:
+                        sendmessageuser(connection, 'free_game_play2', 10);
+                          connection.free_game_play= 10;
+                            connection.numfree+= 10;
+                    break;
+                   case 5:
+                        sendmessageuser(connection, 'free_game_play2', 20);
+                            connection.free_game_play=20;
+                              connection.numfree+= 20;
+                               
+                    break;
+               }
+         }
+                    
                 }
                     
                   console.log('lina ganadora  ' + _aWinningLine[i].value);
