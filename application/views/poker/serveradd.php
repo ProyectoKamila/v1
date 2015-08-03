@@ -712,9 +712,8 @@
             <div class="content-option-user" id="playeroption" style="display: none;">
                 <h3>Opciones del Jugador</h3>
                 <p class="saldo apost-resume">0</p>
-                <input type="number" value="0" class="input-group" id="apost-toal" style="float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
+                <input type="hidden" value="0" class="input-group" id="apost-toal" style="float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
                 <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
-                <button id="gmover" class="btn btn-default">gmover</button>
                 <div class="option-user">
                     <div class="container-fluid sin-padding">
                         <div class="row sin-padding">

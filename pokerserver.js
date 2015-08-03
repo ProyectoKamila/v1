@@ -917,6 +917,7 @@ wsServer.on('request', function(request) {
         this.roomapost = [];
         this.ciegamin = 0;
         this.ciegamax = 0;
+        this.aposmax = 0;
     }
 //aqui seleciono los jugadores activos en la sala
     Sala.prototype.jugadoresactivos = function() {
@@ -1049,6 +1050,7 @@ wsServer.on('request', function(request) {
             }
         }
         this.roomapost[this.ciegamax] = this.maxci;
+        this.aposmax = this.ciegamax;
         updatesaleapost(this.room, this.ciegamax, this.maxci);
         this.jugadorenespera = this.ciegamax + 1;
         while (this.jugactivos[this.jugadorenespera]['first_name'] == undefined) {
@@ -1082,6 +1084,7 @@ wsServer.on('request', function(request) {
             for (i in this.roomapost) {
                 if (this.roomapost[i] > maxapost) {
                     maxapost = parseFloat(this.roomapost[i]);
+                    this.aposmax = i;
                 }
             }
             var cadmesa = 0;
@@ -1090,13 +1093,13 @@ wsServer.on('request', function(request) {
                     var cadmesa = 1;
                 }
             }
-            console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length);
-            if ((cadmesa === 0) && (x === this.diler) && (this.cardmesa.length < 5)) {
+            console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length + ' Turno: ' + this.jugadorenespera + ' ApostMax: ' + this.aposmax);
+            if ((cadmesa == 0) && (this.jugadorenespera == this.aposmax) && (this.cardmesa.length < 5)) {
                 play[this.room].repartircardmesa();
-//                console.log('if');
+                console.log('if');
             } else {
+                console.log('else');
                 if (this.cardmesa.length === 5) {
-//                    console.log('else');
                     play[this.room].gameover();
                     logicpokerstart(this.room);
                 }
