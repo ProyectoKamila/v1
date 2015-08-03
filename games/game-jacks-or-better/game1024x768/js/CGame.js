@@ -9,9 +9,11 @@ function CGame(oData){
     var _iCurIndexDeck;
     var _iCurState;
     var _aCurHand;
+    var _aCurHandValue; //evaluar mano
     var _aCardDeck;
     var _oGameSettings;
     var _oHandEvaluator;
+    var _aCurHandValueDraw;
     
     var _oBg;
     var _oInterface;
@@ -65,6 +67,7 @@ function CGame(oData){
         if(DISABLE_SOUND_MOBILE === false || s_bMobile === false){
             s_oSoundTrack.setVolume(0.5);
         }
+
     };
     
     this.unload = function(){
@@ -94,7 +97,29 @@ function CGame(oData){
         
     };
     
+     this.resetHandInit = function(){
+        _iCurWin = 0;
+        //SHUFFLE CARD DECK EVERYTIME A NEW HAND STARTS
+        _iCurIndexDeck = 0;
+        _aCardDeck = new Array();
+        _aCardDeck = _oGameSettings.getShuffledCardDeck();
+        
+        for(var i=0;i<_aCurHand.length;i++){
+            _aCurHand[i].reset();
+        }
+        //_oInterface.resetHand();
+        //_oPayTable.resetHand();
+        
+        //this.checkMoney();
+        
+        _bBlock = false;
+        _iCurState = STATE_GAME_WAITING_FOR_BET;
+        
+        
+    };
+    
     this.checkMoney = function(){
+        console.log('checkMoney');
         if(_iMoney < _iCurBet){
             //NOT ENOUGH MONEY
             _iCurBetIndex = 0;
@@ -148,12 +173,15 @@ function CGame(oData){
             oBackCard.y = iY;
             oBackCard.shadow = new createjs.Shadow("#000000", 5, 5, 5);
             _oCardAttach.addChild(oBackCard);
+
             
             iX += 180;
         }
+        console.log('objeto:',_oCardAttach);
     };
 
     this.dealCards = function(){
+
         if(_bBlock){
             return;
         }
@@ -164,20 +192,45 @@ function CGame(oData){
         _bBlock = true;
         
         _oCardAttach.removeAllChildren();
-        
-        var iX = 0;
-        var iY = 0;
-        _aCurHand = new Array();
-        for(var i=0;i<5;i++){
-            var oCard = new CCard(iX,iY,_oCardAttach,_aCardDeck[_iCurIndexDeck].fotogram,_aCardDeck[_iCurIndexDeck].rank,_aCardDeck[_iCurIndexDeck].suit);
-            oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
-            oCard.addEventListener(ON_CARD_HIDE,this._onCardHide);
-            _aCurHand.push(oCard);
-            _iCurIndexDeck++;
-            iX += 180;
-            
-            oCard.showCard();
+
+
+        var enviar= {
+
+            _aCurHandE : _aCurHand,
+            _aCurHandValueE : _aCurHandValue,
+            _aCardDeckE : _aCardDeck,
+            _oCardAttachE : _oCardAttach,
+            _iCurIndexDeckE : _iCurIndexDeck,
         }
+        //dealcards_node(enviar); 
+
+        this.cehckhandeal();
+        //do{
+            console.log(_oHandEvaluator.evaluate(_aCurHandValue));
+            console.log(JACKS_OR_BETTER);
+        while(_oHandEvaluator.evaluate(_aCurHandValue) !== JACKS_OR_BETTER){
+            console.log("resethand deal cards");
+            _oCardAttach.removeAllChildren();
+            this.resetHandInit();
+            this.cehckhandeal();
+        }
+        console.log("sale del while");
+           /////
+        //var iX = 0;
+        //var iY = 0;
+        _aCurHand = new Array();
+        //_aCurHandValue = new Array(); //arreglo para evaluar mano
+            for(var n=0;n<5;n++){
+                var oCard = _aCurHandValue[n];
+                oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
+                oCard.addEventListener(ON_CARD_HIDE,this._onCardHide);
+                //_aCurHandValue.push(oCard);
+                _aCurHand.push(oCard);
+                //_iCurIndexDeck++;
+                //iX += 180;
+                oCard.showCard();
+                //console.log('acardfotogram'+_aCardDeck[_iCurIndexDeck].fotogram+ ' - '+ 'acardked'+_aCardDeck[_iCurIndexDeck].rank);
+            }
         
         //DECREASE MONEY
         _iMoney -= _iCurBet;
@@ -190,7 +243,20 @@ function CGame(oData){
         
         _iCurState = STATE_GAME_DEAL;
     };
-    
+    this.cehckhandeal = function(){//al node
+        var iX = 0;
+        var iY = 0;
+        _aCurHand = new Array();
+        _aCurHandValue = new Array(); //arreglo para evaluar mano
+            for(var i=0;i<5;i++){
+                var oCard = new CCard(iX,iY,_oCardAttach,_aCardDeck[_iCurIndexDeck].fotogram,_aCardDeck[_iCurIndexDeck].rank,_aCardDeck[_iCurIndexDeck].suit);
+                _aCurHandValue.push(oCard);
+                _iCurIndexDeck++;
+                iX += 180;
+            }
+        //_oHandEvaluator.evaluate(_aCurHandValue);
+        this.checkassignWin(_aCurHandValue);        
+    };
     this.drawCards = function(){
         if(_bBlock){
             return;
@@ -222,7 +288,6 @@ function CGame(oData){
         }
 
         var aSortedHand = _oHandEvaluator.getSortedHand();
-
         for(var i=0;i<_aCurHand.length;i++){
             for(var j=0;j<aSortedHand.length;j++){
                 if(aSortedHand[j].rank === _aCurHand[i].getRank() && aSortedHand[j].suit === _aCurHand[i].getSuit()){
@@ -231,15 +296,22 @@ function CGame(oData){
                 }
             }
         }
-        
+        console.log('_iCurCreditIndex'+_iCurCreditIndex);
+        console.log('iRet'+iRet);
+        console.log('_iCurBet'+_iCurBet);
         _oPayTable.showWinAnim(_iCurCreditIndex,iRet);
         _iCurWin = s_oPayTableSettings.getWin(_iCurCreditIndex,iRet) * _iCurBet;
+        
+        console.log('iwin antes de sumar'+_iCurWin);
+        console.log('_iMoney antes de sumar'+_iMoney);
+        console.log('suma igual'+ (_iCurWin +_iMoney) )
         
         _iMoney += _iCurWin;
         _iMoney = parseFloat(_iMoney.toFixed(2));
         _oInterface.refreshWin(_iCurWin);
         _oInterface.refreshMoney(_iMoney,_iCurBet);
      };
+
      
     this.recharge = function(){
         _iMoney = TOTAL_MONEY;
@@ -307,19 +379,87 @@ function CGame(oData){
             return;
         }
         
-        _iCurState = STATE_GAME_DRAW;
         
-        for(var i=0;i<5;i++){
-            if(_aCurHand[i].isHold() === false){
-                _aCurHand[i].changeInfo(_aCardDeck[_iCurIndexDeck].fotogram,_aCardDeck[_iCurIndexDeck].rank,_aCardDeck[_iCurIndexDeck].suit);
-                _aCurHand[i].showCard();
-                _iCurIndexDeck++;              
-            }else{
-                _aCurHand[i].setHold(false);
+        _aCurHandValueDraw = _aCurHand;
+        /////////testeo no deja llamar funciones afuera
+        console.log('testeo init' + _oHandEvaluator.evaluate(_aCurHandValueDraw));
+        _checkiCurWinAD = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(_aCurHand)) * _iCurBet;
+         console.log('checkiwin antes del while'+_checkiCurWinAD);
+        console.log('testeo antes del while 2 pares' + TWO_PAIR );
+
+        while(_oHandEvaluator.evaluate(_aCurHandValueDraw)!==TWO_PAIR){//aqui chequear el iwin 
+
+        _checkiCurWinAD = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(_aCurHand)) * _iCurBet;
+         console.log('checkiwin dentro del while'+_checkiCurWinAD);
+            for(var p=0;p<5;p++){//ojo aqui se maneja la carta
+
+                if(_aCurHandValueDraw[p].isHold() === false){
+
+                    _aCurHandValueDraw[p].changeInfo(_aCardDeck[_iCurIndexDeck].fotogram,_aCardDeck[_iCurIndexDeck].rank,_aCardDeck[_iCurIndexDeck].suit);
+                    //_aCurHandValueDraw[i].showCard();
+                    _iCurIndexDeck++;              
+                //}else{
+                  //  _aCurHandValueDraw[p].setHold(false);
+                }           
             }
         }
-    };
+        _checkiCurWinAD = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(_aCurHand)) * _iCurBet;
+         console.log('checkiwin despues del while'+_checkiCurWinAD);
+        console.log('testeo sale del while' + _oHandEvaluator.evaluate(_aCurHandValueDraw));
+        /////////fin testeo
+        _iCurState = STATE_GAME_DRAW;
+        _aCurHand = _aCurHandValueDraw;
 
+        for(var i=0;i<5;i++){//ojo aqui se maneja la carta
+            if(_aCurHand[i].isHold() === false){
+                //_aCurHand[i].changeInfo(_aCardDeck[_iCurIndexDeck].fotogram,_aCardDeck[_iCurIndexDeck].rank,_aCardDeck[_iCurIndexDeck].suit);
+                _aCurHand[i].showCard();
+                //_iCurIndexDeck++;              
+            }else{
+                _aCurHand[i].setHold(false);
+            }           
+        }
+        
+        console.log('despues de reacomodar lamano'+_oHandEvaluator.evaluate(_aCurHand));           
+        _checkiCurWinAD = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(_aCurHand)) * _iCurBet;
+        console.log('checkiwin'+_checkiCurWinAD);
+        
+    };
+/////
+    this.hola =function(){
+        console.log('hola');
+    };
+    this._CardHideDrawValue = function(){
+       _aCurHandValueDraw = new Array();
+        _aCurHandValueDraw = _aCurHand;
+
+        for(var i=0;i<5;i++){//ojo aqui se maneja la carta
+            if(_aCurHandValueDraw[i].isHold() === false){
+                _aCurHandValueDraw[i].changeInfo(_aCardDeck[_iCurIndexDeck].fotogram,_aCardDeck[_iCurIndexDeck].rank,_aCardDeck[_iCurIndexDeck].suit);
+                _aCurHandValueDraw[i].showCard();
+                _iCurIndexDeck++;              
+            }else{
+                _aCurHandValueDraw[i].setHold(false);
+            }           
+        }
+
+        console.log('despues de reacomodar lamano test'+_oHandEvaluator.evaluate(_aCurHandValueDraw));
+        _checkiCurWinAD = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(_aCurHandValueDraw)) * _iCurBet;
+        
+        console.log('checkiwin test'+_checkiCurWinAD);
+        
+    };
+/////
+
+     //////////////
+       this.checkassignWin = function(hand){
+        _checkiCurWin=0;
+        _checkiCurWin = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(hand)) * _iCurBet;
+        
+        console.log('checkiwin'+_checkiCurWin);
+          
+     };
+     //////////////
     this._onButDealRelease = function(){
         switch(_iCurState){
             case STATE_GAME_WAITING_FOR_BET:{
@@ -408,7 +548,7 @@ function CGame(oData){
         _oInterface.refreshMoney(_iMoney,_iCurBet);
         _oPayTable.setCreditColumn(_iCurCreditIndex);
         
-	this.resetHand();
+	    this.resetHand();
         this.dealCards();
     };
     

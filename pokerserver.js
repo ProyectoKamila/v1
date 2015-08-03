@@ -19,7 +19,8 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8806;
+    //var port = 8806;
+    var port = 8082;
     var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
 } else {
     var http = require('http');
@@ -29,7 +30,8 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8806;
+    //var port = 8806;
+    var port = 8082;
     var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
 }
 
@@ -168,7 +170,11 @@ var allowed_origins = [
     'sky.rebugged.com',
     'developer.cdn.mozilla.net',
     '192.168.0.118',
+<<<<<<< HEAD
     'usuario-pc',
+=======
+    'casino4as-krondon.c9.io',
+>>>>>>> origin/master
     'casino4as.com'
 ];
 
@@ -440,8 +446,12 @@ wsServer.on('request', function(request) {
                 mysqlc.query(string, function(err, row, fields) {
                     if (typeof(row)) {
                         connection.coin = row[0].coins;
+<<<<<<< HEAD
                         var coin = {
                             coin: connection.coin,
+=======
+                        var coin = {coin: connection.coin,
+>>>>>>> origin/master
                             apu_min: rooms[connection.idsale].apu_min,
                             apu_max: rooms[connection.idsale].apu_max
                         };
@@ -697,7 +707,7 @@ wsServer.on('request', function(request) {
                 sendsales();
                 joinsale(connection, connection.idsale, 'false', row.insertId);
             }
-//            consigo el numero de salas para añadir una al arreglo
+//            consigo el numero de salas para aÃ±adir una al arreglo
 
 
         });
@@ -763,7 +773,7 @@ wsServer.on('request', function(request) {
                 var sitdown = 0;
                 //verifica cuantos usuarios sentados existen
                 for (i in saleonlineconex[idsale]) {
-//                se le coloco esto ya que automaticamente le añade el ++;
+//                se le coloco esto ya que automaticamente le aÃ±ade el ++;
 //                send = i - 1;
                     if (saleonlineconex[idsale][i] !== undefined) {
                         sitdown++;
@@ -1080,6 +1090,7 @@ wsServer.on('request', function(request) {
         }
         this.jugadorenespera = x;
         if (this.jugactivos[this.jugadorenespera] !== undefined) {
+<<<<<<< HEAD
             var maxapost = 0;
             for (i in this.roomapost) {
                 if (this.roomapost[i] > maxapost) {
@@ -1106,6 +1117,9 @@ wsServer.on('request', function(request) {
             }
 
             play[this.room].minapost();
+=======
+            play[this.room].intervalo();
+>>>>>>> origin/master
             play[this.room].enesperafu();
             play[this.room].potefu();
             play[this.room].intervalo();
@@ -1113,8 +1127,13 @@ wsServer.on('request', function(request) {
         }
     };
     Sala.prototype.enesperafu = function() {
+<<<<<<< HEAD
         //   console.log(this.jugadorenespera);
         //   console.log(pos[this.jugadorenespera]);
+=======
+        console.log(this.jugadorenespera);
+        console.log(pos[this.jugadorenespera]);
+>>>>>>> origin/master
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'enespera', this.jugadorenespera);
         }
@@ -1129,16 +1148,19 @@ wsServer.on('request', function(request) {
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'ciegamin', this.ciegamin);
         }
+        this.potefu();
     };
     Sala.prototype.ciegamaxfu = function() {
         this.pote1 = this.pote1 + this.maxci;
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'ciegamax', this.ciegamax);
         }
+        this.potefu();
     };
     Sala.prototype.montapost = function(user, apost) {
         this.jugactivos[user].apost = apost;
     };
+<<<<<<< HEAD
     Sala.prototype.minapost = function() {
 
         var maxapost = 0;
@@ -1160,6 +1182,11 @@ wsServer.on('request', function(request) {
         console.log(this.roomapost);
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'pote', send);
+=======
+    Sala.prototype.potefu = function() {
+        for (i in saleonlineconexall[this.room]) {
+            sendmessageuser(saleonlineconexall[this.room][i], 'pote', this.pote1);
+>>>>>>> origin/master
         }
     };
 

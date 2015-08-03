@@ -2,20 +2,17 @@
      <!DOCTYPE html>
      <html>
      <head>
-        <title></title>
+        <title>SlotMachine 4As</title>
         <?php $this->load->view('page/header');?>
         <link rel="stylesheet" href="./games/slot-4as/game_1024x768/css/reset.css" type="text/css">
         <link rel="stylesheet" href="./games/slot-4as/game_1024x768/css/main.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
         <meta name="msapplication-tap-highlight" content="no"/>
-
         <script type="text/javascript" src="./games/slot-4as/game_1024x768/js/jquery-2.0.3.min.js"></script>
         <script type="text/javascript" src="./games/slot-4as/game_1024x768/js/createjs-2013.12.12.min.js"></script>
         <script type="text/javascript" src="./games/slot-4as/game_1024x768/js/ctl_utils.js"></script>
         <script type="text/javascript" src="./games/slot-4as/game_1024x768/js/sprite_lib.js"></script>
-         
         <script type="text/javascript" src="./games/slot-4as/game_1024x768/js/CSlotSettings.js"></script>
         <script type="text/javascript" src="./games/slot-4as/game_1024x768/js/CLang.js"></script>
         <script type="text/javascript" src="./games/slot-4as/game_1024x768/js/CPreloader.js"></script>
@@ -31,16 +28,13 @@
         <script type="text/javascript" src="./games/slot-4as/game_1024x768/js/CPayTablePanel.js"></script>
         <script type="text/javascript" src="./games/slot-4as/game_1024x768/js/CStaticSymbolCell.js"></script>
         <script type="text/javascript" src="./games/slot-4as/game_1024x768/js/CTweenController.js"></script>
-
-    
     </head>
-    <body ondragstart="return false;" ondrop="return false;" style="background: #A90002;">
+    <body ondragstart="return false;" ondrop="return false;" style="">
+<div class="fondo-game" style="background: #A90002;">
         <?php $this->load->view('page/navegation/header');?>
         <?php $this->load->view('page/navegation/notification');?>
     </div>
-        <br/>
-        <br/>
-        
+
         <script>
         $(document).ready(function(){
          var oMain = new CMain({
@@ -387,7 +381,7 @@ function connetserver() {
 
      </script>
 
-     <div class="container-fluid sin-padding">
+     <div class="container-fluid sin-padding fondo-game" style="background: #A90002;">
 
       <!-- Trigger the modal with a button -->
 
@@ -470,6 +464,7 @@ function connetserver() {
 <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
     <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
+</div>
 </div>
 <?php $this->load->view('page/footer');?>
 </body>

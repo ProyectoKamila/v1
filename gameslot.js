@@ -221,7 +221,46 @@ wsServer.on('request', function(request) {
 
             }
            
+            else if (msgObj.type === 'playfreegame') {
+                if(connection.free==true){
+                   // if(connection.numfree > 0){
+                        
+                    //}
+                    connection.free=false;
+ 
+               switch (msgObj.free){
+                   case 5:
+                        sendmessageuser(connection, 'free_game_play', 5);
+                        connection.free_game_play= 5;
+                        connection.numfree+= 5;
+                    
+                    break;
+                   case 10:
+                        sendmessageuser(connection, 'free_game_play', 10);
+                          connection.free_game_play= 10;
+                            connection.numfree+= 10;
+                    break;
+                   case 20:
+                        sendmessageuser(connection, 'free_game_play', 20);
+                            connection.free_game_play=20;
+                              connection.numfree+= 20;
+                               
+                    break;
+               }
+                pruebaserver(msgObj);
+              }
+
+
+            }
             else if (msgObj.type === 'prueba') {
+                 if (connection.free ==true){
+                connection.numfree=connection.numfree-1;
+                  if(connection.numfree==0){
+                      connection.free ==false;
+                  }
+                        
+               
+                 }
                 pruebaserver(msgObj);
 
 
@@ -388,7 +427,7 @@ wsServer.on('request', function(request) {
     function pruebaserver(objeto){
 console.log(objeto.nrows);
 console.log(objeto.nreels);
-console.log(objeto.nreels);
+
 console.log(objeto.payline);
 
   
@@ -528,7 +567,7 @@ console.log(objeto.payline);
                     num_win:iNumEqualSymbol,value:iValue,list:aCellList});
                
             }
-             //alert(_aWinningLine.line);
+             console.log(_aWinningLine);
         }
 //verificar el monto ganado antes de salir de esta función
         var iTotWin = 0;
@@ -544,8 +583,31 @@ console.log(objeto.payline);
                     }
                      if (_aWinningLine[i].value!=8 && _aWinningLine[i].amount > 0 && connection.id_game==1)
                     iTotWin += _aWinningLine[i].amount;
+    console.log("numwin:" +_aWinningLine[i].num_win);
 
                 if (_aWinningLine[i].value==8 && _aWinningLine[i].amount > 0 && connection.id_game==1){
+         if (connection.free ==true){
+               switch (connection.free_game_play){
+                   case 5:
+                        sendmessageuser(connection, 'free_game_play', 5);
+                        connection.free_game_play= 5;
+                        connection.numfree+= 5;
+                    
+                    break;
+                   case 10:
+                        sendmessageuser(connection, 'free_game_play', 10);
+                          connection.free_game_play= 10;
+                            connection.numfree+= 10;
+                    break;
+                   case 20:
+                        sendmessageuser(connection, 'free_game_play', 20);
+                            connection.free_game_play=20;
+                              connection.numfree+= 20;
+                               
+                    break;
+               }
+         }
+         else{
                         var juegos_gratis = juegos_gratis + 1;
                         connection.free=true;
                        // console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].amount);
@@ -553,9 +615,10 @@ console.log(objeto.payline);
                        
 
                         sendmessageuser(connection, 'free_game', juegos_gratis);
+         }
                 }
                     
-                   // console.log('lina ganadora  ' + _aWinningLine[i].value);
+                  console.log('lina ganadora  ' + _aWinningLine[i].value);
                      
                    
                    //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea

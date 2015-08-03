@@ -49,7 +49,7 @@
                     var socket;
                     var protocol_identifier = 'server';
                     var myId;
-                    var idgame=11; //aqui debe llevarse el nombre del juego que selecciono
+                    var idgame=31; //aqui debe llevarse el nombre del juego que selecciono
                     var nicklist;
                     var is_typing_indicator;
                     var window_has_focus = true;
@@ -244,13 +244,11 @@
 
                 }
            
-                prueba = function(enviar){
+                dealcards_node = function(e){
                 //public function prueba(){
-                    enviar.type='prueba';
-
+                    e.type='dealcards';
                     //alert(enviar.type);
-
-                    socket.send(JSON.stringify(enviar));
+                    socket.send(JSON.stringify(e));
                 }
                 function totalcoins(){
 
@@ -320,4 +318,5 @@
 <?php $this->load->view('page/footer'); ?>
     
     </body>
+
 </html>
