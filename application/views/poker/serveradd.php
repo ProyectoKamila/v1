@@ -514,7 +514,7 @@
                                             </div>
                                             <div class="fichapuest">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest">
-                                                <p class="montapuest">0</p>
+                                                <p class="montapuest" id="montapuestplayer1">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -534,7 +534,7 @@
                                             </div>
                                             <div class="fichapuest right">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest" class="right">
-                                                <p class="montapuest right">0</p>
+                                                <p class="montapuest right" id="montapuestplayer2">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -562,7 +562,7 @@
                                             </div>
                                             <div class="fichapuest">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest">
-                                                <p class="montapuest">0</p>
+                                                <p class="montapuest" id="montapuestplayer7">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -597,7 +597,7 @@
                                             </div>
                                             <div class="fichapuest right">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest" class="right">
-                                                <p class="montapuest right">0</p>
+                                                <p class="montapuest right" id="montapuestplayer3">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -625,7 +625,7 @@
                                             </div>
                                             <div class="fichapuest">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest">
-                                                <p class="montapuest">0</p>
+                                                <p class="montapuest" id="montapuestplayer6">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -639,7 +639,7 @@
                                             </div>
                                             <div class="fichapuest c">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest">
-                                                <p class="montapuest">0</p>
+                                                <p class="montapuest" id="montapuestplayer5">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -651,7 +651,7 @@
                                             </div>
                                             <div class="fichapuest right">
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest" class="right">
-                                                <p class="montapuest right">0</p>
+                                                <p class="montapuest right" id="montapuestplayer4">0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -700,7 +700,7 @@
             </section>
         </div>
         <div class="col-lg-3 col-md-2 col-sm-2 hidden-xs sidebar-game">
-            <div class="content-user" id="playerdata" style="display: none;">
+            <div class="content-user" id="playerdata" style="display: block;">
                 <h3>Datos del Jugador</h3>
                 <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
                 <div class="profile">
@@ -709,7 +709,7 @@
                 <p class="nameprofile"> Player</p>
                 <p class="saldo">0</p>
             </div>
-            <div class="content-option-user" id="playeroption" style="display: block;">
+            <div class="content-option-user" id="playeroption" style="display: none;">
                 <h3>Opciones del Jugador</h3>
                 <p class="saldo apost-resume">0</p>
                 <input type="number" value="0" class="input-group" id="apost-toal" style="float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">

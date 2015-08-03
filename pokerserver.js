@@ -48,8 +48,9 @@ var roomespejo = 0;
 var accesstrue = false;
 //clientsconection['all'] = {};
 var pos = [1, 2, 4, 7, 6, 5, 3];
-var card2 = new Array("02tre"
-        , "03tre",
+var card2 = new Array(
+        "02tre",
+        "03tre",
         '04tre',
         "05tre",
         "06tre",
@@ -167,6 +168,7 @@ var allowed_origins = [
     'sky.rebugged.com',
     'developer.cdn.mozilla.net',
     '192.168.0.118',
+    'usuario-pc',
     'casino4as.com'
 ];
 
@@ -349,45 +351,64 @@ wsServer.on('request', function(request) {
             else if (msgObj.type === 'newsale') {
                 newsales(msgObj);
             }
+            else if (msgObj.type === 'apost') {
+                console.log(msgObj);
+                var montoapos = 0;
+                if ((connection.idsale !== undefined) && (connection.idsit !== undefined)) {
+                    console.log('Conection ' + connection.idsit + '/' + connection.idsale + ' EnEspera ' + play[connection.idsale].jugadorenespera)
+                    if (connection.idsit === play[connection.idsale].jugadorenespera) {
+                        if ((parseFloat(msgObj.montapost) > 0) && (parseFloat(msgObj.montapost) > parseFloat(saleonline[connection.idsale][connection.idsit].apos))) {
+                            console.log('if');
+                            montoapos = parseFloat(saleonline[connection.idsale][connection.idsit].apos);
+                        } else {
+                            console.log('else');
+                            montoapos = parseFloat(msgObj.montapost);
+                        }
+                        updatesaleapost(connection.idsale, connection.idsit, montoapos);
+                        play[connection.idsale].roomapost[connection.idsit] = parseFloat(play[connection.idsale].roomapost[connection.idsit]) + montoapos;
+                        play[connection.idsale].pote1 = parseFloat(play[connection.idsale].pote1) + montoapos;
+                        play[connection.idsale].potefu();
+                        clearTimeout(play[connection.idsale].enespera);
+                        play[connection.idsale].play();
+                    }
+                }
+////                console.log(' Idsale: ' + connection.idsale+ ' Idsit: ' + connection.idsit);
+//                console.log(saleonline[connection.idsale][connection.idsit].apos);
+                console.log(montoapos);
+            }
             else if (msgObj.type === 'sitdown') {
                 if (connection.idsit > 6) {
                     desconectadesala();
                 }
 //                connection.idsit=undefined;
                 if (connection.idsit == undefined && rooms[connection.idsale] !== undefined && rooms[connection.idsale].apu_min <= msgObj.inputapos && rooms[connection.idsale].apu_max >= msgObj.inputapos) {
-
-                    var mysqlc = mysql.createConnection(
-                            {
-                                host: '23.229.215.154',
-                                user: 'v1',
-                                password: 'Temporal01',
-                                database: 'v1',
-                            }
-                    );
+                    var mysqlc = mysql.createConnection({
+                        host: '23.229.215.154',
+                        user: 'v1',
+                        password: 'Temporal01',
+                        database: 'v1',
+                    });
                     mysqlc.connect();
                     var string = 'SELECT coins FROM user_data WHERE id_user= "' + connection.id_user + '"';
                     mysqlc.query(string, function(err, row, fields) {
                         if (typeof(row)) {
                             connection.coin = row[0].coins;
-                            var coin = {coin: connection.coin,
+                            var coin = {
+                                coin: connection.coin,
                                 apu_min: rooms[connection.idsale].apu_min,
-                                apu_max: rooms[connection.idsale].apu_max};
+                                apu_max: rooms[connection.idsale].apu_max
+                            };
                             if (rooms[connection.idsale] !== undefined && rooms[connection.idsale].apu_min && connection.coin >= msgObj.inputapos) {
-                                console.log(rooms[connection.idsale]);
-                                console.log(connection.coin);
                                 connection.idsit = msgObj.idsit;
                                 connection.apos = msgObj.inputapos;
-                                var mysqlc = mysql.createConnection(
-                                        {
-                                            host: '23.229.215.154',
-                                            user: 'v1',
-                                            password: 'Temporal01',
-                                            database: 'v1',
-                                        }
-                                );
+                                var mysqlc = mysql.createConnection({
+                                    host: '23.229.215.154',
+                                    user: 'v1',
+                                    password: 'Temporal01',
+                                    database: 'v1',
+                                });
                                 mysqlc.connect();
                                 var query = 'UPDATE user_data SET coins = (coins -' + parseInt(connection.apos) + ') WHERE id_user = "' + connection.id_user + '"';
-                                console.log(query);
                                 mysqlc.query(query, function(err, row, fields) {
                                     if (typeof(row)) {
 
@@ -419,10 +440,11 @@ wsServer.on('request', function(request) {
                 mysqlc.query(string, function(err, row, fields) {
                     if (typeof(row)) {
                         connection.coin = row[0].coins;
-                        console.log(connection.idsale);
-                        var coin = {coin: connection.coin,
+                        var coin = {
+                            coin: connection.coin,
                             apu_min: rooms[connection.idsale].apu_min,
-                            apu_max: rooms[connection.idsale].apu_max};
+                            apu_max: rooms[connection.idsale].apu_max
+                        };
                         sendmessageuser(connection, 'numcoin', coin, clients);
                     }
 
@@ -430,6 +452,14 @@ wsServer.on('request', function(request) {
                 mysqlc.end();
             }
             //exitgame
+            else if (msgObj.type === 'gmover') {
+                play[connection.idsale].gameover();
+            }
+            else if (msgObj.type === 'leave') {
+//                console.log(connection.idsale);
+                play[connection.idsale].leaveplay(connection.idsit);
+                console.log('leave');
+            }
             else if (msgObj.type === 'exitgame') {
                 console.log('exitgame');
                 desconectadesala();
@@ -501,10 +531,6 @@ wsServer.on('request', function(request) {
                     joinsale(connection, msgObj.idsale, 'find', msgObj.idsale);
                 }
             }
-            else if (msgObj.type === 'apost') {
-                connection.apos
-                apost(msgObj.montapost);
-            }
             else if (msgObj.type === 'intro') {
                 connection.nickname = msgObj.nickname;
                 connection.chatroom = msgObj.chatroom;
@@ -524,7 +550,7 @@ wsServer.on('request', function(request) {
                 message_to_send = JSON.parse(message.utf8Data);
                 message_to_send['sender'] = connection.id.toString();
                 message_to_send = JSON.stringify(message_to_send);
-                console.log(message_to_send)
+                //  console.log(message_to_send)
                 broadcast_message(message_to_send, msgObj.chatroom);
             } else if (msgObj.type.match(/^activity_/)) {
 // echo back any message type that start with activity_
@@ -575,7 +601,7 @@ wsServer.on('request', function(request) {
             }
         }
         desconectadesala();
-        console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
+        //  console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
     });
     function broadcast_message(message, chatroom) {
         var users = rooms[chatroom];
@@ -630,7 +656,6 @@ wsServer.on('request', function(request) {
             userId: connection.id,
             messagesend: forsend,
             clients: clients
-
         }));
     }
     function newsales(ins) {
@@ -688,6 +713,26 @@ wsServer.on('request', function(request) {
         }
     }
 //function para actualizar todas las salas
+    function updatewin(room, sit, apos) {
+        if (saleonline[room][sit]) {
+            saleonline[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
+//            saleonlineconex[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
+//            saleonlineconexall[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
+            for (i in saleonlineconexall[room]) {
+                sendmessageuser(saleonlineconexall[room][i], 'joinsale', saleonline[room]);
+            }
+        }
+    }
+    function updatesaleapost(room, sit, apos) {
+        if (saleonline[room][sit]) {
+            saleonline[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
+//            saleonlineconex[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
+//            saleonlineconexall[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
+            for (i in saleonlineconexall[room]) {
+                sendmessageuser(saleonlineconexall[room][i], 'joinsale', saleonline[room]);
+            }
+        }
+    }
     function updatesale(id) {
 //        var send = 0;
         for (i in saleonlineconex[id]) {
@@ -729,12 +774,9 @@ wsServer.on('request', function(request) {
                     sendmessageuser(saleonlineconexall[idsale][i], 'joinsale', saleonline[idsale]);
                 }
                 if (sitdown == 2) {
-                    console.log("logicpokerstart");
+//                    console.log("logicpokerstart");
                     logicpokerstart(idsale);
                 }
-
-
-
             }
             else {
                 connection.idsit = undefined;
@@ -804,6 +846,7 @@ wsServer.on('request', function(request) {
                 imageprofile: undefined,
             }
             if (saleonline[connection.idsale][connection.idsit] !== undefined) {
+                var prearray = saleonline[connection.idsale][connection.idsit];
                 saleonline[connection.idsale][connection.idsit] = [conexarray];
             }
             if (connection.idsit !== undefined) {
@@ -816,11 +859,14 @@ wsServer.on('request', function(request) {
                         }
                 );
                 mysqlc.connect();
-                var query = 'UPDATE user_data SET coins = (coins +' + parseInt(connection.apos) + ') WHERE id_user = "' + connection.id_user + '"';
-                console.log(query);
+//                for (i = 0; i < 7; i++) {
+//                    console.log('---------------------- Pos ' + i + '----------------------');
+//                    console.log(saleonline[connection.idsale][i]);
+//                }
+                var query = 'UPDATE user_data SET coins = (coins +' + parseInt(prearray.apos) + ') WHERE id_user = "' + connection.id_user + '"';
+//                console.log(query);
                 mysqlc.query(query, function(err, row, fields) {
                     if (typeof(row)) {
-
                     }
                 });
                 //                console.log(saleonlineconex[connection.idsale]);
@@ -843,7 +889,8 @@ wsServer.on('request', function(request) {
     }
     function apost(montapost) {
 //        console.log(connection);
-        play[connection.idsale].roomapost[connection.idsit] = montapost;
+        play[connection.idsale].newapost[connection.idsit] = montapost;
+        updatesaleapost(connection.idsale, connection.idsit, montapost);
     }
     function Sala(room) {
         this.room = room;
@@ -865,6 +912,8 @@ wsServer.on('request', function(request) {
         this.card = [];
         this.numcard = 0;
         this.diler = 0;
+        this.cardmesa = [];
+        this.newapost = [];
         this.roomapost = [];
         this.ciegamin = 0;
         this.ciegamax = 0;
@@ -880,9 +929,10 @@ wsServer.on('request', function(request) {
             };
             this.jugactivos[x] = coarray;
             this.roomapost[x] = 0;
+            this.newapost[x] = 0;
             x++;
         }
-        console.log(this.jugactivos);
+        //    console.log(this.jugactivos);
 //        console.log(this.jugactivos[6]);
         for (i in saleonlineconex[this.room]) {
             if (saleonlineconex[this.room][i] !== undefined && i < 7) {
@@ -890,7 +940,40 @@ wsServer.on('request', function(request) {
                 this.numjugactivos++;
             }
         }
-        console.log(this.jugactivos);
+        //console.log(this.jugactivos);
+    };
+    Sala.prototype.leaveplay = function(payer) {
+        if (payer === this.jugadorenespera) {
+            var coarray = {
+                'first_name': undefined,
+                'apost': 0
+            };
+            this.jugactivos[payer] = coarray;
+            this.roomapost[payer] = 0;
+            this.newapost[payer] = 0;
+            this.numjugactivos--;
+            if (this.numjugactivos === 1) {
+                for (i in this.jugactivos) {
+                    if (this.jugactivos[i]['first_name'] !== undefined) {
+                        this.jugactivos[i]['apost'] = parseFloat(this.jugactivos[i]['apost']) + parseFloat(this.pote1);
+                        updatewin(this.room, i, this.pote1);
+                        play[this.room].gameover();
+                        logicpokerstart(this.room);
+                    }
+                }
+            }
+            if (payer === this.diler) {
+                this.diler++;
+                while (this.jugactivos[this.diler]['first_name'] == undefined) {
+                    this.diler++;
+                    if (this.diler == 7) {
+                        this.diler = 0;
+                    }
+                }
+            }
+            clearTimeout(this.enespera);
+            play[this.room].play();
+        }
     };
     //revuelvo las cartas
     Sala.prototype.cardfu = function() {
@@ -898,7 +981,6 @@ wsServer.on('request', function(request) {
         this.card.sort(function() {
             return Math.random() - 0.5;
         });
-
     };
     //doy las cartas a cada uno de los jugadores
     Sala.prototype.repartircard = function() {
@@ -908,15 +990,39 @@ wsServer.on('request', function(request) {
                 //aqui creo una variable con el nombre de la carta
                 if (this.jugactivos[i]['first_name'] !== undefined) {
                     namecard = "card" + i2;
-                    this.jugactivos[i][namecard] = card2[this.numcard];
+//                    this.jugactivos[i][namecard] = card2[this.numcard];
+                    this.jugactivos[i][namecard] = this.card[this.numcard];
                     sendmessageuser(this.jugactivos[i], namecard, card2[this.numcard]);
                     this.numcard++;
                 }
             }
         }
     };
+    Sala.prototype.repartircardmesa = function() {
+        var count = this.cardmesa.length;
+        if (count === 3) {
+            this.cardmesa[3] = this.card[this.numcard];
+            this.numcard++;
+        } else if (count === 4) {
+            this.cardmesa[4] = this.card[this.numcard];
+            this.numcard++;
+        } else if (count < 4) {
+            for (i = 0; i < 3; i++) {
+                this.cardmesa[i] = this.card[this.numcard];
+                this.numcard++;
+            }
+        }
+        for (i in saleonlineconexall[this.room]) {
+            sendmessageuser(saleonlineconexall[this.room][i], 'cardmesa', this.cardmesa);
+        }
+    };
     Sala.prototype.gameover = function() {
-        clearInterval(this.enespera);
+        this.cardmesa = [];
+        this.roomapost = [];
+        clearTimeout(this.enespera);
+        for (i in saleonlineconexall[this.room]) {
+            sendmessageuser(saleonlineconexall[this.room][i], 'gameover', this.cardmesa);
+        }
     };
     Sala.prototype.nextdiler = function() {
         this.diler = 0;
@@ -926,21 +1032,25 @@ wsServer.on('request', function(request) {
                 this.diler = 0;
             }
         }
-        this.ciegamin = this.diler++;
+        this.ciegamin = this.diler + 1;
         while (this.jugactivos[this.ciegamin]['first_name'] == undefined) {
             this.ciegamin++;
             if (this.ciegamin == 7) {
                 this.ciegamin = 0;
             }
         }
-        this.ciegamax = this.ciegamin++;
+        this.roomapost[this.ciegamin] = this.minci;
+        updatesaleapost(this.room, this.ciegamin, this.minci);
+        this.ciegamax = this.ciegamin + 1;
         while (this.jugactivos[this.ciegamax]['first_name'] == undefined) {
             this.ciegamax++;
             if (this.ciegamax == 7) {
                 this.ciegamax = 0;
             }
         }
-        this.jugadorenespera = this.ciegamax++;
+        this.roomapost[this.ciegamax] = this.maxci;
+        updatesaleapost(this.room, this.ciegamax, this.maxci);
+        this.jugadorenespera = this.ciegamax + 1;
         while (this.jugactivos[this.jugadorenespera]['first_name'] == undefined) {
             this.jugadorenespera++;
             if (this.jugadorenespera == 7) {
@@ -950,7 +1060,9 @@ wsServer.on('request', function(request) {
         this.dilerfu();
         this.ciegaminfu();
         this.ciegamaxfu();
-
+        this.minapost();
+        this.potefu();
+//        this.repartircardmesa();
     };
     Sala.prototype.play = function() {
         var x = this.jugadorenespera + 1;
@@ -965,14 +1077,41 @@ wsServer.on('request', function(request) {
             }
         }
         this.jugadorenespera = x;
-        console.log(x);
         if (this.jugactivos[this.jugadorenespera] !== undefined) {
-            console.log('aaaquuiuuu');
-            play[this.room].intervalo();
+            var maxapost = 0;
+            for (i in this.roomapost) {
+                if (this.roomapost[i] > maxapost) {
+                    maxapost = parseFloat(this.roomapost[i]);
+                }
+            }
+            var cadmesa = 0;
+            for (i in this.roomapost) {
+                if ((this.jugactivos[i]['first_name'] !== undefined) && (this.roomapost[i] !== maxapost)) {
+                    var cadmesa = 1;
+                }
+            }
+            console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length);
+            if ((cadmesa === 0) && (x === this.diler) && (this.cardmesa.length < 5)) {
+                play[this.room].repartircardmesa();
+//                console.log('if');
+            } else {
+                if (this.cardmesa.length === 5) {
+//                    console.log('else');
+                    play[this.room].gameover();
+                    logicpokerstart(this.room);
+                }
+            }
+
+            play[this.room].minapost();
             play[this.room].enesperafu();
+            play[this.room].potefu();
+            play[this.room].intervalo();
+
         }
     };
     Sala.prototype.enesperafu = function() {
+        //   console.log(this.jugadorenespera);
+        //   console.log(pos[this.jugadorenespera]);
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'enespera', this.jugadorenespera);
         }
@@ -983,11 +1122,13 @@ wsServer.on('request', function(request) {
         }
     };
     Sala.prototype.ciegaminfu = function() {
+        this.pote1 = this.pote1 + this.minci;
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'ciegamin', this.ciegamin);
         }
     };
     Sala.prototype.ciegamaxfu = function() {
+        this.pote1 = this.pote1 + this.maxci;
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'ciegamax', this.ciegamax);
         }
@@ -995,18 +1136,41 @@ wsServer.on('request', function(request) {
     Sala.prototype.montapost = function(user, apost) {
         this.jugactivos[user].apost = apost;
     };
+    Sala.prototype.minapost = function() {
+
+        var maxapost = 0;
+        for (i in this.roomapost) {
+            if (this.roomapost[i] > maxapost) {
+                maxapost = parseFloat(this.roomapost[i]);
+            }
+        }
+        var minapost = maxapost - parseFloat(this.roomapost[this.jugadorenespera]);
+//        console.log('apuesta maxima:' + maxapost + ' puesto: ' + this.jugadorenespera + ' minapost: ' + minapost);
+        sendmessageuser(saleonlineconex[this.room][this.jugadorenespera], 'minapost', minapost);
+
+    }
+    Sala.prototype.potefu = function() {
+        var send = {
+            'pote': this.pote1,
+            'apost': this.roomapost
+        }
+        console.log(this.roomapost);
+        for (i in saleonlineconexall[this.room]) {
+            sendmessageuser(saleonlineconexall[this.room][i], 'pote', send);
+        }
+    };
 
     Sala.prototype.intervalo = function() {
-        //borro el intervalo
-//        clearInterval(this.enespera);
         //seteo para que aa los 20 segundos llame a la funcion play
-//        this.enespera = setInterval(play[idsale].play(this.jugadorenespera), 5000);
         var espejo = this.room;
+        clearTimeout(this.enespera);
         this.enespera = setTimeout(function() {
-            console.log('en espera');
+//            console.log('en espera');
             if (typeof  play[espejo] && play[espejo] !== undefined) {
                 play[espejo].play();
+//                play[espejo].minapost()
             }
+//            this.minapost();
         }, 5000);
 //        console.log(this.room);
 //        this.enespera = setInterval(function(){ console.log(room);}, 5000);

@@ -426,6 +426,9 @@
             //$('#game').html(message.messagesend);
         }
         else if (message.type === 'gameover') {
+            for (i = 1; i < 8; i++) {
+                $('#montapuestplayer' + i).html('0');
+            }
             $('#apost-toal').val(0);
             $('.one').html('');
             $('.two').html('');
@@ -513,12 +516,12 @@
             $(player).html('20');
             if (idsit !== (sitenespera - 1)) {
                 //descomentar
-//                $('#playerdata').slideDown();
-//                $('#playeroption').slideUp();
+                $('#playerdata').slideDown();
+                $('#playeroption').slideUp();
             } else {
                 //descomentar
-//                $('#playerdata').slideUp();
-//                $('#playeroption').slideDown();
+                $('#playerdata').slideUp();
+                $('#playeroption').slideDown();
             }
             enespera = setInterval(function() {
                 myTimer();
@@ -538,6 +541,7 @@
             console.log(message);
         }
         else if (message.type === 'pote') {
+            console.log('pote');
             pote = message.messagesend.pote;
             console.log(message.messagesend.apost);
             for (i in message.messagesend.apost) {
@@ -545,6 +549,7 @@
                     var player = parseInt(i) + 1;
                     var s = parseFloat($('#player' + player + 'apos').html());
                     console.log('#player' + player + 'apos');
+                    $("#montapuestplayer" + player).html(parseFloat(message.messagesend.apost[i]));
                     $('#player' + player + 'apos').html((s - parseFloat(message.messagesend.apost[i])));
                 }
             }
