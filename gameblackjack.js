@@ -590,8 +590,13 @@ function dealingnode(objeto){
              connection.sumaCartasPlayer= parseFloat(connection.sumaCartasPlayer) + connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
              console.log(connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
       r++;
+
+      //var chequeo = _checkHandNodePlayer(connection._iCardDealedToPlayer,connection.sumaCartasPlayer);
+     // console.log(chequeo + ' chequeo');
+
+
          }     
-          while (!_checkHandNodePlayer(connection._iCardDealedToPlayer,connection.sumaCartasPlayer) &&  r==10);           
+          while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + connection.f])>8)          
               /* oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[_iNextCardForPlayer + f],
                 s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]),
                 false,_oSeat.newCardDealed());*/
@@ -673,29 +678,41 @@ iCardCount: objeto.iCardCount
 
 //////////////////////////////////////////////////////////////////funcion attachcardtodeal fin
 ////////////////////////////////////////////////////////////////// funcion checkhand
- function _checkHandNodePlayer(carddealedsum,sumcartpl){
+   function _checkHandNodePlayer(carddealedsum,sumcartpl){
 
     //primero hacer el if para chequear el bote
  console.log(' llama a _checkHandNodePlayer');
  console.log('sumacart'+sumcartpl);
-    if((sumcartpl>21 || sumcartpl<17) && carddealedsum>1){
-    if(connection.aces>0 && carddealedsum>1){
-        removeAcePlayer();
-
-        console.log(' false ' + sumcartpl);
-        return false;
+ console.log('sumacart'+carddealedsum);
+ if (carddealedsum===1){
+    console.log('primera carta');
+    console.log('//////////////////////////////////////////////////////////////////////////////////////');
+    return false;
+ } else  {
+    if((sumcartpl>21 || sumcartpl<17)){
+        /*if(connection.aces>0){
+            connection.sumaCartasPlayer -= 10;
+            connection._iNumAces--;
+            console.log(connection.sumaCartasPlayer +  '  remover as');
+            return false;
         
+        }else{
+            console.log(' true' + sumcartpl);
+            return true;
+        
+        }*/
+        
+        console.log(' true ' + sumcartpl + ' Suma de Cartas: '+sumcartpl+ ' carta repartida: '+carddealedsum);
+        console.log('//////////////////////////////////////////////////////////////////////////////////////');
+        return true;  
     }else{
-        console.log(' true a ' + sumcartpl);
+        console.log(' false ' + sumcartpl + ' Suma de Cartas: '+sumcartpl+ ' carta repartida: '+carddealedsum);
+        console.log('//////////////////////////////////////////////////////////////////////////////////////');
         return false;
         
     }
-
-    }else{
-        console.log(' true b ' + sumcartpl);
-        return false;
-        
-    }
+ }
+    
     
  }
    /* function _checkHandNode(){// chequea la mano luego de repartir las 2 primeras cartas
@@ -830,9 +847,7 @@ iCardCount: objeto.iCardCount
     };*/
     function removeAcePlayer(){
 
-        connection.sumaCartasPlayer -= 10;
-        connection._iNumAces--;
-        console.log(connection.sumaCartasPlayer +  '  remover as');
+        
        // _checkHandNodePlayer();
     }
 
