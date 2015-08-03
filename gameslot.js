@@ -253,6 +253,14 @@ wsServer.on('request', function(request) {
 
             }
             else if (msgObj.type === 'prueba') {
+                 if (connection.free ==true){
+                connection.numfree=connection.numfree-1;
+                  if(connection.numfree==0){
+                      connection.free ==false;
+                  }
+                        
+               
+                 }
                 pruebaserver(msgObj);
 
 
