@@ -2,15 +2,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Slotmachine Frutas</title>
         <?php $this->load->view('page/header'); ?>
         <link rel="stylesheet" href="./game-slot-machine/game_1024x768/css/reset.css" type="text/css">
         <link rel="stylesheet" href="./game-slot-machine/game_1024x768/css/main.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
         <meta name="msapplication-tap-highlight" content="no"/>
-
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/jquery-2.0.3.min.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/createjs-2013.12.12.min.js"></script>
         <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/ctl_utils.js"></script>
@@ -34,7 +32,8 @@
 
 
     </head>
-    <body ondragstart="return false;" ondrop="return false;" style="background: #FF9603;">
+    <body ondragstart="return false;" ondrop="return false;">
+        <div class="fondo-game"  style="background: #FF9603;">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
     </div>
@@ -53,6 +52,8 @@
             var myId;
             var idgame = 1; //aqui debe llevarse el nombre del juego que selecciono
             var free_gameslot = 0;
+            var free=0;
+            var freeselect=0;
             var nicklist;
             var is_typing_indicator;
             var window_has_focus = true;
@@ -91,6 +92,15 @@
 
                     $('#jgModal').modal(options);
                 }
+                       if (free > 0) {
+                           free=free-1;
+                           NUM_PAYLINES=freeselect;
+               s_oGame.onMaxBetjgXxx();
+                }
+                else{
+                    freeselect=20;
+                }
+                
 
 
             });
@@ -153,20 +163,47 @@
             // CONFIG DEL BOTON JUEGOS GRATIS
 
             $('#jg-button').click(function () {
-
-
-                // var value_mt=  10;
-
-
-                // s_oGame.moneyref(parseFloat(value_mt));
-                //   alert('si pasa por aqui');
-
-                //s_oInterface.refreshMoney(parseFloat(iMoney));
-                console.log('aqui es la primera');
-
-                s_oGame.onMaxBetjgXxx();
-
                 free_gameslot = 0;
+              freeselect=20;
+                var intro = {
+                    type: 'playfreegame',
+                    free: 5
+
+                }
+
+                socket.send(JSON.stringify(intro));
+
+
+                $('#jgModal').modal('toggle');
+
+            });
+            //10 x 10
+            $('#jg-button2').click(function () {
+              free_gameslot = 0;
+              freeselect=10;
+                var intro = {
+                    type: 'playfreegame',
+                    free: 10
+
+                }
+
+                socket.send(JSON.stringify(intro));
+
+
+                $('#jgModal').modal('toggle');
+
+            });
+             $('#jg-button3').click(function () {
+              free_gameslot = 0;
+              freeselect=5;
+                var intro = {
+                    type: 'playfreegame',
+                    free: 20
+
+                }
+
+                socket.send(JSON.stringify(intro));
+
 
                 $('#jgModal').modal('toggle');
 
@@ -278,6 +315,26 @@
                     openjg(freg);
 
                 }
+                      else if (message.type === 'free_game_play') {
+                         myId = message.userId;
+                            if(free > 0){
+                                free += message.messagesend;
+                            }
+                            else{
+                                free = message.messagesend;
+                             if (free > 0) {
+                                   free=free -1;
+                                   NUM_PAYLINES=freeselect;
+                       s_oGame.onMaxBetjgXxx();
+                            }
+                             else{
+                    freeselect=20;
+                }
+                            
+                        }
+               
+
+                }
 
                 else if (message.type === 'prueba2') {
                     myId = message.userId;
@@ -376,12 +433,8 @@
 
 
     </script>
-
-    <div class="container-fluid sin-padding">
-
+    <div class="container-fluid sin-padding fondo-game" style="background: #FF9603;">
         <!-- Trigger the modal with a button -->
-
-
         <div class="container sin-padding">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">    
@@ -399,7 +452,7 @@
             <div class="modal-dialog">
 
                 <!-- Modal content-->
-                <div class="modal-content">
+                <div class="modal-content firstmodal">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <p>Ingrese el monto para recargar sus fichas.</p>
@@ -417,7 +470,7 @@
                     </div>
                     <div class="modal-footer">
                           Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza.
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                     </div>
                 </div>
 
@@ -433,7 +486,7 @@
             <div class="modal-dialog">
 
                 <!-- Modal content-->
-                <div class="modal-content">
+                <div class="modal-content freeplaymodal">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <label>HA GANADO JUGADA GRATIS</label>
@@ -442,15 +495,15 @@
 
 
 <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
-                        <label id="total_jg" style="display: none;"></label>
-                        <button type="button" class="btn btn-default"  id="jg-button">Jugar 5 x 20</button>
-                        <button type="button" class="btn btn-default"  id="jg-button2">Jugar 10 x 10</button>
-                        <button type="button" class="btn btn-default"  id="jg-button3">Jugar 20 x 5</button>
+                       
                       
                     </div>
                     <div class="modal-footer">
-
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+ <label id="total_jg" style="display: none;"></label>
+                        <button type="button" class="btn btn-default myButton"  id="jg-button">Jugar 5 x 20</button>
+                        <button type="button" class="btn btn-default myButton"  id="jg-button2">Jugar 10 x 10</button>
+                        <button type="button" class="btn btn-default myButton"  id="jg-button3">Jugar 20 x 5</button>
+                        
                     </div>
                 </div>
 
@@ -465,6 +518,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
         <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
+    </div>
     </div>
     <?php $this->load->view('page/footer'); ?>
 </body>

@@ -30,6 +30,7 @@
     var sitenespera;
     var protocol_identifier = 'server';
     var myId;
+    var apostini;
     var idsale;
     var nicklist;
     var is_typing_indicator;
@@ -39,7 +40,8 @@
     var connected = false;
     var connection_retry_timer;
 //    var server_url = 'ws://162.252.57.97:8807/';
-    var serverc_url = 'ws://localhost:8806/';
+    //var serverc_url = 'ws://localhost:8806/';
+    var serverc_url = 'ws://casino4as-krondon.c9.io:8082/';
     var card2 = new Array("02tre"
             , "03tre",
             '04tre',
@@ -236,7 +238,27 @@
         });
         //boton para acceder al juego
         $('#apost-mont').keyup(function() {
-            $('#apost-toal').val($('#apost-mont').val());
+            $('#apost-toal').val($('#apost-mont').val(), function() {
+                apostresume()
+            });
+        });
+        $('#apost-bote').click(function() {
+            console.log('apost-bote: ' + pote);
+            $('#apost-toal').val(pote, function() {
+                apostresume()
+            });
+        });
+        $('#apost-bote-mid').click(function() {
+            console.log('apost-bote-mid: ' + pote);
+            $('#apost-toal').val((pote / 2), function() {
+                apostresume()
+            });
+        });
+        $('#apost-all').click(function() {
+//            console.log('apost-all: ');
+//            console.log(idsit);
+//            console.log($('#player' + (idsit + 1) + 'apos').html());
+            $('#apost-toal').val(parseFloat($('#player' + (idsit + 1) + 'apos').html()));
             apostresume()
         });
 
@@ -308,7 +330,16 @@
         return /\d/.test(String.fromCharCode(keynum));
     }
     function apostresume() {
-        $('.apost-resume').html('Bs. ' + parseFloat($('#apost-toal').val()).format(2, 3, '.', ','));
+        var apt = parseFloat($('#apost-toal').val());
+        $('.apost-resume').html('Bs. ' + apt.format(2, 3, '.', ','));
+        var saldo = parseFloat($('#player' + (idsit + 1) + 'apos').html());
+        console.log('apostresume');
+//        console.log(apt);
+//        console.log(saldo);
+//        console.log(idsit);
+//        console.log('#player' + (idsit + 1) + 'apos');
+        var r = (saldo - apt)
+        $('#player' + (idsit + 1) + 'apos').html(r);
     }
     function connetserver() {
         //muestra el tiempo de espera al servidor revisar la funcion para que cargue si no hay conexion         // show_timer();
@@ -318,7 +349,9 @@
 
     function open_connection() {
         //        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
-        socket = new WebSocket('ws://localhost:8806/', 'server');
+        // socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
+        socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
+        console.log(socket);
         socket.addEventListener("open", connection_established);
     }
     //cuando la conexion se establece
@@ -365,7 +398,7 @@
         }
         //                accede al juego para elegir una silla
         else if (message.type === 'joinsale') {
-            console.log('aqui');
+            //console.log('aqui');
             //             $('#chat-container').fadeIn();
 //            $('#loading-message').hide();
             var newvar = {};
@@ -410,12 +443,12 @@
             clearInterval(enespera);
             var player1 = "#player" + sitenespera + 'time';
             $(player1).html('');
-            sitenespera = message.messagesend+1;
+            sitenespera = message.messagesend + 1;
             console.log(sitenespera);
             var player = "#player" + sitenespera + 'time';
             console.log(player);
             $(player).html('20');
-            if (idsit !== (sitenespera-1)) {
+            if (idsit !== (sitenespera - 1)) {
                 //                console.log('if: ' + idsit)
                 $('#playerdata').slideDown();
                 $('#playeroption').slideUp();

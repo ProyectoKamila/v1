@@ -318,4 +318,5 @@
 <?php $this->load->view('page/footer'); ?>
     
     </body>
+
 </html>
