@@ -5,23 +5,24 @@
 
 
     // Check if SSL support is enabled
+    // Check if SSL support is enabled
     if (process.argv.indexOf('--enable-ssl') !== -1) {
-        //mensaje a enviar en los query
+    //mensaje a enviar en los query
 
         var https = require('https');
         var fs = require('fs');
-
+    
         var options = {
             key: fs.readFileSync('/home/conf/ssl.key'),
             cert: fs.readFileSync('/home/conf/ssl.crt')
         };
-
+    
         var server = https.createServer(options, function(request, response) {
             response.writeHead(404);
             response.end();
         });
-
-        var port = 8805;
+    
+        var port = 8083;
         var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
     } else {
         var http = require('http');
@@ -30,11 +31,10 @@
             response.writeHead(404);
             response.end();
         });
-
-        var port = 8810;
+    
+        var port = 8083;
         var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
     }
-
     var messagesend = [];
     var clients = 0;
     var cont = 0;
@@ -534,105 +534,64 @@ function dealingnode(objeto){
 
 
 
-    if(_iCardIndexToDeal<_aCurActiveCardOffset*2){
-           /* var oCard = new CCard(_oStartingCardOffset.getX(),_oStartingCardOffset.getY(),_oCardContainer);
-
-            var pStartingPoint = new CVector2(_oStartingCardOffset.getX(),_oStartingCardOffset.getY());
-            var pEndingPoint;*/
-
+    if(_iCardIndexToDeal<_aCurActiveCardOffset*2){ // barajea mientras las cartas repartidas sean menoras a 4
+         
                 //THIS CARD IS FOR THE DEALER
-                if((_iCardIndexToDeal%_aCurActiveCardOffset) === 1){
-                    connection._iCardDealedToDealer = connection._iCardDealedToDealer +1;
-                   // pEndingPoint=new CVector2(_oDealerCardOffset.getX()+(CARD_WIDTH+2)*(_iCardIndexToDeal > 1?1:0),_oDealerCardOffset.getY());
+                if((_iCardIndexToDeal%_aCurActiveCardOffset) === 1){ // si la carta es par es la del dealer
 
-                   
+                connection._iCardDealedToDealer = parseFloat(connection._iCardDealedToDealer) +1; // suma uno a las cartas repartidas al dealer
+                var p =0;
 
-                   while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + connection.e])!==11) {
+                //hace el while mientras las cartas del mazo que escoge sean diferente a 11 (as) 
+                while (p<3 || (!_checkHandNodeDealer(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + connection.e]),connection._iCardDealedToDealer))) {
+p++;
+                    connection.e = connection.e + 1; //suma uno a la variable para recorrer el mazo
 
-                     connection.e = connection.e + 1; 
-
-
-                        // valor que es necesario enviar
-                        connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + connection.e]);
+                     //toma la siguiente carla en el mazo y vuelve a validar
+                    connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + connection.e]);
 
                     }
-/*  oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[_iNextCardForDealer + e],
-                    s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e]),
-                    true,_iCardDealedToDealer);*/
-                 /* var sendcardealer = {
-                    carta: _aCardsInCurHandForDealer[_iNextCardForDealer + e],
-                    valor: s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + e])
-                }*/
 
-               connection.carta = _iNextCardForDealer + connection.e;
-
-
+                connection.carta = _iNextCardForDealer + connection.e; //guarda en una variable de coneccion el id de la carta para no repetirla
                 
-
-                console.log(connection._aCardsInCurHandForDealer[connection.carta] + ' carta dealer');
-
+               //console.log(connection._aCardsInCurHandForDealer[connection.carta] + ' carta dealer');
+                //suma uno a las cartas repartidas al dealer
                 _iNextCardForDealer++;
-                  /* if(_iCardDealedToDealer === 2){
-                   // oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
-               }*/
-           }else{
+ 
+         }else{ // si la carta es impar es para el player
+            //suma uno a las cartar repartidas al player
             connection._iCardDealedToPlayer = parseFloat(connection._iCardDealedToPlayer) + 1;
           var r=0;
-           do {
+        
+            //chequea la funcion si la carta es apta para pasar a ser entregada al player
+        while (!_checkHandNodePlayer(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]), connection._iCardDealedToPlayer))          
+       // while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])>8 && connection._iCardDealedToPlayer)          
+        {
 
-             connection.f = connection.f + 1; 
+             connection.f = connection.f + 1; //suma uno a la variable para recorrer el mazo
 
-             if (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])==11){
-                connection.aces++;
-             }
+             //connection.sumaCartasPlayer= parseFloat(connection.sumaCartasPlayer) + connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
+            
+             //console.log(connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
 
-
-             connection.sumaCartasPlayer= parseFloat(connection.sumaCartasPlayer) + connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
-             console.log(connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
-      r++;
-
-      //var chequeo = _checkHandNodePlayer(connection._iCardDealedToPlayer,connection.sumaCartasPlayer);
-     // console.log(chequeo + ' chequeo');
-
-
+             connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])
+     
          }     
-          while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + connection.f])>8)          
-              /* oCard.setInfo(pStartingPoint,_oSeat.getAttachCardOffset(),_aCardsInCurHandForPlayer[_iNextCardForPlayer + f],
-                s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer + f]),
-                false,_oSeat.newCardDealed());*/
-            /* var sendcarplayer = {
-                    carta: _aCardsInCurHandForDealer[_iNextCardForDealer + e],
-                    valor: s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer + f])
-                }*/
-                 connection.carta = _iNextCardForPlayer + connection.f;
+         
+               connection.carta = _iNextCardForPlayer + connection.f;
 
-                console.log(connection._aCardsInCurHandForPlayer[connection.carta] + ' carta player');
-                
-
-
-                _iNextCardForPlayer++;
-             /*  if(_iCardDealedToPlayer === 2){
-                //oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
-            }  */ 
-        }
+             //  console.log(connection._aCardsInCurHandForPlayer[connection.carta] + ' carta player');
+               
+               _iNextCardForPlayer++;
+      }
 
         
         sendcard(connection, 'dealreturn', connection.carta);
 
-        //oCard.addEventListener(ON_CARD_ANIMATION_ENDING,this.cardFromDealerArrived);
-        //oCard.addEventListener(ON_CARD_TO_REMOVE,this._onRemoveCard);
-
-        /*if(DISABLE_SOUND_MOBILE === false || s_bMobile === false){
-            createjs.Sound.play("card");
-        }*/
     }else{
-        //this._checkAvailableActionForPlayer();
-
-        console.log('enviar');
+       console.log('enviar');
         sendcard(connection, 'dealreturn', connection.carta);
- //sendmessageuser(connection, 'dealer', sendcardealer /*,_aFinalSymbolCombo*/);
-          // sendmessageuser(connection, 'player', sendcardplayer /*,_aFinalSymbolCombo*/);
-      }
+    }
 
   }
 
@@ -653,19 +612,43 @@ iCardCount: objeto.iCardCount
     if(objeto.bDealer){
         /*oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[_iNextCardForDealer],
             s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer]),bDealer,iCardCount);*/
+        
+
+        connection.e = connection.e + 1;
         connection.carta = _iNextCardForDealer + connection.e;
-        console.log(connection._aCardsInCurHandForDealer[connection.carta] + ' carta dealer');
+        
+
+
+       // console.log(connection._aCardsInCurHandForDealer[connection.carta] + ' carta dealer');
+       
+
         connection._iNextCardForDealer++;
     }else{
         /*oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForPlayer[_iNextCardForPlayer],
             s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer]),bDealer,iCardCount);*/
+    connection.f = connection.f + 1;
+
+ while (!_checkHandNodePlayerAttach(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])))          
+       // while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])>8 && connection._iCardDealedToPlayer)          
+        {
+
+             connection.f = connection.f + 1; //suma uno a la variable para recorrer el mazo
+
+             //connection.sumaCartasPlayer= parseFloat(connection.sumaCartasPlayer) + connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
+             console.log('suma de cartas player'+connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
+
+             connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
+     
+         }    
+         console.log('vaslor de conection deberia enviarse ------------'+ (_iNextCardForPlayer + connection.f));
         connection.carta = _iNextCardForPlayer + connection.f;
-        console.log(connection._aCardsInCurHandForPlayer[connection.carta] + ' carta player');
-        connection._iNextCardForPlayer++;
+        console.log(connection._aCardsInCurHandForPlayer[connection.carta] + '**** carta player****');
+        _iNextCardForPlayer++;
     }
+    console.log('carta antes de retornar*****---'+connection.carta);
     retornar.carta= connection.carta;
 
-    console.log(retornar.pStartingPointx + ' '+ retornar.pStartingPointy + ' carta dealer');
+    //console.log(retornar.pStartingPointx + ' '+ retornar.pStartingPointy + ' carta dealer');
     sendcard(connection, 'attachdealreturn', retornar);
     //oCard.addEventListener(ON_CARD_ANIMATION_ENDING,this.cardFromDealerArrived);
 
@@ -678,37 +661,129 @@ iCardCount: objeto.iCardCount
 
 //////////////////////////////////////////////////////////////////funcion attachcardtodeal fin
 ////////////////////////////////////////////////////////////////// funcion checkhand
-   function _checkHandNodePlayer(carddealedsum,sumcartpl){
+ function _checkHandNodeDealer(carddealed,sumcartpl){
+
+    //primero hacer el if para chequear el bote
+ console.log(' llama a _checkHandNodeDealer');
+ console.log('Carta repartida'+sumcartpl);
+ console.log('Valor de la carta'+carddealed);
+ if (sumcartpl===1){
+     if(carddealed<7){
+        console.log('primera carta menor de 7 ' + carddealed);
+        return false; 
+    }else{
+        connection.sumaCartasDealer= parseFloat(carddealed);
+      console.log(' true primera carta mayor a 7 ' + carddealed + ' Guarda el valor de la carta' + connection.sumaCartasDealer);
+    console.log('//////////////////////////////////////////////////////////////////////////////////////');
+    
+    return true;  
+    }
+ } else  {
+    var suma= connection.sumaCartasDealer + parseFloat(carddealed);
+    if(suma<18){
+       
+        //connection.sumaCartasDealer -= parseFloat(carddealed);
+       //connection.e =connection.e + 1;
+        console.log(' false Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl + 'resta el valor '+ connection.sumaCartasDealer);
+        console.log('//////////////////////////////////////////////////////////////////////////////////////');
+        return false;  
+    }else{
+        console.log(' true  Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl);
+        console.log('//////////////////////////////////////////////////////////////////////////////////////');
+        return true;
+        
+    }
+ }
+    
+    
+ }
+   function _checkHandNodePlayer(carddealed,sumcartpl){
 
     //primero hacer el if para chequear el bote
  console.log(' llama a _checkHandNodePlayer');
- console.log('sumacart'+sumcartpl);
- console.log('sumacart'+carddealedsum);
- if (carddealedsum===1){
-    console.log('primera carta');
-    console.log('//////////////////////////////////////////////////////////////////////////////////////');
-    return false;
+ //console.log('sumacart'+sumcartpl);
+ //console.log('carddealed'+carddealed);
+ if (sumcartpl===1){
+    if (carddealed==11){
+              console.log('as ' + carddealed);
+        return false; 
+        } else{
+            connection.sumaCartasPlayer= parseFloat(carddealed);
+    console.log('true primera carta '+ connection.sumaCartasPlayer);
+    console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    
+    return true;
+    
+   
+        }
+   
  } else  {
-    if((sumcartpl>21 || sumcartpl<17)){
-        /*if(connection.aces>0){
-            connection.sumaCartasPlayer -= 10;
-            connection._iNumAces--;
-            console.log(connection.sumaCartasPlayer +  '  remover as');
-            return false;
-        
-        }else{
-            console.log(' true' + sumcartpl);
-            return true;
-        
-        }*/
-        
-        console.log(' true ' + sumcartpl + ' Suma de Cartas: '+sumcartpl+ ' carta repartida: '+carddealedsum);
-        console.log('//////////////////////////////////////////////////////////////////////////////////////');
-        return true;  
+    var suma= connection.sumaCartasPlayer + carddealed;
+    if (carddealed==11){
+              console.log('as ' + carddealed);
+        return false; 
+        } else{
+            if((suma>16)){
+       
+        connection.sumaCartasPlayer = suma - carddealed;
+       // connection.f =connection.f + 1;
+        console.log(' false  Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl);
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        return false;  
     }else{
-        console.log(' false ' + sumcartpl + ' Suma de Cartas: '+sumcartpl+ ' carta repartida: '+carddealedsum);
-        console.log('//////////////////////////////////////////////////////////////////////////////////////');
-        return false;
+      console.log(' true  Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl);
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+        connection.sumaCartasPlayer = suma;
+        return true;
+        
+    }
+    
+   
+        }
+    
+ }
+    
+    
+ }
+
+
+   function _checkHandNodePlayerAttach(carddealed){
+
+    //primero hacer el if para chequear el bote
+    console.log('carta repartida'+ parseFloat(carddealed));
+    console.log('carta sumacartaplayer'+ connection.sumaCartasPlayer);
+    var suma= connection.sumaCartasPlayer + parseFloat(carddealed);
+    console.log('la suma'+ suma);
+
+     if (carddealed==11){
+              console.log('as ' + carddealed);
+        return false; 
+        } else{
+ console.log('else no es AS');
+ if(suma>16){
+    console.log('suma mayor 16');
+        if (suma<22){
+            console.log('suma menor 22');
+            connection.sumaCartasPlayer = suma - parseFloat(carddealed);
+       // connection.f =connection.f + 1;
+        console.log(' false  Suma de Cartas: '+suma);
+        console.log('????????????????????????????????????????????????????????????????????????????');
+        return false; 
+        }else{
+            console.log('SUMA MAYOR 22');
+             console.log(' true  Suma de Cartas: '+suma);
+         console.log('????????????????????????????????????????????????????????????????????????????');
+         connection.sumaCartasPlayer = suma;
+        return true;
+        }
+       
+         
+    }else{
+        console.log('suma menor 16');
+      console.log(' true  Suma de Cartas: '+suma);
+         console.log('????????????????????????????????????????????????????????????????????????????');
+         connection.sumaCartasPlayer = suma;
+        return true;
         
     }
  }

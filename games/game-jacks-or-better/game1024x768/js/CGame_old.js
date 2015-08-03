@@ -193,17 +193,6 @@ function CGame(oData){
         
         _oCardAttach.removeAllChildren();
 
-
-        var enviar= {
-
-            _aCurHandE : _aCurHand,
-            _aCurHandValueE : _aCurHandValue,
-            _aCardDeckE : _aCardDeck,
-            _oCardAttachE : _oCardAttach,
-            _iCurIndexDeckE : _iCurIndexDeck,
-        }
-        //dealcards_node(enviar); 
-
         this.cehckhandeal();
         //do{
             console.log(_oHandEvaluator.evaluate(_aCurHandValue));
@@ -243,7 +232,7 @@ function CGame(oData){
         
         _iCurState = STATE_GAME_DEAL;
     };
-    this.cehckhandeal = function(){//al node
+     this.cehckhandeal = function(){
         var iX = 0;
         var iY = 0;
         _aCurHand = new Array();

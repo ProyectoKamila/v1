@@ -238,6 +238,8 @@ this.attachCardToDealR = function(objeto){
 //var     pEndingPoint=   objeto.pEndingPoint;
 var     bDealer=        objeto.bDealer;
 var     iCardCount=     objeto.iCardCount;
+var   _iNextCardForDealer = objeto.carta;
+var  _iNextCardForPlayer = objeto.carta;
 
 if(bDealer){
   var pStartingPoint=new CVector2(_oStartingCardOffset.getX(),_oStartingCardOffset.getY());
