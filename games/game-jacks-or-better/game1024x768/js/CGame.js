@@ -198,7 +198,7 @@ function CGame(oData){
 
             _aCurHandE : _aCurHand,
             _aCurHandValueE : _aCurHandValue,
-            _aCardDeckE : _aCardDeck,
+            _aCardDeckE : _aCardDeck,// deberia estar en el node
             _oCardAttachE : _oCardAttach,
             _iCurIndexDeckE : _iCurIndexDeck,
         }
