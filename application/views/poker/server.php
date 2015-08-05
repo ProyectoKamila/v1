@@ -30,11 +30,8 @@
     var sitenespera;
     var protocol_identifier = 'server';
     var myId;
-<<<<<<< HEAD
     var myapos = 0;
-=======
     var apostini;
->>>>>>> origin/master
     var idsale;
     var nicklist;
     var is_typing_indicator;
@@ -387,13 +384,11 @@
 
     function open_connection() {
         //        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
-<<<<<<< HEAD
-        //socket = new WebSocket('ws://localhost:8806/', 'server');
-        socket = new WebSocket('ws://milagros-pc:8806/', 'server');
-=======
+
+        socket = new WebSocket('ws://localhost:8806/', 'server');
+        //socket = new WebSocket('ws://milagros-pc:8806/', 'server');
         // socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
-        socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
->>>>>>> origin/master
+        //socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
         console.log(socket);
         socket.addEventListener("open", connection_established);
     }
@@ -441,11 +436,10 @@
         }
         //                accede al juego para elegir una silla
         else if (message.type === 'joinsale') {
-<<<<<<< HEAD
-            console.log('joinsale');
-=======
+            //console.log('joinsale');
+
             //console.log('aqui');
->>>>>>> origin/master
+
             //             $('#chat-container').fadeIn();
 //            $('#loading-message').hide();
             var newvar = {};
@@ -558,11 +552,9 @@
             console.log(player);
             $(player).html('20');
             if (idsit !== (sitenespera - 1)) {
-<<<<<<< HEAD
                 //descomentar
-=======
+
                 //                console.log('if: ' + idsit)
->>>>>>> origin/master
                 $('#playerdata').slideDown();
                 $('#playeroption').slideUp();
             } else {
