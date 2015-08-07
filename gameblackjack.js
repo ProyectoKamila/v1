@@ -543,7 +543,7 @@ function dealingnode(objeto){
                 var p =0;
 
                 //hace el while mientras las cartas del mazo que escoge sean diferente a 11 (as) 
-                while (p<3 || (!_checkHandNodeDealer(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + connection.e]),connection._iCardDealedToDealer))) {
+                while (p<3 || (!_checkHandNodeDealer(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForDealer[_iNextCardForDealer + connection.e]),connection._iCardDealedToDealer,objeto.apuesta))) {
 p++;
                     connection.e = connection.e + 1; //suma uno a la variable para recorrer el mazo
 
@@ -564,7 +564,7 @@ p++;
           var r=0;
         
             //chequea la funcion si la carta es apta para pasar a ser entregada al player
-        while (!_checkHandNodePlayer(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]), connection._iCardDealedToPlayer))          
+        while (!_checkHandNodePlayer(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]), connection._iCardDealedToPlayer,objeto.apuesta))          
        // while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])>8 && connection._iCardDealedToPlayer)          
         {
 
@@ -628,16 +628,21 @@ iCardCount: objeto.iCardCount
             s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer]),bDealer,iCardCount);*/
     connection.f = connection.f + 1;
 
- while (!_checkHandNodePlayerAttach(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])))          
+
        // while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])>8 && connection._iCardDealedToPlayer)          
+      while (!_checkHandNodePlayerAttach(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]),objeto.apuesta))          
+ 
         {
 
              connection.f = connection.f + 1; //suma uno a la variable para recorrer el mazo
 
              //connection.sumaCartasPlayer= parseFloat(connection.sumaCartasPlayer) + connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
-             console.log('suma de cartas player'+connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
+
+             console.log('suma de cartas player A'+connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
 
              connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
+
+               console.log('suma de cartas player B'+connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
      
          }    
          console.log('vaslor de conection deberia enviarse ------------'+ (_iNextCardForPlayer + connection.f));
@@ -661,9 +666,16 @@ iCardCount: objeto.iCardCount
 
 //////////////////////////////////////////////////////////////////funcion attachcardtodeal fin
 ////////////////////////////////////////////////////////////////// funcion checkhand
- function _checkHandNodeDealer(carddealed,sumcartpl){
-
+ function _checkHandNodeDealer(carddealed,sumcartpl,handvalue){
+    var iMult = 1;
+        if((connection.sumaCartasDealer + parseFloat(carddealed)) === 21 && sumcartpl === 2){
+            iMult =  BLACKJACK_PAYOUT;
+        }
+        
+        var iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
+        console.log(' Se va a ganar '+ iTotalWin + 'DISPONIBLE '+jackpot);
     //primero hacer el if para chequear el bote
+    if (iTotalWin>jackpot){
  console.log(' llama a _checkHandNodeDealer');
  console.log('Carta repartida'+sumcartpl);
  console.log('Valor de la carta'+carddealed);
@@ -695,11 +707,22 @@ iCardCount: objeto.iCardCount
     }
  }
     
-    
+    }else{
+        console.log('hay rial/////////////////////////////////////////////////');
+        return true;
+    }
  }
-   function _checkHandNodePlayer(carddealed,sumcartpl){
+   function _checkHandNodePlayer(carddealed,sumcartpl,handvalue){
 
+  var iMult = 1;
+        if((connection.sumaCartasPlayer + parseFloat(carddealed)) === 21 && sumcartpl === 2){
+            iMult =  BLACKJACK_PAYOUT;
+        }
+        
+        var iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
+ console.log(' Se va a ganar '+ iTotalWin + 'DISPONIBLE '+jackpot);
     //primero hacer el if para chequear el bote
+    if (iTotalWin>jackpot){
  console.log(' llama a _checkHandNodePlayer');
  //console.log('sumacart'+sumcartpl);
  //console.log('carddealed'+carddealed);
@@ -742,35 +765,50 @@ iCardCount: objeto.iCardCount
         }
     
  }
-    
+    }else{
+        console.log('hay rial/////////////////////////////////////////////////');
+        return true;
+    }
     
  }
 
 
-   function _checkHandNodePlayerAttach(carddealed){
+   function _checkHandNodePlayerAttach(carddealed,handvalue){
 
+      var iMult = 1;
+        if((connection.sumaCartasPlayer + parseFloat(carddealed)) === 21){
+            iMult =  BLACKJACK_PAYOUT;
+        }
+        
+        var iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
+
+ console.log(' Se va a ganar '+ iTotalWin + 'DISPONIBLE '+jackpot);
     //primero hacer el if para chequear el bote
-    console.log('carta repartida'+ parseFloat(carddealed));
+    if (iTotalWin>jackpot){
+    console.log('carta repartida _checkHandNodePlayerAttach'+ parseFloat(carddealed));
     console.log('carta sumacartaplayer'+ connection.sumaCartasPlayer);
     var suma= connection.sumaCartasPlayer + parseFloat(carddealed);
     console.log('la suma'+ suma);
 
      if (carddealed==11){
-              console.log('as ' + carddealed);
+             
+               connection.sumaCartasPlayer = suma - parseFloat(carddealed);
+                console.log('AS ' + carddealed + ' false  Suma de Cartas: '+ suma);
+         console.log('????????????????????????????????????????????????????????????????????????????');
         return false; 
         } else{
  console.log('else no es AS');
  if(suma>16){
-    console.log('suma mayor 16');
+    console.log('SUMA MAYOR A 16');
         if (suma<22){
             console.log('suma menor 22');
             connection.sumaCartasPlayer = suma - parseFloat(carddealed);
        // connection.f =connection.f + 1;
-        console.log(' false  Suma de Cartas: '+suma);
+        console.log(' SUMA MENOR A 22' + carddealed +'false  Suma de Cartas: '+suma);
         console.log('????????????????????????????????????????????????????????????????????????????');
         return false; 
         }else{
-            console.log('SUMA MAYOR 22');
+            console.log('SUMA MAYOR A 22');
              console.log(' true  Suma de Cartas: '+suma);
          console.log('????????????????????????????????????????????????????????????????????????????');
          connection.sumaCartasPlayer = suma;
@@ -787,6 +825,10 @@ iCardCount: objeto.iCardCount
         
     }
  }
+  }else{
+        console.log('hay rial/////////////////////////////////////////////////');
+        return true;
+    }
     
     
  }
