@@ -669,7 +669,7 @@ iCardCount: objeto.iCardCount
  function _checkHandNodeDealer(carddealed,sumcartpl,handvalue){
     var iMult = 1;
         if((connection.sumaCartasDealer + parseFloat(carddealed)) === 21 && sumcartpl === 2){
-            iMult =  BLACKJACK_PAYOUT;
+            iMult =  1.5;
         }
         
         var iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
@@ -716,7 +716,7 @@ iCardCount: objeto.iCardCount
 
   var iMult = 1;
         if((connection.sumaCartasPlayer + parseFloat(carddealed)) === 21 && sumcartpl === 2){
-            iMult =  BLACKJACK_PAYOUT;
+            iMult =  1.5;
         }
         
         var iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
@@ -777,7 +777,7 @@ iCardCount: objeto.iCardCount
 
       var iMult = 1;
         if((connection.sumaCartasPlayer + parseFloat(carddealed)) === 21){
-            iMult =  BLACKJACK_PAYOUT;
+            iMult =  1.5;
         }
         
         var iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
