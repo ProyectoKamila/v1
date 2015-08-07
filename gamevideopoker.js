@@ -203,8 +203,17 @@ wsServer.on('request', function(request) {
             else if (msgObj.type === 'prueba') {
                 pruebaserver(msgObj);
             }
-             else if (msgObj.type === 'dealcards') {
+            else if (msgObj.type === 'dealcards') {
                 dealCards(msgObj);
+            }
+            else if (msgObj.type === 'createcards') {
+                createCardsDek(msgObj);
+            }
+            else if (msgObj.type === 'checkhandeal') {
+                checkHandDealed(msgObj);
+            }
+            else if (msgObj.type === 'cambiarinfo') {
+                change_info(msgObj);
             }
             else if (msgObj.type === 'intro') {
                 connection.nickname = msgObj.nickname;
@@ -552,20 +561,22 @@ function updtclose(sitc,coin){
     mysqlc.end();
 }
 
-
+var _iCurIndexDeck=0;
 /////dealhand
 function dealCards(objeto){
+    /*console.log('DealCards');
     connection._aCardDeck = new Array();
+    var _oGameSettings = new CGameSettings();
     connection._aCardDeck = _oGameSettings.getShuffledCardDeck();
     //tomar las variasbles del msje
-    var  _aCurHand= objeto._aCurHandE;
-    var  _aCurHandValue= objeto._aCurHandValueE;
+    var  _aCurHand= new Array();
+    var  _aCurHandValue= new Array();;
     //connection._aCardDeck= objeto._aCardDeckE;
-    var  _oCardAttach= objeto._oCardAttachE;
-    connection._iCurIndexDeck = objeto._iCurIndexDeckE;
+    //var  _oCardAttach= objeto._oCardAttachE;*/
+    connection._iCurIndexDeck = 0;
     var iX = 0;
     var iY = 0;
-        this.cehckhandeal();
+        cehckhandeal();
         //do{
             console.log(_oHandEvaluator.evaluate(_aCurHandValue));
             console.log(JACKS_OR_BETTER);
@@ -604,20 +615,136 @@ function dealCards(objeto){
         
         _iCurState = STATE_GAME_DEAL;
     };
-    this.cehckhandeal = function(){
-        _aCurHand = new Array();
-        _aCurHandValue = new Array(); //arreglo para evaluar mano
+function checkHandDealed(obj){
+
+    //connection._iCurIndexDeck = 0;
+    BET_TYPE = obj.bet_typeE;
+    COMBO_PRIZES =  obj.combo_prizesE;
+    TOTAL_MONEY = obj.total_moneyE;
+    AUTOMATIC_RECHARGE =  obj.automatic_rechargeE;
+    connection._iCurCreditIndex = obj._iCurCreditIndexE;
+    connection._iCurBet = obj._iCurBetE;
+            var iX = 0;
+            var iY = 0;
+    if( connection._iCurIndexDeck != 0){
+        createCardsDek();
+    }
+    /*connection._aCardDeck = new Array();
+    var _oGameSettings = new CGameSettings();
+    connection._aCardDeck = _oGameSettings.getShuffledCardDeck();*/
+        connection._aCurHandValue = new Array(); //arreglo para evaluar mano
+        var card = new Array();
+        connection.indexcard = new Array();
             for(var i=0;i<5;i++){
-                var oCard = new CCard(iX,iY,_oCardAttach,_aCardDeck[_iCurIndexDeck].fotogram,_aCardDeck[_iCurIndexDeck].rank,_aCardDeck[_iCurIndexDeck].suit);
-                _aCurHandValue.push(oCard);
-                _iCurIndexDeck++;
-                iX += 180;
+                card = [
+                    connection._aCardDeck[connection._iCurIndexDeck].fotogram,
+                    connection._aCardDeck[connection._iCurIndexDeck].rank,
+                    connection._aCardDeck[connection._iCurIndexDeck].suit,
+                    ];
+                connection.indexcard.push(connection._iCurIndexDeck);
+                console.log( 'indexcard'+connection._iCurIndexDeck);
+                console.log( 'acardek fotogram'+connection._aCardDeck[connection._iCurIndexDeck].fotogram);
+                console.log( 'acardek rank'+connection._aCardDeck[connection._iCurIndexDeck].rank);
+                console.log( 'acardek suit'+connection._aCardDeck[connection._iCurIndexDeck].suit);
+                connection._aCurHandValue.push(card);
+                connection._iCurIndexDeck++;                
             }
-        //_oHandEvaluator.evaluate(_aCurHandValue);
-        this.checkassignWin(_aCurHandValue);        
+            console.log('handreturn'+connection.indexcard);
+             console.log('handreturn rank'+connection._aCurHandValue);
+            sendmessageuser(connection, 'handreturnindex', connection.indexcard);
+            sendmessageuser(connection, 'handreturn', connection._aCurHandValue);
+
+        console.log('para chekear el win');
+        checkassignWin(connection._aCurHandValue);        
 }
 //end dealhand
+/*assignwin check*/
+     //////////////
+    function checkassignWin(hand){
+        var _checkiCurWin=0;
+        var s_oPayTableSettings;
+        _iCurBet = connection._iCurBet;
+       _iCurCreditIndex = connection._iCurCreditIndex;
+        s_oPayTableSettings = new CPayTableSettings();
+        var _oHandEvaluator;
+        _oHandEvaluator = new CHandEvaluator();
+        console.log('_iCurCreditIndex' + _iCurCreditIndex);
+        //console.log('hand' +hand);
+        console.log('o hand evaluate'+_oHandEvaluator.evaluate(hand));
+        console.log('_iCurBet' + _iCurBet);
+        _checkiCurWin = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(hand)) * _iCurBet;
+        
+        console.log('checkiwin '+_checkiCurWin);
+          
+     };
+     //////////////
+/*check assignwin end*/
+/*change_info*/
+     //////////////
+    function change_info(obj){
+        console.log('posiciones del obj'+obj.handholdedE.length)
+          
+        for(k=0;k<obj.handholdedE.length;k++){
+            console.log('objeto '+k+obj.handholdedE[k].rankE);
+            console.log('objeto fotogram'+k+obj.handholdedE[k].fotogramE);
+            for(var i=0;i<5;i++){
+                console.log('objeto en if'+obj.handholdedE[k].fotogramE);
+                if(connection._aCurHandValue[i][0]==obj.handholdedE[k].fotogramE){
+                    connection._iCurIndexDeck++;
+                    connection._aCurHandValue[i][0]=connection._aCardDeck[connection._iCurIndexDeck].fotogram;
+                    connection._aCurHandValue[i][1]=connection._aCardDeck[connection._iCurIndexDeck].rank;
+                    connection._aCurHandValue[i][2]=connection._aCardDeck[connection._iCurIndexDeck].suit;
 
+                }
+                connection._iCurIndexDeck ++;
+                connection.indexcard.push(connection._iCurIndexDeck);
+                console.log( 'indexcard'+connection._iCurIndexDeck);
+                ///console.log( 'acardek fotogram'+connection._aCardDeck[connection._iCurIndexDeck].fotogram);
+                //console.log( 'acardek rank'+connection._aCardDeck[connection._iCurIndexDeck].rank);
+                //console.log( 'acardek suit'+connection._aCardDeck[connection._iCurIndexDeck].suit);
+                //connection._aCurHandValue.push(card);
+                //connection._iCurIndexDeck++;                
+            }
+        }
+
+
+        /*var _checkiCurWin=0;
+        var s_oPayTableSettings;
+        _iCurBet = connection._iCurBet;
+       _iCurCreditIndex = connection._iCurCreditIndex;
+        s_oPayTableSettings = new CPayTableSettings();
+        var _oHandEvaluator;
+        _oHandEvaluator = new CHandEvaluator();
+        console.log('_iCurCreditIndex' + _iCurCreditIndex);
+        //console.log('hand' +hand);
+        console.log('o hand evaluate'+_oHandEvaluator.evaluate(hand));
+        console.log('_iCurBet' + _iCurBet);
+        _checkiCurWin = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(hand)) * _iCurBet;
+        
+        console.log('checkiwin '+_checkiCurWin);*/
+        console.log('acurhandvaule drwa'+connection._aCurHandValue);
+        console.log('para chekear el win');
+        checkassignWin(connection._aCurHandValue);  
+        sendmessageuser(connection, 'drawreturn', connection._aCurHandValue);
+    };
+     //////////////
+/*change_info end*/
+/*function para crear mazo*/
+function createCardsDek(){
+    console.log('DealCards');
+    connection._aCardDeck = new Array();
+    var _oGameSettings = new CGameSettings();
+    connection._aCardDeck = _oGameSettings.getShuffledCardDeck();
+    //tomar las variasbles del msje
+    var  _aCurHand= new Array();
+    var  _aCurHandValue= new Array();;
+    //connection._aCardDeck= objeto._aCardDeckE;
+    //var  _oCardAttach= objeto._oCardAttachE;
+    connection._iCurIndexDeck = 0;
+
+}
+
+/*end funcion para crear mazo*/
 /////Cgame Settings
 function CGameSettings(){
     
@@ -637,11 +764,9 @@ function CGameSettings(){
             }else if(iRest === 0){
                 iRest = 13;
             }
-             //console.log('acardekPush'+ 'fotogram:'+j +'rank:'+iRest+ 'suit:'+iSuit);
+             console.log('acardekPush'+ 'fotogram:'+j +'rank:'+iRest+ 'suit:'+iSuit);
             _aCardDeck.push({fotogram:j,rank:iRest,suit:iSuit});
         }
-        
-
     };
     
     this.timeToString = function( iMillisec ){      
@@ -695,6 +820,293 @@ function CGameSettings(){
         _iCurIndexDeck = 0;
         _aCardDeck = new Array();
         _aCardDeck = getShuffledCardDeck();
+        for(var i=0;i<_aCurHand.length;i++){
+            _aCurHand[i].reset();
+        }
+
     }
     //end reset hand init
+
+/*evaluador de manos*/
+function CHandEvaluator(){
+    /**/
+var ROYAL_FLUSH     = 0;
+var STRAIGHT_FLUSH  = 1;
+var FOUR_OF_A_KIND  = 2;
+var FULL_HOUSE      = 3;
+var FLUSH           = 4;
+var STRAIGHT        = 5;
+var THREE_OF_A_KIND = 6;
+var TWO_PAIR        = 7;
+var JACKS_OR_BETTER = 8;
+var HIGH_CARD       = 9;
+
+var CARD_TWO = 2;
+var CARD_THREE = 3;
+var CARD_FOUR = 4;
+var CARD_FIVE = 5;
+var CARD_SIX = 6;
+var CARD_SEVEN = 7;
+var CARD_EIGHT = 8;
+var CARD_NINE = 9;
+var CARD_TEN = 10;
+var CARD_JACK = 11;
+var CARD_QUEEN = 12;
+var CARD_KING = 13;
+var CARD_ACE = 14;
+
+var SUIT_HEARTS = 0;
+var SUIT_DIAMONDS = 1;
+var SUIT_CLUBS = 2;
+var SUIT_SPADES = 3;
+    /**/
+    var _aSortedHand;
+    var _aCardIndexInCombo;
+    
+    this.evaluate = function(aHand){
+        _aSortedHand = new Array();
+        for(var i=0;i<aHand.length;i++){
+            //console.log(aHand[i]);
+            _aSortedHand[i] = {rank:aHand[i][1], suit:aHand[i][2]}; //rank suit
+        }
+        
+        _aSortedHand.sort(this.compareRank);
+        
+        _aCardIndexInCombo = new Array(0,1,2,3,4);
+        
+        return this.rankHand();
+    };
+    
+    this.rankHand = function(){
+        if(this._checkForRoyalFlush()){
+            return ROYAL_FLUSH;
+        }else if(this._checkForStraightFlush()){
+            return STRAIGHT_FLUSH;
+        }else if(this._checkForFourOfAKind()){
+            return FOUR_OF_A_KIND;
+        }else if(this._checkForFullHouse()){
+            return FULL_HOUSE;
+        }else if(this._checkForFlush()){
+            return FLUSH;
+        }else if(this._checkForStraight()){
+            return STRAIGHT;
+        }else if(this._checkForThreeOfAKind()){
+            return THREE_OF_A_KIND;
+        }else if(this._checkForTwoPair()){
+            return TWO_PAIR;
+        }else if(this._checkForOnePair()){
+            return JACKS_OR_BETTER;
+        }else{
+            this._identifyHighCard();
+            return HIGH_CARD;
+        }
+    };
+    
+    this._checkForRoyalFlush = function(){
+        if(this._isRoyalStraight() && this._isFlush()){
+            
+            return true;
+        }else{
+            return false;
+        }
+     };
+
+    this._checkForStraightFlush = function(){
+        if(this._isStraight() && this._isFlush()){
+            return true;
+        }else {
+            return false;
+        }
+    };
+
+    this._checkForFourOfAKind = function(){
+        if(_aSortedHand[0].rank === _aSortedHand[3].rank){
+            _aSortedHand.splice(4,1);
+            _aCardIndexInCombo.splice(4,1);
+            return true;
+        }else if(_aSortedHand[1].rank === _aSortedHand[4].rank){
+            _aSortedHand.splice(0,1);
+            _aCardIndexInCombo.splice(0,1);
+            return true;
+        }else{
+            return false;
+        }
+    };
+
+    this._checkForFullHouse = function(){
+        if((_aSortedHand[0].rank === _aSortedHand[1].rank && _aSortedHand[2].rank === _aSortedHand[4].rank) || 
+                                                                                            (_aSortedHand[0].rank === _aSortedHand[2].rank
+                                                                                                        && _aSortedHand[3].rank === _aSortedHand[4].rank)){
+            return true;
+        }else{
+            return false;
+        }
+    };
+
+    this._checkForFlush = function(){
+        if(this._isFlush()){
+            return true;
+        } else{
+            return false;
+        }
+    };
+
+    this._checkForStraight = function(){
+        if(this._isStraight()){
+            return true;
+        } else{
+            return false;
+        }
+     };
+
+    this._checkForThreeOfAKind = function() {
+        if(_aSortedHand[0].rank === _aSortedHand[1].rank && _aSortedHand[0].rank === _aSortedHand[2].rank){
+            _aSortedHand.splice(3,1);
+            _aSortedHand.splice(3,1);
+            //_aSortedHand.splice(4,1);
+            _aCardIndexInCombo.splice(3,1);
+            _aCardIndexInCombo.splice(3,1);
+            return true;
+        } else if(_aSortedHand[1].rank === _aSortedHand[2].rank && _aSortedHand[1].rank === _aSortedHand[3].rank){
+            _aSortedHand.splice(0,1);
+            _aSortedHand.splice(3,1);
+            //_aSortedHand.splice(4,1);
+            _aCardIndexInCombo.splice(0,1);
+            _aCardIndexInCombo.splice(3,1);
+
+            return true;
+        }else if(_aSortedHand[2].rank === _aSortedHand[3].rank && _aSortedHand[2].rank === _aSortedHand[4].rank){
+            _aSortedHand.splice(0,1);
+            _aSortedHand.splice(0,1);
+            //_aSortedHand.splice(1,1);
+            _aCardIndexInCombo.splice(0,1);
+            _aCardIndexInCombo.splice(0,1);
+            return true;
+        }else{
+            return false;
+        }
+    };
+
+    this._checkForTwoPair = function(){
+        if(_aSortedHand[0].rank === _aSortedHand[1].rank && _aSortedHand[2].rank === _aSortedHand[3].rank){
+            _aSortedHand.splice(4,1);
+            _aCardIndexInCombo.splice(4,1);
+            return true;
+        }else if(_aSortedHand[1].rank === _aSortedHand[2].rank && _aSortedHand[3].rank === _aSortedHand[4].rank){
+            _aSortedHand.splice(0,1);
+            _aCardIndexInCombo.splice(0,1);
+            return true;
+        }else if(_aSortedHand[0].rank === _aSortedHand[1].rank && _aSortedHand[3].rank === _aSortedHand[4].rank){
+            _aSortedHand.splice(2,1);
+            _aCardIndexInCombo.splice(2,1);
+            return true;
+        } else{
+            return false;
+        }
+    };
+
+    this._checkForOnePair = function(){
+        for(var i = 0; i < 4; i++){
+            if(_aSortedHand[i].rank === _aSortedHand[i + 1].rank && _aSortedHand[i].rank > CARD_TEN){
+                var p1 = _aSortedHand[i];
+                var p2 = _aSortedHand[i + 1];
+                _aSortedHand = new Array();
+                _aSortedHand.push(p1);
+                _aSortedHand.push(p2);
+                
+                _aCardIndexInCombo = new Array(i,i+1);
+                return true;
+            }
+        }
+
+        return false;
+    };
+
+    this._identifyHighCard = function(){
+        for(var i = 0; i < 4; i++){
+            _aSortedHand.splice(0,1);
+        }
+    };
+    
+    this._isFlush = function(){
+        if(_aSortedHand[0].suit === _aSortedHand[1].suit
+            && _aSortedHand[0].suit === _aSortedHand[2].suit
+            && _aSortedHand[0].suit === _aSortedHand[3].suit
+            && _aSortedHand[0].suit === _aSortedHand[4].suit){
+            return true;
+        }else{
+            return false;
+        }
+    };
+
+    this._isRoyalStraight = function(){
+        if(_aSortedHand[0].rank === CARD_TEN
+            && _aSortedHand[1].rank === CARD_JACK
+            && _aSortedHand[2].rank === CARD_QUEEN
+            && _aSortedHand[3].rank === CARD_KING
+            && _aSortedHand[4].rank === CARD_ACE){
+            return true;
+        }else{
+            return false;
+        }
+    };
+
+    this._isStraight = function(){
+        var bFirstFourStraight = _aSortedHand[0].rank + 1 === _aSortedHand[1].rank && _aSortedHand[1].rank + 1 === _aSortedHand[2].rank
+                                                    && _aSortedHand[2].rank + 1 === _aSortedHand[3].rank;
+
+        if(bFirstFourStraight && _aSortedHand[0].rank === CARD_TWO && _aSortedHand[4].rank === CARD_ACE){
+            return true;
+        }else if(bFirstFourStraight && _aSortedHand[3].rank + 1 === _aSortedHand[4].rank){
+            return true;
+        } else{
+            return false;
+        }
+    };
+    
+    this.compareRank = function(a,b) {
+        if (a.rank < b.rank)
+           return -1;
+        if (a.rank > b.rank)
+          return 1;
+        return 0;
+    };
+    
+    this.getSortedHand = function(){
+        return _aSortedHand;
+    };
+    
+    this.getCardIndexInCombo = function(){
+        return _aCardIndexInCombo;
+    };
+
+}/*fin evaluador de manos*/
+/*paytable settings*/
+function CPayTableSettings(){
+     var NUM_BETS = 5;
+     var WIN_COMBINATIONS = 9;
+
+    var _aWins;
+    
+    this._init = function(){
+        
+        _aWins = new Array();
+        for(var i=0;i<NUM_BETS;i++){
+            _aWins[i] = new Array();
+            for(var j=0;j<WIN_COMBINATIONS;j++){
+                _aWins[i][j] = COMBO_PRIZES[j] * (i+1);
+            }
+        }
+        
+    };
+    
+    this.getWin = function(iBet,iCombo){
+        return _aWins[iBet][iCombo];
+    };
+    
+    this._init();
+}
+/*paytablesettings*/
 });
+
+
