@@ -165,6 +165,11 @@ function CGame(oData){
         
         _aCardsInCurHandForPlayer=new Array();
         _aCardsInCurHandForDealer=new Array();
+          for(var i=0;i<_oSeat.getNumHands();i++){
+    var iTotalWina = _oSeat.getBetForHand(i);
+        }
+        console.log(iTotalWina+ ' iTotalWina');
+
 
         var enviar= {
             _bPlayerTurnEnviar : _bPlayerTurn,
@@ -189,6 +194,7 @@ function CGame(oData){
             _aCardDeckEnviar : _aCardDeck,
             _aCardsInCurHandForPlayerEnviar : _aCardsInCurHandForPlayer,
             _aCardsInCurHandForDealerEnviar : _aCardsInCurHandForDealer,
+            iTotalWin:iTotalWina
          //   s_oGameSettingsEnviar: s_oGameSettings
         }
         prueba(enviar); 
@@ -221,13 +227,18 @@ this.changeState = function(iState){
 
 
 this.attachCardToDeal = function(bDealer,iCardCount){
+         for(var i=0;i<_oSeat.getNumHands();i++){
+    var apuesta = _oSeat.getBetForHand(i);
+        }
+        console.log(apuesta+ ' iTotalWina');
    var enviar={
    // pStartingPoint: pStartingPoint,
 //pEndingPoint: pEndingPoint,
 bDealer: bDealer,
 iCardCount: iCardCount,
  _iNextCardForDealer: _iNextCardForDealer,
-    _iNextCardForPlayer: _iNextCardForPlayer
+    _iNextCardForPlayer: _iNextCardForPlayer,
+    apuesta:apuesta
    }
    attachdealtonode(enviar);
 };
@@ -427,6 +438,10 @@ this._onStandPlayer = function(){
     };
     
     this._dealing = function(){
+         for(var i=0;i<_oSeat.getNumHands();i++){
+    var apuesta = _oSeat.getBetForHand(i);
+        }
+        console.log(apuesta+ ' iTotalWina');
 
         var dealnode = {
 
@@ -436,7 +451,8 @@ this._onStandPlayer = function(){
             _iCardDealedToPlayer: _iCardDealedToPlayer,
             _iNextCardForDealer: _iNextCardForDealer,
             _iNextCardForPlayer: _iNextCardForPlayer,
-            deal: 'deal'
+            deal: 'deal',
+            apuesta: apuesta
         }
         dealer(dealnode);
         
