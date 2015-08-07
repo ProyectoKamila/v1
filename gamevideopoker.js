@@ -67,7 +67,7 @@ var mysqlc = mysql.createConnection(
 );
 
  mysqlc.connect();
-var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
+var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=3';
 
        mysqlc.query(string, function(err, row, fields) {
 
