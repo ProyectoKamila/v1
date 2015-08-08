@@ -389,6 +389,16 @@ this._onStandPlayer = function(){
     };
     
     this._playerWin = function(iHand){
+        for(var i=0;i<_oSeat.getNumHands();i++){
+    var apuesta = _oSeat.getBetForHand(i);
+        }
+
+         var enviar={
+            apuesta:apuesta,
+  resultado: 'gana'
+   }
+   winlosetonode(enviar);
+
         var iMult = 1;
         if(_oSeat.getHandValue(iHand) === 21 && _oSeat.getNumCardsForHand(iHand) === 2){
             iMult =  BLACKJACK_PAYOUT;
@@ -410,6 +420,16 @@ this._onStandPlayer = function(){
     };
 
     this._playerLose = function(iHand){
+        for(var i=0;i<_oSeat.getNumHands();i++){
+    var apuesta = _oSeat.getBetForHand(i);
+        }
+
+         var enviar={
+            apuesta:apuesta,
+  resultado: 'pierde'
+   }
+   winlosetonode(enviar);
+
         _oSeat.showWinner(iHand,TEXT_SHOW_LOSE_PLAYER,0);
         _oInterface.displayMsg(TEXT_DISPLAY_MSG_PLAYER_LOSE);
 

@@ -69,7 +69,7 @@
     );
 
     mysqlc.connect();
-    var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
+    var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=2';
 
     mysqlc.query(string, function(err, row, fields) {
 
@@ -237,6 +237,20 @@
                  else if (msgObj.type === 'attachdealtonode') {
                 
                 attachCardToDealNode(msgObj);
+
+
+
+                }
+                else if (msgObj.type === 'winlose' && msgObj.resultado === 'gana') {
+                
+                winNode(msgObj);
+
+
+
+                }
+                 else if (msgObj.type === 'winlose' && msgObj.resultado === 'pierde') {
+                
+                loseNode(msgObj);
 
 
 
@@ -672,10 +686,10 @@ iCardCount: objeto.iCardCount
             iMult =  1.5;
         }
         
-        var iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
-        console.log(' Se va a ganar '+ iTotalWin + 'DISPONIBLE '+jackpot);
+         connection.iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
+        console.log(' Se va a ganar '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
     //primero hacer el if para chequear el bote
-    if (iTotalWin>jackpot){
+    if (connection.iTotalWin>jackpot){
  console.log(' llama a _checkHandNodeDealer');
  console.log('Carta repartida'+sumcartpl);
  console.log('Valor de la carta'+carddealed);
@@ -719,10 +733,10 @@ iCardCount: objeto.iCardCount
             iMult =  1.5;
         }
         
-        var iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
- console.log(' Se va a ganar '+ iTotalWin + 'DISPONIBLE '+jackpot);
+        connection.iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
+ console.log(' Se va a ganar '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
     //primero hacer el if para chequear el bote
-    if (iTotalWin>jackpot){
+    if (connection.iTotalWin>jackpot){
  console.log(' llama a _checkHandNodePlayer');
  //console.log('sumacart'+sumcartpl);
  //console.log('carddealed'+carddealed);
@@ -780,11 +794,11 @@ iCardCount: objeto.iCardCount
             iMult =  1.5;
         }
         
-        var iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
+         connection.iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
 
- console.log(' Se va a ganar '+ iTotalWin + 'DISPONIBLE '+jackpot);
+ console.log(' Se va a ganar '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
     //primero hacer el if para chequear el bote
-    if (iTotalWin>jackpot){
+    if (connection.iTotalWin>jackpot){
     console.log('carta repartida _checkHandNodePlayerAttach'+ parseFloat(carddealed));
     console.log('carta sumacartaplayer'+ connection.sumaCartasPlayer);
     var suma= connection.sumaCartasPlayer + parseFloat(carddealed);
@@ -832,6 +846,63 @@ iCardCount: objeto.iCardCount
     
     
  }
+
+ function winNode(objeto){
+
+  var iMult = 1;
+        if(connection.sumaCartasPlayer  === 21){
+            iMult =  1.5;
+        }
+        
+        connection.iTotalWin;
+
+
+ console.log(' Se va a PAGAR '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
+    //primero hacer el if para chequear el bote
+    if (connection.iTotalWin<jackpot){
+
+    connection.sitcoins = connection.sitcoins + (connection.iTotalWin - objeto.apuesta); 
+   // console.log('sitcoins antes de sp' + connection.sitcoins);
+   // var availiable_jp= jackpot+(_iTotBet-(_iTotBet*percent));
+    //var debito= debt + (_iTotBet*percent);
+
+        jackpot= jackpot - (connection.iTotalWin - objeto.apuesta);
+        var debito= debt;
+         // console.log('actualizado jackpot '+ jackpot);
+         //  console.log('totalwin '+ iTotWin);
+        connection.sitcoins = connection.sitcoins + connection.iTotalWin;
+       // console.log('sitcoins despues de sp' + connection.sitcoins);
+            update_jackpot(jackpot,debito);
+            updatetemp(connection.sitcoins);
+
+            console.log(' Coins del player '+connection.sitcoins);
+
+
+    }
+}
+function loseNode(objeto){
+
+  
+console.log(' Perdió '+ objeto.apuesta + 'DISPONIBLE '+jackpot);
+    //primero hacer el if para chequear el bote
+    
+
+    connection.sitcoins = connection.sitcoins - objeto.apuesta; 
+   // console.log('sitcoins antes de sp' + connection.sitcoins);
+   // var availiable_jp= jackpot+(_iTotBet-(_iTotBet*percent));
+    var debito= debt + (objeto.apuesta*percent);
+
+        jackpot=  jackpot+(objeto.apuesta-(objeto.apuesta*percent));
+         // console.log('actualizado jackpot '+ jackpot);
+         //  console.log('totalwin '+ iTotWin);
+       // connection.sitcoins = connection.sitcoins + connection.iTotalWin;
+       // console.log('sitcoins despues de sp' + connection.sitcoins);
+            update_jackpot(jackpot,debito);
+            updatetemp(connection.sitcoins);
+console.log(' Coins del player '+connection.sitcoins);
+
+    
+}
    /* function _checkHandNode(){// chequea la mano luego de repartir las 2 primeras cartas
         var i;
 
@@ -1109,7 +1180,7 @@ function pruebaserver(objeto){
 
         mysqlc.connect();
 
-        var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + jack+ ', `debt` = ' + debito + ' WHERE `casino_jackpot`.`id_jackpot` = 1;';
+        var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + jack+ ', `debt` = ' + debito + ' WHERE `casino_jackpot`.`id_jackpot` = 2;';
 
         mysqlc.query(string, function(err, row, fields) {
             if (typeof(row)) {
@@ -1142,7 +1213,7 @@ function pruebaserver(objeto){
 
     mysqlc.connect();
 
-    var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
+    var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=2';
 
     mysqlc.query(string, function(err, row, fields) {
 

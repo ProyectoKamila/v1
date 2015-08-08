@@ -338,6 +338,14 @@
 
                 socket.send(JSON.stringify(enviar));
             }
+            winlosetonode = function (enviar) {
+                //public function prueba(){
+                enviar.type = 'winlose';
+
+                //alert(enviar.type);
+
+                socket.send(JSON.stringify(enviar));
+            }
             dealer = function (enviar) {
                 //public function prueba(){
                 enviar.type = 'dealer';
