@@ -314,6 +314,7 @@ function CGame(oData){
             console.log(_oHandEvaluator.evaluate(_aCurHandValue));
             console.log(JACKS_OR_BETTER);
         while(_oHandEvaluator.evaluate(_aCurHandValue) !== JACKS_OR_BETTER){
+            
             console.log("resethand deal cards");
             _oCardAttach.removeAllChildren();
             this.resetHandInit();
@@ -539,7 +540,7 @@ function CGame(oData){
             }
             console.log('---z---'+z+'--iNumHold-- '+iNumHold);
         if(z==5-iNumHold){
-            var enviar = {handholdedE:handholded,}
+            var enviar = {handholdedE:handholded,_iCurBetE : _iCurBet,}
             console.log('handholded'+handholded);
             cambiarinfo_node(enviar);
 

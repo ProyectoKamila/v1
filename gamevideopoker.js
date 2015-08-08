@@ -404,7 +404,7 @@ wsServer.on('request', function(request) {
 
          mysqlc.connect();
 
-        var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + jack+ ', `debt` = ' + debito + ' WHERE `casino_jackpot`.`id_jackpot` = 1;';
+        var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + jack+ ', `debt` = ' + debito + ' WHERE `casino_jackpot`.`id_jackpot` = 3;';
 
         mysqlc.query(string, function(err, row, fields) {
             if (typeof(row)) {    
@@ -430,7 +430,7 @@ wsServer.on('request', function(request) {
         );
 
         mysqlc.connect();
-        var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
+        var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=3';
         mysqlc.query(string, function(err, row, fields) {
             //console.log('verificar la variable row' + row);
             if (typeof(row)) {
@@ -562,7 +562,7 @@ function updtclose(sitc,coin){
 }
 
 var _iCurIndexDeck=0;
-/////dealhand
+////////////////////////////////////////////////////////////////////////////dealhand
 function dealCards(objeto){
     /*console.log('DealCards');
     connection._aCardDeck = new Array();
@@ -615,6 +615,9 @@ function dealCards(objeto){
         
         _iCurState = STATE_GAME_DEAL;
     };
+///////////////////////////////////////////////////////////////////////end dealhand
+
+///////////////////////////////////////////////////////////////////////check hand dealed
 function checkHandDealed(obj){
 
     //connection._iCurIndexDeck = 0;
@@ -624,18 +627,45 @@ function checkHandDealed(obj){
     AUTOMATIC_RECHARGE =  obj.automatic_rechargeE;
     connection._iCurCreditIndex = obj._iCurCreditIndexE;
     connection._iCurBet = obj._iCurBetE;
+    _iCurBet = connection._iCurBet;
             var iX = 0;
             var iY = 0;
+    consulta_saldo_disp();
+
+
     if( connection._iCurIndexDeck != 0){
         createCardsDek();
     }
+    var availiable_jp= connection.availiable_jp;
+    var debito= connection.debito;
+    
     /*connection._aCardDeck = new Array();
     var _oGameSettings = new CGameSettings();
     connection._aCardDeck = _oGameSettings.getShuffledCardDeck();*/
         connection._aCurHandValue = new Array(); //arreglo para evaluar mano
         var card = new Array();
         connection.indexcard = new Array();
-            for(var i=0;i<5;i++){
+            check_win_hand();
+            connection.win = checkassignWin(connection._aCurHandValue);
+            while(connection.win > connection.availiable_jp) {
+            connection._iCurIndexDeck = 0;
+            check_win_hand();
+            consulta_saldo_disp(); 
+            connection.win = checkassignWin(connection._aCurHandValue);
+            }
+
+            console.log('handreturn'+connection.indexcard);
+             console.log('handreturn rank'+connection._aCurHandValue);
+            sendmessageuser(connection, 'handreturnindex', connection.indexcard);
+            sendmessageuser(connection, 'handreturn', connection._aCurHandValue);
+
+        console.log('para chekear el win');
+        checkassignWin(connection._aCurHandValue);        
+}
+////////////////////////////////////////////////////////////////////////////end check dealhand
+////////////////////////////////////////////////////////////// check win hand
+function check_win_hand(){
+    for(var i=0;i<5;i++){
                 card = [
                     connection._aCardDeck[connection._iCurIndexDeck].fotogram,
                     connection._aCardDeck[connection._iCurIndexDeck].rank,
@@ -649,19 +679,71 @@ function checkHandDealed(obj){
                 connection._aCurHandValue.push(card);
                 connection._iCurIndexDeck++;                
             }
-            console.log('handreturn'+connection.indexcard);
-             console.log('handreturn rank'+connection._aCurHandValue);
-            sendmessageuser(connection, 'handreturnindex', connection.indexcard);
-            sendmessageuser(connection, 'handreturn', connection._aCurHandValue);
-
-        console.log('para chekear el win');
-        checkassignWin(connection._aCurHandValue);        
 }
-//end dealhand
-/*assignwin check*/
-     //////////////
+////////////////////////////////////////////////////////////// end check win hand
+/////////////////////////////////////////////////////////////*assignwin check*/
     function checkassignWin(hand){
         var _checkiCurWin=0;
+        var s_oPayTableSettings;
+        _iCurBet = connection._iCurBet;
+       _iCurCreditIndex = connection._iCurCreditIndex;
+        s_oPayTableSettings = new CPayTableSettings();
+        var _oHandEvaluator;
+        _oHandEvaluator = new CHandEvaluator();
+        console.log('_iCurCreditIndex' + _iCurCreditIndex);
+        //console.log('hand' +hand);
+        console.log('o hand evaluate'+_oHandEvaluator.evaluate(hand));
+        
+        _checkiCurWin = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(hand)) * _iCurBet;
+        _checkiCurWin = isNaN(_checkiCurWin) ? 0 : _checkiCurWin;
+        console.log('***************************************');
+         console.log('_iCurCreditIndex' + _iCurCreditIndex);
+        var availiable_jp= jackpot+(_iCurBet-(_iCurBet*percent));
+        //var win = availiable_jp - 
+        var debito= debt + (_iCurBet*percent);
+        console.log('debt' + debt);
+        console.log('percent' + percent);
+        console.log('_iCurBet' + _iCurBet);
+        console.log('checkiwin '+_checkiCurWin);
+        console.log('el jackpot' + jackpot);
+        console.log('debito '+debito);
+        console.log('availiable_jp' + availiable_jp);
+        console.log('***************************************');
+        return _checkiCurWin;
+          
+     };
+/////////////////////////////////////////////////////////////////*check assignwin end*/
+
+/////////////////////////////////////////////////////////////////*change_info*/
+    function change_info(obj){
+         consulta_saldo_disp();
+        console.log('posiciones del obj'+obj.handholdedE.length)
+           connection._iCurBet = obj._iCurBetE;
+           _iCurBet = connection._iCurBet;
+        var availiable_jp= connection.availiable_jp;
+        var debito= connection.debito;
+        connection.win = checkassignWin(connection._aCurHandValue);
+        pote = connection.availiable_jp-connection.win;
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        console.log('aviable jackpot'+availiable_jp);
+        console.log('lo que ganaria'+connection.win);
+        console.log('lo que queda'+pote);
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+
+        win_change_info(obj);
+
+        while(connection.win > connection.availiable_jp) {
+            win_change_info(obj);
+            consulta_saldo_disp();
+            connection.win = checkassignWin(connection._aCurHandValue);
+            connection._iCurIndexDeck = 0;
+            
+        }
+        pote = connection.availiable_jp-connection.win;
+        connection.sitcoins = connection.sitcoins + connection.win;
+        update_jackpot(pote,connection.debito);
+        updatetemp(connection.sitcoins);
+        /*var _checkiCurWin=0;
         var s_oPayTableSettings;
         _iCurBet = connection._iCurBet;
        _iCurCreditIndex = connection._iCurCreditIndex;
@@ -674,17 +756,21 @@ function checkHandDealed(obj){
         console.log('_iCurBet' + _iCurBet);
         _checkiCurWin = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(hand)) * _iCurBet;
         
-        console.log('checkiwin '+_checkiCurWin);
-          
-     };
-     //////////////
-/*check assignwin end*/
-/*change_info*/
-     //////////////
-    function change_info(obj){
-        console.log('posiciones del obj'+obj.handholdedE.length)
-          
-        for(k=0;k<obj.handholdedE.length;k++){
+        console.log('checkiwin '+_checkiCurWin);*/
+        console.log('acurhandvaule drwa'+connection._aCurHandValue);
+        console.log('para chekear el win');
+        checkassignWin(connection._aCurHandValue);  
+        sendmessageuser(connection, 'drawreturn', connection._aCurHandValue);
+    };
+///////////////////////////////////////////////////////////////////*change_info end*/
+function consulta_saldo_disp(){
+    select_jackpot();
+    connection.availiable_jp= jackpot+(connection._iCurBet-(connection._iCurBet*percent));
+    connection.debito= debt + (connection._iCurBet*percent);
+}
+////////////////////////////////////// change info win attached a bote
+function win_change_info(obj){
+   for(k=0;k<obj.handholdedE.length;k++){
             console.log('objeto '+k+obj.handholdedE[k].rankE);
             console.log('objeto fotogram'+k+obj.handholdedE[k].fotogramE);
             for(var i=0;i<5;i++){
@@ -706,30 +792,10 @@ function checkHandDealed(obj){
                 //connection._iCurIndexDeck++;                
             }
         }
+}
 
-
-        /*var _checkiCurWin=0;
-        var s_oPayTableSettings;
-        _iCurBet = connection._iCurBet;
-       _iCurCreditIndex = connection._iCurCreditIndex;
-        s_oPayTableSettings = new CPayTableSettings();
-        var _oHandEvaluator;
-        _oHandEvaluator = new CHandEvaluator();
-        console.log('_iCurCreditIndex' + _iCurCreditIndex);
-        //console.log('hand' +hand);
-        console.log('o hand evaluate'+_oHandEvaluator.evaluate(hand));
-        console.log('_iCurBet' + _iCurBet);
-        _checkiCurWin = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(hand)) * _iCurBet;
-        
-        console.log('checkiwin '+_checkiCurWin);*/
-        console.log('acurhandvaule drwa'+connection._aCurHandValue);
-        console.log('para chekear el win');
-        checkassignWin(connection._aCurHandValue);  
-        sendmessageuser(connection, 'drawreturn', connection._aCurHandValue);
-    };
-     //////////////
-/*change_info end*/
-/*function para crear mazo*/
+////////////////////////////////////// end change info win attached a bote
+//////////////////////////////////////*function para crear mazo*///////////////////////////////
 function createCardsDek(){
     console.log('DealCards');
     connection._aCardDeck = new Array();
@@ -744,8 +810,9 @@ function createCardsDek(){
 
 }
 
-/*end funcion para crear mazo*/
-/////Cgame Settings
+///////////////////////////////////*end funcion para crear mazo*//////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////Cgame Settings
 function CGameSettings(){
     
     var _aCardDeck;
@@ -812,8 +879,9 @@ function CGameSettings(){
                 
     this._init();
 }
-/////end Cgame Settings
-///// reset hand init
+//////////////////////////////////////////////////////////////////////////////end Cgame Settings
+
+//////////////////////////////////////////////////////////////////////////// reset hand init
     function resetHandInit(){
         _iCurWin = 0;
         //SHUFFLE CARD DECK EVERYTIME A NEW HAND STARTS
@@ -825,9 +893,9 @@ function CGameSettings(){
         }
 
     }
-    //end reset hand init
+///////////////////////////////////////////////////////////////////////////end reset hand init
 
-/*evaluador de manos*/
+////////////////////////////////*evaluador de manos*///////////////////////////////////////
 function CHandEvaluator(){
     /**/
 var ROYAL_FLUSH     = 0;
@@ -1080,8 +1148,10 @@ var SUIT_SPADES = 3;
         return _aCardIndexInCombo;
     };
 
-}/*fin evaluador de manos*/
-/*paytable settings*/
+}
+//////////////////////////////////////////////*fin evaluador de manos*/////////////////////////////////////
+
+//////////////////////////////////////////////////*paytable settings*/////////////////////////////////////
 function CPayTableSettings(){
      var NUM_BETS = 5;
      var WIN_COMBINATIONS = 9;
@@ -1106,7 +1176,7 @@ function CPayTableSettings(){
     
     this._init();
 }
-/*paytablesettings*/
+/////////////////////////////////////////////*END paytablesettings*//////////////////////////////////////
 });
 
 
