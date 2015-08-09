@@ -875,7 +875,7 @@ iCardCount: objeto.iCardCount
             update_jackpot(jackpot,debito);
             updatetemp(connection.sitcoins);
 
-            console.log(' Coins del player '+connection.sitcoins);
+            console.log(' COINS DEL PLAYER '+connection.sitcoins);
 
 
     }
@@ -899,7 +899,7 @@ console.log(' Perdió '+ objeto.apuesta + 'DISPONIBLE '+jackpot);
        // console.log('sitcoins despues de sp' + connection.sitcoins);
             update_jackpot(jackpot,debito);
             updatetemp(connection.sitcoins);
-console.log(' Coins del player '+connection.sitcoins);
+console.log(' COINS DEL PLAYER '+connection.sitcoins);
 
     
 }
@@ -1252,6 +1252,7 @@ function pruebaserver(objeto){
     }
     );
     mysqlc.connect();
+  
     var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_user + ';';
       //  console.log(string);
       mysqlc.query(string, function(err, row, fields) {
@@ -1259,16 +1260,62 @@ function pruebaserver(objeto){
          connection.coins = 0;
          connection.coins =  row[0]['coins'];
 
-
-
-
-         sendmessageuser(connection, 'money_total', connection.coins);
+         
 
          //    console.log('coins ' + connection.coins);
 
      }
  });
 
+      var string = 'select coins_game FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
+    console.log('select coins_game' + string);
+    mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row) && row.length>0) {
+          
+            connection.temp_coins = 0;
+          //  for (var i=0;i=row.length;i++){
+                connection.temp_coins = connection.temp_coins + row[0]['coins_game'];
+                console.log('select coins_game ' + row[0]['coins_game']);
+            //}
+        connection.coins = connection.coins + connection.temp_coins;
+
+         sendmessageuser(connection, 'money_total', connection.coins);
+       
+
+        
+
+    } else{
+        console.log('ELSE');
+        sendmessageuser(connection, 'money_total', connection.coins);
+    }
+
+
+
+    });
+
+var string = 'DELETE FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
+    //console.log('delete close' + string);
+    mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+
+
+        }
+
+
+    });
+
+ 
+        var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + connection.coins +  ' WHERE `user_data`.`id_user` ='+ connection.id_user  +';';
+
+    mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+
+
+        }
+
+
+    });
+    
       mysqlc.end();
 
 
@@ -1288,7 +1335,20 @@ function pruebaserver(objeto){
         database: 'v1',
     }
     );
+
     mysqlc.connect();
+  var string = 'DELETE FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
+    //console.log('delete close' + string);
+    mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+
+
+        }
+
+
+    });
+
+
     if (connection.coins!= null)
         var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + connection.coins +  ' WHERE `user_data`.`id_user` ='+ connection.id_user  +';';
 
