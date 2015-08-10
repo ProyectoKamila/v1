@@ -447,9 +447,7 @@ wsServer.on('request', function(request) {
   //  console.log(string);
         mysqlc.end();
     }
-
-
-    function getmoneyuser(){
+/*   function getmoneyuser(){
         var mysqlc = mysql.createConnection(
             {
                 host: '23.229.215.154',
@@ -502,7 +500,92 @@ function setmoneyuser(objeto){
     });
     mysqlc.end();
     
+}*/
+
+/////
+function getmoneyuser(){
+    var mysqlc = mysql.createConnection(
+    {
+        host: '23.229.215.154',
+        user: 'v1',
+        password: 'Temporal01',
+        database: 'v1',
+    }
+    );
+    mysqlc.connect();
+  
+    var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_user + ';';
+      //  console.log(string);
+      mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+         connection.coins = 0;
+         connection.coins =  row[0]['coins'];
+         //    console.log('coins ' + connection.coins)
+     }
+ });
+      var string = 'select coins_game FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
+    console.log('select coins_game' + string);
+    mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row) && row.length>0) { 
+            connection.temp_coins = 0;
+          //  for (var i=0;i=row.length;i++){
+                connection.temp_coins = connection.temp_coins + row[0]['coins_game'];
+                console.log('select coins_game ' + row[0]['coins_game']);
+            //}
+        connection.coins = connection.coins + connection.temp_coins;
+         sendmessageuser(connection, 'money_total', connection.coins);
+        } else{
+        console.log('ELSE');
+        sendmessageuser(connection, 'money_total', connection.coins);
+    }
+   });
+    var string = 'DELETE FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
+    //console.log('delete close' + string);
+    mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+        }
+    });
+    var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + connection.coins +  ' WHERE `user_data`.`id_user` ='+ connection.id_user  +';';
+    mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+        }
+    });
+      mysqlc.end();
+  }
+  function setmoneyuser(objeto){
+    connection.coinsinit = parseFloat(objeto.sitmoney);
+    connection.sitcoins = connection.sitcoins + parseFloat(objeto.sitmoney);
+    connection.coins = connection.coins - objeto.sitmoney;
+
+    var mysqlc = mysql.createConnection(
+    {
+        host: '23.229.215.154',
+        user: 'v1',
+        password: 'Temporal01',
+        database: 'v1',
+    });
+    mysqlc.connect();
+  var string = 'DELETE FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = '+ connection.id_user +  ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
+    //console.log('delete close' + string);
+    mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+        }
+    });
+    if (connection.coins!= null)
+        var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + connection.coins +  ' WHERE `user_data`.`id_user` ='+ connection.id_user  +';';
+    mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+        }
+    });
+    var string = 'INSERT INTO `temp_bet`(`id_user`, `id_game`, `coins_game` , `date` ) VALUES (' + connection.id_user + ',' + connection.id_game + ',' + connection.sitcoins + ', NOW() );';
+    mysqlc.query(string, function(err, row, fields) {
+        if (typeof(row)) {
+        }
+    });
+    mysqlc.end();
 }
+
+/////
 
 function updatetemp(coins_temp){
     // console.log('updatetemp' + coins_temp);
