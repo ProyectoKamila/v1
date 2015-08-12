@@ -161,6 +161,7 @@ wsServer.on('request', function(request) {
 
 
                     var string = 'SELECT * FROM active_session INNER JOIN user_data WHERE user_data.id_user = active_session.id_user AND active_session.token= "' + connection.token + '"';
+                   
                     var mysqlc = mysql.createConnection(
                             {
                                 host: '23.229.215.154',
@@ -171,7 +172,7 @@ wsServer.on('request', function(request) {
                     );
                     mysqlc.connect();
                     mysqlc.query(string, function(err, row, fields) {
-                        if (typeof(row)) {
+                        if (typeof(row) && row !== undefined && row[0].id_user !== undefined) {
                             connection.id_user = row[0]['id_user'];
 
                             if (row[0]['id_user'] == clientsconection[connection.id_user]) {

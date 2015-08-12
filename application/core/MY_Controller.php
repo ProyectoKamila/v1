@@ -30,7 +30,16 @@ class MY_Controller extends CI_Controller {
     }
 
     public function login() {
+        //debug($_POST);
         if ($this->input->post('login')) {
+            if ($this->input->post('wordpress') == 1) {
+                $wordpress = $this->input->post('wordpress');
+            } else {
+                $wordpress = 2;
+            }
+            
+            //debug($wordpress);
+            
             $n = $this->input->post('namenick');
             $p = $this->input->post('password');
             if ($this->input->post('remember')) {
@@ -38,8 +47,8 @@ class MY_Controller extends CI_Controller {
             } else {
                 $l = null;
             }
-//            debug($n);        
-            $result = $this->validar_post($n, $p, $l);
+                    
+            $result = $this->validar_post($n, $p, $l, $wordpress);
 //            debug($result);
 //            $this->load->library('session');
         } else {
@@ -52,12 +61,12 @@ class MY_Controller extends CI_Controller {
         delete_cookie($name);
     }
 
-    public function validar_post($n, $p, $l = null) {
+    public function validar_post($n, $p, $l = null, $wordpress = null) {
 //        b326b5062b2f0e69046810717534cb09
 //        debug($this->session->userdata('session'));
 
         $check = $this->modelo_universal->select('user', 'nickname, id_user, id_role, id_user_account_status', array('nickname' => $n, 'pass' => md5($p)));
-
+        //debug($check);
         if ($check == null) {
             $this->session->set_flashdata('message', 'Datos de Inicio de Sesión Incorrectos');
             redirect('./');
@@ -79,6 +88,9 @@ class MY_Controller extends CI_Controller {
                         $this->load->view('page/header');
                         $this->load->view('page/insert/blocked');
                     } else {
+                        if($wordpress != null){
+                            debug($wordpress);
+                        }
 
                         if ($l != null) {
 //            if (($this->input->cookie('token', true) != false) and ( $this->input->cookie('token', true) == $this->load->library('session'))) {

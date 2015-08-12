@@ -1,7 +1,6 @@
-//poker
+///poker
 var WebSocketServer = require('websocket').server;
 var mysql = require('mysql');
-
 // Check if SSL support is enabled
 if (process.argv.indexOf('--enable-ssl') !== -1) {
     //mensaje a enviar en los query
@@ -20,7 +19,6 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
     });
 
     var port = 8806;
-    //var port = 8082;
     var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
 } else {
     var http = require('http');
@@ -31,7 +29,6 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
     });
 
     var port = 8806;
-    //var port = 8082;
     var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
 }
 
@@ -106,64 +103,348 @@ var card2 = new Array(
         );
 var card = [];
 //trebol
-card["02tre"] = {'image': '2tre.png', 'carpeta': 'trebol'};
-card["03tre"] = {'image': '3tre.png', 'carpeta': 'trebol'};
-card["04tre"] = {'image': '4tre.png', 'carpeta': 'trebol'};
-card["05tre"] = {'image': '5tre.png', 'carpeta': 'trebol'};
-card["06tre"] = {'image': '6tre.png', 'carpeta': 'trebol'};
-card["07tre"] = {'image': '7tre.png', 'carpeta': 'trebol'};
-card["08tre"] = {'image': '8tre.png', 'carpeta': 'trebol'};
-card["09tre"] = {'image': '9tre.png', 'carpeta': 'trebol'};
-card["10tre"] = {'image': '10tre.png', 'carpeta': 'trebol'};
-card["11tre"] = {'image': 'jtre.png', 'carpeta': 'trebol'};
-card["12tre"] = {'image': 'qtre.png', 'carpeta': 'trebol'};
-card["13tre"] = {'image': 'ktre.png', 'carpeta': 'trebol'};
-card["14tre"] = {'image': 'as.png', 'carpeta': 'trebol'};
+card["02tre"] = {'image': '2tre.png', 'carpeta': 'trebol', 'rank': 02, 'suit': 0};
+card["03tre"] = {'image': '3tre.png', 'carpeta': 'trebol', 'rank': 03, 'suit': 0};
+card["04tre"] = {'image': '4tre.png', 'carpeta': 'trebol', 'rank': 04, 'suit': 0};
+card["05tre"] = {'image': '5tre.png', 'carpeta': 'trebol', 'rank': 05, 'suit': 0};
+card["06tre"] = {'image': '6tre.png', 'carpeta': 'trebol', 'rank': 06, 'suit': 0};
+card["07tre"] = {'image': '7tre.png', 'carpeta': 'trebol', 'rank': 07, 'suit': 0};
+card["08tre"] = {'image': '8tre.png', 'carpeta': 'trebol', 'rank': 08, 'suit': 0};
+card["09tre"] = {'image': '9tre.png', 'carpeta': 'trebol', 'rank': 09, 'suit': 0};
+card["10tre"] = {'image': '10tre.png', 'carpeta': 'trebol', 'rank': 10, 'suit': 0};
+card["11tre"] = {'image': 'jtre.png', 'carpeta': 'trebol', 'rank': 11, 'suit': 0};
+card["12tre"] = {'image': 'qtre.png', 'carpeta': 'trebol', 'rank': 12, 'suit': 0};
+card["13tre"] = {'image': 'ktre.png', 'carpeta': 'trebol', 'rank': 13, 'suit': 0};
+card["14tre"] = {'image': 'as.png', 'carpeta': 'trebol', 'rank': 14, 'suit': 0};
 //trebol
-card["02pic"] = {'image': '2pic.png', 'carpeta': 'pica'};
-card["03pic"] = {'image': '3pic.png', 'carpeta': 'pica'};
-card["04pic"] = {'image': '4pic.png', 'carpeta': 'pica'};
-card["05pic"] = {'image': '5pic.png', 'carpeta': 'pica'};
-card["06pic"] = {'image': '6pic.png', 'carpeta': 'pica'};
-card["07pic"] = {'image': '7pic.png', 'carpeta': 'pica'};
-card["08pic"] = {'image': '8pic.png', 'carpeta': 'pica'};
-card["09pic"] = {'image': '9pic.png', 'carpeta': 'pica'};
-card["10pic"] = {'image': '10pic.png', 'carpeta': 'pica'};
-card["11pic"] = {'image': 'jpic.png', 'carpeta': 'pica'};
-card["12pic"] = {'image': 'qpic.png', 'carpeta': 'pica'};
-card["13pic"] = {'image': 'kpic.png', 'carpeta': 'pica'};
-card["14pic"] = {'image': 'as.png', 'carpeta': 'pica'};
+card["02pic"] = {'image': '2pic.png', 'carpeta': 'pica', 'rank': 02, 'suit': 1};
+card["03pic"] = {'image': '3pic.png', 'carpeta': 'pica', 'rank': 03, 'suit': 1};
+card["04pic"] = {'image': '4pic.png', 'carpeta': 'pica', 'rank': 04, 'suit': 1};
+card["05pic"] = {'image': '5pic.png', 'carpeta': 'pica', 'rank': 05, 'suit': 1};
+card["06pic"] = {'image': '6pic.png', 'carpeta': 'pica', 'rank': 06, 'suit': 1};
+card["07pic"] = {'image': '7pic.png', 'carpeta': 'pica', 'rank': 07, 'suit': 1};
+card["08pic"] = {'image': '8pic.png', 'carpeta': 'pica', 'rank': 08, 'suit': 1};
+card["09pic"] = {'image': '9pic.png', 'carpeta': 'pica', 'rank': 09, 'suit': 1};
+card["10pic"] = {'image': '10pic.png', 'carpeta': 'pica', 'rank': 10, 'suit': 1};
+card["11pic"] = {'image': 'jpic.png', 'carpeta': 'pica', 'rank': 11, 'suit': 1};
+card["12pic"] = {'image': 'qpic.png', 'carpeta': 'pica', 'rank': 12, 'suit': 1};
+card["13pic"] = {'image': 'kpic.png', 'carpeta': 'pica', 'rank': 13, 'suit': 1};
+card["14pic"] = {'image': 'as.png', 'carpeta': 'pica', 'rank': 14, 'suit': 1};
 
 //diamante
-card["02dia"] = {'image': '2dia.png', 'carpeta': 'diamante'};
-card["03dia"] = {'image': '3dia.png', 'carpeta': 'diamante'};
-card["04dia"] = {'image': '4dia.png', 'carpeta': 'diamante'};
-card["05dia"] = {'image': '5dia.png', 'carpeta': 'diamante'};
-card["06dia"] = {'image': '6dia.png', 'carpeta': 'diamante'};
-card["07dia"] = {'image': '7dia.png', 'carpeta': 'diamante'};
-card["08dia"] = {'image': '8dia.png', 'carpeta': 'diamante'};
-card["09dia"] = {'image': '9dia.png', 'carpeta': 'diamante'};
-card["10dia"] = {'image': '10dia.png', 'carpeta': 'diamante'};
-card["101dia"] = {'image': 'jdia.png', 'carpeta': 'diamante'};
-card["12dia"] = {'image': 'qdia.png', 'carpeta': 'diamante'};
-card["13dia"] = {'image': 'kdia.png', 'carpeta': 'diamante'};
-card["14dia"] = {'image': 'as.png', 'carpeta': 'diamante'};
+card["02dia"] = {'image': '2dia.png', 'carpeta': 'diamante', 'rank': 02, 'suit': 2};
+card["03dia"] = {'image': '3dia.png', 'carpeta': 'diamante', 'rank': 03, 'suit': 2};
+card["04dia"] = {'image': '4dia.png', 'carpeta': 'diamante', 'rank': 04, 'suit': 2};
+card["05dia"] = {'image': '5dia.png', 'carpeta': 'diamante', 'rank': 05, 'suit': 2};
+card["06dia"] = {'image': '6dia.png', 'carpeta': 'diamante', 'rank': 06, 'suit': 2};
+card["07dia"] = {'image': '7dia.png', 'carpeta': 'diamante', 'rank': 07, 'suit': 2};
+card["08dia"] = {'image': '8dia.png', 'carpeta': 'diamante', 'rank': 08, 'suit': 2};
+card["09dia"] = {'image': '9dia.png', 'carpeta': 'diamante', 'rank': 09, 'suit': 2};
+card["10dia"] = {'image': '10dia.png', 'carpeta': 'diamante', 'rank': 10, 'suit': 2};
+card["11dia"] = {'image': 'jdia.png', 'carpeta': 'diamante', 'rank': 11, 'suit': 2};
+card["12dia"] = {'image': 'qdia.png', 'carpeta': 'diamante', 'rank': 12, 'suit': 2};
+card["13dia"] = {'image': 'kdia.png', 'carpeta': 'diamante', 'rank': 13, 'suit': 2};
+card["14dia"] = {'image': 'as.png', 'carpeta': 'diamante', 'rank': 14, 'suit': 2};
 //diamante
-card["02co"] = {'image': '2co.png', 'carpeta': 'corazon'};
-card["03co"] = {'image': '3co.png', 'carpeta': 'corazon'};
-card["04co"] = {'image': '4co.png', 'carpeta': 'corazon'};
-card["05co"] = {'image': '5co.png', 'carpeta': 'corazon'};
-card["06co"] = {'image': '6co.png', 'carpeta': 'corazon'};
-card["07co"] = {'image': '7co.png', 'carpeta': 'corazon'};
-card["08co"] = {'image': '8co.png', 'carpeta': 'corazon'};
-card["09co"] = {'image': '9co.png', 'carpeta': 'corazon'};
-card["10co"] = {'image': '10co.png', 'carpeta': 'corazon'};
-card["11co"] = {'image': 'jco.png', 'carpeta': 'corazon'};
-card["12co"] = {'image': 'qco.png', 'carpeta': 'corazon'};
-card["13co"] = {'image': 'kco.png', 'carpeta': 'corazon'};
-card["14co"] = {'image': 'as2.png', 'carpeta': 'corazon'};
+card["02co"] = {'image': '2co.png', 'carpeta': 'corazon', 'rank': 02, 'suit': 3};
+card["03co"] = {'image': '3co.png', 'carpeta': 'corazon', 'rank': 03, 'suit': 3};
+card["04co"] = {'image': '4co.png', 'carpeta': 'corazon', 'rank': 04, 'suit': 3};
+card["05co"] = {'image': '5co.png', 'carpeta': 'corazon', 'rank': 05, 'suit': 3};
+card["06co"] = {'image': '6co.png', 'carpeta': 'corazon', 'rank': 06, 'suit': 3};
+card["07co"] = {'image': '7co.png', 'carpeta': 'corazon', 'rank': 07, 'suit': 3};
+card["08co"] = {'image': '8co.png', 'carpeta': 'corazon', 'rank': 08, 'suit': 3};
+card["09co"] = {'image': '9co.png', 'carpeta': 'corazon', 'rank': 09, 'suit': 3};
+card["10co"] = {'image': '10co.png', 'carpeta': 'corazon', 'rank': 10, 'suit': 3};
+card["11co"] = {'image': 'jco.png', 'carpeta': 'corazon', 'rank': 11, 'suit': 3};
+card["12co"] = {'image': 'qco.png', 'carpeta': 'corazon', 'rank': 12, 'suit': 3};
+card["13co"] = {'image': 'kco.png', 'carpeta': 'corazon', 'rank': 13, 'suit': 3};
+card["14co"] = {'image': 'as2.png', 'carpeta': 'corazon', 'rank': 14, 'suit': 3};
 
+function HandEvaluator() {
 
+    var ROYAL_FLUSH = 0;
+    var STRAIGHT_FLUSH = 1;
+    var FOUR_OF_A_KIND = 2;
+    var FULL_HOUSE = 3;
+    var FLUSH = 4;
+    var STRAIGHT = 5;
+    var THREE_OF_A_KIND = 6;
+    var TWO_PAIR = 7;
+    var JACKS_OR_BETTER = 8;
+    var HIGH_CARD = 9;
+
+    var CARD_TWO = 2;
+    var CARD_THREE = 3;
+    var CARD_FOUR = 4;
+    var CARD_FIVE = 5;
+    var CARD_SIX = 6;
+    var CARD_SEVEN = 7;
+    var CARD_EIGHT = 8;
+    var CARD_NINE = 9;
+    var CARD_TEN = 10;
+    var CARD_JACK = 11;
+    var CARD_QUEEN = 12;
+    var CARD_KING = 13;
+    var CARD_ACE = 14;
+
+    var mayor = 02;
+
+    var _aSortedHand;
+    var _aCardIndexInCombo;
+
+    this.evaluate = function(aHand) {
+//        console.log('__________________________________________________________________');
+//        console.log(aHand);
+        _aSortedHand = new Array();
+        for (var i = 0; i < aHand.length; i++) {
+            _aSortedHand[i] = {rank: card[aHand[i]].rank, suit: card[aHand[i]].suit};
+        }
+        mayor = _aSortedHand[3].rank;
+        if (_aSortedHand[4].rank > _aSortedHand[3].rank) {
+            mayor = _aSortedHand[4].rank;
+        }
+        _aSortedHand.sort(this.compareRank);
+        _aCardIndexInCombo = new Array(0, 1, 2, 3, 4);
+        return this.rankHand();
+    };
+
+    this.rankHand = function() {
+        if (this._checkForRoyalFlush()) {
+            return retur1 = {
+                'premy': 'ROYAL_FLUSH',
+                'point': ROYAL_FLUSH,
+                'mayor': mayor
+            }
+        } else if (this._checkForStraightFlush()) {
+            return retur2 = {
+                'premy': 'STRAIGHT_FLUSH',
+                'point': STRAIGHT_FLUSH,
+                'mayor': mayor
+            };
+        } else if (this._checkForFourOfAKind()) {
+            return retur3 = {
+                'premy': 'FOUR_OF_A_KIND',
+                'point': FOUR_OF_A_KIND,
+                'mayor': mayor
+            };
+
+        } else if (this._checkForFullHouse()) {
+            return retur4 = {
+                'premy': 'FULL_HOUSE',
+                'point': FULL_HOUSE,
+                'mayor': mayor
+            };
+        } else if (this._checkForFlush()) {
+            return retur5 = {
+                'premy': 'FLUSH',
+                'point': FLUSH,
+                'mayor': mayor
+            };
+        } else if (this._checkForStraight()) {
+            return retur6 = {
+                'premy': 'STRAIGHT',
+                'point': STRAIGHT,
+                'mayor': mayor
+            };
+        } else if (this._checkForThreeOfAKind()) {
+            return retur7 = {
+                'premy': 'THREE_OF_A_KIND',
+                'point': THREE_OF_A_KIND,
+                'mayor': mayor
+            };
+        } else if (this._checkForTwoPair()) {
+            return retur8 = {
+                'premy': 'TWO_PAIR',
+                'point': TWO_PAIR,
+                'mayor': mayor
+            };
+        } else if (this._checkForOnePair()) {
+            return retur9 = {
+                'premy': 'JACKS_OR_BETTER',
+                'point': JACKS_OR_BETTER,
+                'mayor': mayor
+            };
+        } else {
+            return retur0 = {
+                'premy': 'HIGH_CARD',
+                'point': HIGH_CARD,
+                'mayor': mayor
+            };
+        }
+    };
+
+    this._checkForRoyalFlush = function() {
+        if (this._isRoyalStraight() && this._isFlush()) {
+
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this._checkForStraightFlush = function() {
+        if (this._isStraight() && this._isFlush()) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this._checkForFourOfAKind = function() {
+        if (_aSortedHand[0].rank === _aSortedHand[3].rank) {
+            _aSortedHand.splice(4, 1);
+            _aCardIndexInCombo.splice(4, 1);
+            return true;
+        } else if (_aSortedHand[1].rank === _aSortedHand[4].rank) {
+            _aSortedHand.splice(0, 1);
+            _aCardIndexInCombo.splice(0, 1);
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this._checkForFullHouse = function() {
+        if ((_aSortedHand[0].rank === _aSortedHand[1].rank && _aSortedHand[2].rank === _aSortedHand[4].rank) ||
+                (_aSortedHand[0].rank === _aSortedHand[2].rank
+                        && _aSortedHand[3].rank === _aSortedHand[4].rank)) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this._checkForFlush = function() {
+        if (this._isFlush()) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this._checkForStraight = function() {
+        if (this._isStraight()) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this._checkForThreeOfAKind = function() {
+        if (_aSortedHand[0].rank === _aSortedHand[1].rank && _aSortedHand[0].rank === _aSortedHand[2].rank) {
+            _aSortedHand.splice(3, 1);
+            _aSortedHand.splice(3, 1);
+            //_aSortedHand.splice(4,1);
+            _aCardIndexInCombo.splice(3, 1);
+            _aCardIndexInCombo.splice(3, 1);
+            return true;
+        } else if (_aSortedHand[1].rank === _aSortedHand[2].rank && _aSortedHand[1].rank === _aSortedHand[3].rank) {
+            _aSortedHand.splice(0, 1);
+            _aSortedHand.splice(3, 1);
+            //_aSortedHand.splice(4,1);
+            _aCardIndexInCombo.splice(0, 1);
+            _aCardIndexInCombo.splice(3, 1);
+
+            return true;
+        } else if (_aSortedHand[2].rank === _aSortedHand[3].rank && _aSortedHand[2].rank === _aSortedHand[4].rank) {
+            _aSortedHand.splice(0, 1);
+            _aSortedHand.splice(0, 1);
+            //_aSortedHand.splice(1,1);
+            _aCardIndexInCombo.splice(0, 1);
+            _aCardIndexInCombo.splice(0, 1);
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this._checkForTwoPair = function() {
+        if (_aSortedHand[0].rank === _aSortedHand[1].rank && _aSortedHand[2].rank === _aSortedHand[3].rank) {
+            _aSortedHand.splice(4, 1);
+            _aCardIndexInCombo.splice(4, 1);
+            return true;
+        } else if (_aSortedHand[1].rank === _aSortedHand[2].rank && _aSortedHand[3].rank === _aSortedHand[4].rank) {
+            _aSortedHand.splice(0, 1);
+            _aCardIndexInCombo.splice(0, 1);
+            return true;
+        } else if (_aSortedHand[0].rank === _aSortedHand[1].rank && _aSortedHand[3].rank === _aSortedHand[4].rank) {
+            _aSortedHand.splice(2, 1);
+            _aCardIndexInCombo.splice(2, 1);
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this._checkForOnePair = function() {
+        for (var i = 0; i < 4; i++) {
+            if (_aSortedHand[i].rank === _aSortedHand[i + 1].rank && _aSortedHand[i].rank > CARD_TEN) {
+                var p1 = _aSortedHand[i];
+                var p2 = _aSortedHand[i + 1];
+                _aSortedHand = new Array();
+                _aSortedHand.push(p1);
+                _aSortedHand.push(p2);
+                _aCardIndexInCombo = new Array(i, i + 1);
+                return true;
+            }
+        }
+
+        return false;
+    };
+
+    this._isFlush = function() {
+        if (_aSortedHand[0].suit === _aSortedHand[1].suit
+                && _aSortedHand[0].suit === _aSortedHand[2].suit
+                && _aSortedHand[0].suit === _aSortedHand[3].suit
+                && _aSortedHand[0].suit === _aSortedHand[4].suit) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this._isRoyalStraight = function() {
+        if (_aSortedHand[0].rank === CARD_TEN
+                && _aSortedHand[1].rank === CARD_JACK
+                && _aSortedHand[2].rank === CARD_QUEEN
+                && _aSortedHand[3].rank === CARD_KING
+                && _aSortedHand[4].rank === CARD_ACE) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this._isStraight = function() {
+        var bFirstFourStraight = _aSortedHand[0].rank + 1 === _aSortedHand[1].rank && _aSortedHand[1].rank + 1 === _aSortedHand[2].rank
+                && _aSortedHand[2].rank + 1 === _aSortedHand[3].rank;
+
+        if (bFirstFourStraight && _aSortedHand[0].rank === CARD_TWO && _aSortedHand[4].rank === CARD_ACE) {
+            return true;
+        } else if (bFirstFourStraight && _aSortedHand[3].rank + 1 === _aSortedHand[4].rank) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    this.compareRank = function(a, b) {
+        if (a.rank < b.rank)
+            return -1;
+        if (a.rank > b.rank)
+            return 1;
+        return 0;
+    };
+
+    this.getSortedHand = function() {
+        return _aSortedHand;
+    };
+
+    this.getCardIndexInCombo = function() {
+        return _aCardIndexInCombo;
+    };
+
+}
 var allowed_origins = [
     'localhost',
     'springle.rebugged.com',
@@ -171,7 +452,6 @@ var allowed_origins = [
     'developer.cdn.mozilla.net',
     '192.168.0.118',
     'usuario-pc',
-    'casino4as-krondon.c9.io',
     'casino4as.com'
 ];
 
@@ -355,16 +635,16 @@ wsServer.on('request', function(request) {
                 newsales(msgObj);
             }
             else if (msgObj.type === 'apost') {
-                console.log(msgObj);
+//                console.log(msgObj);
                 var montoapos = 0;
                 if ((connection.idsale !== undefined) && (connection.idsit !== undefined)) {
-                    console.log('Conection ' + connection.idsit + '/' + connection.idsale + ' EnEspera ' + play[connection.idsale].jugadorenespera)
+//                    console.log('Conection ' + connection.idsit + '/' + connection.idsale + ' EnEspera ' + play[connection.idsale].jugadorenespera)
                     if (connection.idsit === play[connection.idsale].jugadorenespera) {
                         if ((parseFloat(msgObj.montapost) > 0) && (parseFloat(msgObj.montapost) > parseFloat(saleonline[connection.idsale][connection.idsit].apos))) {
-                            console.log('if');
+//                            console.log('if');
                             montoapos = parseFloat(saleonline[connection.idsale][connection.idsit].apos);
                         } else {
-                            console.log('else');
+//                            console.log('else');
                             montoapos = parseFloat(msgObj.montapost);
                         }
                         updatesaleapost(connection.idsale, connection.idsit, montoapos);
@@ -377,7 +657,7 @@ wsServer.on('request', function(request) {
                 }
 ////                console.log(' Idsale: ' + connection.idsale+ ' Idsit: ' + connection.idsit);
 //                console.log(saleonline[connection.idsale][connection.idsit].apos);
-                console.log(montoapos);
+//                console.log(montoapos);
             }
             else if (msgObj.type === 'sitdown') {
                 if (connection.idsit > 6) {
@@ -460,8 +740,10 @@ wsServer.on('request', function(request) {
             }
             else if (msgObj.type === 'leave') {
 //                console.log(connection.idsale);
-                play[connection.idsale].leaveplay(connection.idsit);
-                console.log('leave');
+                if (connection.idsit) {
+                    play[connection.idsale].leaveplay(connection.idsit);
+//                console.log('leave');
+                }
             }
             else if (msgObj.type === 'exitgame') {
                 console.log('exitgame');
@@ -701,8 +983,6 @@ wsServer.on('request', function(request) {
                 joinsale(connection, connection.idsale, 'false', row.insertId);
             }
 //            consigo el numero de salas para añadir una al arreglo
-
-
         });
         mysqlc.end();
         return rooms;
@@ -725,14 +1005,28 @@ wsServer.on('request', function(request) {
                 sendmessageuser(saleonlineconexall[room][i], 'joinsale', saleonline[room]);
             }
         }
+        play[room].potefu();
     }
     function updatesaleapost(room, sit, apos) {
         if (saleonline[room][sit]) {
-            saleonline[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
+            if (saleonline[room][sit].apos >= parseFloat(apos)) {
+                saleonline[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
 //            saleonlineconex[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
 //            saleonlineconexall[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
-            for (i in saleonlineconexall[room]) {
-                sendmessageuser(saleonlineconexall[room][i], 'joinsale', saleonline[room]);
+                for (i in saleonlineconexall[room]) {
+                    sendmessageuser(saleonlineconexall[room][i], 'joinsale', saleonline[room]);
+                }
+            } else {
+                if (saleonline[room][sit].apos >= play[room].maxci) {
+                    play[room].leaveplay(sit);
+                } else {
+                    console.log('expuls');
+                    for (i in saleonlineconexall[this.room]) {
+                        sendmessageuser(saleonlineconexall[room][i], 'expuls', sit);
+                    }
+//                        sendmessageuser(saleonline[room][sit], 'expuls', sit);
+//                    updatesale(room);
+                }
             }
         }
     }
@@ -751,7 +1045,7 @@ wsServer.on('request', function(request) {
 //si yo elgi sentarme
         console.log(conex.apos);
         if (idsit == 'true') {
-            console.log(saleonline[idsale][idkey]['name']);
+//            console.log(saleonline[idsale][idkey]['name']);
             if (saleonline[idsale][idkey]['name'] == undefined || saleonline[idsale][idkey]['name'] == 0) {
                 var conexarray = {
                     name: conex.first_name + " " + conex.last_name,
@@ -862,27 +1156,20 @@ wsServer.on('request', function(request) {
                         }
                 );
                 mysqlc.connect();
-//                for (i = 0; i < 7; i++) {
-//                    console.log('---------------------- Pos ' + i + '----------------------');
-//                    console.log(saleonline[connection.idsale][i]);
-//                }
                 var query = 'UPDATE user_data SET coins = (coins +' + parseInt(prearray.apos) + ') WHERE id_user = "' + connection.id_user + '"';
-//                console.log(query);
                 mysqlc.query(query, function(err, row, fields) {
                     if (typeof(row)) {
                     }
                 });
-                //                console.log(saleonlineconex[connection.idsale]);
                 mysqlc.end();
                 saleonlineconex[connection.idsale][connection.idsit] = undefined;
-//                saleonlineconex[connection.idsale].splice(connection.idsit, 1);
-//                console.log(saleonlineconex[connection.idsale]);
                 if (connection.idsit < 7) {
                     if (typeof play[connection.idsale] && play[connection.idsale] !== undefined && typeof play[connection.idsale] && play[connection.idsale].numjugactivos > 1) {
                         play[connection.idsale].gameover();
                         clearInterval(play[connection.idsale].enespera);
-                        delete play[connection.idsale];
+//                        delete play[connection.idsale];
                     }
+                    play[connection.idsale].leaveplay(connection.idsit);
                     updatesale(connection.idsale);
                 }
 //                setea a undefined para que no se vuelva a sentar el wey
@@ -901,6 +1188,7 @@ wsServer.on('request', function(request) {
         this.maxci = rooms[room].jug_max;
         this.max_jug = rooms[room].max_jug;
         this.name = rooms[room].name;
+        this.end = "";
         this.enespera = "";
         //numero de jugadores activos
         this.jugactivos = [];
@@ -924,6 +1212,7 @@ wsServer.on('request', function(request) {
     }
 //aqui seleciono los jugadores activos en la sala
     Sala.prototype.jugadoresactivos = function() {
+        clearInterval(this.end);
         var x = 0;
         //creo todos los puestos
         while (x < 7) {
@@ -975,6 +1264,15 @@ wsServer.on('request', function(request) {
                     }
                 }
             }
+            if (payer === this.aposmax) {
+                var maxapost = 0;
+                for (i in this.roomapost) {
+                    if (this.roomapost[i] > maxapost) {
+                        maxapost = parseFloat(this.roomapost[i]);
+                        this.aposmax = i;
+                    }
+                }
+            }
             clearTimeout(this.enespera);
             play[this.room].play();
         }
@@ -1021,8 +1319,8 @@ wsServer.on('request', function(request) {
         }
     };
     Sala.prototype.gameover = function() {
-        this.cardmesa = [];
-        this.roomapost = [];
+        play[this.room].cardmesa = [];
+        play[this.room].roomapost = [];
         clearTimeout(this.enespera);
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'gameover', this.cardmesa);
@@ -1083,7 +1381,6 @@ wsServer.on('request', function(request) {
         }
         this.jugadorenespera = x;
         if (this.jugactivos[this.jugadorenespera] !== undefined) {
-
             var maxapost = 0;
             for (i in this.roomapost) {
                 if (this.roomapost[i] > maxapost) {
@@ -1097,15 +1394,26 @@ wsServer.on('request', function(request) {
                     var cadmesa = 1;
                 }
             }
-            console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length + ' Turno: ' + this.jugadorenespera + ' ApostMax: ' + this.aposmax);
+//            console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length + ' Turno: ' + this.jugadorenespera + ' ApostMax: ' + this.aposmax);
             if ((cadmesa == 0) && (this.jugadorenespera == this.aposmax) && (this.cardmesa.length < 5)) {
+                
+                clearTimeout(this.enespera);
                 play[this.room].repartircardmesa();
-                console.log('if');
+//                console.log('if');
             } else {
-                console.log('else');
+//                console.log('else');
                 if (this.cardmesa.length === 5) {
-                    play[this.room].gameover();
-                    logicpokerstart(this.room);
+                    play[this.room].ganador();
+                  var espejo = this.room;
+                          play[espejo].gameover();
+                           setTimeout(function() {
+//            console.log('en espera');
+          
+           
+                    logicpokerstart(espejo);
+            
+//            this.minapost();
+        }, 7000);
                 }
             }
 
@@ -1116,11 +1424,111 @@ wsServer.on('request', function(request) {
 
         }
     };
+    Sala.prototype.ganador = function() {
+        var win = new HandEvaluator();
+        var cant = this.cardmesa.length;
+        var mesa = [];
+        var playing = [];
+        var calcpremy = [];
+        var mayorprem = [];
+        var h = [];
+        if (cant === 5) {
+            for (t in this.jugactivos) {
+                if (this.jugactivos[t]['first_name'] !== undefined) {
+                    for (j = 0; j < cant; j++) {
+                        for (k = 0; k < cant; k++) {
+                            for (i = 0; i < cant; i++) {
+                                if ((this.cardmesa[j] !== this.cardmesa[k]) && (this.cardmesa[k] !== this.cardmesa[i]) && (this.cardmesa[j] !== this.cardmesa[i])) {
+                                    u = mesa.length;
+                                    mesa[u] = [
+                                        this.cardmesa[j],
+                                        this.cardmesa[k],
+                                        this.cardmesa[i],
+                                        this.jugactivos[t]['card1'],
+                                        this.jugactivos[t]['card2']
+                                    ];
+//                                    console.log('Cartas ' + u + ': ' + mesa[u][0] + ' ' + mesa[u][1] + ' ' + mesa[u][2] + ' ' + mesa[u][3] + ' ' + mesa[u][4]);
+                                    h = win.evaluate(mesa[u]);
+                                    playing[u] = h;
+                                    if (u > 0) {
+                                        if (playing[u].point < playing[(u - 1)].point) {
+                                            mayorprem = playing[u];
+                                        }
+                                    } else {
+                                        mayorprem = playing[u];
+                                    }
+                                    this.jugactivos[t]['win'] = mayorprem;
+                                }
+                            }
+                        }
+                    }
+                    mesa = [];
+                    playing = [];
+                    mayorprem = [];
+                }
+            }
+            for (t in this.jugactivos) {
+                if (this.jugactivos[t]['first_name'] !== undefined) {
+                    console.log(this.jugactivos[t]['first_name']);
+                    console.log(this.jugactivos[t]['win']);
+                    calcpremy[calcpremy.length] = [
+                        t,
+                        this.jugactivos[t]['win'].premy,
+                        this.jugactivos[t]['win'].point,
+                        this.jugactivos[t]['win'].mayor
+                    ];
+                }
+            }
+            count = 1;
+            for (jk in calcpremy) {
+//                console.log('jk = ' +jk)
+                if (jk > 0) {
+                    console.log('Premy');
+                    console.log('compara: ' + calcpremy[jk][2] + ' con: ' + jugada);
+                    console.log('Cart');
+                    console.log('compara: ' + calcpremy[jk][3] + ' con: ' + cartmmayor);
+                    if ((calcpremy[jk][2]) < (jugada)) {
+                        if ((calcpremy[jk][2]) == (jugada)) {
+                            if ((calcpremy[jk][3]) > (cartmmayor)) {
+                                if ((calcpremy[jk][3]) == (cartmmayor)) {
+                                    count++;
+                                }
+                                cartmmayor = calcpremy[jk][3];
+                            }
+                        } else {
+                            cartmmayor = calcpremy[jk][3];
+                        }
+                        jugada = calcpremy[jk][2];
+                    } else if ((calcpremy[jk][2]) == (jugada)) {
+                        if ((calcpremy[jk][3]) > (cartmmayor)) {
+                            cartmmayor = calcpremy[jk][3];
+                        }
+                    }
+                } else {
+                    console.log('Premy');
+                    console.log('primero: ' + calcpremy[jk][2]);
+                    console.log('Cart');
+                    console.log('primero: ' + calcpremy[jk][3]);
+                    jugada = calcpremy[jk][2];
+                    cartmmayor = calcpremy[jk][3];
+                }
+            }
+            montapagar = this.pote1 / count;
+            console.log('Jugada: ' + jugada + ' Carta Mayor: ' + cartmmayor + ' Ganadores: ' + count + ' Monto a Pagar ' + montapagar);
+            for (t in this.jugactivos) {
+                if (this.jugactivos[t]['first_name'] !== undefined) {
+                    if ((this.jugactivos[t]['win'].point == jugada) && (this.jugactivos[t]['win'].mayor == cartmmayor)) {
+                        this.jugactivos[t]['apost'] = parseFloat(this.jugactivos[i]['apost']) + montapagar;
+                        updatewin(this.room, t, montapagar);
+                        console.log('Puesto ganador: ' + t);
+                    }
+                }
+            }
+        }
+    };
     Sala.prototype.enesperafu = function() {
-
         //   console.log(this.jugadorenespera);
         //   console.log(pos[this.jugadorenespera]);
-
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'enespera', this.jugadorenespera);
         }
@@ -1131,18 +1539,30 @@ wsServer.on('request', function(request) {
         }
     };
     Sala.prototype.ciegaminfu = function() {
-        this.pote1 = this.pote1 + this.minci;
-        for (i in saleonlineconexall[this.room]) {
-            sendmessageuser(saleonlineconexall[this.room][i], 'ciegamin', this.ciegamin);
-        }
-        this.potefu();
+     //   if (this.jugactivos[this.ciegamin].apost >= this.maxci) {
+            this.pote1 = this.pote1 + this.minci;
+            for (i in saleonlineconexall[this.room]) {
+                sendmessageuser(saleonlineconexall[this.room][i], 'ciegamin', this.ciegamin);
+            }
+       // } else {
+          //  for (i in saleonlineconexall[this.room]) {
+        //        sendmessageuser(saleonlineconexall[this.room][i], 'expuls', sit);
+          //  }
+         //   updatesale(this.room);
+        //}
     };
     Sala.prototype.ciegamaxfu = function() {
-        this.pote1 = this.pote1 + this.maxci;
-        for (i in saleonlineconexall[this.room]) {
-            sendmessageuser(saleonlineconexall[this.room][i], 'ciegamax', this.ciegamax);
-        }
-        this.potefu();
+      //  if (this.jugactivos[this.ciegamax].apost >= this.maxci) {
+            this.pote1 = this.pote1 + this.maxci;
+            for (i in saleonlineconexall[this.room]) {
+                sendmessageuser(saleonlineconexall[this.room][i], 'ciegamax', this.ciegamax);
+            }
+        //} else {
+        //    for (i in saleonlineconexall[this.room]) {
+            //    sendmessageuser(saleonlineconexall[room][i], 'expuls', sit);
+       //     }
+       //     updatesale(this.room);
+       // }
     };
     Sala.prototype.montapost = function(user, apost) {
         this.jugactivos[user].apost = apost;
@@ -1165,10 +1585,9 @@ wsServer.on('request', function(request) {
             'pote': this.pote1,
             'apost': this.roomapost
         }
-        console.log(this.roomapost);
+//        console.log(this.roomapost);
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'pote', send);
-
         }
     };
 
@@ -1183,7 +1602,7 @@ wsServer.on('request', function(request) {
 //                play[espejo].minapost()
             }
 //            this.minapost();
-        }, 5000);
+        }, 20000);
 //        console.log(this.room);
 //        this.enespera = setInterval(function(){ console.log(room);}, 5000);
     };
@@ -1196,6 +1615,11 @@ wsServer.on('request', function(request) {
         play[idsale].intervalo();
         play[idsale].enesperafu();
 //        console.log(play[idsale]);
+    }
+    function unique(array) {
+        return array.filter(function(el, index, arr) {
+            return index == arr.indexOf(el);
+        });
     }
 
 });

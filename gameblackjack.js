@@ -177,7 +177,7 @@
                         );
                         mysqlc.connect();
                         mysqlc.query(string, function(err, row, fields) {
-                            if (typeof(row)) {
+                            if (typeof(row) &&  if (row !== undefined && row[0].id_user !== undefined) {
                                 connection.id_user = row[0]['id_user'];
 
                                 if (row[0]['id_user'] == clientsconection[connection.id_user]) {

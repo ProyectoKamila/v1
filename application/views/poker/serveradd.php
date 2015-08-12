@@ -587,6 +587,11 @@
                                                 <img src="./imagen/poker/ficha-5.png" alt="montapuest">
                                                 <p class="montapuest pote">0</p>
                                             </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12 win" style="position: absolute;bottom: -40px;background-color: #920B18;color: white;text-align: center; display: none">
+                                                <p>
+                                                    Player: <a class="playerwin">0</a> jugada: <a class="playerplay">POKER</a><br>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="vert" style="width: 15%">
@@ -743,18 +748,18 @@
             <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
             <h3>Chat del Jugador <span class="fa fa-weixin"></span></h3>
             <div class="content-chat" id="globalchat">
-<!--                <div class="message">
-                    <p><span class="name"> Jugador : </span> Hola que tal</p>
-                </div>
-                <div class="message">
-                    <p><span class="name responder"> Jugador : </span> You asked, Font Awesome delivers with 40 shiny new icons in version 4.3. Want to request new icons? Here's how. Need vectors or want to use on the desktop? Check the cheatsheet.</p>
-                </div>
-                <div class="message">
-                    <p><span class="name"> Jugador : </span> The complete set of 519 icons in Font Awesome 4.3.0</p>
-                </div>
-                <div class="message">
-                    <p><span class="name responder"> Jugador : </span> You asked, Font Awesome delivers with 40 shiny new icons in version 4.3. Want to request new icons? Here's how. Need vectors or want to use on the desktop? Check the cheatsheet.</p>
-                </div>-->
+                <!--                <div class="message">
+                                    <p><span class="name"> Jugador : </span> Hola que tal</p>
+                                </div>
+                                <div class="message">
+                                    <p><span class="name responder"> Jugador : </span> You asked, Font Awesome delivers with 40 shiny new icons in version 4.3. Want to request new icons? Here's how. Need vectors or want to use on the desktop? Check the cheatsheet.</p>
+                                </div>
+                                <div class="message">
+                                    <p><span class="name"> Jugador : </span> The complete set of 519 icons in Font Awesome 4.3.0</p>
+                                </div>
+                                <div class="message">
+                                    <p><span class="name responder"> Jugador : </span> You asked, Font Awesome delivers with 40 shiny new icons in version 4.3. Want to request new icons? Here's how. Need vectors or want to use on the desktop? Check the cheatsheet.</p>
+                                </div>-->
 
             </div>
             <div class="text-message">

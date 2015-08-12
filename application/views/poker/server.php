@@ -31,7 +31,9 @@
     var protocol_identifier = 'server';
     var myId;
     var myapos = 0;
+
     var apostini;
+
     var idsale;
     var nicklist;
     var is_typing_indicator;
@@ -233,43 +235,22 @@
         });
         //boton para acceder al juego
         $('#apost-mont').keyup(function() {
-            $('#apost-toal').val($('#apost-mont').val(), function() {
-                apostresume()
-            });
-        });
-        $('#apost-bote').click(function() {
-            console.log('apost-bote: ' + pote);
-            $('#apost-toal').val(pote, function() {
-                apostresume()
-            });
-        });
-        $('#apost-bote-mid').click(function() {
-            console.log('apost-bote-mid: ' + pote);
-            $('#apost-toal').val((pote / 2), function() {
-                apostresume()
-            });
-        });
-        $('#apost-all').click(function() {
-//            console.log('apost-all: ');
-//            console.log(idsit);
-//            console.log($('#player' + (idsit + 1) + 'apos').html());
-            $('#apost-toal').val(parseFloat($('#player' + (idsit + 1) + 'apos').html()));
+            $('#apost-toal').val($('#apost-mont').val());
             apostresume()
         });
         $('#apost-bote').click(function() {
-            $('#apost-toal').val(pote, function() {
-                apostresume()
-            });
+            console.log('apost-bote: ' + pote);
+            $('#apost-toal').val(pote);
+            apostresume()
         });
         $('#apost-bote-mid').click(function() {
-            $('#apost-toal').val((pote / 2), function() {
-                apostresume()
-            });
+            console.log('apost-bote-mid: ' + pote);
+            $('#apost-toal').val((pote / 2));
+            apostresume()
         });
         $('#apost-all').click(function() {
-            $('#apost-toal').val(parseFloat($('#player' + (idsit + 1) + 'apos').html()), function() {
-                apostresume();
-            });
+            $('#apost-toal').val(parseFloat($('#player' + (idsit + 1) + 'apos').html()));
+            apostresume();
         });
         $('#gmover').click(function() {
             var intro = {
@@ -335,6 +316,19 @@
             $('#passbox').val('');
             conexgame(passbox);
         });
+        $('#past').click(function() {
+
+            var intro = {
+                type: 'apost',
+                idsale: idsale,
+                idsit: idsit,
+                montapost: 0
+            }
+//            console.log(intro);
+            socket.send(JSON.stringify(intro));
+//            $('#apost-toal').val(0);
+//            apostresume();
+        });
         $('#apost').click(function() {
 
             var intro = {
@@ -343,7 +337,7 @@
                 idsit: idsit,
                 montapost: $('#apost-toal').val()
             }
-            console.log(intro);
+//            console.log(intro);
             socket.send(JSON.stringify(intro));
             $('#apost-toal').val(0);
             apostresume();
@@ -366,15 +360,13 @@
     }
     function apostresume() {
         var apt = parseFloat($('#apost-toal').val());
+        console.log('apt: ' + apt);
         $('.apost-resume').html('Bs. ' + apt.format(2, 3, '.', ','));
-        var saldo = parseFloat($('#player' + (idsit + 1) + 'apos').html());
-        console.log('apostresume');
-//        console.log(apt);
-//        console.log(saldo);
-//        console.log(idsit);
-//        console.log('#player' + (idsit + 1) + 'apos');
-        var r = (saldo - apt)
-        $('#player' + (idsit + 1) + 'apos').html(r);
+//        var saldo = parseFloat($('#player' + (idsit + 1) + 'apos').html());
+//        console.log('saldo: ' + saldo);
+//        var r = (saldo - apt)
+//        console.log('r: ' + r);
+//        $('#player' + (idsit + 1) + 'apos').html(r);
     }
     function connetserver() {
         //muestra el tiempo de espera al servidor revisar la funcion para que cargue si no hay conexion         // show_timer();
@@ -384,11 +376,11 @@
 
     function open_connection() {
         //        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
-
-        socket = new WebSocket('ws://162.252.57.97:8806/', 'server');
+        socket = new WebSocket('ws://localhost:8806/', 'server');
         //socket = new WebSocket('ws://milagros-pc:8806/', 'server');
         // socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
-        //socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
+//        socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
+
         console.log(socket);
         socket.addEventListener("open", connection_established);
     }
@@ -435,10 +427,16 @@
             sales(array, message.clients);
         }
         //                accede al juego para elegir una silla
-        else if (message.type === 'joinsale') {
-            //console.log('joinsale');
+        else if (message.type === 'expuls') {
+            console.log('expuls' )
+            console.log(message.messagesend)
+            console.log(idsit)
+            if (message.messagesend == idsit) {
+                $('#exitgame').click();
+            }
+        }
 
-            //console.log('aqui');
+        else if (message.type === 'joinsale') {
 
             //             $('#chat-container').fadeIn();
 //            $('#loading-message').hide();
@@ -552,9 +550,7 @@
             console.log(player);
             $(player).html('20');
             if (idsit !== (sitenespera - 1)) {
-                //descomentar
 
-                //                console.log('if: ' + idsit)
                 $('#playerdata').slideDown();
                 $('#playeroption').slideUp();
             } else {
@@ -586,10 +582,10 @@
             for (i in message.messagesend.apost) {
                 if (message.messagesend.apost[i] > 0) {
                     var player = parseInt(i) + 1;
-                    var s = parseFloat($('#player' + player + 'apos').html());
-                    console.log('#player' + player + 'apos');
+//                    var s = parseFloat($('#player' + player + 'apos').html());
+//                    console.log('#player' + player + 'apos');
                     $("#montapuestplayer" + player).html(parseFloat(message.messagesend.apost[i]));
-                    $('#player' + player + 'apos').html((s - parseFloat(message.messagesend.apost[i])));
+//                    $('#player' + player + 'apos').html((s - parseFloat(message.messagesend.apost[i])));
                 }
             }
             $('.pote').html(pote);
@@ -834,5 +830,3 @@
 
 </script>
 
-
-</body>
