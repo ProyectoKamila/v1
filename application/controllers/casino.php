@@ -337,6 +337,24 @@ class Casino extends MY_Controller {
         $this->load->view('slot_sensual/CSSettings', $data);
         $this->load->view('slot_sensual/index');
     }
+     public function slotmachine_musical() {
+        $this->last_connection();
+        $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 11');
+        $this->load->view('slot_musical/settings', $data[0]);
+        $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 11');
+        $data = array('consulta' => $result);
+        $this->load->view('slot_musical/CSSettings', $data);
+        $this->load->view('slot_musical/index');
+    }
+    public function slotmachine_diamantes() {
+        $this->last_connection();
+        $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 11');
+        $this->load->view('slot_diamantes/settings', $data[0]);
+        $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 11');
+        $data = array('consulta' => $result);
+        $this->load->view('slot_diamantes/CSSettings', $data);
+        $this->load->view('slot_diamantes/index');
+    }
     public function demo_slotmachine() {
         $this->load->view('slotmachine/demo-index');
     }

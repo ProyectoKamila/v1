@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Casino 4as - Slot Sensual</title>
         <?php $this->load->view('page/header'); ?>
         <link rel="stylesheet" href="./games/slot-sensual/game_1024x768/css/reset.css" type="text/css">
         <link rel="stylesheet" href="./games/slot-sensual/game_1024x768/css/main.css" type="text/css">

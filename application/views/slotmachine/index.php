@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Slotmachine Frutas</title>
+        <title>Casino 4as - Slotmachine Frutas</title>
         <?php $this->load->view('page/header'); ?>
         <link rel="stylesheet" href="./game-slot-machine/game_1024x768/css/reset.css" type="text/css">
         <link rel="stylesheet" href="./game-slot-machine/game_1024x768/css/main.css" type="text/css">
@@ -36,7 +36,7 @@
         <div class="fondo-game"  style="background: #FF9603;">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
-    </div>
+    
     <script>
         $(document).ready(function () {
             var oMain = new CMain({
@@ -51,6 +51,7 @@
             var protocol_identifier = 'server';
             var myId;
             var idgame = 1; //aqui debe llevarse el nombre del juego que selecciono
+            var idgame_free = 1; 
             var free_gameslot = 0;
             var free=0;
             var freeselect=0;
@@ -432,7 +433,7 @@
 
 
     </script>
-    <div class="container-fluid sin-padding fondo-game" style="background: #FF9603;">
+    <div id="frutas" class="container-fluid sin-padding fondo-game" style="background: #FF9603;">
         <!-- Trigger the modal with a button -->
         <div class="container sin-padding">
             <div class="row">
@@ -453,10 +454,19 @@
                 <!-- Modal content-->
                 <div class="modal-content firstmodal">
                     <div class="modal-header">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <p class="ficha">Fichas Disponibles:</p>
+                                    <div class="mount">
+                                        <p><label id="total_coins"></label></p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6"></div>
+                            </div>
+                        </div>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <p>Ingrese el monto para recargar sus fichas.</p>
-                        <h2>Fichas Disponibles</h2>
-                        <label id="total_coins"></label>
+                        
                     </div>
                     <div class="modal-body">
 
