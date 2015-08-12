@@ -1,4 +1,4 @@
-///poker
+//poker
 var WebSocketServer = require('websocket').server;
 var mysql = require('mysql');
 // Check if SSL support is enabled
@@ -1002,8 +1002,9 @@ wsServer.on('request', function(request) {
 //            saleonlineconex[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
 //            saleonlineconexall[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
             for (i in saleonlineconexall[room]) {
-                sendmessageuser(saleonlineconexall[room][i], 'joinsale', saleonline[room]);
+                sendmessageuser(saleonlineconexall[room][i], 'ganador', saleonline[room][sit]);
             }
+            updatesale(room);
         }
         play[room].potefu();
     }
@@ -1396,24 +1397,19 @@ wsServer.on('request', function(request) {
             }
 //            console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length + ' Turno: ' + this.jugadorenespera + ' ApostMax: ' + this.aposmax);
             if ((cadmesa == 0) && (this.jugadorenespera == this.aposmax) && (this.cardmesa.length < 5)) {
-                
-                clearTimeout(this.enespera);
                 play[this.room].repartircardmesa();
 //                console.log('if');
             } else {
 //                console.log('else');
                 if (this.cardmesa.length === 5) {
                     play[this.room].ganador();
-                  var espejo = this.room;
-                          play[espejo].gameover();
-                           setTimeout(function() {
-//            console.log('en espera');
-          
-           
-                    logicpokerstart(espejo);
-            
-//            this.minapost();
-        }, 7000);
+                    clearTimeout(this.enespera);
+                    var espejo = this.room;
+                    var time = setTimeout(function() {
+                        play[espejo].gameover();
+                        logicpokerstart(espejo);
+                        clearTimeout(time);
+                    }, 7000);
                 }
             }
 
@@ -1539,30 +1535,30 @@ wsServer.on('request', function(request) {
         }
     };
     Sala.prototype.ciegaminfu = function() {
-     //   if (this.jugactivos[this.ciegamin].apost >= this.maxci) {
-            this.pote1 = this.pote1 + this.minci;
-            for (i in saleonlineconexall[this.room]) {
-                sendmessageuser(saleonlineconexall[this.room][i], 'ciegamin', this.ciegamin);
-            }
-       // } else {
-          //  for (i in saleonlineconexall[this.room]) {
-        //        sendmessageuser(saleonlineconexall[this.room][i], 'expuls', sit);
-          //  }
-         //   updatesale(this.room);
-        //}
+//        if (this.jugactivos[this.ciegamin].apost >= this.maxci) {
+        this.pote1 = this.pote1 + this.minci;
+        for (i in saleonlineconexall[this.room]) {
+            sendmessageuser(saleonlineconexall[this.room][i], 'ciegamin', this.ciegamin);
+        }
+//        } else {
+//            for (i in saleonlineconexall[this.room]) {
+//                sendmessageuser(saleonlineconexall[this.room][i], 'expuls', this.ciegamin);
+//            }
+//            updatesale(this.room);
+//        }
     };
     Sala.prototype.ciegamaxfu = function() {
-      //  if (this.jugactivos[this.ciegamax].apost >= this.maxci) {
-            this.pote1 = this.pote1 + this.maxci;
-            for (i in saleonlineconexall[this.room]) {
-                sendmessageuser(saleonlineconexall[this.room][i], 'ciegamax', this.ciegamax);
-            }
-        //} else {
-        //    for (i in saleonlineconexall[this.room]) {
-            //    sendmessageuser(saleonlineconexall[room][i], 'expuls', sit);
-       //     }
-       //     updatesale(this.room);
-       // }
+//        if (this.jugactivos[this.ciegamax].apost >= this.maxci) {
+        this.pote1 = this.pote1 + this.maxci;
+        for (i in saleonlineconexall[this.room]) {
+            sendmessageuser(saleonlineconexall[this.room][i], 'ciegamax', this.ciegamax);
+        }
+//        } else {
+//            for (i in saleonlineconexall[this.room]) {
+//                sendmessageuser(saleonlineconexall[this.room][i], 'expuls', this.ciegamax);
+//            }
+//            updatesale(this.room);
+//        }
     };
     Sala.prototype.montapost = function(user, apost) {
         this.jugactivos[user].apost = apost;

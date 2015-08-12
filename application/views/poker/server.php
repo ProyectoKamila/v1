@@ -376,7 +376,7 @@
 
     function open_connection() {
         //        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
-        socket = new WebSocket('ws://localhost:8806/', 'server');
+        socket = new WebSocket('ws://162.252.57.97:8806/', 'server');
         //socket = new WebSocket('ws://milagros-pc:8806/', 'server');
         // socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
 //        socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
@@ -428,7 +428,7 @@
         }
         //                accede al juego para elegir una silla
         else if (message.type === 'expuls') {
-            console.log('expuls' )
+            console.log('expuls')
             console.log(message.messagesend)
             console.log(idsit)
             if (message.messagesend == idsit) {
@@ -460,11 +460,23 @@
             //$('#loading-message').hide();
             //$('#game').html(message.messagesend);
         }
+        else if (message.type === 'ganador') {
+            console.log('ganador');
+            console.log(message.messagesend);
+            clearInterval(enespera);
+            $('.win').html('<p>Ganador: ' + message.messagesend.name + '</p>');
+            $('#playerdata').css('display', 'block');
+            $('#playeroption').css('display', 'none');
+            $('.win').css('display', 'block');
+        }
         else if (message.type === 'gameover') {
             for (i = 1; i < 8; i++) {
                 $('#montapuestplayer' + i).html('0');
+                $('#player' + i + 'time').html('');
             }
             $('#apost-toal').val(0);
+            $('.win').css('display', 'none');
+            $('.win').html('');
             $('.one').html('');
             $('.two').html('');
             $('.three').html('');
@@ -830,3 +842,5 @@
 
 </script>
 
+
+</body>
