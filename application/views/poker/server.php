@@ -385,7 +385,7 @@
     function open_connection() {
         //        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
 
-        socket = new WebSocket('ws://localhost:8806/', 'server');
+        socket = new WebSocket('ws://162.252.57.97:8806/', 'server');
         //socket = new WebSocket('ws://milagros-pc:8806/', 'server');
         // socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
         //socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
