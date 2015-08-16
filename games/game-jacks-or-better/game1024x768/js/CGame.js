@@ -82,7 +82,7 @@ function CGame(oData){
             //_oCardAttachE : _oCardAttach,
             //_iCurIndexDeckE : _iCurIndexDeck,
         }
-         createcards_node(enviar); 
+         //createcards_node(enviar); 
     };
     
     this.unload = function(){
