@@ -416,7 +416,7 @@ wsServer.on('request', function(request) {
      //console.log(string);
 
          mysqlc.end();
-         setTimeout(function () {select_jackpot()}, 1000);
+         setTimeout(function () {select_jackpot()}, 1500);
     }
     
     function select_jackpot(){
@@ -434,7 +434,7 @@ wsServer.on('request', function(request) {
         var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=3';
         mysqlc.query(string, function(err, row, fields) {
             //console.log('verificar la variable row' + row);
-            if (typeof(row)) {
+            if (typeof(row)  && row !== undefined && row[0].jackpot !== undefined) {
              //   console.log('entre a jackpotcall' + row[0]['jackpot']);
              //   console.log('entre a debt' + row[0]['debt']);
              //   console.log('entre a jackpotcall' + row[0]['percent']);
@@ -443,6 +443,10 @@ wsServer.on('request', function(request) {
                percent =  row[0]['percent'];
               //  console.log('jackpot ' + jackpot);
               //  console.log('percent ' + percent);
+            }
+            else {
+                mysqlc.end();
+                select_jackpot();
             }
         });
   //  console.log(string);
@@ -731,11 +735,16 @@ function checkHandDealed(obj){
         connection.indexcard = new Array();
             check_win_hand();
             connection.win = checkassignWin(connection._aCurHandValue);
-            while(connection.win > connection.availiable_jp) {
+            //i=0;
+
+            while(parseFloat(connection.win) > parseFloat(connection.availiable_jp)) {
+            createCardsDek();
             connection._iCurIndexDeck = 0;
             check_win_hand();
             consulta_saldo_disp(); 
             connection.win = checkassignWin(connection._aCurHandValue);
+            console.log('while deal');
+            //i++;
             }
 
             console.log('handreturn'+connection.indexcard);
@@ -815,13 +824,16 @@ function check_win_hand(){
         console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 
         win_change_info(obj);
-
-        while(connection.win > connection.availiable_jp) {
+        //j=0;
+        while(parseFloat(connection.win) > parseFloat(connection.availiable_jp)) {
             win_change_info(obj);
+            createCardsDek();
             consulta_saldo_disp();
             connection.win = checkassignWin(connection._aCurHandValue);
             connection._iCurIndexDeck = 0;
-            
+            console.log('while drawd');
+
+            //j++;
         }
         pote = connection.availiable_jp-connection.win;
         connection.sitcoins = connection.sitcoins + connection.win;
