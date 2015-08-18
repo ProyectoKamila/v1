@@ -22,7 +22,7 @@
             response.end();
         });
     
-        var port = 8083;
+        var port = 8081;
         var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
     } else {
         var http = require('http');
@@ -32,7 +32,7 @@
             response.end();
         });
     
-        var port = 8083;
+        var port = 8081;
         var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
     }
     var messagesend = [];
@@ -177,7 +177,7 @@
                         );
                         mysqlc.connect();
                         mysqlc.query(string, function(err, row, fields) {
-                            if (typeof(row) &&  if (row !== undefined && row[0].id_user !== undefined) {
+                            if (typeof(row) && row !== undefined && row[0].id_user !== undefined) {
                                 connection.id_user = row[0]['id_user'];
 
                                 if (row[0]['id_user'] == clientsconection[connection.id_user]) {
