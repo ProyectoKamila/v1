@@ -19,7 +19,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8081;
+    var port = 8082;
     var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
 } else {
     var http = require('http');
@@ -29,7 +29,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8081;
+    var port = 8082;
     var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
 }
 
@@ -669,7 +669,7 @@ function dealCards(objeto){
             console.log(_oHandEvaluator.evaluate(_aCurHandValue));
             console.log(JACKS_OR_BETTER);
         while(_oHandEvaluator.evaluate(_aCurHandValue) !== JACKS_OR_BETTER){
-            console.log("resethand deal cards 11");
+            console.log("resethand deal cards");
             _oCardAttach.removeAllChildren();
             resetHandInit();
             cehckhandeal();
@@ -765,11 +765,10 @@ function check_win_hand(){
                     ];
                 connection.indexcard.push(connection._iCurIndexDeck);
                 console.log( 'indexcard'+connection._iCurIndexDeck);
-                console.log('error----------------');
                 console.log( 'acardek fotogram'+connection._aCardDeck[connection._iCurIndexDeck].fotogram);
                 console.log( 'acardek rank'+connection._aCardDeck[connection._iCurIndexDeck].rank);
                 console.log( 'acardek suit'+connection._aCardDeck[connection._iCurIndexDeck].suit);
-                //connection._aCurHandValue.push(card);
+                connection._aCurHandValue.push(card);
                 connection._iCurIndexDeck++;                
             }
 }

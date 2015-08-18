@@ -181,7 +181,7 @@ class MY_Controller extends CI_Controller {
                             } else {
                                 if ((isset($_POST['url'])) && ($_POST['url'] != '')) {
                                     //debug('url');
-                                    redirect($_POST['url']);
+                                    redirect('http://casino4as.com/casino/account');
                                 } else {
                                     //debug('account');
                                     redirect('./account');
@@ -218,7 +218,7 @@ class MY_Controller extends CI_Controller {
         delete_cookie('wordpress');
         delete_cookie('token');
 //        debug($this->session->unset_userdata('id_role'));
-        redirect('http://casino4as.com');
+        redirect('http://casino4as.com/casino/account');
     }
 
     public function navigation() {

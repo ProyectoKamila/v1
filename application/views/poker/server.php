@@ -191,6 +191,14 @@
         $('#buttonreconect').click(function() {
             hideConnectionLostMessage();
             connetserver();
+          
+            $('.mesaplayer' + (idsit + 1)).addClass('oculto');
+
+            $('#rowgame').slideUp();
+            $('#sales').removeClass('sales-close');
+            $('#playerdata').slideDown();
+            $('#playeroption').slideUp();
+            $('.pote').html('0');
         });
         $('#buttoncreate').click(function() {
             var namesale = $('#namesale').val();
@@ -273,7 +281,7 @@
         });
 
         $('#exitgame').click(function() {
-            var intro = {
+               var intro = {
                 type: 'exitgame'
             }
             $('.mesaplayer' + (idsit + 1)).addClass('oculto');
@@ -284,6 +292,7 @@
             $('#playeroption').slideUp();
             $('.pote').html('0');
         });
+
         $('#newcomentglobal').keypress(function(e) {
             if (e.which == 13) {
                 if ($('#newcomentglobal').val() !== "") {
@@ -352,6 +361,18 @@
 
         connetserver();
     });
+            function exitgameclick(){
+                        var intro = {
+                type: 'exitgame'
+            }
+            $('.mesaplayer' + (idsit + 1)).addClass('oculto');
+            socket.send(JSON.stringify(intro));
+            $('#rowgame').slideUp();
+            $('#sales').removeClass('sales-close');
+            $('#playerdata').slideDown();
+            $('#playeroption').slideUp();
+            $('.pote').html('0');
+        }
     function justNumbers(e) {
         var keynum = window.event ? window.event.keyCode : e.which;
         if ((keynum == 8) || (keynum == 46))
