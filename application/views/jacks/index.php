@@ -57,14 +57,14 @@
                     var flash_title_timer;
                     var connected = false;
                     var connection_retry_timer;
-                    var server_url = 'ws://162.252.57.97:8084';
+                    var server_url = 'ws://162.252.57.97:8082';
                     var token = "<?php
-                         if (isset($_COOKIE['token'])) {
-                            echo $_COOKIE['token'];
-                        } elseif ($this->session->userdata('token')) {
-                            echo $this->session->userdata('token');
-                        }
-                        ?>";
+    if (isset($_COOKIE['token'])) {
+        echo $_COOKIE['token'];
+    } elseif ($this->session->userdata('token')) {
+        echo $this->session->userdata('token');
+    }
+    ?>";
 
 
                      $(oMain).on("game_start", function(evt) {
@@ -138,8 +138,8 @@
 
                 function open_connection() {
 
-                   //socket = new WebSocket('ws://162.252.57.97:8084/', 'server');
-                    socket = new WebSocket('ws://localhost:8084/', 'server');
+                   socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
+                 //   socket = new WebSocket('ws://localhost:8082/', 'server');
 
 
                     socket.addEventListener("open", connection_established);
