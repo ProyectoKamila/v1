@@ -49,7 +49,7 @@
                                         <input class="form-control" placeholder="Password" name="password" type="password" value="" required=""><!-- Pr4y2ct4 -->
                                     </div>
                                     <div class="checkbox">
-                                        <label>
+                                        <label style="color:white;">
                                             <input name="remember" type="checkbox" value="1">No cerrar sesi&oacute;n
                                         </label>
                                     </div>
