@@ -221,9 +221,14 @@
 
             function open_connection() {
 
-                //socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
+                socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server'); 
                 //socket = new WebSocket('ws://localhost:8082/', 'server');
+<<<<<<< HEAD
+                //socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
+
+=======
                 socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
+>>>>>>> 0f60d6bce9254d6c8d4d7d49ff3e79c149236e3c
                 socket.addEventListener("open", connection_established);
             }
             //cuando la conexion se establece

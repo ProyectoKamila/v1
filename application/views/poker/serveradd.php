@@ -15,9 +15,9 @@
                         <div class="alert alert-danger" style="display: none;" role="alert" id="user-conect">!!Aff, Ya se encuentra conectado, revise los dispositivos conectados <a class="btn btn-default link-error" id="" href="./dispositivos">AQUI...</a></div>
                         <div class="alert alert-info alert-reward" style="display: none;" role="alert" id="boxsitdown"> 
                             <p>Arraste para selecionar la cantidad que deseas recargar... </p>
-                            <span class="input-group-addon" id="sizing-addon3">Bs</span>
+                            <span class="input-group-addon" id="sizing-addon3">Fichas</span>
                             <input type="range" oninput="outputUpdate(value)" step="1" class="form-control drag" placeholder="Minimo de coin para apostar" min="" max="" aria-describedby="sizing-addon3" id="inputapos">
-                            <p>Entrar con Bs <output for="fader" id="volume">--</output> </p>
+                            <p>Entrar con <output for="fader" id="volume">--</output> </p>
 
 
                             <a class="btn btn-default link-error" id="buttonsitdown">SENTARSE</a>
@@ -476,7 +476,7 @@
                                     <div class="vert">
                                         <a href="./poker#" class="btn btn-default" id="exitgame"></a>
                                     </div>
-                                    <div class="vert " id='player1' ondblclick="seeplayer('#player1', 0);">
+                                    <div class="vert " id='player1' ondblclick="seeplayer('#player1', 0);" style='cursor:pointer;'>
                                         <h3 class="nameusr" id='player1name'>Disponible</h3>
                                         <div class="fichsit">
                                             <img src="" alt="Player 1" id='player1imageprofile' class="profile-mesa">
@@ -487,7 +487,7 @@
                                     <div class="vert">
                                         <div class="diler men"></div>
                                     </div>
-                                    <div class="vert" id='player2' ondblclick="seeplayer('#player2', 1);">
+                                    <div class="vert" id='player2' ondblclick="seeplayer('#player2', 1);" style='cursor:pointer;'>
                                         <h3 class="nameusr right" id='player2name'>Disponible</h3>
                                         <div class="fichsit right">
                                             <img src="" alt="Player 2" id='player2imageprofile' class="profile-mesa right">
@@ -546,7 +546,7 @@
 
                             <div class="container-fluid hori">
                                 <div class="row" id='rowgame' >
-                                    <div class="vert " id='player7' ondblclick="seeplayer('#player7', 6);" style="width: 10%">
+                                    <div class="vert " id='player7' ondblclick="seeplayer('#player7', 6);" style="width: 10%;cursor:pointer">
                                         <h3 class="nameusr" id='player7name'>Disponible</h3>
                                         <div class="fichsit">
                                             <img src="" alt="Player 7" id='player7imageprofile' class="profile-mesa">
@@ -606,7 +606,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="vert" id='player3' ondblclick="seeplayer('#player3', 2);" style="width: 10%">
+                                    <div class="vert" id='player3' ondblclick="seeplayer('#player3', 2);" style="width: 10%; cursor:pointer" >
                                         <h3 class="nameusr right" id='player3name'>Disponible</h3>
                                         <div class="fichsit right">
                                             <img id='player3imageprofile' src="" alt="Player3" class="profile-mesa right">
@@ -670,7 +670,7 @@
                                     <div class="vert">
 
                                     </div>
-                                    <div class="vert " id='player6' ondblclick="seeplayer('#player6', 5);">
+                                    <div class="vert " id='player6' ondblclick="seeplayer('#player6', 5);" style="cursor:pointer">
                                         <h3 class="nameusr" id='player6name'>Disponible</h3>
                                         <div class="fichsit">
                                             <img src="" alt="Player 6" id='player6imageprofile' class="profile-mesa">
@@ -678,7 +678,7 @@
                                         <p class="apostonline " id='player6apos'>0</p>
                                         <p class="timeturn " id='player6time'>99</p>
                                     </div>
-                                    <div class="vert c" id='player5' ondblclick="seeplayer('#player5', 4);">
+                                    <div class="vert c" id='player5' ondblclick="seeplayer('#player5', 4);" style="cursor:pointer">
                                         <h3 class="nameusr" id='player5name'>Disponible</h3>
                                         <div class="fichsit c">
                                             <img src="" alt="Player 5" id='player5imageprofile' class="profile-mesa">
@@ -686,7 +686,7 @@
                                         <p class="apostonline " id='player5apos'>0</p>
                                         <p class="timeturn " id='player5time'>99</p>
                                     </div>
-                                    <div class="vert" id='player4' ondblclick="seeplayer('#player4', 3);">
+                                    <div class="vert" id='player4' ondblclick="seeplayer('#player4', 3);" style="cursor:pointer">
                                         <h3 class="nameusr right" id='player4name'>Disponible</h3>
                                         <div class="fichsit right">
                                             <img id='player4imageprofile' src="" alt="Player 4" class="profile-mesa right">
@@ -766,7 +766,7 @@
                 <div class="container-fluid sin-padding">
                     <div class="row sin-padding">
                         <div class="col-lg-7 col-md-7 col-sm-7 ">
-                            <textarea class="text" id="newcomentglobal" maxlength="255"></textarea>
+                            <input type="text" class="text" id="newcomentglobal" maxlength="255" placeholder="Escribe tu comentario"></input>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-3 sin-padding">
                             <input type="submit" class="btn btn-default " id="comentglobal" value="Enviar">
@@ -799,7 +799,7 @@
                                                 classtyle = "glyphicon glyphicon-lock";
                                             }
 
-                                            content += "<tr class='general'  ondblclick='joingame(" + i + "," + recorrido[i].boolpass + ")'><th><span class='" + classtyle + "' id=''> </span>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
+                                            content += "<tr class='general' style='cursor:pointer;'  ondblclick='joingame(" + i + "," + recorrido[i].boolpass + ")'><th><span class='" + classtyle + "' id=''> </span>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
                                             ide++;
 
                                         }

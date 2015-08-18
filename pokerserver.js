@@ -18,7 +18,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8806;
+    var port = 8081;
     var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
 } else {
     var http = require('http');
@@ -28,7 +28,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8806;
+    var port = 8081;
     var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
 }
 
@@ -452,7 +452,8 @@ var allowed_origins = [
     'developer.cdn.mozilla.net',
     '192.168.0.118',
     'usuario-pc',
-    'casino4as.com'
+    'casino4as.com',
+    'casino4as-krondon.c9.io'
 ];
 
 
@@ -999,6 +1000,9 @@ wsServer.on('request', function(request) {
     function updatewin(room, sit, apos) {
         if (saleonline[room][sit]) {
             saleonline[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
+            saleonline[room][sit].sit = sit;
+            saleonline[room][sit].card1 = play[room].jugactivos[sit]['card1'];
+            saleonline[room][sit].card2 = play[room].jugactivos[sit]['card2'];
 //            saleonlineconex[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
 //            saleonlineconexall[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
             for (i in saleonlineconexall[room]) {
@@ -1165,13 +1169,15 @@ wsServer.on('request', function(request) {
                 mysqlc.end();
                 saleonlineconex[connection.idsale][connection.idsit] = undefined;
                 if (connection.idsit < 7) {
-                    if (typeof play[connection.idsale] && play[connection.idsale] !== undefined && typeof play[connection.idsale] && play[connection.idsale].numjugactivos > 1) {
+                    if (typeof play[connection.idsale] && play[connection.idsale] !== undefined && typeof play[connection.idsale] && play[connection.idsale].numjugactivos == 1) {
                         play[connection.idsale].gameover();
                         clearInterval(play[connection.idsale].enespera);
 //                        delete play[connection.idsale];
                     }
+                    if(play[connection.idsale] !== undefined){
                     play[connection.idsale].leaveplay(connection.idsit);
                     updatesale(connection.idsale);
+                    }
                 }
 //                setea a undefined para que no se vuelva a sentar el wey
                 connection.idsit = undefined;
@@ -1210,6 +1216,7 @@ wsServer.on('request', function(request) {
         this.ciegamin = 0;
         this.ciegamax = 0;
         this.aposmax = 0;
+        this.diler=0;
     }
 //aqui seleciono los jugadores activos en la sala
     Sala.prototype.jugadoresactivos = function() {
@@ -1275,7 +1282,9 @@ wsServer.on('request', function(request) {
                 }
             }
             clearTimeout(this.enespera);
-            play[this.room].play();
+             if (this.numjugactivos > 1) {
+                play[this.room].play();
+             }
         }
     };
     //revuelvo las cartas
@@ -1323,12 +1332,13 @@ wsServer.on('request', function(request) {
         play[this.room].cardmesa = [];
         play[this.room].roomapost = [];
         clearTimeout(this.enespera);
+        this.pote1=0;
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'gameover', this.cardmesa);
         }
     };
     Sala.prototype.nextdiler = function() {
-        this.diler = 0;
+       
         while (this.jugactivos[this.diler]['first_name'] == undefined) {
             this.diler++;
             if (this.diler == 7) {
@@ -1402,22 +1412,25 @@ wsServer.on('request', function(request) {
             } else {
 //                console.log('else');
                 if (this.cardmesa.length === 5) {
-                    play[this.room].ganador();
                     clearTimeout(this.enespera);
+                    play[this.room].ganador();
                     var espejo = this.room;
                     var time = setTimeout(function() {
-                        play[espejo].gameover();
-                        logicpokerstart(espejo);
                         clearTimeout(time);
+                        play[espejo].gameover();
+                        play[espejo].jugadoresactivos();
+                        play[espejo].cardfu();
+                        play[espejo].repartircard();
+                        play[espejo].nextdiler();
+                        play[espejo].intervalo();
+                        play[espejo].enesperafu();
                     }, 7000);
                 }
             }
-
             play[this.room].minapost();
             play[this.room].enesperafu();
             play[this.room].potefu();
             play[this.room].intervalo();
-
         }
     };
     Sala.prototype.ganador = function() {
@@ -1477,27 +1490,19 @@ wsServer.on('request', function(request) {
             }
             count = 1;
             for (jk in calcpremy) {
-//                console.log('jk = ' +jk)
                 if (jk > 0) {
                     console.log('Premy');
                     console.log('compara: ' + calcpremy[jk][2] + ' con: ' + jugada);
                     console.log('Cart');
                     console.log('compara: ' + calcpremy[jk][3] + ' con: ' + cartmmayor);
                     if ((calcpremy[jk][2]) < (jugada)) {
-                        if ((calcpremy[jk][2]) == (jugada)) {
-                            if ((calcpremy[jk][3]) > (cartmmayor)) {
-                                if ((calcpremy[jk][3]) == (cartmmayor)) {
-                                    count++;
-                                }
-                                cartmmayor = calcpremy[jk][3];
-                            }
-                        } else {
-                            cartmmayor = calcpremy[jk][3];
-                        }
                         jugada = calcpremy[jk][2];
+                        cartmmayor = calcpremy[jk][3];
                     } else if ((calcpremy[jk][2]) == (jugada)) {
                         if ((calcpremy[jk][3]) > (cartmmayor)) {
                             cartmmayor = calcpremy[jk][3];
+                        } else if ((calcpremy[jk][3]) == (cartmmayor)) {
+                            count++;
                         }
                     }
                 } else {
@@ -1510,6 +1515,7 @@ wsServer.on('request', function(request) {
                 }
             }
             montapagar = this.pote1 / count;
+            this.pote1=0;
             console.log('Jugada: ' + jugada + ' Carta Mayor: ' + cartmmayor + ' Ganadores: ' + count + ' Monto a Pagar ' + montapagar);
             for (t in this.jugactivos) {
                 if (this.jugactivos[t]['first_name'] !== undefined) {
@@ -1611,6 +1617,14 @@ wsServer.on('request', function(request) {
         play[idsale].intervalo();
         play[idsale].enesperafu();
 //        console.log(play[idsale]);
+    }
+    function logicpokerstart2(idsale) {
+        play[idsale].jugadoresactivos();
+        play[idsale].cardfu();
+        play[idsale].repartircard();
+        play[idsale].nextdiler();
+        play[idsale].intervalo();
+        play[idsale].enesperafu();
     }
     function unique(array) {
         return array.filter(function(el, index, arr) {
