@@ -540,7 +540,7 @@ function CGame(oData){
             }
             console.log('---z---'+z+'--iNumHold-- '+iNumHold);
         if(z==5-iNumHold){
-            var enviar = {handholdedE:handholded,_iCurBetE : _iCurBet,}
+            var enviar = {handholdedE:handholded,_iCurBetE : _iCurBet,_iCurIndexDeckE:_iCurIndexDeck,}
             console.log('handholded'+handholded);
             cambiarinfo_node(enviar);
 
