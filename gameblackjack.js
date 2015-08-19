@@ -1194,7 +1194,7 @@ function pruebaserver(objeto){
      //console.log(string);
 
      mysqlc.end();
-     setTimeout(function () {select_jackpot()}, 1000);
+     setTimeout(function () {select_jackpot()}, 1200);
 
 
  }
