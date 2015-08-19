@@ -141,7 +141,6 @@
                    //socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
                    socket = new WebSocket('ws://localhost:8082/', 'server');
 
-
                     socket.addEventListener("open", connection_established);
                 }
               //cuando la conexion se establece
@@ -263,12 +262,12 @@
 
                 }
            
-                dealcards_node = function(e){
+                /*dealcards_node = function(e){
                 //public function prueba(){
                     e.type='dealcards';
                     //alert(enviar.type);
                     socket.send(JSON.stringify(e));
-                }
+                }*/
                 createcards_node = function(e){
                 //public function prueba(){
                     e.type='createcards';
