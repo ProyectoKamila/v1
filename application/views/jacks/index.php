@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title></title> 
         <?php $this->load->view('page/header'); ?>
         <link rel="stylesheet" href="./games/game-jacks-or-better/game1024x768/css/reset.css" type="text/css">
         <link rel="stylesheet" href="./games/game-jacks-or-better/game1024x768/css/main.css" type="text/css">
@@ -138,8 +138,13 @@
 
                 function open_connection() {
 
+<<<<<<< Updated upstream
                   // socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
                     socket = new WebSocket('ws://localhost:8082/', 'server');
+=======
+                   socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
+                    //socket = new WebSocket('ws://localhost:8082/', 'server');
+>>>>>>> Stashed changes
 
 
                     socket.addEventListener("open", connection_established);
