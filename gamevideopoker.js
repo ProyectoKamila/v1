@@ -907,6 +907,7 @@ function win_change_info(obj){
                 if(parseFloat(connection._iCurIndexDeck)>=51){
                     //connection._iCurIndexDeck = 0;
                     createCardsDek();
+                    //connection.win = checkassignWin(connection._aCurHandValue);
                 }
                 if(connection._aCurHandValue[i][0]==obj.handholdedE[k].fotogramE){
                     console.log('objeto en if'+obj.handholdedE[k].fotogramE);
@@ -914,9 +915,10 @@ function win_change_info(obj){
                     connection._aCurHandValue[i][0]=connection._aCardDeck[connection._iCurIndexDeck].fotogram;
                     connection._aCurHandValue[i][1]=connection._aCardDeck[connection._iCurIndexDeck].rank;
                     connection._aCurHandValue[i][2]=connection._aCardDeck[connection._iCurIndexDeck].suit;
-                    connection.fotogramHolded = connection._aCardDeck[connection._iCurIndexDeck].fotogram;
+                    obj.handholdedE[k].fotogramE = connection._aCardDeck[connection._iCurIndexDeck].fotogram;
+                    //connection.fotogramHolded = connection._aCardDeck[connection._iCurIndexDeck].fotogram;
                     //connection._iCurIndexDeck++;
-                }else{
+                }/*else{
                     //console.log('objeto en else'+obj.handholdedE[k].fotogramE);
                     if(connection._aCurHandValue[i][0]==connection.fotogramHolded){
                         console.log('objeto en if de else'+connection.fotogramHolded);
@@ -925,8 +927,9 @@ function win_change_info(obj){
                     connection._aCurHandValue[i][1]=connection._aCardDeck[connection._iCurIndexDeck].rank;
                     connection._aCurHandValue[i][2]=connection._aCardDeck[connection._iCurIndexDeck].suit;
                     connection.fotogramHolded = connection._aCardDeck[connection._iCurIndexDeck].fotogram;
-                     }
-                }
+                    //connection._iCurIndexDeck++;
+                    }
+                }*/
                 //connection._iCurIndexDeck ++;
                 connection.indexcard.push(connection._iCurIndexDeck);
                 console.log( 'indexcard luego del if'+connection._iCurIndexDeck);
