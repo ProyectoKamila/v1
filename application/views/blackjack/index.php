@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
-    <?php $this->load->view('page/header');?>
+        <title>BlackJack - Casino 4as</title>
+         <?php $this->load->view('page/header');?>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
@@ -34,7 +34,7 @@
         <script type="text/javascript" src="./games/game-blackjack/game1024x768/js/CGameOver.js"></script>
         
     </head>
-    <body ondragstart="return false;" ondrop="return false;" style="background: #207346;" >
+    <body ondragstart="return false;" ondrop="return false;" style="background: url(./games/game-blackjack/game1024x768/sprites/fondo.jpg) top center repeat;  overflow-x: hidden;" >
         <?php $this->load->view('page/navegation/header');?>
         <?php $this->load->view('page/navegation/notification');?>
     </div>
@@ -60,8 +60,8 @@
                 var flash_title_timer;
                 var connected = false;
                 var connection_retry_timer;
-               // var server_url = 'ws://162.252.57.97:8810';
-               var server_url = 'ws://localhost:8083/';
+                var server_url = 'ws://162.252.57.97:8083';
+               //var server_url = 'ws://localhost:8083/';
                 var token = "<?php
                      if (isset($_COOKIE['token'])) {
                         echo $_COOKIE['token'];
@@ -142,8 +142,8 @@
 
                 function open_connection() {
 
-                   //socket = new WebSocket('ws://162.252.57.97:8083/', 'server');
-                    socket = new WebSocket('ws://localhost:8083/', 'server');
+                   socket = new WebSocket('ws://162.252.57.97:8083/', 'server');
+                   // socket = new WebSocket('ws://localhost:8083/', 'server');
 
 
                     socket.addEventListener("open", connection_established);

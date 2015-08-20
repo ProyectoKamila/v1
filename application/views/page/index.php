@@ -200,6 +200,21 @@
 
                 </div>
                 <div class="clearfix"></div>
+                            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="http://casino4as.com/wp-content/uploads/2015/06/poker.jpg" alt="">
+                    <div class="caption">
+                        <h3>Poker 4as</h3>
+                        <p>
+
+
+                        </p>
+                        <p><a href="poker" class="btn btn-primary" role="button">Jugar Ahora</a> 
+                            <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
+                        </p>
+                    </div>
+                </div>
+                </div>
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <img src="./games/game-blackjack/game1024x768/sprites/bg_menu.jpg" alt="">
