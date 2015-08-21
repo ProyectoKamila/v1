@@ -322,7 +322,7 @@ function connetserver() {
 
      </script>
 
-     <div class="container-fluid sin-padding">
+     <div id="espacial" class="container-fluid sin-padding">
          <div class="row">
       <!-- Trigger the modal with a button -->
 

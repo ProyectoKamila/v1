@@ -387,7 +387,7 @@ function connetserver() {
 
      </script>
 
-     <div class="container-fluid sin-padding">
+     <div id="candy" class="container-fluid sin-padding">
 
       <!-- Trigger the modal with a button -->
 

@@ -1,34 +1,34 @@
-<!--http://localhost/v1/games/slot-egipcio/game_1024x768/-->
+<!--http://localhost/v1/games/slot_egipcia/game_1024x768/-->
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Casino 4as - Egipto 4As</title>
+        <title>Casino 4as - Slotmachine Frutas</title>
         <?php $this->load->view('page/header'); ?>
-        <link rel="stylesheet" href="./games/slot-egipcio/game_1024x768/css/reset.css" type="text/css">
-        <link rel="stylesheet" href="./games/slot-egipcio/game_1024x768/css/main.css" type="text/css">
+        <link rel="stylesheet" href="./games/slot_egipcia/game_1024x768/css/reset.css" type="text/css">
+        <link rel="stylesheet" href="./games/slot_egipcia/game_1024x768/css/main.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
         <meta name="msapplication-tap-highlight" content="no"/>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/createjs-2013.12.12.min.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/ctl_utils.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/sprite_lib.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/createjs-2013.12.12.min.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/ctl_utils.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/sprite_lib.js"></script>
         <!--      <?php // $this->load->view('slotmachine/CSSettings');  ?> -->
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CSlotSettings.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CLang.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CPreloader.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CMain.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CTextButton.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CGfxButton.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CToggle.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CBetBut.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CMenu.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CGame.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CReelColumn.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CInterface.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CPayTablePanel.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CStaticSymbolCell.js"></script>
-        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CTweenController.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CSlotSettings.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CLang.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CPreloader.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CMain.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CTextButton.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CGfxButton.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CToggle.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CBetBut.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CMenu.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CGame.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CReelColumn.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CInterface.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CPayTablePanel.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CStaticSymbolCell.js"></script>
+        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CTweenController.js"></script>
 
 
     </head>
@@ -36,7 +36,7 @@
         <div class="fondo-game"  style="background: #FF9603;">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
-    </div>
+    
     <script>
         $(document).ready(function () {
             var oMain = new CMain({
@@ -62,8 +62,8 @@
             var flash_title_timer;
             var connected = false;
             var connection_retry_timer;
-            var server_url = 'ws://162.252.57.97:8808/';
-          //var server_url = 'ws://localhost:8808/';
+            var server_url = 'ws://162.252.57.97:8082/';
+          //var server_url = 'ws://localhost:8082/';
             var token = "<?php
         if (isset($_COOKIE['token'])) {
             echo $_COOKIE['token'];
@@ -163,19 +163,21 @@
 
             // CONFIG DEL BOTON JUEGOS GRATIS
 
-            $('#jg-button').click(function () {
+            $('#jg-button1').click(function () {
+                
                 free_gameslot = 0;
-              freeselect=20;
+                  freeselect=20;
                 var intro = {
                     type: 'playfreegame',
                     free: 5
 
                 }
 
-                socket.send(JSON.stringify(intro));
+                alert("Jugaras 5 juegos gratis por 20 lineas");
 
-
-                $('#jgModal').modal('toggle');
+            setTimeout($('#jgModal').modal('toggle'), 5000);
+            socket.send(JSON.stringify(intro));
+                
 
             });
             //10 x 10
@@ -187,7 +189,7 @@
                     free: 10
 
                 }
-
+            alert("Jugaras 10 juegos gratis por 10 lineas");
                 socket.send(JSON.stringify(intro));
 
 
@@ -202,7 +204,7 @@
                     free: 20
 
                 }
-
+            alert("Jugaras 20 juegos gratis por 5 lineas");
                 socket.send(JSON.stringify(intro));
 
 
@@ -220,15 +222,10 @@
             }
 
             function open_connection() {
-
-                socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server'); 
+//var server_url = 'ws://162.252.57.97:8082/';
+                //socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
                 //socket = new WebSocket('ws://localhost:8082/', 'server');
-<<<<<<< HEAD
-                //socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
-
-=======
                 socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
->>>>>>> 0f60d6bce9254d6c8d4d7d49ff3e79c149236e3c
                 socket.addEventListener("open", connection_established);
             }
             //cuando la conexion se establece
@@ -438,44 +435,68 @@
 
 
     </script>
-    <div id="egipcio" class="container-fluid sin-padding fondo-game" style="background: url('./games/slot-egipcio/game_1024_768/sprites/landscapte.jpg') top center no-repeat;">
+    <div id="frutas" class="container-fluid sin-padding fondo-game" style="background: #FF9603;">
         <!-- Trigger the modal with a button -->
         <div class="container sin-padding">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">    
+                <div class="carrusel-promo">
+                    
+                </div>
+                <?php     
+                        $valores = array();
+                        $x=1;
+                            while ($x<4) {
+                              $num_aleatorio = rand(1,3);
+                              if (!in_array($num_aleatorio,$valores)) {
+                                array_push($valores,$num_aleatorio);
+                                $x++;
+                              }
+                            }
+                            
+                         ?>
+                        
                     <div class="content-canvas">
                         <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
                     </div>  
                 </div>
             </div>
         </div>
-
         <button style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Cargar Saldo</button>
-
         <!-- Modal -->
         <div class="modal fade box-cargar-saldo" id="myModal" role="dialog">
             <div class="modal-dialog">
-
                 <!-- Modal content-->
                 <div class="modal-content firstmodal">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <p>Ingrese el monto para recargar sus fichas.</p>
-                        <h2>Fichas Disponibles</h2>
-                        <label id="total_coins"></label>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="saldo-carga">
+                                    <div class="col-xs-4">
+                                    <p class="ficha">Fichas Disponibles:</p> 
+                                        <div class="mount">
+                                            <p><label id="total_coins"></label></p>
+                                        </div>
+                                    </div> 
+                                <div class="col-xs-6 ">
+                                    <p class="ficha">Ingrese el monto de fichas:</p> 
+                                        <!--<label >Cargar Saldo: </label>-->
+                                        <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
+                                        <input type="numeric" name="money-text" id="money-text" maxlength="5" class="money-text" title="0" placeholder="Fichas a recargar">
+                                        <button type="button" class="btn btn-default btn-submit"  id="money-button">Aceptar</button>
+                                    </div>    
+                                </div>    
+                                </div>
+                            </div>
+                                
+                                
                     </div>
                     <div class="modal-body">
-
-                        <label>Cargar Saldo: </label>
-                        <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
-                        <input type="numeric" name="money-text" id="money-text" maxlength="5" class="" title="0">
-                        <button type="button" class="btn btn-default"  id="money-button">Aceptar</button>
-
-
+                        <
                     </div>
-                    <div class="modal-footer">
-                          Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza.
-                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    <div class="modal-footer"> 
+                         <!-- Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza. -->
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
                     </div>
                 </div>
 
@@ -493,21 +514,40 @@
                 <!-- Modal content-->
                 <div class="modal-content freeplaymodal">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <label>HA GANADO JUGADA GRATIS</label>
+                        <!--ca
+                        <!--<label>HA GANADO JUGADA GRATIS</label>-->
                     </div>
+                        
                     <div class="modal-body">
-
-
-<!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
-                       
-                      
+                        <?php foreach($valores as $v){ ?>
+                        
+                            <div class="col-xs-4">
+                                <div class="item-free">
+                                    <img id="jg-button<?php echo $v; ?>" 
+                                    src="/interface/images/frutas/<?php echo $v; ?>.png"
+                                    <?php if($v== 1) { ?>
+                                    style="";
+                                    <?php } ?>        
+                                    <?php if($v== 2) { ?>
+                                     style="margin-top:45px;"
+                                    <?php } ?>
+                                    <?php if($v== 3) { ?>
+                                    style="margin-top:5px;"
+                                    <?php } ?>
+                                    />
+                                </div>
+                            </div>
+                            
+                            
+                        <?php }?>
                     </div>
                     <div class="modal-footer">
- <label id="total_jg" style="display: none;"></label>
-                        <button type="button" class="btn btn-default myButton"  id="jg-button">Jugar 5 x 20</button>
-                        <button type="button" class="btn btn-default myButton"  id="jg-button2">Jugar 10 x 10</button>
-                        <button type="button" class="btn btn-default myButton"  id="jg-button3">Jugar 20 x 5</button>
+                         <label id="total_jg" style="display: none;"></label>
+                         <p id="text-win"></p>
+                    
+ <!--<button type="button" class="btn btn-default myButton"  >Jugar 5 x 20</button>-->
+                        <!--<button type="button" class="btn btn-default myButton"  >Jugar 10 x 10</button>-->
+                        <!--<button type="button" class="btn btn-default myButton"  id="jg-button3">Jugar 20 x 5</button>-->
                         
                     </div>
                 </div>

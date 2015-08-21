@@ -433,7 +433,7 @@
 
 
     </script>
-    <div id="frutas" class="container-fluid sin-padding fondo-game" style="background: url('./games/slot-musical/game_1024x768/sprites/bg_game.jpg') no-repeat top center;">
+    <div id="musical" class="container-fluid sin-padding fondo-game" style="background: url('./games/slot-musical/game_1024x768/sprites/bg_game.jpg') no-repeat top center;">
         <!-- Trigger the modal with a button -->
         <div class="container sin-padding">
             <div class="row">
