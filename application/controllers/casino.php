@@ -372,6 +372,8 @@ class Casino extends MY_Controller {
     }
 
     public function jacks() {
+        $data = $this->modelo_universal->select('game_jacksorbetter', '*', 'id_game_jacksorbetter = 1');
+        $this->load->view('jacks/settings', $data[0]);
         $this->load->view('jacks/index');
     }
 

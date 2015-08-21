@@ -17,7 +17,7 @@ class SlotMachine extends MY_Controller {
 
     public function index() {
 //        debug($this->session->userdata('token'));
-$data = $this->modelo_universal->select('game_roulette', '*', 'id_game_roulette = 1');
+        $data = $this->modelo_universal->select('game_roulette', '*', 'id_game_roulette = 1');
         $this->load->view('roulette/settings',$data[0]);
       
   //     $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 1');
