@@ -323,7 +323,7 @@
                                 free += message.messagesend;
                             }
                             else{
-                                free = message.messagesend;
+                                id = message.messagesend;
                              if (free > 0) {
                                    free=free -1;
                                    NUM_PAYLINES=freeselect;
@@ -524,7 +524,7 @@
                             <div class="col-xs-4">
                                 <div class="item-free">
                                     <img id="jg-button<?php echo $v; ?>" 
-                                    src="/interface/images/frutas/<?php echo $v; ?>.png"
+                                    src="./interface/images/frutas/<?php echo $v; ?>.png"
                                     <?php if($v== 1) { ?>
                                     style="";
                                     <?php } ?>        

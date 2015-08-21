@@ -64,20 +64,20 @@ function CMain(oData){
 			createjs.Sound.alternateExtensions = ["mp3"];
 			createjs.Sound.addEventListener("fileload", createjs.proxy(this.soundLoaded, this));
 		
-			createjs.Sound.registerSound("./sounds/press_but.ogg", "press_but");
-			createjs.Sound.registerSound("./sounds/win.ogg", "win");
-			createjs.Sound.registerSound("./sounds/reels.ogg", "reels");
-			createjs.Sound.registerSound("./sounds/reel_stop.ogg", "reel_stop",6);
-			createjs.Sound.registerSound("./sounds/start_reel.ogg", "start_reel",6);
+			createjs.Sound.registerSound("./game/slot-espacial/game_1024x768/sounds/press_but.ogg", "press_but");
+			createjs.Sound.registerSound("./game/slot-espacial/game_1024x768/sounds/win.ogg", "win");
+			createjs.Sound.registerSound("./game/slot-espacial/game_1024x768/sounds/reels.ogg", "reels");
+			createjs.Sound.registerSound("./game/slot-espacial/game_1024x768/sounds/reel_stop.ogg", "reel_stop",6);
+			createjs.Sound.registerSound("./game/slot-espacial/game_1024x768/sounds/start_reel.ogg", "start_reel",6);
 		}else{
 			createjs.Sound.alternateExtensions = ["ogg"];
 			createjs.Sound.addEventListener("fileload", createjs.proxy(this.soundLoaded, this));
 		
-			createjs.Sound.registerSound("./sounds/press_but.mp3", "press_but");
-			createjs.Sound.registerSound("./sounds/win.mp3", "win");
-			createjs.Sound.registerSound("./sounds/reels.mp3", "reels");
-			createjs.Sound.registerSound("./sounds/reel_stop.mp3", "reel_stop",6);
-			createjs.Sound.registerSound("./sounds/start_reel.mp3", "start_reel",6);
+			createjs.Sound.registerSound("./game/slot-espacial/game_1024x768/sounds/press_but.mp3", "press_but");
+			createjs.Sound.registerSound("./game/slot-espacial/game_1024x768/sounds/win.mp3", "win");
+			createjs.Sound.registerSound("./game/slot-espacial/game_1024x768/sounds/reels.mp3", "reels");
+			createjs.Sound.registerSound("./game/slot-espacial/game_1024x768/sounds/reel_stop.mp3", "reel_stop",6);
+			createjs.Sound.registerSound("./game/slot-espacial/game_1024x768/sounds/start_reel.mp3", "start_reel",6);
 		}
         RESOURCE_TO_LOAD += 5;
         
@@ -86,30 +86,30 @@ function CMain(oData){
     this._loadImages = function(){
         s_oSpriteLibrary.init( this._onImagesLoaded,this._onAllImagesLoaded, this );
 
-        s_oSpriteLibrary.addSprite("but_bg","./sprites/but_play_bg.png");
-        s_oSpriteLibrary.addSprite("but_exit","./sprites/but_exit.png");
-        s_oSpriteLibrary.addSprite("bg_menu","./sprites/bg_menu.jpg");
-        s_oSpriteLibrary.addSprite("bg_game","./sprites/bg_game.jpg");
-        s_oSpriteLibrary.addSprite("paytable","./sprites/paytable.jpg");
-        s_oSpriteLibrary.addSprite("msg_box","./sprites/msg_box.png");
-        s_oSpriteLibrary.addSprite("bg_help","./sprites/bg_help.png");
-        s_oSpriteLibrary.addSprite("mask_slot","./sprites/mask_slot.png");
-        s_oSpriteLibrary.addSprite("spin_but","./sprites/but_spin_bg.png");
-        s_oSpriteLibrary.addSprite("coin_but","./sprites/but_coin_bg.png");
-        s_oSpriteLibrary.addSprite("info_but","./sprites/but_info_bg.png");
-        s_oSpriteLibrary.addSprite("bet_but","./sprites/bet_but.png");
-        s_oSpriteLibrary.addSprite("win_frame_anim","./sprites/win_frame_anim.png");
-        s_oSpriteLibrary.addSprite("but_lines_bg","./sprites/but_lines_bg.png");
-        s_oSpriteLibrary.addSprite("but_maxbet_bg","./sprites/but_maxbet_bg.png");
-        s_oSpriteLibrary.addSprite("audio_icon","./sprites/audio_icon.png");
+        s_oSpriteLibrary.addSprite("but_bg","./game/slot-espacial/game_1024x768/sprites/but_play_bg.png");
+        s_oSpriteLibrary.addSprite("but_exit","./game/slot-espacial/game_1024x768/sprites/but_exit.png");
+        s_oSpriteLibrary.addSprite("bg_menu","./game/slot-espacial/game_1024x768/sprites/bg_menu.jpg");
+        s_oSpriteLibrary.addSprite("bg_game","./game/slot-espacial/game_1024x768/sprites/bg_game.jpg");
+        s_oSpriteLibrary.addSprite("paytable","./game/slot-espacial/game_1024x768/sprites/paytable.jpg");
+        s_oSpriteLibrary.addSprite("msg_box","./game/slot-espacial/game_1024x768/sprites/msg_box.png");
+        s_oSpriteLibrary.addSprite("bg_help","./game/slot-espacial/game_1024x768/sprites/bg_help.png");
+        s_oSpriteLibrary.addSprite("mask_slot","./game/slot-espacial/game_1024x768/sprites/mask_slot.png");
+        s_oSpriteLibrary.addSprite("spin_but","./game/slot-espacial/game_1024x768/sprites/but_spin_bg.png");
+        s_oSpriteLibrary.addSprite("coin_but","./game/slot-espacial/game_1024x768/sprites/but_coin_bg.png");
+        s_oSpriteLibrary.addSprite("info_but","./game/slot-espacial/game_1024x768/sprites/but_info_bg.png");
+        s_oSpriteLibrary.addSprite("bet_but","./game/slot-espacial/game_1024x768/sprites/bet_but.png");
+        s_oSpriteLibrary.addSprite("win_frame_anim","./game/slot-espacial/game_1024x768/sprites/win_frame_anim.png");
+        s_oSpriteLibrary.addSprite("but_lines_bg","./game/slot-espacial/game_1024x768/sprites/but_lines_bg.png");
+        s_oSpriteLibrary.addSprite("but_maxbet_bg","./game/slot-espacial/game_1024x768/sprites/but_maxbet_bg.png");
+        s_oSpriteLibrary.addSprite("audio_icon","./game/slot-espacial/game_1024x768/sprites/audio_icon.png");
         
         for(var i=1;i<NUM_SYMBOLS+1;i++){
-            s_oSpriteLibrary.addSprite("symbol_"+i,"./sprites/symbol_"+i+".png");
-            s_oSpriteLibrary.addSprite("symbol_"+i+"_anim","./sprites/symbol_"+i+"_anim.png");
+            s_oSpriteLibrary.addSprite("symbol_"+i,"./game/slot-espacial/game_1024x768/sprites/symbol_"+i+".png");
+            s_oSpriteLibrary.addSprite("symbol_"+i+"_anim","./game/slot-espacial/game_1024x768/sprites/symbol_"+i+"_anim.png");
         }
         
         for(var j=1;j<NUM_PAYLINES+1;j++){
-            s_oSpriteLibrary.addSprite("payline_"+j,"./sprites/payline_"+j+".png");
+            s_oSpriteLibrary.addSprite("payline_"+j,"./game/slot-espacial/game_1024x768/sprites/payline_"+j+".png");
         }
         
         RESOURCE_TO_LOAD += s_oSpriteLibrary.getNumSprites();

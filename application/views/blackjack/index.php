@@ -396,7 +396,8 @@
       });
           
         </script>
-        <div class="container-fluid sin-padding">
+<div id="blackjack">
+        <div  class="container-fluid sin-padding">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">
                     <div class="content-canvas">
@@ -441,6 +442,7 @@
         </div>
 
         <?php $this->load->view('page/footer'); ?>
+        </div>
     </body>
    <!--     <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
 

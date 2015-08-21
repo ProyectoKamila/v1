@@ -1,39 +1,39 @@
-<!--http://localhost/v1/games/slot_egipcia/game_1024x768/-->
+<!--http://localhost/v1/games/slot-egipcio/game_1024x768/-->
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Casino 4as - Slotmachine Frutas</title>
+        <title>Casino 4as - Slotmachine Egipcio</title>
         <?php $this->load->view('page/header'); ?>
-        <link rel="stylesheet" href="./games/slot_egipcia/game_1024x768/css/reset.css" type="text/css">
-        <link rel="stylesheet" href="./games/slot_egipcia/game_1024x768/css/main.css" type="text/css">
+        <link rel="stylesheet" href="./games/slot-egipcio/game_1024x768/css/reset.css" type="text/css">
+        <link rel="stylesheet" href="./games/slot-egipcio/game_1024x768/css/main.css" type="text/css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
         <meta name="msapplication-tap-highlight" content="no"/>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/createjs-2013.12.12.min.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/ctl_utils.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/sprite_lib.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/createjs-2013.12.12.min.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/ctl_utils.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/sprite_lib.js"></script>
         <!--      <?php // $this->load->view('slotmachine/CSSettings');  ?> -->
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CSlotSettings.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CLang.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CPreloader.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CMain.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CTextButton.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CGfxButton.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CToggle.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CBetBut.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CMenu.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CGame.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CReelColumn.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CInterface.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CPayTablePanel.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CStaticSymbolCell.js"></script>
-        <script type="text/javascript" src="./games/slot_egipcia/game_1024x768/js/CTweenController.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CSlotSettings.js"></script>
+        <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CLang.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CPreloader.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CMain.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CTextButton.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CGfxButton.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CToggle.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CBetBut.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CMenu.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CGame.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CReelColumn.js"></script>
+        <script type="text/javascript" src="./game-slot-machine/game_1024x768/js/CInterface.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CPayTablePanel.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CStaticSymbolCell.js"></script>
+        <script type="text/javascript" src="./games/slot-egipcio/game_1024x768/js/CTweenController.js"></script>
 
 
     </head>
     <body ondragstart="return false;" ondrop="return false;">
-        <div class="fondo-game"  style="background: #FF9603;">
+        <div class="fondo-game"  style="background: url('');">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
     
@@ -50,7 +50,7 @@
             var socket;
             var protocol_identifier = 'server';
             var myId;
-            var idgame = 4; //aqui debe llevarse el nombre del juego que selecciono
+            var idgame = 1; //aqui debe llevarse el nombre del juego que selecciono
             var idgame_free = 1; 
             var free_gameslot = 0;
             var free=0;
@@ -435,14 +435,14 @@
 
 
     </script>
-    <div id="frutas" class="container-fluid sin-padding fondo-game" style="background: #FF9603;">
-        <!-- Trigger the modal with a button -->
-        <div class="container sin-padding">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">    
-                <div class="carrusel-promo">
-                    
+    <div id="egipcio" class="container-fluid sin-padding fondo-game" style="background: url('./games/slot-egipcio/game_1024x768/sprites/landscape.jpg') no-repeat top center;">
+        <div class="carrusel-promo col-xs-offset-4 col-xs-8">
                 </div>
+        <!-- Trigger the modal with a button -->
+        <div class="container sin-padding" style="background: url('./games/slot-egipcio/game_1024x768/sprites/landscape.jpg') no-repeat top center;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">   
+                
                 <?php     
                         $valores = array();
                         $x=1;
@@ -492,7 +492,7 @@
                                 
                     </div>
                     <div class="modal-body">
-                        <
+                        
                     </div>
                     <div class="modal-footer"> 
                          <!-- Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza. -->
