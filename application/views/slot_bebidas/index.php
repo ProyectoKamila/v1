@@ -63,8 +63,8 @@
          var flash_title_timer;
          var connected = false;
          var connection_retry_timer;
-         var server_url = 'ws://162.252.57.97:8808/';
-//          var server_url = 'ws://localhost:8808/';
+         var server_url = 'ws://162.252.57.97:8081/';
+//          var server_url = 'ws://localhost:8081/';
          var token = "<?php
          if (isset($_COOKIE['token'])) {
             echo $_COOKIE['token'];
@@ -190,9 +190,9 @@ function connetserver() {
 
             function open_connection() {
 
-                //socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
+                // socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server'); 
                 //socket = new WebSocket('ws://localhost:8082/', 'server');
-                socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
+                socket = new WebSocket('ws://162.252.57.97:8081/', 'server');
 
                 socket.addEventListener("open", connection_established);
             }
@@ -387,7 +387,7 @@ function connetserver() {
 
      </script>
 
-     <div class="container-fluid sin-padding">
+     <div id="bebidas" class="container-fluid sin-padding">
 
       <!-- Trigger the modal with a button -->
 

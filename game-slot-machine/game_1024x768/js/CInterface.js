@@ -87,7 +87,7 @@ function CInterface(iCurBet,iTotBet,iMoney){
         _oTotalBetText.textBaseline = "alphabetic";
         s_oStage.addChild(_oTotalBetText);
         
-        _oWinText = new createjs.Text("","bold 24px Arial", "#ffde00");
+        _oWinText = new createjs.Text("","bold 26px Arial", "#ffde00");
         _oWinText.x = 900;
         _oWinText.y = CANVAS_HEIGHT - 133;
         _oWinText.textAlign = "center";

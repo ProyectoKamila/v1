@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title></title> 
         <?php $this->load->view('page/header'); ?>
         <link rel="stylesheet" href="./games/game-jacks-or-better/game1024x768/css/reset.css" type="text/css">
         <link rel="stylesheet" href="./games/game-jacks-or-better/game1024x768/css/main.css" type="text/css">
@@ -14,7 +14,7 @@
         <script type="text/javascript" src="./games/game-jacks-or-better/game1024x768/js/createjs-2013.12.12.min.js"></script>
         <script type="text/javascript" src="./games/game-jacks-or-better/game1024x768/js/ctl_utils.js"></script>
         <script type="text/javascript" src="./games/game-jacks-or-better/game1024x768/js/sprite_lib.js"></script>
-        <script type="text/javascript" src="./games/game-jacks-or-better/game1024x768/js/settings.js"></script>
+        <!--<script type="text/javascript" src="./games/game-jacks-or-better/game1024x768/js/settings.js"></script>-->
         <script type="text/javascript" src="./games/game-jacks-or-better/game1024x768/js/CLang.js"></script>
         <script type="text/javascript" src="./games/game-jacks-or-better/game1024x768/js/CPreloader.js"></script>
         <script type="text/javascript" src="./games/game-jacks-or-better/game1024x768/js/CMain.js"></script>
@@ -57,14 +57,14 @@
                     var flash_title_timer;
                     var connected = false;
                     var connection_retry_timer;
-                    var server_url = 'ws://162.252.57.97:8084';
+                    var server_url = 'ws://162.252.57.97:8082';
                     var token = "<?php
-                         if (isset($_COOKIE['token'])) {
-                            echo $_COOKIE['token'];
-                        } elseif ($this->session->userdata('token')) {
-                            echo $this->session->userdata('token');
-                        }
-                        ?>";
+    if (isset($_COOKIE['token'])) {
+        echo $_COOKIE['token'];
+    } elseif ($this->session->userdata('token')) {
+        echo $this->session->userdata('token');
+    }
+    ?>";
 
 
                      $(oMain).on("game_start", function(evt) {
@@ -137,11 +137,8 @@
                 }
 
                 function open_connection() {
-
-                   socket = new WebSocket('ws://162.252.57.97:8084/', 'server');
-                    //socket = new WebSocket('ws://localhost:8084/', 'server');
-
-
+                   //socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
+                   socket = new WebSocket('ws://localhost:8082/', 'server');
                     socket.addEventListener("open", connection_established);
                 }
               //cuando la conexion se establece
@@ -263,12 +260,12 @@
 
                 }
            
-                dealcards_node = function(e){
+                /*dealcards_node = function(e){
                 //public function prueba(){
                     e.type='dealcards';
                     //alert(enviar.type);
                     socket.send(JSON.stringify(e));
-                }
+                }*/
                 createcards_node = function(e){
                 //public function prueba(){
                     e.type='createcards';

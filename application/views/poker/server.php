@@ -191,6 +191,14 @@
         $('#buttonreconect').click(function() {
             hideConnectionLostMessage();
             connetserver();
+          
+            $('.mesaplayer' + (idsit + 1)).addClass('oculto');
+
+            $('#rowgame').slideUp();
+            $('#sales').removeClass('sales-close');
+            $('#playerdata').slideDown();
+            $('#playeroption').slideUp();
+            $('.pote').html('0');
         });
         $('#buttoncreate').click(function() {
             var namesale = $('#namesale').val();
@@ -214,9 +222,9 @@
             socket.send(JSON.stringify(intro));
         });
         $('#buttonsitdown').click(function() {
-            var min = $('#inputapos').attr('min');
-            var max = $('#inputapos').attr('max');
-            var inputapos = $('#inputapos').val();
+            var min = parseFloat($('#inputapos').attr('min'));
+            var max = parseFloat($('#inputapos').attr('max'));
+            var inputapos =parseFloat($('#inputapos').val());
             $('.sidebar-game').addClass('jugando');
             if (min <= inputapos && max >= inputapos) {
                 $('#boxsitdown').slideUp();
@@ -273,7 +281,7 @@
         });
 
         $('#exitgame').click(function() {
-            var intro = {
+               var intro = {
                 type: 'exitgame'
             }
             $('.mesaplayer' + (idsit + 1)).addClass('oculto');
@@ -284,6 +292,7 @@
             $('#playeroption').slideUp();
             $('.pote').html('0');
         });
+
         $('#newcomentglobal').keypress(function(e) {
             if (e.which == 13) {
                 if ($('#newcomentglobal').val() !== "") {
@@ -324,7 +333,7 @@
                 idsit: idsit,
                 montapost: 0
             }
-//            console.log(intro);
+            $('#apost-mont').val(0);
             socket.send(JSON.stringify(intro));
 //            $('#apost-toal').val(0);
 //            apostresume();
@@ -352,6 +361,18 @@
 
         connetserver();
     });
+            function exitgameclick(){
+                        var intro = {
+                type: 'exitgame'
+            }
+            $('.mesaplayer' + (idsit + 1)).addClass('oculto');
+            socket.send(JSON.stringify(intro));
+            $('#rowgame').slideUp();
+            $('#sales').removeClass('sales-close');
+            $('#playerdata').slideDown();
+            $('#playeroption').slideUp();
+            $('.pote').html('0');
+        }
     function justNumbers(e) {
         var keynum = window.event ? window.event.keyCode : e.which;
         if ((keynum == 8) || (keynum == 46))
@@ -360,7 +381,7 @@
     }
     function apostresume() {
         var apt = parseFloat($('#apost-toal').val());
-        console.log('apt: ' + apt);
+
         $('.apost-resume').html('Bs. ' + apt.format(2, 3, '.', ','));
 //        var saldo = parseFloat($('#player' + (idsit + 1) + 'apos').html());
 //        console.log('saldo: ' + saldo);
@@ -376,7 +397,7 @@
 
     function open_connection() {
         //        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
-        socket = new WebSocket('ws://162.252.57.97:8806/', 'server');
+        socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
         //socket = new WebSocket('ws://milagros-pc:8806/', 'server');
         // socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
 //        socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
@@ -408,6 +429,18 @@
 
         socket.send(JSON.stringify(intro));
     }
+    function exitgame () {
+        var intro = {
+            type: 'exitgame'
+        }
+        $('.mesaplayer' + (idsit + 1)).addClass('oculto');
+        socket.send(JSON.stringify(intro));
+        $('#rowgame').slideUp();
+        $('#sales').removeClass('sales-close');
+        $('#playerdata').slideDown();
+        $('#playeroption').slideUp();
+        $('.pote').html('0');
+    }
     //segun el mensaje que llegue realiza un caso especifico
     function message_received(message) {
         var message;
@@ -432,7 +465,7 @@
             console.log(message.messagesend)
             console.log(idsit)
             if (message.messagesend == idsit) {
-                $('#exitgame').click();
+                exitgame ();
             }
         }
 
@@ -465,6 +498,14 @@
             console.log(message.messagesend);
             clearInterval(enespera);
             $('.win').html('<p>Ganador: ' + message.messagesend.name + '</p>');
+            var card1 = card[message.messagesend.card1];
+            var card2 = card[message.messagesend.card2];
+            var url = "./imagen/poker/" + card1['carpeta'] + "/" + card1['image'];
+            var url2 = "./imagen/poker/" + card2['carpeta'] + "/" + card2['image'];
+            var img1 = "<img src='" + url + "' style='height:45px;' />";
+            var img2 = "<img src='" + url2 + "' style='height:45px;' />";
+            $('.player' + (parseInt(message.messagesend.sit) + 1) + 'carta1').html(img1);
+            $('.player' + (parseInt(message.messagesend.sit) + 1) + 'carta2').html(img2);
             $('#playerdata').css('display', 'block');
             $('#playeroption').css('display', 'none');
             $('.win').css('display', 'block');
@@ -533,6 +574,10 @@
             var img = "<img src='" + url + "' style='width:40px;height:70px;' />";
             var puesto = idsit + 1;
             var player = ".player" + puesto + "carta1";
+            for (i = 1; i < 8; i++){
+                if (i !== puesto)
+                $(".player" + i + "carta1").html('');
+            }
             $(player).html(img);
         }
         else if (message.type === 'card2') {
@@ -541,6 +586,10 @@
             var img = "<img src='" + url + "' style='width:40px;height:70px;' />";
             var puesto = idsit + 1;
             var player = ".player" + puesto + "carta2";
+            for (i = 1; i < 8; i++){
+                if (i !== puesto)
+                $(".player" + i + "carta2").html('');
+            }
             $(player).html(img);
         }
         else if (message.type === 'minapost') {
@@ -603,7 +652,7 @@
             $('.pote').html(pote);
         }
         else if (message.type === 'numcoin') {
-            console.log(message);
+            console.log(message.messagesend.apu_min);
             $('#inputapos').attr('min', message.messagesend.apu_min);
             $('#inputapos').attr('max', message.messagesend.apu_max);
             var min = $('#inputapos').attr('min');
@@ -733,6 +782,7 @@
     }
 
     function joingame(id, pass) {
+        console.log('aqui');
         $('#sales').addClass('sales-close');
         $('.create-salas').slideUp();
 
@@ -794,6 +844,8 @@
             $(cartas).slideUp();
             $(cartasplay).slideUp();
             $(cartasplay2).slideUp();
+            $('.player'+ i +'carta1').html('');
+            $('.player'+ i +'carta2').html('');
             $(mesaplayer).addClass('oculto');
         }
         else {
@@ -807,6 +859,8 @@
             $(cartas).slideDown();
             $(cartasplay).slideUp();
             $(cartasplay2).slideUp();
+//            $('.player'+ i +'carta1').html('');
+//            $('.player'+ i +'carta2').html('');
             $(mesaplayer).removeClass('oculto');
         }
     }
@@ -825,7 +879,6 @@
 
             var intro = {
                 type: 'numcoin',
-                inputapos: inputapos,
                 idsale: idsale
             }
             socket.send(JSON.stringify(intro));

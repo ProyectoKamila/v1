@@ -190,9 +190,9 @@ function connetserver() {
 
             function open_connection() {
 
-                //socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
+                socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server'); 
                 //socket = new WebSocket('ws://localhost:8082/', 'server');
-                socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
+                //socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
 
                 socket.addEventListener("open", connection_established);
             }
@@ -387,7 +387,7 @@ function connetserver() {
 
      </script>
 
-     <div class="container-fluid sin-padding">
+     <div id="deportivo" class="container-fluid sin-padding">
 
       <!-- Trigger the modal with a button -->
 

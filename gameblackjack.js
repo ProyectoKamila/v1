@@ -177,7 +177,7 @@
                         );
                         mysqlc.connect();
                         mysqlc.query(string, function(err, row, fields) {
-                            if (typeof(row) &&  if (row !== undefined && row[0].id_user !== undefined) {
+                            if (typeof(row) && row !== undefined && row[0].id_user !== undefined) {
                                 connection.id_user = row[0]['id_user'];
 
                                 if (row[0]['id_user'] == clientsconection[connection.id_user]) {
@@ -1194,7 +1194,7 @@ function pruebaserver(objeto){
      //console.log(string);
 
      mysqlc.end();
-     setTimeout(function () {select_jackpot()}, 1000);
+     setTimeout(function () {select_jackpot()}, 1200);
 
 
  }
