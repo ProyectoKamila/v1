@@ -227,24 +227,27 @@ wsServer.on('request', function(request) {
                    // if(connection.numfree > 0){
                         
                     //}
-                    connection.free=false;
+                    
  
                switch (msgObj.free){
                    case 5:
                         sendmessageuser(connection, 'free_game_play', 5);
                         connection.free_game_play= 5;
                         connection.numfree+= 5;
+                        connection.free = true;
                     
                     break;
                    case 10:
                         sendmessageuser(connection, 'free_game_play', 10);
                           connection.free_game_play= 10;
                             connection.numfree+= 10;
+                            connection.free = true;
                     break;
                    case 20:
                         sendmessageuser(connection, 'free_game_play', 20);
                             connection.free_game_play=20;
                               connection.numfree+= 20;
+                              connection.free = true;
                                
                     break;
                }
@@ -257,7 +260,7 @@ wsServer.on('request', function(request) {
                  if (connection.free ==true){
                 connection.numfree=connection.numfree-1;
                   if(connection.numfree==0){
-                      connection.free ==false;
+                      connection.free =false;
                   }
                         
                
@@ -587,30 +590,33 @@ console.log(objeto.payline);
     console.log("numwin:" +_aWinningLine[i].num_win);
 
                 if (_aWinningLine[i].value==8 && _aWinningLine[i].amount > 0 && connection.id_game==1){
-         if (connection.free ==true){
+         if (connection.free == true){
                switch (connection.free_game_play){
                    case 5:
                         sendmessageuser(connection, 'free_game_play', 5);
                         connection.free_game_play= 5;
                         connection.numfree+= 5;
+                        connection.free = true;
                     
                     break;
                    case 10:
                         sendmessageuser(connection, 'free_game_play', 10);
                           connection.free_game_play= 10;
                             connection.numfree+= 10;
+                            connection.free = true;
                     break;
                    case 20:
                         sendmessageuser(connection, 'free_game_play', 20);
                             connection.free_game_play=20;
                               connection.numfree+= 20;
+                              connection.free = true;
                                
                     break;
                }
          }
          else{
                         var juegos_gratis = juegos_gratis + 1;
-                        connection.free=true;
+                        connection.free = true;
                        // console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].amount);
 
                        

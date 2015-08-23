@@ -366,10 +366,14 @@ class Casino extends MY_Controller {
     }
 
     public function blackjack() {
+        $data = $this->modelo_universal->select('game_blackjack', '*', 'id_game_blackjack = 1');
+        $this->load->view('blackjack/settings', $data[0]);
         $this->load->view('blackjack/index');
     }
 
     public function jacks() {
+        $data = $this->modelo_universal->select('game_jacksorbetter', '*', 'id_game_jacksorbetter = 1');
+        $this->load->view('jacks/settings', $data[0]);
         $this->load->view('jacks/index');
     }
 

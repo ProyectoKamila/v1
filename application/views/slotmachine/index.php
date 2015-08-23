@@ -62,8 +62,8 @@
             var flash_title_timer;
             var connected = false;
             var connection_retry_timer;
-            //var server_url = 'ws://162.252.57.97:8808/';
-          //var server_url = 'ws://localhost:8808/';
+            var server_url = 'ws://162.252.57.97:8082/';
+          //var server_url = 'ws://localhost:8082/';
             var token = "<?php
         if (isset($_COOKIE['token'])) {
             echo $_COOKIE['token'];
@@ -94,9 +94,15 @@
                     $('#jgModal').modal(options);
                 }
                        if (free > 0) {
+                            setTimeout(function() {
+                                
                            free=free-1;
                            NUM_PAYLINES=freeselect;
+
                s_oGame.onMaxBetjgXxx();
+                                
+                            },3000);
+
                 }
                 else{
                     freeselect=20;
@@ -163,20 +169,27 @@
 
             // CONFIG DEL BOTON JUEGOS GRATIS
 
-            $('#jg-button').click(function () {
-                free_gameslot = 0;
-              freeselect=20;
+            $('#jg-button1').click(function () {
+                           free_gameslot = 0;
+                  freeselect=20;
+                setTimeout(function() {
+                    console.log('el timeup');
+                      $('#jgModal').modal('toggle');
+               
                 var intro = {
                     type: 'playfreegame',
                     free: 5
 
                 }
+                            socket.send(JSON.stringify(intro));
+        }, 3000);
+                
+            document.getElementById('text-win').innerHTML = 'Has Ganado 5 juegos por 20 Lineas';
+                
 
-                socket.send(JSON.stringify(intro));
 
 
-                $('#jgModal').modal('toggle');
-
+        
             });
             //10 x 10
             $('#jg-button2').click(function () {
@@ -187,12 +200,9 @@
                     free: 10
 
                 }
-
                 socket.send(JSON.stringify(intro));
-
-
                 $('#jgModal').modal('toggle');
-
+            document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
             });
              $('#jg-button3').click(function () {
               free_gameslot = 0;
@@ -202,12 +212,9 @@
                     free: 20
 
                 }
-
+                 document.getElementById('text-win').innerHTML = 'Has Ganado 20 juegos por 5 Lineas';
                 socket.send(JSON.stringify(intro));
-
-
                 $('#jgModal').modal('toggle');
-
             });
 
 //totalcoins();
@@ -220,10 +227,10 @@
             }
 
             function open_connection() {
-
+//var server_url = 'ws://162.252.57.97:8082/';
                 //socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
                 //socket = new WebSocket('ws://localhost:8082/', 'server');
-                socket = new WebSocket('ws://casino4as-krondon.c9.io:8081', 'server');
+                socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
                 socket.addEventListener("open", connection_established);
             }
             //cuando la conexion se establece
@@ -309,27 +316,27 @@
 
                 }
                 else if (message.type === 'free_game') {
-                    myId = message.userId;
-                    free_gameslot = 0;
-                    var freg = message.messagesend;
-                    openjg(freg);
+                     // myId = message.userId;
+                   free_gameslot = 1;
+                   //ar freg = message.messagesend;
+                   //openjg(freg);
 
                 }
                       else if (message.type === 'free_game_play') {
+                          console.log('aqui paso');
                          myId = message.userId;
                             if(free > 0){
+                                console.log('aqui');
                                 free += message.messagesend;
                             }
                             else{
                                 free = message.messagesend;
-                             if (free > 0) {
+                          
                                    free=free -1;
+                                   //console.log('free sele '+freeselect);
                                    NUM_PAYLINES=freeselect;
-                       s_oGame.onMaxBetjgXxx();
-                            }
-                             else{
-                    freeselect=20;
-                }
+                                s_oGame.onMaxBetjgXxx();
+                         
                             
                         }
                
@@ -421,10 +428,10 @@
 
                 //   alert(coins);
                 //$('#money-hidden').val(coins);
-                $('#total_jg').html(coins);
+               // $('#total_jg').html(coins);
 
 
-                free_gameslot = coins;
+                //free_gameslot = coins;
 
             }
 
@@ -438,48 +445,60 @@
         <div class="container sin-padding">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">    
+                <?php     
+                        $valores = array();
+                        $x=1;
+                            while ($x<4) {
+                              $num_aleatorio = rand(1,3);
+                              if (!in_array($num_aleatorio,$valores)) {
+                                array_push($valores,$num_aleatorio);
+                                $x++;
+                              }
+                            }
+                            
+                         ?>
+                        
                     <div class="content-canvas">
                         <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
                     </div>  
                 </div>
             </div>
         </div>
-
         <button style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Cargar Saldo</button>
-
         <!-- Modal -->
         <div class="modal fade box-cargar-saldo" id="myModal" role="dialog">
             <div class="modal-dialog">
-
                 <!-- Modal content-->
                 <div class="modal-content firstmodal">
                     <div class="modal-header">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-xs-6">
-                                    <p class="ficha">Fichas Disponibles:</p>
-                                    <div class="mount">
-                                        <p><label id="total_coins"></label></p>
-                                    </div>
+                                <div class="saldo-carga">
+                                    <div class="col-xs-4">
+                                    <p class="ficha">Fichas Disponibles:</p> 
+                                        <div class="mount">
+                                            <p><label id="total_coins"></label></p>
+                                        </div>
+                                    </div> 
+                                <div class="col-xs-6 ">
+                                    <p class="ficha">Ingrese el monto de fichas:</p> 
+                                        <!--<label >Cargar Saldo: </label>-->
+                                        <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
+                                        <input type="numeric" name="money-text" id="money-text" maxlength="5" class="money-text" title="0" placeholder="Fichas a recargar">
+                                        <button type="button" class="btn btn-default btn-submit"  id="money-button">Aceptar</button>
+                                    </div>    
+                                </div>    
                                 </div>
-                                <div class="col-xs-6"></div>
                             </div>
-                        </div>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        
+                                
+                                
                     </div>
                     <div class="modal-body">
-
-                        <label>Cargar Saldo: </label>
-                        <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
-                        <input type="numeric" name="money-text" id="money-text" maxlength="5" class="" title="0">
-                        <button type="button" class="btn btn-default"  id="money-button">Aceptar</button>
-
-
+                        
                     </div>
-                    <div class="modal-footer">
-                          Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza.
-                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                    <div class="modal-footer"> 
+                         <!-- Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza. -->
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
                     </div>
                 </div>
 
@@ -497,21 +516,42 @@
                 <!-- Modal content-->
                 <div class="modal-content freeplaymodal">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <label>HA GANADO JUGADA GRATIS</label>
+                        <!--ca
+                        <!--<label>HA GANADO JUGADA GRATIS</label>-->
                     </div>
+                        
                     <div class="modal-body">
-
-
-<!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
-                       
-                      
+                        <?php
+                        $z = 1;
+                        foreach($valores as $v) { ?>
+                        
+                            <div class="col-xs-4">
+                                <div class="item-free">
+                                    <img id="jg-button<?php echo $v; ?>" 
+                                    src="./interface/images/frutas/<?php echo $z; ?>.png"
+                                    <?php if($v== 1) { ?>
+                                    style="";
+                                    <?php } ?>        
+                                    <?php if($v== 2) { ?>
+                                     style="margin-top:45px;"
+                                    <?php } ?>
+                                    <?php if($v== 3) { ?>
+                                    style="margin-top:5px;"
+                                    <?php } ?>
+                                    />
+                                </div>
+                            </div>
+                        <?php 
+                        $z++; 
+                        } ?> 
                     </div>
                     <div class="modal-footer">
- <label id="total_jg" style="display: none;"></label>
-                        <button type="button" class="btn btn-default myButton"  id="jg-button">Jugar 5 x 20</button>
-                        <button type="button" class="btn btn-default myButton"  id="jg-button2">Jugar 10 x 10</button>
-                        <button type="button" class="btn btn-default myButton"  id="jg-button3">Jugar 20 x 5</button>
+                         <label id="total_jg" style="display: none;"></label>
+                         <p id="text-win"></p>
+                    
+ <!--<button type="button" class="btn btn-default myButton"  >Jugar 5 x 20</button>-->
+                        <!--<button type="button" class="btn btn-default myButton"  >Jugar 10 x 10</button>-->
+                        <!--<button type="button" class="btn btn-default myButton"  id="jg-button3">Jugar 20 x 5</button>-->
                         
                     </div>
                 </div>
@@ -525,7 +565,7 @@
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
-        <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
+        <div class="a-lert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
     </div>
     </div>

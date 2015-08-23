@@ -382,7 +382,7 @@
 
     </script>
 
-    <div class="container-fluid sin-padding">
+    <div id="sensual" class="container-fluid sin-padding">
 
         <!-- Trigger the modal with a button -->
 

@@ -80,7 +80,7 @@ function CInterface(iCurBet,iTotBet,iMoney){
         _oCoinText.textBaseline = "alphabetic";
         s_oStage.addChild(_oCoinText);
 
-        _oTotalBetText = new createjs.Text(TEXT_BET +": "+iTotBet.toFixed(2),"bold 30px Arial", "#ffffff");
+        _oTotalBetText = new createjs.Text(TEXT_BET +" "+iTotBet.toFixed(2),"bold 30px Arial", "#ffffff");
         _oTotalBetText.x = 690;
         _oTotalBetText.y = CANVAS_HEIGHT - 130;
         _oTotalBetText.textAlign = "center";
@@ -294,6 +294,8 @@ function CInterface(iCurBet,iTotBet,iMoney){
     };
 
     this.refreshMoney = function(iMoney){
+
+        console.log('refresca la moneda'+ ' ' +iMoney);
         _oMoneyText.text = TEXT_MONEY +"\n"+iMoney.toFixed(2);
     };
     
@@ -302,7 +304,7 @@ function CInterface(iCurBet,iTotBet,iMoney){
     };
     
     this.refreshTotalBet = function(iTotBet){
-        _oTotalBetText.text = TEXT_BET +": "+iTotBet.toFixed(2);
+        _oTotalBetText.text = TEXT_BET +" "+iTotBet.toFixed(2);
     };
     
     this.refreshNumLines = function(iLines){

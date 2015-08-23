@@ -478,7 +478,7 @@ _aFinalSymbolCombo=finalc;
             _oInterface.disableBetBut(true);
             this.removeWinShowing();
             
-            this.generateFinalSymbols();
+this.generateFinalSymbols();
 
             _oInterface.hideAllLines();
             _oInterface.disableGuiButtons();

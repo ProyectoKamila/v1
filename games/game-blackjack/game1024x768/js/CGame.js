@@ -639,22 +639,24 @@ this.hitDealer = function(){
                 this._passTurnToDealer();
                 return;
             }
-
+            console.log('valor de getCredit:  ' + (_oSeat.getCredit() - _oSeat.getCurBet()));
             var bActivateSplit = false;
             
-            if(_oSeat.isSplitAvailable() && _iMoney >= _oSeat.getCurBet()*1.5){
+            if(_oSeat.isSplitAvailable() &&  _oSeat.getCredit() >= _oSeat.getCurBet() ){
+                console.log('valor de _iMoney:  ' + _iMoney);
                 bActivateSplit=true;
             }
             _oInterface.displayMsg(TEXT_DISPLAY_MSG_YOUR_ACTION);
             
             var bActivateDouble=false;
-            if(_oSeat.getHandValue(0) > 8 && _oSeat.getHandValue(0) < 16 && _iMoney >= _oSeat.getCurBet()*1.5){
+            if(_oSeat.getHandValue(0) > 8 &&  _oSeat.getCredit() >= _oSeat.getCurBet() ) {
+                console.log('valor de _iMoney en double:  ' + _iMoney);
                 bActivateDouble=true;
             }
             _oInterface.enable(false,true,true,bActivateDouble,bActivateSplit);
 
             //SHOW INSURANCE PANEL
-            if(_aDealerCards[0].getValue() === 11){
+            if(_aDealerCards[0].getValue() === 11 &&  _oSeat.getCredit() >= _oSeat.getCurBet()*0.5) {
                 _iInsuranceBet=Math.floor(_oSeat.getCurBet()/2);
                 _oInterface.showInsurancePanel();
             }
