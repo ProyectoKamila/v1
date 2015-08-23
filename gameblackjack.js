@@ -22,7 +22,7 @@
             response.end();
         });
     
-        var port = 8083;
+        var port = 8084;
         var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
     } else {
         var http = require('http');
@@ -32,7 +32,7 @@
             response.end();
         });
     
-        var port = 8083;
+        var port = 8084;
         var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
     }
     var messagesend = [];

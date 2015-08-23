@@ -19,7 +19,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8081;
+    var port = 8082;
     var server_start_message = (new Date()) + ' Springle server with SSL is listening on port ' + port;
 } else {
     var http = require('http');
@@ -29,7 +29,7 @@ if (process.argv.indexOf('--enable-ssl') !== -1) {
         response.end();
     });
 
-    var port = 8081;
+    var port = 8082;
     var server_start_message = (new Date()) + ' Springle server is listening on port ' + port;
 }
 
@@ -54,7 +54,8 @@ var allowed_origins = [
     '192.168.0.118',
     'casino4as.com',
     'localhost:8888',
-    'casino4as-krondon.c9.io'
+    'casino4as-krondon.c9.io',
+    'v1-maikolleon20151.c9.io'
 ];
 
 
