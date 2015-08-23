@@ -4,7 +4,63 @@
 <?php $this->load->view('page/navegation/header'); ?>
 <?php $this->load->view('page/navegation/notification'); ?>
 </div>
-
+<style>
+                #boxpass {
+                    background-color: #2B2A26;
+                    width: 80%;
+                    margin: 0 auto;
+                    text-align: center;
+                    padding: 10px;
+                }
+                
+                a#buttonjoingame {
+                    margin-top: 10px;
+                }
+                section#creating-sale {
+                    background-color: #2B2A26;
+                }
+                #passloss {
+                    background-color: transparent !important;
+                    padding: 7px;
+                    margin: 0px;
+                    border: none !important;
+                    background-image: none;
+                    box-shadow: none;
+                    color: #731010;
+                    font-weight: bold;
+                }
+                #creating-sale .title-white span {
+                        background-color: transparent;
+                        font-size: 30px;
+                        font-weight: bold;
+                        color: #d3cf49;
+                    }
+                    .create-salas .input-group span {
+                        background: white;
+                        color: #d3cf49;
+                        border: 0px;
+                        outline: 0px;
+                        border-bottom: 2px solid #9C9B97 !important;
+                        border-right: 0px !important;
+                    }
+                    div .input-group * {
+                        background-color: transparent !important;
+                        border: 1px solid #9C9B97 !important;
+                        height: 35px !important;
+                        color: white;
+                        font-weight: 100;
+                        text-transform: uppercase;
+                        text-shadow: none;
+                        border-radius: 0px !important;
+                    }
+                    a#buttoncreate:hover {
+                        color: #d3cf49;
+                        text-shadow: none;
+                    }
+                    #maxus option {
+                        color: black;
+                    }
+            </style>
 <div class="container-fluid ">
     <div class="row" id='rowsales'>
         <div class="col-lg-9 col-md-10 col-sm-10 hidden-xs content-game poker sin-padding" id="">
@@ -37,19 +93,20 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs" style="display: none" id="boxpass">
-                        <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs" style="border: 0px !important">
                             <div class="alert alert-danger" style="display: none;" role="alert" id="passloss"></div>
                             <input type="password" class="form-control" placeholder="Clave" aria-describedby="sizing-addon3" id="passbox">
-                            <a class="btn btn-default link-error" id="buttonjoingame">Acceder.</a>
+                            <a class="btn btn-default link-error" id="buttonjoingame">Acceder</a>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                 </div>
             </div>
+            
             <section class="create-salas register-form col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3" id="creating-sale">
                 <span class="glyphicon glyphicon-remove-circle close" onclick="ocultar_create_sala();"></span>
                 <div class="col-xs-12 ">
-                    <h2 class="title-white">Crear una sala <span class="label label-default"> Diviertete!</span></h2>                    
+                    <h2 class="title-white">Crear una sala<span class="label label-default">Diviertete!</span></h2>                    
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs sin-pading" id="newsale">
                     <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
@@ -97,173 +154,7 @@
 
                 </div>
             </section>
-<!--            <section class="playing">
 
-                <div class="container-fluid">
-                    <div class="row" id='rowgame' >
-                        <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs content-game " id="">
-                            <a href="./poker#" class="btn btn-default" id="exitgame">Abandonar Sala</a>
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class=" col-lg-3 col-md-4 col-sm-4 hidden-xs sin-padding col-lg-offset-1 col-md-offset-0 col-sm-offset-0 sit-0" id='player1' ondblclick="seeplayer('#player1', 0);">
-                                        <div class="player player1">
-                                            <div class="caption name"><h3 id='player1name'>PLAYER1</h3></div>
-                                            <div class="caption money" title="Saldo En Juego"><p id='player1apos'>apos</p></div>
-                                            <div class="caption money" title="Saldo En Cuenta"><p id='player1coin'>1.000.000.000</p></div>
-                                            <div class="img-profile">
-                                                <img id='player1imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                                                <img id='player1imageprofile' class='imagenprofile img-vacio' src="/interface/images/recortes/poker/circulo-jugador.png" alt="..." >
-                                            </div>
-
-
-
-                                            <div class="caption tiempo"><p id='player1time'>TIME</p></div>
-                                            <div class="cartas">
-                                                <div class="carta1 player1carta1"></div>
-                                                <div class="carta2 player1carta2"></div>
-                                            </div>  
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs col-md-offset-0 col-sm-offset-0" id='crupier'>
-                                        <div class="curpie men">
-
-                                        </div>
-                                    </div>
-                                    <div class=" col-lg-3 col-md-4 col-sm-4 hidden-xs sin-padding sit-1" id='player2' ondblclick="seeplayer('#player2', 1);" >
-                                        <div class="player player2">
-                                            <div class="caption name"><h3 id='player2name'>PLAYER1</h3></div>
-                                            <div class="caption money"><p id='player2apos'>13123</p></div>
-                                            <div class="caption money"><p id='player2coin'>apos</p></div>
-                                            <div class="img-profile">
-                                                <img id='player2imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                                                <img id='player1imageprofile' class='imagenprofile img-vacio' src="/interface/images/recortes/poker/circulo-jugador.png" alt="..." >
-                                            </div> 
-                                            <div class="caption tiempo"><h3 id='player2time'>TIME</h3></div>
-                                            <div class="cartas">
-                                                <div class="carta1 player2carta1"></div>
-                                                <div class="carta2 player2carta2"></div>
-                                            </div> 
-
-                                        </div>
-                                    </div>               
-                                    <div class="clearfix"></div>
-                                    <div class=" col-lg-3 col-md-4 col-sm-4 hidden-xs sin-padding sit-2" id='player3' ondblclick="seeplayer('#player3', 2);">
-                                        <div class="player player3">
-                                            <div class="caption name"><h3 id='player3name'>PLAYER1</h3></div>
-                                            <div class="caption money"><p id='player3coin'>13123</p></div>
-                                            <div class="caption money"><p id='player3apos'>apos</p></div>
-                                            <div class="img-profile">
-                                                <img id='player3imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                                                <img id='player1imageprofile' class='imagenprofile img-vacio' src="/interface/images/recortes/poker/circulo-jugador.png" alt="..." >
-                                            </div>
-                                            <div class="caption tiempo"><h3 id='player3time'>TIME</h3></div>
-                                            <div class="cartas">
-                                                <div class="carta1 player3carta1"></div>
-                                                <div class="carta2 player3carta2" ></div>
-                                            </div> 
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-5 col-md-4 col-sm-4 hidden-xs sin-padding" id='mesa'>
-                                        <div class="card one">
-                                            c1                                            
-                                        </div>
-                                        <div class="card two">
-                                            c2                                            
-                                        </div>
-                                        <div class="card three">
-                                            c3                                            
-                                        </div>
-                                        <div class="card four">
-                                            c4                                            
-                                        </div>
-                                        <div class="card five">
-                                            c5                                            
-                                        </div>
-                                        <div class="card pote">
-                                            pote                                            
-                                        </div>
-                                    </div>
-                                    <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs sin-padding col-lg-offset-0 col-md-offset-0 col-sm-offset-0 sit-3" id='player4' ondblclick="seeplayer('#player4', 3);" >
-                                        <div class="player player4">
-                                            <div class="caption name"><h3 id='player4name'>PLAYER1</h3></div>
-                                            <div class="caption money"><p id='player4coin'>13123</p></div>
-                                            <div class="caption money"><p id='player4apos'>apos</p></div>
-                                            <div class="img-profile">
-                                                <img id='player4imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                                                <img id='player1imageprofile' class='imagenprofile img-vacio' src="/interface/images/recortes/poker/circulo-jugador.png" alt="..." >
-                                            </div>
-                                            <div class="caption tiempo"><h3 id='player4time'>TIME</h3></div>
-                                            <div class="cartas">
-                                                <div class="carta1 player4carta1"></div>
-                                                <div class="carta2 player4carta2"></div>
-                                            </div> 
-
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                                        <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs sit-4" id='player5' ondblclick="seeplayer('#player5', 4);">
-                                            <div class="player player5">
-                                                <div class="caption name"><h3 id='player5name'>PLAYER1</h3></div>
-                                                <div class="caption money"><p id='player5coin'>13123</p></div>
-                                                <div class="caption money"><p id='player5apos'>apos</p></div>
-                                                <div class="img-profile">
-                                                    <img id='player5imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                                                    <img id='player5imageprofile' class='imagenprofile img-vacio' src="/interface/images/recortes/poker/circulo-jugador.png" alt="..." >
-                                                </div>
-                                                <div class="caption tiempo"><h3 id='player5time'>TIME</h3></div>
-                                                <div class="cartas">
-                                                    <div class="carta1 player5carta1"></div>
-                                                    <div class="carta2 player5carta2"></div>
-                                                </div> 
-
-                                            </div>
-
-                                        </div>
-                                        <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs sit-5" id='player6' ondblclick="seeplayer('#player6', 5);">
-                                            <div class="player player6">
-                                                <div class="caption name"><h3 id='player6name'>PLAYER1</h3></div>
-                                                <div class="caption money"><p id='player6coin'>13123</p></div>
-                                                <div class="caption money"><p id='player6apos'>apos</p></div>
-                                                <div class="img-profile">
-                                                    <img id='player6imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                                                    <img id='player5imageprofile' class='imagenprofile img-vacio' src="/interface/images/recortes/poker/circulo-jugador.png" alt="..." >
-                                                </div>
-                                                <div class="caption tiempo"><h3 id='player6time'>TIME</h3></div>
-                                                <div class="cartas">
-                                                    <div class="carta1 player6carta1"></div>
-                                                    <div class="carta2 player6carta1"></div>
-                                                </div> 
-                                            </div>
-                                        </div>
-                                        <div class=" col-lg-4 col-md-4 col-sm-4 hidden-xs sit-6" id='player7' ondblclick="seeplayer('#player7', 6);">
-                                            <div class="player player7">
-                                                <div class="caption name"><h3 id='player7name'>PLAYER1</h3></div>
-                                                <div class="caption money"><p id='player7coin'>13123</p></div>
-                                                <div class="caption money"><p id='player7apos'>apos</p></div>
-                                                <div class="img-profile">
-                                                    <img id='player7imageprofile' class='imagenprofile' src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p160x160/11241623_10206268773619839_5686855401427795827_n.jpg?oh=3259d2bcbeb060418918dc131287704f&oe=56085CC3&__gda__=1441758651_cbdaf177271a90b92a775fdbe2a2b610" alt="..." id='player1image'>
-                                                    <img id='player5imageprofile' class='imagenprofile img-vacio' src="/interface/images/recortes/poker/circulo-jugador.png" alt="..." >
-                                                </div>
-                                                <div class="caption tiempo"><h3 id='player7time'>TIME</h3></div>
-                                                <div class="cartas">
-                                                    <div class="carta1 player7carta1"></div>
-                                                    <div class="carta2 player7carta2"></div>
-                                                </div> 
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>-->
             <section class="playing">
                 <style>
                     .hori {
@@ -467,6 +358,64 @@
                     .oculto{
                         display: none;
                     }
+                    #sales thead tr {
+                        background-color: transparent !important;
+                        text-align: center;
+                        font-weight: 100 !important;
+                        font-size: 25px !important;
+                    }
+                    
+                    #sales tbody {
+                        text-align: center;
+                    }
+                    
+                    #sales tfoot tr {
+                        background-color: transparent !important;
+                    }
+                    
+                    #sales thead tr th {
+                        width: 40%;
+                        max-width: 40%;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    
+                    #sales thead tr th + th {
+                        width: 20%;
+                        max-width: 20%;
+                    }
+                    
+                    #sales tfoot tr td {
+                        overflow: hidden;
+                        text-align: right;
+                    }
+                    
+                    thead {
+                        width: 880px;
+                    }
+                    
+                    .optionsala > .btn {
+                        border: 1px solid #9C9B97;
+                        background-color: transparent;
+                        text-shadow: none;
+                        color: white;
+                        text-transform: uppercase;
+                        margin-right: 10px;
+                        border-radius: 0px;
+                    }
+                    
+                    span.glyphicon.glyphicon-play-circle {
+                        color: white;
+                    }
+                    
+                    .optionsala > .btn:hover {
+                        background-color: transparent;
+                        color: #d3cf49;
+                    }
+                    tr.general:hover {
+                        color: #d3cf49;
+                    }
+                    
                 </style>
                 <div class="container-fluid">
                     <div class="row" id='rowgame' >
@@ -477,9 +426,9 @@
                                         <a href="./poker#" class="btn btn-default" id="exitgame"></a>
                                     </div>
                                     <div class="vert " id='player1' ondblclick="seeplayer('#player1', 0);" style='cursor:pointer;'>
-                                        <h3 class="nameusr" id='player1name'>Disponible</h3>
+                                        <h3 class="nameusr" id='player1name'>No Disponible</h3>
                                         <div class="fichsit">
-                                            <img src="" alt="Player 1" id='player1imageprofile' class="profile-mesa">
+                                            <img src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 1" id='player1imageprofile' class="profile-mesa">
                                         </div>
                                         <p class="apostonline " id='player1apos'>0</p>
                                         <p class="timeturn " id='player1time'>0</p>
@@ -488,9 +437,9 @@
                                         <div class="diler men"></div>
                                     </div>
                                     <div class="vert" id='player2' ondblclick="seeplayer('#player2', 1);" style='cursor:pointer;'>
-                                        <h3 class="nameusr right" id='player2name'>Disponible</h3>
+                                        <h3 class="nameusr right" id='player2name'>No Disponible</h3>
                                         <div class="fichsit right">
-                                            <img src="" alt="Player 2" id='player2imageprofile' class="profile-mesa right">
+                                            <img src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 2" id='player2imageprofile' class="profile-mesa right">
                                         </div>
                                         <p class="apostonline right " id='player2apos'>0</p>
                                         <p class="timeturn right " id='player2time'>0</p>
@@ -547,12 +496,12 @@
                             <div class="container-fluid hori">
                                 <div class="row" id='rowgame' >
                                     <div class="vert " id='player7' ondblclick="seeplayer('#player7', 6);" style="width: 10%;cursor:pointer">
-                                        <h3 class="nameusr" id='player7name'>Disponible</h3>
+                                        <h3 class="nameusr" id='player7name'>No Disponible</h3>
                                         <div class="fichsit">
-                                            <img src="" alt="Player 7" id='player7imageprofile' class="profile-mesa">
+                                            <img src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 7" id='player7imageprofile' class="profile-mesa">
                                         </div>
                                         <p class="apostonline " id='player7apos'>0</p>
-                                        <p class="timeturn " id='player7time'>99</p>
+                                        <p class="timeturn " id='player7time'></p>
                                     </div>
                                     <div class="vert" style="width: 15%">
                                         <div class="tabcard oculto mesaplayer7">
@@ -607,12 +556,12 @@
                                         </div>
                                     </div>
                                     <div class="vert" id='player3' ondblclick="seeplayer('#player3', 2);" style="width: 10%; cursor:pointer" >
-                                        <h3 class="nameusr right" id='player3name'>Disponible</h3>
+                                        <h3 class="nameusr right" id='player3name'>No Disponible</h3>
                                         <div class="fichsit right">
-                                            <img id='player3imageprofile' src="" alt="Player3" class="profile-mesa right">
+                                            <img id='player3imageprofile' src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player3" class="profile-mesa right">
                                         </div>
                                         <p class="apostonline right " id='player3apos'>0</p>
-                                        <p class="timeturn right " id='player3time'>99</p>
+                                        <p class="timeturn right " id='player3time'></p>
                                     </div>
                                 </div>
                             </div>
@@ -671,28 +620,28 @@
 
                                     </div>
                                     <div class="vert " id='player6' ondblclick="seeplayer('#player6', 5);" style="cursor:pointer">
-                                        <h3 class="nameusr" id='player6name'>Disponible</h3>
+                                        <h3 class="nameusr" id='player6name'>No Disponible</h3>
                                         <div class="fichsit">
-                                            <img src="" alt="Player 6" id='player6imageprofile' class="profile-mesa">
+                                            <img src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 6" id='player6imageprofile' class="profile-mesa">
                                         </div>
                                         <p class="apostonline " id='player6apos'>0</p>
-                                        <p class="timeturn " id='player6time'>99</p>
+                                        <p class="timeturn " id='player6time'></p>
                                     </div>
                                     <div class="vert c" id='player5' ondblclick="seeplayer('#player5', 4);" style="cursor:pointer">
-                                        <h3 class="nameusr" id='player5name'>Disponible</h3>
+                                        <h3 class="nameusr" id='player5name'>No Disponible</h3>
                                         <div class="fichsit c">
-                                            <img src="" alt="Player 5" id='player5imageprofile' class="profile-mesa">
+                                            <img src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 5" id='player5imageprofile' class="profile-mesa">
                                         </div>
                                         <p class="apostonline " id='player5apos'>0</p>
-                                        <p class="timeturn " id='player5time'>99</p>
+                                        <p class="timeturn " id='player5time'></p>
                                     </div>
                                     <div class="vert" id='player4' ondblclick="seeplayer('#player4', 3);" style="cursor:pointer">
-                                        <h3 class="nameusr right" id='player4name'>Disponible</h3>
+                                        <h3 class="nameusr right" id='player4name'>No Disponible</h3>
                                         <div class="fichsit right">
-                                            <img id='player4imageprofile' src="" alt="Player 4" class="profile-mesa right">
+                                            <img id='player4imageprofile' src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 4" class="profile-mesa right">
                                         </div>
                                         <p class="apostonline right " id='player4apos'>0</p>
-                                        <p class="timeturn right " id='player4time'>99</p>
+                                        <p class="timeturn right " id='player4time'></p>
                                     </div>
                                     <div class="vert">
 
@@ -785,7 +734,7 @@
 <script src="./interface/scripts/main.js"></script>
 <script>
                                 function sales(arraycon, clients) {
-                                    var content = " <table class='table table-striped list-sales '><tr class='titulo'><th class=''>SALA</th><th>APUESTA</th><th>MIN/MAX</th><th>MAX JUG</th></tr>";
+                                    var content = " <table class='table table-striped list-sales '><thead><tr class='titulo'><th class=''>SALA</th><th>APUESTA</th><th>MIN/MAX</th><th>MAX JUG</th></tr></thead>";
                                     var recorrido = arraycon;
                                     var ide = 0;
                                     //                                console.log(recorrido);
@@ -799,12 +748,12 @@
                                                 classtyle = "glyphicon glyphicon-lock";
                                             }
 
-                                            content += "<tr class='general' style='cursor:pointer;'  ondblclick='joingame(" + i + "," + recorrido[i].boolpass + ")'><th><span class='" + classtyle + "' id=''> </span>" + recorrido[i].name + "</th><th>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</th><th>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</th><th>" + recorrido[i].max_jug + "</th></tr>"
+                                            content += "<tr class='general' style='cursor:pointer;'  ondblclick='joingame(" + i + "," + recorrido[i].boolpass + ")'><td><span class='" + classtyle + "' id=''> </span>" + recorrido[i].name + "</td><td>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</td><td>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</td><td>" + recorrido[i].max_jug + "</td></tr>"
                                             ide++;
 
                                         }
                                     }
-                                    content += "<tr><td><p></p><p><span id='clients'> " + clients + "</span> Jugadores están conectados</p></td><td><a class='btn btn-default btn-crear-sala'  id='newsale' onclick='mostrar_create_sala();'>Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span>PLAY</a></td></tr>";
+                                    content += "<tfoot><tr><td colspan='1'><p></p><p><span id='clients'> " + clients + "</span> Jugadores están conectados</p></td><td colspan='3' class='optionsala'><a class='btn btn-default btn-crear-sala'  id='newsale' onclick='mostrar_create_sala();'>Crear sala</a><a class='btn btn-default'  id='buttonrefresh' onclick='Javascript:refresh();' >refrescar lista</a><a class='btn btn-default btn-play'  id='play' ><span class='glyphicon glyphicon-play-circle'></span> PLAY</a></td></tr></tfoot>";
                                     content += "</tablet>";
                                     $('#sales').html(content);
                                 }

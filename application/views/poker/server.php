@@ -26,6 +26,8 @@
     var pote;
 //                        guarda el idde la silla
     var idsit;
+    window_has_focus=true; //permite usar la pestaña
+    var actual_window_title = document.title;
     var enespera;
     var sitenespera;
     var protocol_identifier = 'server';
@@ -221,6 +223,16 @@
 
             socket.send(JSON.stringify(intro));
         });
+        
+          $(window).focus(function() {
+        window_has_focus = false;
+        clearInterval(flash_title_timer);
+        document.title = actual_window_title;
+    });
+    
+       $(window).blur(function() {
+        window_has_focus = false;
+    })
         $('#buttonsitdown').click(function() {
             var min = parseFloat($('#inputapos').attr('min'));
             var max = parseFloat($('#inputapos').attr('max'));
@@ -269,6 +281,7 @@
             socket.send(JSON.stringify(intro));
         });
         $('#leave').click(function() {
+            console.log('leave-:'+idsit);
             var intro = {
                 type: 'leave',
                 idsale: idsale,
@@ -470,7 +483,7 @@
         }
 
         else if (message.type === 'joinsale') {
-
+            $('#boxpass').slideUp();
             //             $('#chat-container').fadeIn();
 //            $('#loading-message').hide();
             var newvar = {};
@@ -611,11 +624,15 @@
             console.log(player);
             $(player).html('20');
             if (idsit !== (sitenespera - 1)) {
-
+                blink_window_title('Poker Casino4as');
+                $('.win').css('display','none');
                 $('#playerdata').slideDown();
                 $('#playeroption').slideUp();
             } else {
                 //descomentar
+                blink_window_title('~Su turno~');
+                $('.win').html('~Su turno~');
+                $('.win').css('display','block');
                 $('#playerdata').slideUp();
                 $('#playeroption').slideDown();
             }
@@ -744,6 +761,26 @@
         } else {
             $(player1).html(time);
         }
+    }
+    
+     function blink_window_title(msg_to_blink) {
+        if (!window_has_focus) {
+            play_notification_sound();
+            
+            clearInterval(flash_title_timer);
+
+                flash_title_timer = setInterval(function () {
+                    if (document.title === actual_window_title) {
+                        document.title = msg_to_blink;
+                    } else {
+                        document.title = actual_window_title;
+                    }
+                }, 1000);
+            }
+    }
+
+    function play_notification_sound() {
+       // document.getElementById('chat-notification-sound').play();
     }
     //mensaje al perder la conexion
     function showConnectionLostMessage() {

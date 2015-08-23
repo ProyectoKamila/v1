@@ -94,9 +94,15 @@
                     $('#jgModal').modal(options);
                 }
                        if (free > 0) {
+                            setTimeout(function() {
+                                
                            free=free-1;
                            NUM_PAYLINES=freeselect;
+
                s_oGame.onMaxBetjgXxx();
+                                
+                            },3000);
+
                 }
                 else{
                     freeselect=20;
@@ -164,21 +170,26 @@
             // CONFIG DEL BOTON JUEGOS GRATIS
 
             $('#jg-button1').click(function () {
-                
-                free_gameslot = 0;
+                           free_gameslot = 0;
                   freeselect=20;
+                setTimeout(function() {
+                    console.log('el timeup');
+                      $('#jgModal').modal('toggle');
+               
                 var intro = {
                     type: 'playfreegame',
                     free: 5
 
                 }
-
-                alert("Jugaras 5 juegos gratis por 20 lineas");
-
-            setTimeout($('#jgModal').modal('toggle'), 5000);
-            socket.send(JSON.stringify(intro));
+                            socket.send(JSON.stringify(intro));
+        }, 3000);
+                
+            document.getElementById('text-win').innerHTML = 'Has Ganado 5 juegos por 20 Lineas';
                 
 
+
+
+        
             });
             //10 x 10
             $('#jg-button2').click(function () {
@@ -189,12 +200,9 @@
                     free: 10
 
                 }
-            alert("Jugaras 10 juegos gratis por 10 lineas");
                 socket.send(JSON.stringify(intro));
-
-
                 $('#jgModal').modal('toggle');
-
+            document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
             });
              $('#jg-button3').click(function () {
               free_gameslot = 0;
@@ -204,12 +212,9 @@
                     free: 20
 
                 }
-            alert("Jugaras 20 juegos gratis por 5 lineas");
+                 document.getElementById('text-win').innerHTML = 'Has Ganado 20 juegos por 5 Lineas';
                 socket.send(JSON.stringify(intro));
-
-
                 $('#jgModal').modal('toggle');
-
             });
 
 //totalcoins();
@@ -311,27 +316,27 @@
 
                 }
                 else if (message.type === 'free_game') {
-                    myId = message.userId;
-                    free_gameslot = 0;
-                    var freg = message.messagesend;
-                    openjg(freg);
+                     // myId = message.userId;
+                   free_gameslot = 1;
+                   //ar freg = message.messagesend;
+                   //openjg(freg);
 
                 }
                       else if (message.type === 'free_game_play') {
+                          console.log('aqui paso');
                          myId = message.userId;
                             if(free > 0){
+                                console.log('aqui');
                                 free += message.messagesend;
                             }
                             else{
-                                id = message.messagesend;
-                             if (free > 0) {
+                                free = message.messagesend;
+                          
                                    free=free -1;
+                                   //console.log('free sele '+freeselect);
                                    NUM_PAYLINES=freeselect;
-                       s_oGame.onMaxBetjgXxx();
-                            }
-                             else{
-                    freeselect=20;
-                }
+                                s_oGame.onMaxBetjgXxx();
+                         
                             
                         }
                
@@ -423,10 +428,10 @@
 
                 //   alert(coins);
                 //$('#money-hidden').val(coins);
-                $('#total_jg').html(coins);
+               // $('#total_jg').html(coins);
 
 
-                free_gameslot = coins;
+                //free_gameslot = coins;
 
             }
 
@@ -440,9 +445,6 @@
         <div class="container sin-padding">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">    
-                <div class="carrusel-promo">
-                    
-                </div>
                 <?php     
                         $valores = array();
                         $x=1;
@@ -492,7 +494,7 @@
                                 
                     </div>
                     <div class="modal-body">
-                        <
+                        
                     </div>
                     <div class="modal-footer"> 
                          <!-- Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza. -->
@@ -519,12 +521,14 @@
                     </div>
                         
                     <div class="modal-body">
-                        <?php foreach($valores as $v){ ?>
+                        <?php
+                        $z = 1;
+                        foreach($valores as $v) { ?>
                         
                             <div class="col-xs-4">
                                 <div class="item-free">
                                     <img id="jg-button<?php echo $v; ?>" 
-                                    src="./interface/images/frutas/<?php echo $v; ?>.png"
+                                    src="./interface/images/frutas/<?php echo $z; ?>.png"
                                     <?php if($v== 1) { ?>
                                     style="";
                                     <?php } ?>        
@@ -537,9 +541,9 @@
                                     />
                                 </div>
                             </div>
-                            
-                            
-                        <?php }?>
+                        <?php 
+                        $z++; 
+                        } ?> 
                     </div>
                     <div class="modal-footer">
                          <label id="total_jg" style="display: none;"></label>
@@ -561,7 +565,7 @@
     </div>
 
     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
-        <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
+        <div class="a-lert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
     </div>
     </div>
