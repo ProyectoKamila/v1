@@ -60,8 +60,8 @@
                 var flash_title_timer;
                 var connected = false;
                 var connection_retry_timer;
-                var server_url = 'ws://162.252.57.97:8083';
-               //var server_url = 'ws://localhost:8083/';
+               // var server_url = 'ws://162.252.57.97:8083';
+               var server_url = 'ws://localhost:8083/';
                 var token = "<?php
                      if (isset($_COOKIE['token'])) {
                         echo $_COOKIE['token'];
@@ -142,8 +142,8 @@
 
                 function open_connection() {
 
-                   socket = new WebSocket('ws://162.252.57.97:8083/', 'server');
-                   // socket = new WebSocket('ws://localhost:8083/', 'server');
+                  // socket = new WebSocket('ws://162.252.57.97:8083/', 'server');
+                    socket = new WebSocket('ws://localhost:8083/', 'server');
 
 
                     socket.addEventListener("open", connection_established);
@@ -447,4 +447,5 @@
    <!--     <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
 
     </body>-->
+
 </html>
