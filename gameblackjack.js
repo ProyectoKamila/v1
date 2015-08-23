@@ -165,7 +165,7 @@
                         var string = 'SELECT * FROM active_session INNER JOIN user_data WHERE user_data.id_user = active_session.id_user AND active_session.token= "' + connection.token + '"';
 
 
-                        console.log(string);
+                     //   console.log(string);
 
                         var mysqlc = mysql.createConnection(
                         {
@@ -603,7 +603,7 @@ p++;
         sendcard(connection, 'dealreturn', connection.carta);
 
     }else{
-       console.log('enviar');
+      // console.log('enviar');
         sendcard(connection, 'dealreturn', connection.carta);
     }
 
@@ -652,19 +652,19 @@ iCardCount: objeto.iCardCount
 
              //connection.sumaCartasPlayer= parseFloat(connection.sumaCartasPlayer) + connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
 
-             console.log('suma de cartas player A'+connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
+           //  console.log('suma de cartas player A'+connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
 
              connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
 
-               console.log('suma de cartas player B'+connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
+             //  console.log('suma de cartas player B'+connection.sumaCartasPlayer + '  ' +  connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]));
      
          }    
-         console.log('vaslor de conection deberia enviarse ------------'+ (_iNextCardForPlayer + connection.f));
+        // console.log('vaslor de conection deberia enviarse ------------'+ (_iNextCardForPlayer + connection.f));
         connection.carta = _iNextCardForPlayer + connection.f;
-        console.log(connection._aCardsInCurHandForPlayer[connection.carta] + '**** carta player****');
+        //console.log(connection._aCardsInCurHandForPlayer[connection.carta] + '**** carta player****');
         _iNextCardForPlayer++;
     }
-    console.log('carta antes de retornar*****---'+connection.carta);
+    //console.log('carta antes de retornar*****---'+connection.carta);
     retornar.carta= connection.carta;
 
     //console.log(retornar.pStartingPointx + ' '+ retornar.pStartingPointy + ' carta dealer');
@@ -687,20 +687,20 @@ iCardCount: objeto.iCardCount
         }
         
          connection.iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
-        console.log(' Se va a ganar '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
+    //    console.log(' Se va a ganar '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
     //primero hacer el if para chequear el bote
     if (connection.iTotalWin>jackpot){
- console.log(' llama a _checkHandNodeDealer');
- console.log('Carta repartida'+sumcartpl);
- console.log('Valor de la carta'+carddealed);
+// console.log(' llama a _checkHandNodeDealer');
+// console.log('Carta repartida'+sumcartpl);
+// console.log('Valor de la carta'+carddealed);
  if (sumcartpl===1){
      if(carddealed<7){
-        console.log('primera carta menor de 7 ' + carddealed);
+    //    console.log('primera carta menor de 7 ' + carddealed);
         return false; 
     }else{
         connection.sumaCartasDealer= parseFloat(carddealed);
-      console.log(' true primera carta mayor a 7 ' + carddealed + ' Guarda el valor de la carta' + connection.sumaCartasDealer);
-    console.log('//////////////////////////////////////////////////////////////////////////////////////');
+     // console.log(' true primera carta mayor a 7 ' + carddealed + ' Guarda el valor de la carta' + connection.sumaCartasDealer);
+  //  console.log('//////////////////////////////////////////////////////////////////////////////////////');
     
     return true;  
     }
@@ -710,19 +710,19 @@ iCardCount: objeto.iCardCount
        
         //connection.sumaCartasDealer -= parseFloat(carddealed);
        //connection.e =connection.e + 1;
-        console.log(' false Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl + 'resta el valor '+ connection.sumaCartasDealer);
-        console.log('//////////////////////////////////////////////////////////////////////////////////////');
+      //  console.log(' false Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl + 'resta el valor '+ connection.sumaCartasDealer);
+      //  console.log('//////////////////////////////////////////////////////////////////////////////////////');
         return false;  
     }else{
-        console.log(' true  Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl);
-        console.log('//////////////////////////////////////////////////////////////////////////////////////');
+        //console.log(' true  Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl);
+        //console.log('//////////////////////////////////////////////////////////////////////////////////////');
         return true;
         
     }
  }
     
     }else{
-        console.log('hay rial/////////////////////////////////////////////////');
+      //  console.log('hay rial/////////////////////////////////////////////////');
         return true;
     }
  }
@@ -734,20 +734,20 @@ iCardCount: objeto.iCardCount
         }
         
         connection.iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
- console.log(' Se va a ganar '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
+ //console.log(' Se va a ganar '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
     //primero hacer el if para chequear el bote
     if (connection.iTotalWin>jackpot){
- console.log(' llama a _checkHandNodePlayer');
+ //console.log(' llama a _checkHandNodePlayer');
  //console.log('sumacart'+sumcartpl);
  //console.log('carddealed'+carddealed);
  if (sumcartpl===1){
     if (carddealed==11){
-              console.log('as ' + carddealed);
+   //           console.log('as ' + carddealed);
         return false; 
         } else{
             connection.sumaCartasPlayer= parseFloat(carddealed);
-    console.log('true primera carta '+ connection.sumaCartasPlayer);
-    console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+   // console.log('true primera carta '+ connection.sumaCartasPlayer);
+   // console.log('+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
     
     return true;
     
@@ -757,19 +757,19 @@ iCardCount: objeto.iCardCount
  } else  {
     var suma= connection.sumaCartasPlayer + carddealed;
     if (carddealed==11){
-              console.log('as ' + carddealed);
+     //         console.log('as ' + carddealed);
         return false; 
         } else{
             if((suma>16)){
        
         connection.sumaCartasPlayer = suma - carddealed;
        // connection.f =connection.f + 1;
-        console.log(' false  Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl);
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    //    console.log(' false  Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl);
+    //    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
         return false;  
     }else{
-      console.log(' true  Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl);
-        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+    //  console.log(' true  Suma de Cartas: '+suma+ ' carta repartida: '+sumcartpl);
+    //    console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
         connection.sumaCartasPlayer = suma;
         return true;
         
@@ -780,7 +780,7 @@ iCardCount: objeto.iCardCount
     
  }
     }else{
-        console.log('hay rial/////////////////////////////////////////////////');
+      //  console.log('hay rial/////////////////////////////////////////////////');
         return true;
     }
     
@@ -795,52 +795,52 @@ iCardCount: objeto.iCardCount
         }
         
          connection.iTotalWin = handvalue + parseFloat((handvalue * iMult).toFixed(2));
-
- console.log(' Se va a ganar '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
+        // console.log(' Se va a ganar '+ connection.iTotalWin + '     DISPONIBLE '+jackpot);
+// console.log(' Se va a ganar '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
     //primero hacer el if para chequear el bote
     if (connection.iTotalWin>jackpot){
-    console.log('carta repartida _checkHandNodePlayerAttach'+ parseFloat(carddealed));
-    console.log('carta sumacartaplayer'+ connection.sumaCartasPlayer);
+ //   console.log('carta repartida _checkHandNodePlayerAttach'+ parseFloat(carddealed));
+ //   console.log('carta sumacartaplayer'+ connection.sumaCartasPlayer);
     var suma= connection.sumaCartasPlayer + parseFloat(carddealed);
-    console.log('la suma'+ suma);
+    //console.log('la suma'+ suma);
 
      if (carddealed==11){
              
                connection.sumaCartasPlayer = suma - parseFloat(carddealed);
-                console.log('AS ' + carddealed + ' false  Suma de Cartas: '+ suma);
-         console.log('????????????????????????????????????????????????????????????????????????????');
+       //         console.log('AS ' + carddealed + ' false  Suma de Cartas: '+ suma);
+         //console.log('????????????????????????????????????????????????????????????????????????????');
         return false; 
         } else{
- console.log('else no es AS');
+ //console.log('else no es AS');
  if(suma>16){
-    console.log('SUMA MAYOR A 16');
+   // console.log('SUMA MAYOR A 16');
         if (suma<22){
-            console.log('suma menor 22');
+     //       console.log('suma menor 22');
             connection.sumaCartasPlayer = suma - parseFloat(carddealed);
        // connection.f =connection.f + 1;
-        console.log(' SUMA MENOR A 22' + carddealed +'false  Suma de Cartas: '+suma);
-        console.log('????????????????????????????????????????????????????????????????????????????');
+       // console.log(' SUMA MENOR A 22' + carddealed +'false  Suma de Cartas: '+suma);
+        //console.log('????????????????????????????????????????????????????????????????????????????');
         return false; 
         }else{
-            console.log('SUMA MAYOR A 22');
-             console.log(' true  Suma de Cartas: '+suma);
-         console.log('????????????????????????????????????????????????????????????????????????????');
+        //    console.log('SUMA MAYOR A 22');
+          //   console.log(' true  Suma de Cartas: '+suma);
+       //  console.log('????????????????????????????????????????????????????????????????????????????');
          connection.sumaCartasPlayer = suma;
         return true;
         }
        
          
     }else{
-        console.log('suma menor 16');
-      console.log(' true  Suma de Cartas: '+suma);
-         console.log('????????????????????????????????????????????????????????????????????????????');
+      //  console.log('suma menor 16');
+     // console.log(' true  Suma de Cartas: '+suma);
+        // console.log('????????????????????????????????????????????????????????????????????????????');
          connection.sumaCartasPlayer = suma;
         return true;
         
     }
  }
   }else{
-        console.log('hay rial/////////////////////////////////////////////////');
+      //  console.log('hay rial/////////////////////////////////////////////////');
         return true;
     }
     
@@ -857,7 +857,7 @@ iCardCount: objeto.iCardCount
         connection.iTotalWin;
 
 
- console.log(' Se va a PAGAR '+ connection.iTotalWin + 'DISPONIBLE '+jackpot);
+ console.log(' Se va a PAGAR '+ connection.iTotalWin + '      DISPONIBLE '+jackpot  + '         APUESTA:  ' + objeto.apuesta);
     //primero hacer el if para chequear el bote
     if (connection.iTotalWin<jackpot){
 
@@ -875,7 +875,7 @@ iCardCount: objeto.iCardCount
             update_jackpot(jackpot,debito);
             updatetemp(connection.sitcoins);
 
-            console.log(' COINS DEL PLAYER '+connection.sitcoins);
+            console.log('GANÓ COINS DEL PLAYER '+connection.sitcoins);
 
 
     }
@@ -883,7 +883,7 @@ iCardCount: objeto.iCardCount
 function loseNode(objeto){
 
   
-console.log(' Perdió '+ objeto.apuesta + 'DISPONIBLE '+jackpot);
+console.log(' Se va a PAGAR '+ connection.iTotalWin + '    DISPONIBLE '+jackpot  + '     APUESTA:  ' + objeto.apuesta);
     //primero hacer el if para chequear el bote
     
 
@@ -899,7 +899,7 @@ console.log(' Perdió '+ objeto.apuesta + 'DISPONIBLE '+jackpot);
        // console.log('sitcoins despues de sp' + connection.sitcoins);
             update_jackpot(jackpot,debito);
             updatetemp(connection.sitcoins);
-console.log(' COINS DEL PLAYER '+connection.sitcoins);
+console.log('PERDIÓ COINS DEL PLAYER '+connection.sitcoins);
 
     
 }
@@ -1326,7 +1326,7 @@ var string = 'DELETE FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = '+ conne
     connection.coinsinit = parseFloat(objeto.sitmoney);
     connection.sitcoins = connection.sitcoins + parseFloat(objeto.sitmoney);
     connection.coins = connection.coins - objeto.sitmoney;
-
+    console.log('ME SENTE CON:   '+ connection.sitcoins);
     var mysqlc = mysql.createConnection(
     {
         host: '23.229.215.154',

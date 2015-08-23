@@ -238,7 +238,8 @@ bDealer: bDealer,
 iCardCount: iCardCount,
  _iNextCardForDealer: _iNextCardForDealer,
     _iNextCardForPlayer: _iNextCardForPlayer,
-    apuesta:apuesta
+    apuesta:apuesta,
+    manos:i
    }
    attachdealtonode(enviar);
 };
@@ -324,7 +325,7 @@ this.cardFromDealerArrived = function(oCard,bDealerCard,iCount){
     }else{
         s_oGame._checkHand();
         if( bDealerCard === false && _bDoubleForPlayer){
-            s_oGame._onStandPlayer();
+           s_oGame.onStand();
         }
     }
 };
@@ -639,18 +640,18 @@ this.hitDealer = function(){
                 this._passTurnToDealer();
                 return;
             }
-            console.log('valor de getCredit:  ' + (_oSeat.getCredit() - _oSeat.getCurBet()));
+           
             var bActivateSplit = false;
             
             if(_oSeat.isSplitAvailable() &&  _oSeat.getCredit() >= _oSeat.getCurBet() ){
-                console.log('valor de _iMoney:  ' + _iMoney);
+           
                 bActivateSplit=true;
             }
             _oInterface.displayMsg(TEXT_DISPLAY_MSG_YOUR_ACTION);
             
             var bActivateDouble=false;
             if(_oSeat.getHandValue(0) > 8 &&  _oSeat.getCredit() >= _oSeat.getCurBet() ) {
-                console.log('valor de _iMoney en double:  ' + _iMoney);
+           
                 bActivateDouble=true;
             }
             _oInterface.enable(false,true,true,bActivateDouble,bActivateSplit);
@@ -703,7 +704,7 @@ this.hitDealer = function(){
 
            // this.attachCardToDeal(pStartingPoint,pEndingPoint,false,_oSeat.newCardDealed());
             this.attachCardToDeal(false,_oSeat.newCardDealed());
-            console.log(' false '+_oSeat.newCardDealed());
+           // console.log(' false '+_oSeat.newCardDealed());
            // this.changeState(STATE_GAME_HITTING);
         };
 
@@ -727,6 +728,7 @@ this.hitDealer = function(){
             this.onHit();
 
             _bDoubleForPlayer=true;
+            
         };
 
         this.onSplit = function(){
