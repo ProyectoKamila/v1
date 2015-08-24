@@ -395,6 +395,7 @@ this._onStandPlayer = function(){
         }
 
          var enviar={
+            coins: _oSeat.getCredit(),
             apuesta:apuesta,
   resultado: 'gana'
    }
@@ -426,6 +427,7 @@ this._onStandPlayer = function(){
         }
 
          var enviar={
+            coins: _oSeat.getCredit(),
             apuesta:apuesta,
   resultado: 'pierde'
    }
@@ -728,7 +730,7 @@ this.hitDealer = function(){
             this.onHit();
 
             _bDoubleForPlayer=true;
-            
+
         };
 
         this.onSplit = function(){

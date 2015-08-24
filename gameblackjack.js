@@ -857,11 +857,11 @@ iCardCount: objeto.iCardCount
         connection.iTotalWin;
 
 
- console.log(' Se va a PAGAR '+ connection.iTotalWin + '      DISPONIBLE '+jackpot  + '         APUESTA:  ' + objeto.apuesta);
+ console.log(' Se va a PAGAR '+ connection.iTotalWin + '      DISPONIBLE '+jackpot  + '         APUESTA:  ' + objeto.apuesta + '         COINS:  ' + objeto.coins);
     //primero hacer el if para chequear el bote
     if (connection.iTotalWin<jackpot){
-
-    connection.sitcoins = connection.sitcoins + (connection.iTotalWin - objeto.apuesta); 
+    connection.sitcoins = objeto.coins;
+   // connection.sitcoins = connection.sitcoins + (connection.iTotalWin - objeto.apuesta); 
    // console.log('sitcoins antes de sp' + connection.sitcoins);
    // var availiable_jp= jackpot+(_iTotBet-(_iTotBet*percent));
     //var debito= debt + (_iTotBet*percent);
@@ -883,11 +883,10 @@ iCardCount: objeto.iCardCount
 function loseNode(objeto){
 
   
-console.log(' Se va a PAGAR '+ connection.iTotalWin + '    DISPONIBLE '+jackpot  + '     APUESTA:  ' + objeto.apuesta);
+console.log(' Se va a PAGAR '+ connection.iTotalWin + '    DISPONIBLE '+jackpot  + '     APUESTA:  ' + objeto.apuesta + '         COINS:  ' + objeto.coins);
     //primero hacer el if para chequear el bote
-    
-
-    connection.sitcoins = connection.sitcoins - objeto.apuesta; 
+    connection.sitcoins = objeto.coins;
+   //connection.sitcoins = connection.sitcoins - objeto.apuesta; 
    // console.log('sitcoins antes de sp' + connection.sitcoins);
    // var availiable_jp= jackpot+(_iTotBet-(_iTotBet*percent));
     var debito= debt + (objeto.apuesta*percent);
