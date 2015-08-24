@@ -638,18 +638,35 @@ wsServer.on('request', function(request) {
             else if (msgObj.type === 'apost') {
 //                console.log(msgObj);
                 var montoapos = 0;
+                var mayorapos = 0;
                 if ((connection.idsale !== undefined) && (connection.idsit !== undefined)) {
 //                    console.log('Conection ' + connection.idsit + '/' + connection.idsale + ' EnEspera ' + play[connection.idsale].jugadorenespera)
-                    if (connection.idsit === play[connection.idsale].jugadorenespera) {
+                    if (connection.idsit == play[connection.idsale].jugadorenespera) {
+                        for (i in saleonline[connection.idsale]){
+                            if (i > 0){   
+                                if (saleonline[connection.idsale][i].apos < saleonline[connection.idsale][(i-1)].apos){
+                                    var mayorapos = saleonline[connection.idsale][i].apos;
+                                }
+                            } else {
+                                var mayorapos = saleonline[connection.idsale][i].apos;
+                            }
+                        }
+                        console.log(mayorapos);
                         if ((parseFloat(msgObj.montapost) > 0) && (parseFloat(msgObj.montapost) > parseFloat(saleonline[connection.idsale][connection.idsit].apos))) {
-//                            console.log('if');
-                            montoapos = parseFloat(saleonline[connection.idsale][connection.idsit].apos);
+                            if (mayorapos < parseFloat(saleonline[connection.idsale][connection.idsit].apos)){
+                                montoapos = mayorapos;
+                            }else{
+                                montoapos = parseFloat(saleonline[connection.idsale][connection.idsit].apos);
+                            }
                         } else {
-//                            console.log('else');
-                            montoapos = parseFloat(msgObj.montapost);
+                            if (mayorapos < parseFloat(msgObj.montapost)){
+                                montoapos = mayorapos;
+                            }else{
+                                montoapos = parseFloat(msgObj.montapost);
+                            }
                         }
                         updatesaleapost(connection.idsale, connection.idsit, montoapos);
-                        play[connection.idsale].roomapost[connection.idsit] = parseFloat(play[connection.idsale].roomapost[connection.idsit]) + montoapos;
+                        //play[connection.idsale].roomapost[connection.idsit] = parseFloat(play[connection.idsale].roomapost[connection.idsit]) + montoapos;
                         play[connection.idsale].pote1 = parseFloat(play[connection.idsale].pote1) + montoapos;
                         play[connection.idsale].potefu();
                         clearTimeout(play[connection.idsale].enespera);
@@ -1014,24 +1031,20 @@ wsServer.on('request', function(request) {
     }
     function updatesaleapost(room, sit, apos) {
         if (saleonline[room][sit]) {
-            if (saleonline[room][sit].apos >= parseFloat(apos)) {
+            if (parseFloat(saleonline[room][sit].apos) >= parseFloat(apos)) {
+                play[room].roomapost[sit]=play[room].roomapost[sit] + parseFloat(apos);
                 saleonline[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
-//            saleonlineconex[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
-//            saleonlineconexall[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
                 for (i in saleonlineconexall[room]) {
                     sendmessageuser(saleonlineconexall[room][i], 'joinsale', saleonline[room]);
                 }
             } else {
-                if (saleonline[room][sit].apos >= play[room].maxci) {
-                    play[room].leaveplay(sit);
-                } else {
+                //if (saleonline[room][sit].apos < play[room].maxci) {
+                //    play[room].leaveplay(sit);
                     console.log('expuls');
                     for (i in saleonlineconexall[this.room]) {
                         sendmessageuser(saleonlineconexall[room][i], 'expuls', sit);
                     }
-//                        sendmessageuser(saleonline[room][sit], 'expuls', sit);
-//                    updatesale(room);
-                }
+                //}
             }
         }
     }
@@ -1289,7 +1302,7 @@ wsServer.on('request', function(request) {
                 if (payer === this.diler) {
                     this.diler++;
                     var numtry=0;
-                    while (this.jugactivos[this.diler]['first_name'] == undefined || numtry ==8) {
+                    while (this.jugactivos[this.diler]['first_name'] == undefined || numtry < 8) {
                         numtry++;
                            console.log('while 4');
                         this.diler++;
@@ -1382,7 +1395,7 @@ wsServer.on('request', function(request) {
                 this.ciegamin = 0;
             }
         }
-        this.roomapost[this.ciegamin] = this.minci;
+        //this.roomapost[this.ciegamin] = this.minci;
         updatesaleapost(this.room, this.ciegamin, this.minci);
         this.ciegamax = this.ciegamin + 1;
         while (this.jugactivos[this.ciegamax]['first_name'] == undefined) {
@@ -1392,7 +1405,7 @@ wsServer.on('request', function(request) {
                 this.ciegamax = 0;
             }
         }
-        this.roomapost[this.ciegamax] = this.maxci;
+       // this.roomapost[this.ciegamax] = this.maxci;
         this.aposmax = this.ciegamax;
         updatesaleapost(this.room, this.ciegamax, this.maxci);
         this.jugadorenespera = this.ciegamax + 1;
@@ -1447,32 +1460,39 @@ wsServer.on('request', function(request) {
                         }
                     } 
                 }
-    //            console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length + ' Turno: ' + this.jugadorenespera + ' ApostMax: ' + this.aposmax);
+                console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length + ' Turno: ' + this.jugadorenespera + ' ApostMax: ' + this.aposmax);
                 if ((cadmesa == 0) && (this.jugadorenespera == this.aposmax) && (this.cardmesa.length < 5)) {
                     play[this.room].repartircardmesa();
+                    play[this.room].minapost();
+                    play[this.room].potefu();
+                    play[this.room].intervalo();
+                    play[this.room].enesperafu();
     //                console.log('if');
                 } else {
     //                console.log('else');
-                    if (this.cardmesa.length === 5) {
+                    if (this.cardmesa.length == 5) {
                         clearTimeout(this.enespera);
                         play[this.room].ganador();
                         var espejo = this.room;
                         var time = setTimeout(function() {
-                            play[espejo].gameover();
                             clearTimeout(time);
+                            console.log('time');
+                            play[espejo].gameover();
                             play[espejo].jugadoresactivos();
                             play[espejo].cardfu();
                             play[espejo].repartircard();
                             play[espejo].nextdiler();
-                            //play[espejo].intervalo();
-                            //play[espejo].enesperafu();
+                            play[espejo].intervalo();
+                            play[espejo].enesperafu();
                         }, 7000); 
+                    } else {
+                        console.log('minapost');
+                        play[this.room].minapost();
+                        play[this.room].enesperafu();
+                        play[this.room].potefu();
+                        play[this.room].intervalo();
                     }
                 }
-                play[this.room].minapost();
-                play[this.room].enesperafu();
-                play[this.room].potefu();
-                play[this.room].intervalo();
             }
         }
     };

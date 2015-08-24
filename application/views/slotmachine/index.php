@@ -36,7 +36,8 @@
         <div class="fondo-game"  style="background: #FF9603;">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
-    
+        
+
     <script>
         $(document).ready(function () {
             var oMain = new CMain({
@@ -71,63 +72,50 @@
             echo $this->session->userdata('token');
         }
         ?>";
-
             $(oMain).on("game_start", function (evt) {
-
                 totalcoins();
                 var options = {
                     "backdrop": "static"
                 }
-
                 $('#myModal').modal(options);
                 // alert("game_start");
             });
-
             $(oMain).on("end_bet", function (evt, iMoney, iBetWin) {
                 // alert("juegos gratis: "+ free_gameslot + " Win:"+iBetWin);
                 if (free_gameslot > 0) {
-
                     var options = {
                         "backdrop": "static"
                     }
-
                     $('#jgModal').modal(options);
                 }
                        if (free > 0) {
+                          
                             setTimeout(function() {
                                 
                            free=free-1;
+                            $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
-
                s_oGame.onMaxBetjgXxx();
                                 
-                            },3000);
-
+                            },2000);
                 }
                 else{
                     freeselect=20;
+                    NUM_PAYLINES=freeselect;
                 }
                 
-
-
             });
-
             $(oMain).on("restart", function (evt) {
                 //alert("restart");
             });
             $('#money-text').keyup(function (event) {
-
                 this.value = this.value.replace(/[^0-9\.]/g, '');
-
             });
-
             $('#buttonreconect').click(function () {
                 hideConnectionLostMessage();
                 connetserver();
             });
-
             $('#money-button').click(function () {
-
                 var value_mt = $('#money-text').val();
                 var total_money = $('#total_coins').html();
                 //alert(total_money);
@@ -138,85 +126,106 @@
                     s_oGame.TOTAL_MONEY = value_mt;
                     s_oGame._iMoney = value_mt;
                     s_oGame.moneyref(parseFloat(value_mt));
-
                     //   console.log('iMoney' + iMoney);
                     //  console.log('total Money' + TOTAL_MONEY);
-
-
                     s_oInterface.refreshMoney(parseFloat(iMoney));
                     s_oInterface.enableSpin();
-
                     var enviarm = {
                         type: 'sitmoney',
                         sitmoney: value_mt
                     }
                     socket.send(JSON.stringify(enviarm));
-
-
                     $('#myModal').modal('toggle');
-
-                } else if (value_mt < 10)
+                    value_mt = value_mt.replace(/\./g,''); 
+                } else if (parseInt(value_mt) < 10)
                 {
                     alert('Monto mínimo.');
                 } else
                 {
                     alert('saldo insuficiente.');
                 }
-
-
-
             });
-
             // CONFIG DEL BOTON JUEGOS GRATIS
-
             $('#jg-button1').click(function () {
-                           free_gameslot = 0;
+                $("#text-win").slideDown();
+                $(".item-free").slideUp();
+                  $(".numb-free").slideDown();
+                  free_gameslot = 0;
                   freeselect=20;
-                setTimeout(function() {
-                    console.log('el timeup');
-                      $('#jgModal').modal('toggle');
-               
-                var intro = {
-                    type: 'playfreegame',
-                    free: 5
-
-                }
-                            socket.send(JSON.stringify(intro));
-        }, 3000);
+                  $('#cantidad').html(5);
+                  $("#text-win").addClass('celebra');
+                  setTimeout(function() {
+                          console.log('el timeup');
+                            
+                          $('#jgModal').modal('toggle');
+                       $(".item-free").slideDown();
+                       $("#text-win").slideUp();
+                            var intro = {
+                                type: 'playfreegame',
+                                free: 5
+                            }
+                        $(".item-free").slideDown();
+                        $("#text-win").removeClass('celebra');
+                        socket.send(JSON.stringify(intro));
+                }, 2000);
                 
             document.getElementById('text-win').innerHTML = 'Has Ganado 5 juegos por 20 Lineas';
+
                 
-
-
-
         
             });
             //10 x 10
             $('#jg-button2').click(function () {
-              free_gameslot = 0;
-              freeselect=10;
-                var intro = {
-                    type: 'playfreegame',
-                    free: 10
-
-                }
-                socket.send(JSON.stringify(intro));
-                $('#jgModal').modal('toggle');
-            document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
+                $("#text-win").slideDown();
+                $(".item-free").slideUp();
+                $(".numb-free").slideDown();
+                  free_gameslot = 0;
+                  freeselect=10;
+                  $('#cantidad').html(10);
+                  $("#text-win").addClass('celebra');
+                  setTimeout(function() {
+                          console.log('el timeup');
+                            
+                          $('#jgModal').modal('toggle');
+                       $(".item-free").slideDown();
+                       $("#text-win").slideUp();
+                            var intro = {
+                                type: 'playfreegame',
+                                free: 10
+                            }
+                        $(".item-free").slideDown();
+                        $("#text-win").removeClass('celebra');
+                        socket.send(JSON.stringify(intro));
+                }, 2000);
+                 document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
+             
             });
-             $('#jg-button3').click(function () {
-              free_gameslot = 0;
-              freeselect=5;
-                var intro = {
-                    type: 'playfreegame',
-                    free: 20
-
-                }
+                   //10 x 10
+            $('#jg-button3').click(function () {
+                $("#text-win").slideDown();
+                $(".item-free").slideUp();
+                $(".numb-free").slideDown();
+                  free_gameslot = 0;
+                  freeselect=5;
+                  $('#cantidad').html(20);
+                  $("#text-win").addClass('celebra');
+                  setTimeout(function() {
+                          console.log('el timeup');
+                            
+                          $('#jgModal').modal('toggle');
+                       $(".item-free").slideDown();
+                       $("#text-win").slideUp();
+                            var intro = {
+                                type: 'playfreegame',
+                                free: 20
+                            }
+                        $(".item-free").slideDown();
+                        $("#text-win").removeClass('celebra');
+                        socket.send(JSON.stringify(intro));
+                }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 20 juegos por 5 Lineas';
-                socket.send(JSON.stringify(intro));
-                $('#jgModal').modal('toggle');
+             
             });
-
 //totalcoins();
             connetserver();
             function connetserver() {
@@ -225,7 +234,6 @@
                 //abrir la conexion
                 open_connection();
             }
-
             function open_connection() {
 //var server_url = 'ws://162.252.57.97:8082/';
                 //socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
@@ -264,10 +272,9 @@
                 var intro = {
                     type: 'join',
                     token: nickname,
-                    idgame: idgame
-
+                    idgame: idgame,
+                    idgame_free:idgame_free
                 }
-
                 socket.send(JSON.stringify(intro));
             }
             function is_websocket_supported() {
@@ -276,8 +283,6 @@
                 }
                 return false;
             }
-
-
             message_received = function (message) {
                 var message;
                 message = JSON.parse(message);
@@ -290,7 +295,6 @@
                     newvar = new Object();
                     newvar = message.messagesend;
                     var myObj = newvar;
-
                     var array = $.map(myObj, function (value, index) {
                         return [value];
                     });
@@ -301,26 +305,19 @@
                     myId = message.userId;
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
-
                     var newvar = message.messagesend;
-
-
                     s_oGame.pruebacgame(newvar);
-
                 }
                 else if (message.type === 'money_total') {
                     myId = message.userId;
-
                     var coinsvar = message.messagesend;
                     coinslabel(coinsvar);
-
                 }
                 else if (message.type === 'free_game') {
                      // myId = message.userId;
                    free_gameslot = 1;
                    //ar freg = message.messagesend;
                    //openjg(freg);
-
                 }
                       else if (message.type === 'free_game_play') {
                           console.log('aqui paso');
@@ -340,24 +337,15 @@
                             
                         }
                
-
                 }
-
                 else if (message.type === 'prueba2') {
                     myId = message.userId;
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
-
                     var newvar = message.messagesend;
-
-
                     s_oGame.pruebacgame2(newvar);
-
-
                 }
                 else if (message.type === 'readyconect') {
-
-
                     $('#user-conect').slideDown();
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
@@ -379,7 +367,6 @@
                     for (var i in nicklist) {
                         chatter_list_html += '<li>' + nicklist[i] + '</li>';
                     }
-
                     chatter_list_html = '<ul>' + chatter_list_html + '</ul>';
                     $('#chatter-list').html(chatter_list_html);
                 } else if (message.type === 'activity_typing' && parseInt(message.sender) !== parseInt(myId)) {
@@ -390,61 +377,40 @@
                         $('#is-typig-status').fadeOut();
                     }, 2000);
                 }
-
             }
-
             prueba = function (enviar) {
                 //public function prueba(){
                 enviar.type = 'prueba';
-
                 //alert(enviar.type);
-
                 socket.send(JSON.stringify(enviar));
             }
             function totalcoins() {
-
                 var money_total = {
                     type: 'money_ws'
                 }
-
-
                 //alert(enviar.type);
-
                 socket.send(JSON.stringify(money_total));
             }
             function coinslabel(coins) {
-
                 //   alert(coins);
                 //$('#money-hidden').val(coins);
                 $('#total_coins').html(coins);
-
-
-
             }
-
             function openjg(coins) {
-
-
-
                 //   alert(coins);
                 //$('#money-hidden').val(coins);
                // $('#total_jg').html(coins);
-
-
                 //free_gameslot = coins;
-
             }
-
         });
-
-
-
     </script>
     <div id="frutas" class="container-fluid sin-padding fondo-game" style="background: #FF9603;">
+       
         <!-- Trigger the modal with a button -->
         <div class="container sin-padding">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">    
+                
                 <?php     
                         $valores = array();
                         $x=1;
@@ -459,6 +425,9 @@
                          ?>
                         
                     <div class="content-canvas">
+                         <div class="numb-free">
+            <p id="cantidad"></p>
+        </div>
                         <canvas id="canvas" class='ani_hack' width="1024" height="768"> </canvas>
                     </div>  
                 </div>
@@ -521,6 +490,7 @@
                     </div>
                         
                     <div class="modal-body">
+                        <p>Pulsa una opcion</p>
                         <?php
                         $z = 1;
                         foreach($valores as $v) { ?>
@@ -529,14 +499,14 @@
                                 <div class="item-free">
                                     <img id="jg-button<?php echo $v; ?>" 
                                     src="./interface/images/frutas/<?php echo $z; ?>.png"
-                                    <?php if($v== 1) { ?>
+                                    <?php if($z== 1) { ?>
                                     style="";
                                     <?php } ?>        
-                                    <?php if($v== 2) { ?>
+                                    <?php if($z== 2) { ?>
                                      style="margin-top:45px;"
                                     <?php } ?>
-                                    <?php if($v== 3) { ?>
-                                    style="margin-top:5px;"
+                                    <?php if($z== 3) { ?>
+                                    style="margin-top:-24px;"
                                     <?php } ?>
                                     />
                                 </div>
