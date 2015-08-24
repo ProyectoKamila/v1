@@ -324,7 +324,7 @@ this.cardFromDealerArrived = function(oCard,bDealerCard,iCount){
         s_oGame._dealing();
     }else{
         s_oGame._checkHand();
-        if( bDealerCard === false && _bDoubleForPlayer){
+        if( bDealerCard === false && _bDoubleForPlayer === true ){
            s_oGame.onStand();
         }
     }
