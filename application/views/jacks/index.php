@@ -137,8 +137,8 @@
                 }
 
                 function open_connection() {
-                   //socket = new WebSocket('ws://162.252.57.97:8082/', 'server');
-                   socket = new WebSocket('ws://localhost:8082/', 'server');
+                   socket = new WebSocket('ws://162.252.57.97:8085/', 'server');
+                   //socket = new WebSocket('ws://localhost:8082/', 'server');
                     socket.addEventListener("open", connection_established);
                 }
               //cuando la conexion se establece
