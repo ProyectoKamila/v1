@@ -447,7 +447,7 @@
             type: 'exitgame'
         }
         $('.mesaplayer' + (idsit + 1)).addClass('oculto');
-        socket.send(JSON.stringify(intro));
+       // socket.send(JSON.stringify(intro));
         $('#rowgame').slideUp();
         $('#sales').removeClass('sales-close');
         $('#playerdata').slideDown();
