@@ -679,7 +679,7 @@ wsServer.on('request', function(request) {
                         }
                         updatesaleapost(connection.idsale, connection.idsit, montoapos);
                         //play[connection.idsale].roomapost[connection.idsit] = parseFloat(play[connection.idsale].roomapost[connection.idsit]) + montoapos;
-                        play[connection.idsale].pote1 = parseFloat(play[connection.idsale].pote1) + montoapos;
+                      
                         play[connection.idsale].potefu();
                         clearTimeout(play[connection.idsale].enespera);
                         play[connection.idsale].play();
@@ -1059,6 +1059,9 @@ wsServer.on('request', function(request) {
             if (parseFloat(saleonline[room][sit].apos) >= parseFloat(apos)) {
                 play[room].roomapost[sit]=play[room].roomapost[sit] + parseFloat(apos);
                 saleonline[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
+                //play[room].pote1 = play[room].roomapost[sit] + parseFloat(apos);
+                play[room].pote1 = parseFloat(play[room].pote1) + apos;
+               // this.pote1 = this.pote1 + this.maxci
                  var enviar = {
                         first_name: '',
                         last_name: '',
@@ -1292,9 +1295,13 @@ wsServer.on('request', function(request) {
         //    console.log(this.jugactivos);
 //        console.log(this.jugactivos[6]);
         for (i in saleonlineconex[this.room]) {
-            if (saleonlineconex[this.room][i] !== undefined && i < 7 && saleonlineconex[this.room][i].apos > this.maxci) {
-                this.jugactivos[i] = saleonlineconex[this.room][i];
-                this.numjugactivos++;
+            if (saleonlineconex[this.room][i] !== undefined && i < 7)  {
+                if (saleonlineconex[this.room][i].apos > this.maxci){
+                    this.jugactivos[i] = saleonlineconex[this.room][i];
+                    this.numjugactivos++;
+                }else{
+                    sendmessageuser(saleonlineconexall[this.room][i], 'expuls', i);
+                }
             }
         }
         if (this.numjugactivos < 2){
@@ -1662,7 +1669,7 @@ wsServer.on('request', function(request) {
     };
     Sala.prototype.ciegaminfu = function() {
 //        if (this.jugactivos[this.ciegamin].apost >= this.maxci) {
-        this.pote1 = this.pote1 + this.minci;
+     //   this.pote1 = this.pote1 + this.minci;
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'ciegamin', this.ciegamin);
         }
@@ -1675,7 +1682,7 @@ wsServer.on('request', function(request) {
     };
     Sala.prototype.ciegamaxfu = function() {
 //        if (this.jugactivos[this.ciegamax].apost >= this.maxci) {
-        this.pote1 = this.pote1 + this.maxci;
+     //   this.pote1 = this.pote1 + this.maxci;
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'ciegamax', this.ciegamax);
         }
