@@ -210,20 +210,20 @@
                     }else if (message.type === 'handreturnindex') {
                     myId = message.userId;
                     var newvar = message.messagesend;
-                    console.log('arreglo recibido'+newvar);
+                    //console.log('arreglo recibido'+newvar);
                     s_oGame.indexnodereturn(newvar);
 
                     }else if (message.type === 'handreturn') {
                     myId = message.userId;
                     var newvar = message.messagesend;
-                    console.log('arreglo mano recibido'+newvar +  'tiene posiciones'+newvar.length);
+                    //console.log('arreglo mano recibido'+newvar +  'tiene posiciones'+newvar.length);
 
                     s_oGame.handnodereturn(newvar);
                     
                     }else if (message.type === 'drawreturn') {
                     myId = message.userId;
                     var newvar = message.messagesend;
-                    console.log('arreglo mano recibido'+newvar +  'tiene posiciones'+newvar.length);
+                    //console.log('arreglo mano recibido'+newvar +  'tiene posiciones'+newvar.length);
 
                     s_oGame.drawnodereturn(newvar);
                     }else if (message.type === 'readyconect') {
@@ -235,7 +235,7 @@
                       myId = message.userId;
                       // $('#chat-container').fadeIn();
                       //$('#loading-message').hide();
-                      console.log(message.messagesend);
+                      //console.log(message.messagesend);
                     } else if (message.type === 'message' && parseInt(message.sender) !== parseInt(myId)) {
                       //add_new_msg_to_log(message);
                       blink_window_title('~ message poker ~');
@@ -276,14 +276,14 @@
                 //public function prueba(){
                     e.type='checkhandeal';
                     //alert(enviar.type);
-                    console.log('asdsadads'+JSON.stringify(e));
+                    //console.log('asdsadads'+JSON.stringify(e));
                     socket.send(JSON.stringify(e));
                 }
                 cambiarinfo_node = function(enviar){
                 //public function prueba(){
                     enviar.type='cambiarinfo';
                     //alert(enviar.type);
-                    console.log('JSON.stringify(enviar)'+ JSON.stringify(enviar));
+                    //console.log('JSON.stringify(enviar)'+ JSON.stringify(enviar));
                     socket.send(JSON.stringify(enviar));
                 }
                 function totalcoins(){
