@@ -447,7 +447,7 @@
             type: 'exitgame'
         }
         $('.mesaplayer' + (idsit + 1)).addClass('oculto');
-        socket.send(JSON.stringify(intro));
+       // socket.send(JSON.stringify(intro));
         $('#rowgame').slideUp();
         $('#sales').removeClass('sales-close');
         $('#playerdata').slideDown();
@@ -702,13 +702,22 @@
             //            console.log(message.messagesend);
             var dt = message.messagesend;
             var yo = $('.sidebar-game .nameprofile').html();
+                var adm = '';
             if (yo !== (dt.first_name + ' ' + dt.last_name)) {
-                var cls = 'responder';
-            } else {
                 var cls = '';
+                console.log('color: ' +dt.color)
+                if (dt.color == 1){
+                    var adm = 'style="color: #cfaa57;text-align: CENTER;"';
+                }
+            } else {
+                console.log('color: ' +dt.color)
+                if (dt.color == 1){
+                    var adm = 'style="color: #d3cf49;text-align: CENTER;"';
+                }
+                var cls = 'responder';
             }
 //            console.log()
-            $('#globalchat').append('<div class="message"><p><span class="name ' + cls + '"> ' + dt.first_name + ' ' + dt.last_name + ' : </span>' + dt.mensaje + '</p></div>');
+            $('#globalchat').append('<div class="message"><p '+ adm +'><span class="name ' + cls + '"> ' + dt.first_name + ' ' + dt.last_name + ': </span>' + dt.mensaje + '</p></div>');
             $('#globalchat').scrollTop(9999999999999999999999);
 
         }

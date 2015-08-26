@@ -638,27 +638,40 @@ wsServer.on('request', function(request) {
             else if (msgObj.type === 'apost') {
 //                console.log(msgObj);
                 var montoapos = 0;
+                var mayorapos = 0;
                 if ((connection.idsale !== undefined) && (connection.idsit !== undefined)) {
 //                    console.log('Conection ' + connection.idsit + '/' + connection.idsale + ' EnEspera ' + play[connection.idsale].jugadorenespera)
-                    if (connection.idsit === play[connection.idsale].jugadorenespera) {
-                        if ((parseFloat(msgObj.montapost) > 0) && (parseFloat(msgObj.montapost) > parseFloat(saleonline[connection.idsale][connection.idsit].apos))) {
-//                            console.log('if');
-                            montoapos = parseFloat(saleonline[connection.idsale][connection.idsit].apos);
-                        } else {
-//                            console.log('else');
-                            montoapos = parseFloat(msgObj.montapost);
+                    if (connection.idsit == play[connection.idsale].jugadorenespera && play[connection.idsale].numjugactivos > 1) {
+                        for (i in saleonline[connection.idsale]){
+                            if (i > 0){   
+                                if ((saleonline[connection.idsale][i].apos + play[connection.idsale].roomapost[connection.idsit]) < (saleonline[connection.idsale][(i-1)].apos + play[connection.idsale].roomapost[(i-1)])){
+                                    mayorapos = saleonline[connection.idsale][i].apos + play[connection.idsale].roomapost[i];
+                                }
+                            } else {
+                                mayorapos = saleonline[connection.idsale][i].apos + play[connection.idsale].roomapost[i];
+                            }
                         }
+                        mayorapos = mayorapos - play[connection.idsale].roomapost[connection.idsit];
+                        if ((parseFloat(msgObj.montapost) > 0) && (parseFloat(msgObj.montapost) > parseFloat(saleonline[connection.idsale][connection.idsit].apos))) {
+                            if (mayorapos < parseFloat(saleonline[connection.idsale][connection.idsit].apos)){
+                                montoapos = mayorapos;
+                            } else {
+                                montoapos = parseFloat(saleonline[connection.idsale][connection.idsit].apos);
+                            }
+                        } else {
+                            if (mayorapos < parseFloat(msgObj.montapost)){
+                                montoapos = mayorapos;
+                            }else{
+                                montoapos = parseFloat(msgObj.montapost);
+                            }
+                        }
+                        console.log('apuesta final: ' + mayorapos);
                         updatesaleapost(connection.idsale, connection.idsit, montoapos);
-                        play[connection.idsale].roomapost[connection.idsit] = parseFloat(play[connection.idsale].roomapost[connection.idsit]) + montoapos;
-                        play[connection.idsale].pote1 = parseFloat(play[connection.idsale].pote1) + montoapos;
                         play[connection.idsale].potefu();
                         clearTimeout(play[connection.idsale].enespera);
                         play[connection.idsale].play();
                     }
                 }
-////                console.log(' Idsale: ' + connection.idsale+ ' Idsit: ' + connection.idsit);
-//                console.log(saleonline[connection.idsale][connection.idsit].apos);
-//                console.log(montoapos);
             }
             else if (msgObj.type === 'sitdown') {
                 if (connection.idsit > 6) {
@@ -741,7 +754,16 @@ wsServer.on('request', function(request) {
             }
             else if (msgObj.type === 'leave') {
                console.log('leave aqui:'+ connection.idsale);
-                if (connection.idsit!==undefined) {
+                if (connection.idsale!==undefined && connection.idsit!==undefined) {
+                     var enviar = {
+                        first_name: '',
+                        last_name: '',
+                        color: 1,
+                        mensaje: 'Jugador ' + (parseInt(connection.idsit) +1) + ', se ha retirado',
+                    }
+                    for (i in saleonlineconexall[connection.idsale]){
+                        sendmessageuser(saleonlineconexall[connection.idsale][i], 'comentglobal', enviar);
+                    }
                     play[connection.idsale].leaveplay(connection.idsit);
 //                console.log('leave');
                 }
@@ -1005,7 +1027,14 @@ wsServer.on('request', function(request) {
             saleonline[room][sit].card2 = play[room].jugactivos[sit]['card2'];
 //            saleonlineconex[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
 //            saleonlineconexall[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
+                var enviar = {
+                        first_name: '',
+                        last_name: '',
+                        color: 1,
+                        mensaje: 'Jugador ' + (parseInt(sit) +1) + ', Ha ganado ' + apos,
+                    }
             for (i in saleonlineconexall[room]) {
+                sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
                 sendmessageuser(saleonlineconexall[room][i], 'ganador', saleonline[room][sit]);
             }
             updatesale(room);
@@ -1014,23 +1043,34 @@ wsServer.on('request', function(request) {
     }
     function updatesaleapost(room, sit, apos) {
         if (saleonline[room][sit]) {
-            if (saleonline[room][sit].apos >= parseFloat(apos)) {
+            if (parseFloat(saleonline[room][sit].apos) >= parseFloat(apos)) {
+                play[room].roomapost[sit]=play[room].roomapost[sit] + parseFloat(apos);
                 saleonline[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
-//            saleonlineconex[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
-//            saleonlineconexall[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
+                //play[room].pote1 = play[room].roomapost[sit] + parseFloat(apos);
+                play[room].pote1 = parseFloat(play[room].pote1) + apos;
+               // this.pote1 = this.pote1 + this.maxci
+                 var enviar = {
+                        first_name: '',
+                        last_name: '',
+                        color: 1,
+                        mensaje: 'Jugador ' + (parseInt(sit) +1) + ', Ha apostado ' + apos,
+                    }
                 for (i in saleonlineconexall[room]) {
+                    sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
                     sendmessageuser(saleonlineconexall[room][i], 'joinsale', saleonline[room]);
                 }
             } else {
-                if (saleonline[room][sit].apos >= play[room].maxci) {
-                    play[room].leaveplay(sit);
-                } else {
-                    console.log('expuls');
-                    for (i in saleonlineconexall[this.room]) {
-                        sendmessageuser(saleonlineconexall[room][i], 'expuls', sit);
+               // play[room].leaveplay(sit);
+                expulssala(room,sit);
+                var enviar = {
+                        first_name: '',
+                        last_name: '',
+                        color: 1,
+                        mensaje: 'Jugador ' + (parseInt(sit) +1) + ', Ha sido expulsado',
                     }
-//                        sendmessageuser(saleonline[room][sit], 'expuls', sit);
-//                    updatesale(room);
+                for (i in saleonlineconexall[room]) {
+                    sendmessageuser(saleonlineconexall[room][i], 'joinsale', sit);
+                    sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
                 }
             }
         }
@@ -1138,6 +1178,57 @@ wsServer.on('request', function(request) {
             sendmessageuser(connection, 'joinsale', saleonline[idsale]);
         }
     }
+    function expulssala(room,sit) {
+        if (room !== undefined) {
+            var conexarray = {
+                name: undefined,
+                coin: undefined,
+                apos: undefined,
+                id: undefined,
+                imageprofile: undefined,
+            }
+            if (saleonline[room][sit] !== undefined) {
+                var prearray = saleonline[room][sit];
+                saleonline[room][sit] = [conexarray];
+            }
+            if (sit !== undefined) {
+                var mysqlc = mysql.createConnection(
+                        {
+                            host: '23.229.215.154',
+                            user: 'v1',
+                            password: 'Temporal01',
+                            database: 'v1',
+                        }
+                );
+                mysqlc.connect();
+                var query = 'UPDATE user_data SET coins = (coins +' + parseInt(prearray.apos) + ') WHERE id_user = "' + prearray.id + '"';
+                mysqlc.query(query, function(err, row, fields) {
+                    if (typeof(row)) {
+                    }
+                });
+                mysqlc.end();
+                saleonlineconex[room][sit] = undefined;
+                if (connection.idsit < 7) {
+                    if (typeof play[room] && play[room] !== undefined && typeof play[room] && play[room].numjugactivos == 1) {
+                        play[room].gameover();
+                        clearInterval(play[room].enespera);
+//                        delete play[connection.idsale];
+                    }
+                    if(play[room] !== undefined){
+                        play[room].leaveplay(sit);
+                        if(play[room].numjugactivos < 2 ){
+                             play[room].gameover();
+                             
+                              updatewin(play[room].room, i, 0);
+                        }
+                        updatesale(room);
+                    }
+                }
+            }
+            sendmessageuser(saleonlineconexall[room][sit], 'expuls', sit);
+        }
+    }
+    
     function desconectadesala() {
         if (connection.idsale !== undefined) {
             var conexarray = {
@@ -1239,13 +1330,22 @@ wsServer.on('request', function(request) {
             this.newapost[x] = 0;
             x++;
         }
-        //    console.log(this.jugactivos);
-//        console.log(this.jugactivos[6]);
-        for (i in saleonlineconex[this.room]) {
-            if (saleonlineconex[this.room][i] !== undefined && i < 7) {
-                this.jugactivos[i] = saleonlineconex[this.room][i];
-                this.numjugactivos++;
-            }
+        var i = 0;
+        while (saleonlineconex[this.room][i] !== undefined   && i < 7){
+                if (saleonlineconex[this.room][i].apos > this.maxci){
+                    this.jugactivos[i] = saleonlineconex[this.room][i];
+                    this.numjugactivos++;
+                }else{
+                    expulssala(this.room,i);
+                }
+            i++;
+        }
+      //  for (i in saleonlineconex[this.room]) {
+       //     if (saleonlineconex[this.room][i] !== undefined && i < 7)  {
+        //    }
+       // }
+        if (this.numjugactivos < 2){
+            this.gameover();
         }
         //console.log(this.jugactivos);
     };
@@ -1258,23 +1358,23 @@ wsServer.on('request', function(request) {
             this.jugactivos[payer] = coarray;
             this.roomapost[payer] = 0;
             this.newapost[payer] = 0;
-            this.numjugactivos = (this.numjugactivos -1);
+            this.numjugactivos= (this.numjugactivos -1);
+            console.log('restantes: ' +this.numjugactivos);
             if (this.numjugactivos < 2) {
-                this.numjugactivos = 0;
                 for (i in this.jugactivos) {
                     if (this.jugactivos[i]['first_name'] !== undefined) {
-                        console.log('jugador: '+this.jugactivos[i]['first_name']);
+                       // console.log('jugador: '+this.jugactivos[i]['first_name']);
                         this.jugactivos[i]['apost'] = parseFloat(this.jugactivos[i]['apost']) + parseFloat(this.pote1);
-                        updatewin(this.room, i, this.pote1);
                         clearTimeout(this.enespera);
+                        updatewin(this.room, i, this.pote1);
                         var espejo = this.room;
                         var time = setTimeout(function() {
                             clearTimeout(time);
                             play[espejo].gameover();
                             play[espejo].jugadoresactivos(); 
+                            play[espejo].cardfu();
                             if (play[espejo].numjugactivos > 1){
-                                console.log('numactivo' + play[espejo].numjugactivos);
-                                play[espejo].cardfu();
+                                console.log('numactivo ' + play[espejo].numjugactivos);
                                 play[espejo].repartircard();
                                 play[espejo].nextdiler();
                                 play[espejo].intervalo();
@@ -1286,19 +1386,20 @@ wsServer.on('request', function(request) {
                     }
                 }
             } else if (this.numjugactivos > 1){
-                if (payer === this.diler) {
+                clearTimeout(this.enespera);
+                if (payer == this.diler) {
                     this.diler++;
                     var numtry=0;
-                    while (this.jugactivos[this.diler]['first_name'] == undefined || numtry ==8) {
+                    while (this.jugactivos[this.diler]['first_name'] == undefined && numtry < 8) {
                         numtry++;
-                           console.log('while 4');
+                           console.log('while 4: ' + numtry);
                         this.diler++;
                         if (this.diler == 7) {
                             this.diler = 0;
                         }
                     }
                 }
-                if (payer === this.aposmax) {
+                if (payer == this.aposmax) {
                     var maxapost = 0;
                     for (i in this.roomapost) {
                         if (this.roomapost[i] > maxapost) {
@@ -1307,12 +1408,7 @@ wsServer.on('request', function(request) {
                         }
                     }
                 }
-                clearTimeout(this.enespera);
-                if (this.numjugactivos > 1) {
-                    play[this.room].play();
-                }
-            }else{
-                play[this.room].gameover();
+                play[this.room].play();
             }
     };
     //revuelvo las cartas
@@ -1359,121 +1455,152 @@ wsServer.on('request', function(request) {
     Sala.prototype.gameover = function() {
         play[this.room].cardmesa = [];
         play[this.room].roomapost = [];
-        clearTimeout(this.enespera);
         this.pote1=0;
+        this.numjugactivos=0;
+        clearTimeout(this.enespera);
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'gameover', this.cardmesa);
         }
     };
     Sala.prototype.nextdiler = function() {
-       
-        while (this.jugactivos[this.diler]['first_name'] == undefined) {
-               console.log('while 5');
-            this.diler++;
-            if (this.diler == 7) {
-                this.diler = 0;
+        if (play[this.room].numjugactivos > 1){
+                
+           var numtry =0;
+            while (this.jugactivos[this.diler]['first_name'] == undefined && numtry < 8) {
+                   numtry++;
+                   console.log('while 5');
+                this.diler++;
+                if (this.diler == 7) {
+                    this.diler = 0;
+                }
             }
-        }
-        this.ciegamin = this.diler + 1;
-        while (this.jugactivos[this.ciegamin]['first_name'] == undefined) {
-               console.log('while 6');
-            this.ciegamin++;
-            if (this.ciegamin == 7) {
-                this.ciegamin = 0;
+            this.ciegamin = this.diler + 1;
+            var numtry=0;
+            while (this.jugactivos[this.ciegamin]['first_name'] == undefined && numtry < 8) {
+                   numtry++;
+                   console.log('while 6');
+                this.ciegamin++;
+                if (this.ciegamin == 7) {
+                    this.ciegamin = 0;
+                }
             }
-        }
-        this.roomapost[this.ciegamin] = this.minci;
-        updatesaleapost(this.room, this.ciegamin, this.minci);
-        this.ciegamax = this.ciegamin + 1;
-        while (this.jugactivos[this.ciegamax]['first_name'] == undefined) {
-               console.log('while 7');
-            this.ciegamax++;
-            if (this.ciegamax == 7) {
-                this.ciegamax = 0;
+            //this.roomapost[this.ciegamin] = this.minci;
+            updatesaleapost(this.room, this.ciegamin, this.minci);
+            this.ciegamax = this.ciegamin + 1;
+            var numtry = 0
+            while (this.jugactivos[this.ciegamax]['first_name'] == undefined && numtry < 8) {
+                   numtry++;
+                   console.log('while 7');
+                this.ciegamax++;
+                if (this.ciegamax == 7) {
+                    this.ciegamax = 0;
+                }
             }
-        }
-        this.roomapost[this.ciegamax] = this.maxci;
-        this.aposmax = this.ciegamax;
-        updatesaleapost(this.room, this.ciegamax, this.maxci);
-        this.jugadorenespera = this.ciegamax + 1;
-        while (this.jugactivos[this.jugadorenespera]['first_name'] == undefined) {
-            console.log('while 1');
-            this.jugadorenespera++;
-            if (this.jugadorenespera == 7) {
-                this.jugadorenespera = 0;
+           // this.roomapost[this.ciegamax] = this.maxci;
+            this.aposmax = this.ciegamax;
+            updatesaleapost(this.room, this.ciegamax, this.maxci);
+            this.jugadorenespera = this.ciegamax + 1;
+            var numtry=0;
+            while (this.jugactivos[this.jugadorenespera]['first_name'] == undefined && numtry < 8) {
+                numtry++;
+                console.log('while 1');
+                this.jugadorenespera++;
+                if (this.jugadorenespera == 7) {
+                    this.jugadorenespera = 0;
+                }
             }
+            this.dilerfu();
+            this.ciegaminfu();
+            this.ciegamaxfu();
+            this.minapost();
+            this.potefu();
+        }else{
+            play[this.room].gameover();
         }
-        this.dilerfu();
-        this.ciegaminfu();
-        this.ciegamaxfu();
-        this.minapost();
-        this.potefu();
 //        this.repartircardmesa();
     };
     Sala.prototype.play = function() {
-        
-        var prev = this.jugadorenespera;
-        var x = this.jugadorenespera + 1;
-        if (x == 7) {
-            this.jugadorenespera = 0;
-            x = 0;
-        }
-        while (this.jugactivos[x]['first_name'] == undefined) {
-               console.log('while 2');
-            x++;
-            if (x == 7) {
-                x = 0;
-            }
-        }
-        this.jugadorenespera = x;
-        if (this.jugactivos[this.jugadorenespera] !== undefined) {
-            var maxapost = 0;
-            for (i in this.roomapost) {
-                if (this.roomapost[i] > maxapost) {
-                    maxapost = parseFloat(this.roomapost[i]);
-                    this.aposmax = i;
-                }
-            }
-            console.log('Prev: ' + prev + ' Name: ' + this.jugactivos[prev]['first_name'] + ' Sentado: ' + saleonline[this.room][prev].apos + ' mayor ' + maxapost + ' Apost: '+ this.roomapost[prev]);
-            if ((this.jugactivos[prev]['first_name'] !== undefined) && (this.roomapost[prev] !== maxapost) && (saleonline[this.room][prev].apos !== 0)) {
-                    this.leaveplay(prev);
-            } else {
-                var cadmesa = 0;
+        if (this.numjugactivos > 1){
+            var prev = this.jugadorenespera;
+             var maxapost = 0;
                 for (i in this.roomapost) {
-                    if ((this.jugactivos[i]['first_name'] !== undefined) && (this.roomapost[i] !== maxapost)) {
-                        cadmesa = 1;
-                        if (saleonline[this.room][i].apos == 0){
-                            cadmesa = 0;
-                        }
-                    } 
-                }
-    //            console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length + ' Turno: ' + this.jugadorenespera + ' ApostMax: ' + this.aposmax);
-                if ((cadmesa == 0) && (this.jugadorenespera == this.aposmax) && (this.cardmesa.length < 5)) {
-                    play[this.room].repartircardmesa();
-    //                console.log('if');
-                } else {
-    //                console.log('else');
-                    if (this.cardmesa.length === 5) {
-                        clearTimeout(this.enespera);
-                        play[this.room].ganador();
-                        var espejo = this.room;
-                        var time = setTimeout(function() {
-                            play[espejo].gameover();
-                            clearTimeout(time);
-                            play[espejo].jugadoresactivos();
-                            play[espejo].cardfu();
-                            play[espejo].repartircard();
-                            play[espejo].nextdiler();
-                            //play[espejo].intervalo();
-                            //play[espejo].enesperafu();
-                        }, 7000); 
+                    if (this.roomapost[i] > maxapost) {
+                        maxapost = parseFloat(this.roomapost[i]);
+                        this.aposmax = i;
                     }
                 }
-                play[this.room].minapost();
-                play[this.room].enesperafu();
-                play[this.room].potefu();
-                play[this.room].intervalo();
+                console.log('Prev: ' + prev + ' Name: ' + this.jugactivos[prev]['first_name'] + ' Sentado: ' + saleonline[this.room][prev].apos + ' mayor ' + maxapost + ' Apost: '+ this.roomapost[prev] + ' Activos: ' + this.numjugactivos);
+                if ((this.jugactivos[prev]['first_name'] !== undefined) && (this.roomapost[prev] !== maxapost) && (saleonline[this.room][prev].apos !== 0)) {
+                        this.leaveplay(prev);
+                } else {
+                    var x = this.jugadorenespera + 1;
+                        if (x == 7) {
+                            this.jugadorenespera = 0;
+                            x = 0;
+                        }
+                        var numtry=0;
+                        while (this.jugactivos[x]['first_name'] == undefined && numtry < 8) {
+                            numtry++;
+                               console.log('while 2');
+                            x++;
+                            if (x == 7) {
+                                x = 0;
+                            }
+                        }
+                        this.jugadorenespera = x;
+                        if (this.jugactivos[this.jugadorenespera] !== undefined) {
+                           
+                    var cadmesa = 0;
+                    for (i in this.roomapost) {
+                        if ((this.jugactivos[i]['first_name'] !== undefined) && (this.roomapost[i] !== maxapost)) {
+                            cadmesa = 1;
+                            if (saleonline[this.room][i].apos == 0){
+                                cadmesa = 0;
+                            }
+                        } 
+                    }
+                    console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length + ' Turno: ' + this.jugadorenespera + ' ApostMax: ' + this.aposmax);
+                    if ((cadmesa == 0) && (this.jugadorenespera == this.aposmax) && (this.cardmesa.length < 5)) {
+                        play[this.room].repartircardmesa();
+                        play[this.room].minapost();
+                        play[this.room].potefu();
+                        play[this.room].intervalo();
+                        play[this.room].enesperafu();
+        //                console.log('if');
+                    } else {
+        //                console.log('else');
+                        if (this.cardmesa.length == 5) {
+                            clearTimeout(this.enespera);
+                            play[this.room].ganador();
+                            var espejo = this.room;
+                            var time = setTimeout(function() {
+                                clearTimeout(time);
+                                console.log('time');
+                                play[espejo].gameover();
+                                play[espejo].jugadoresactivos();
+                                play[espejo].cardfu();
+                                if (play[espejo].numjugactivos > 1){
+                                    console.log('numactivo ' + play[espejo].numjugactivos);
+                                    play[espejo].repartircard();
+                                    play[espejo].nextdiler();
+                                    play[espejo].intervalo();
+                                    play[espejo].enesperafu();
+                                }else {
+                                    play[espejo].gameover();
+                                }
+                            }, 7000); 
+                        } else {
+                            //console.log('minapost');
+                            play[this.room].minapost();
+                            play[this.room].potefu();
+                            play[this.room].intervalo();
+                            play[this.room].enesperafu();
+                        }
+                    }
+                }
             }
+        }else{
+            play[this.room].gameover();
         }
     };
     Sala.prototype.ganador = function() {
@@ -1572,8 +1699,6 @@ wsServer.on('request', function(request) {
         }
     };
     Sala.prototype.enesperafu = function() {
-        //   console.log(this.jugadorenespera);
-        //   console.log(pos[this.jugadorenespera]);
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'enespera', this.jugadorenespera);
         }
@@ -1584,30 +1709,14 @@ wsServer.on('request', function(request) {
         }
     };
     Sala.prototype.ciegaminfu = function() {
-//        if (this.jugactivos[this.ciegamin].apost >= this.maxci) {
-        this.pote1 = this.pote1 + this.minci;
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'ciegamin', this.ciegamin);
         }
-//        } else {
-//            for (i in saleonlineconexall[this.room]) {
-//                sendmessageuser(saleonlineconexall[this.room][i], 'expuls', this.ciegamin);
-//            }
-//            updatesale(this.room);
-//        }
     };
     Sala.prototype.ciegamaxfu = function() {
-//        if (this.jugactivos[this.ciegamax].apost >= this.maxci) {
-        this.pote1 = this.pote1 + this.maxci;
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'ciegamax', this.ciegamax);
         }
-//        } else {
-//            for (i in saleonlineconexall[this.room]) {
-//                sendmessageuser(saleonlineconexall[this.room][i], 'expuls', this.ciegamax);
-//            }
-//            updatesale(this.room);
-//        }
     };
     Sala.prototype.montapost = function(user, apost) {
         this.jugactivos[user].apost = apost;
@@ -1630,7 +1739,6 @@ wsServer.on('request', function(request) {
             'pote': this.pote1,
             'apost': this.roomapost
         }
-//        console.log(this.roomapost);
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'pote', send);
         }
@@ -1641,15 +1749,11 @@ wsServer.on('request', function(request) {
         var espejo = this.room;
         clearTimeout(this.enespera);
         this.enespera = setTimeout(function() {
-//            console.log('en espera');
             if (typeof  play[espejo] && play[espejo] !== undefined) {
                 play[espejo].play();
-//                play[espejo].minapost()
             }
-//            this.minapost();
         }, 20000);
-//        console.log(this.room);
-//        this.enespera = setInterval(function(){ console.log(room);}, 5000);
+
     };
     function logicpokerstart(idsale) {
         play[idsale] = new Sala(idsale);
