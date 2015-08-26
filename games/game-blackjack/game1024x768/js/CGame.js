@@ -680,6 +680,9 @@ this.hitDealer = function(){
         this._gameOver = function(){
             _oGameOverPanel.show();
         };
+        this._gameReload = function(){
+            _oGameOverPanel.hide();
+        };
 
         this.onFicheSelected = function(iFicheIndex,iFicheValue){
             this.ficheSelected(iFicheValue,iFicheIndex);

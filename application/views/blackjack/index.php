@@ -90,7 +90,13 @@
                 });
 
                 $(oMain).on("recharge", function (evt) {
-                    alert("recharge");
+                    totalcoins();
+                        var options = {
+                            "backdrop" : "static"
+                        }
+
+                        $('#myModal').modal(options);
+                        s_oGame._gameReload();
                 });
 
                 $('#buttonreconect').click(function() {

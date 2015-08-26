@@ -44,8 +44,8 @@ function CGameOver(){
     };
     
     this._onRecharge = function(){
-       // $(s_oMain).trigger("recharge");
-       s_oGame.onExit();
+        $(s_oMain).trigger("recharge");
+      // s_oGame.onExit();
     };
     
     this._onExit = function(){
