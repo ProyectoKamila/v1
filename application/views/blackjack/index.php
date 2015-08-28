@@ -60,8 +60,8 @@
                 var flash_title_timer;
                 var connected = false;
                 var connection_retry_timer;
-                var server_url = 'ws://162.252.57.97:8084';
-               //var server_url = 'ws://localhost:8084/';
+               // var server_url = 'ws://162.252.57.97:8084';
+               var server_url = 'ws://localhost:8084/';
                 var token = "<?php
                      if (isset($_COOKIE['token'])) {
                         echo $_COOKIE['token'];
@@ -90,7 +90,13 @@
                 });
 
                 $(oMain).on("recharge", function (evt) {
-                    alert("recharge");
+                    totalcoins();
+                        var options = {
+                            "backdrop" : "static"
+                        }
+
+                        $('#myModal').modal(options);
+                        s_oGame._gameReload();
                 });
 
                 $('#buttonreconect').click(function() {
@@ -142,8 +148,8 @@
 
                 function open_connection() {
 
-                   socket = new WebSocket('ws://162.252.57.97:8084/', 'server');
-                    //socket = new WebSocket('ws://localhost:8084/', 'server');
+                   //socket = new WebSocket('ws://162.252.57.97:8084/', 'server');
+                    socket = new WebSocket('ws://localhost:8084/', 'server');
 
 
                     socket.addEventListener("open", connection_established);

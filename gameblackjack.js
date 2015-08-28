@@ -627,9 +627,16 @@ iCardCount: objeto.iCardCount
         /*oCard.setInfo(pStartingPoint,pEndingPoint,_aCardsInCurHandForDealer[_iNextCardForDealer],
             s_oGameSettings.getCardValue(_aCardsInCurHandForDealer[_iNextCardForDealer]),bDealer,iCardCount);*/
         
-
+            
         connection.e = connection.e + 1;
-        connection.carta = _iNextCardForDealer + connection.e;
+       
+        if (connection.e == connection._iNextCardForDealer){
+             connection.e = connection.e + 1;
+       
+        }
+       
+
+        connection.carta = _iNextCardForDealer + (connection.e+1);
         
 
 
@@ -642,13 +649,13 @@ iCardCount: objeto.iCardCount
             s_oGameSettings.getCardValue(_aCardsInCurHandForPlayer[_iNextCardForPlayer]),bDealer,iCardCount);*/
     connection.f = connection.f + 1;
 
-
+         connection.f = connection.f + 1;
        // while (connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f])>8 && connection._iCardDealedToPlayer)          
       while (!_checkHandNodePlayerAttach(connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]),objeto.apuesta))          
  
         {
 
-             connection.f = connection.f + 1; //suma uno a la variable para recorrer el mazo
+             //suma uno a la variable para recorrer el mazo
 
              //connection.sumaCartasPlayer= parseFloat(connection.sumaCartasPlayer) + connection.s_oGameSettings.getCardValue(connection._aCardsInCurHandForPlayer[_iNextCardForPlayer + connection.f]);
 

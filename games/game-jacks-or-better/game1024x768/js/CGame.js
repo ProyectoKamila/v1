@@ -100,7 +100,7 @@ function CGame(oData){
         
         for(var i=0;i<_aCurHand.length;i++){
             _aCurHand[i].reset();
-            console.log('valor de carta'+ _aCardDeck[i].rank);
+            //console.log('valor de carta'+ _aCardDeck[i].rank);
         }
         _oInterface.resetHand();
         _oPayTable.resetHand();
@@ -136,7 +136,7 @@ function CGame(oData){
     };
     
     this.checkMoney = function(){
-        console.log('checkMoney');
+        //console.log('checkMoney');
         if(_iMoney < _iCurBet){
             //NOT ENOUGH MONEY
             _iCurBetIndex = 0;
@@ -194,7 +194,7 @@ function CGame(oData){
             
             iX += 180;
         }
-        console.log('objeto:',_oCardAttach);
+        //console.log('objeto:',_oCardAttach);
     };
     
     ////regresa del node
@@ -209,11 +209,11 @@ function CGame(oData){
         _aCurHandValue = new Array(); //arreglo para evaluar mano
             for(var i=0;i<5;i++){
                 _iCurIndexDeck = indexreturn[i];
-                console.log('valor primer indice'+ _iCurIndexDeck);
-                console.log('valor row 1 '+handnode[i]);
+                //console.log('valor primer indice'+ _iCurIndexDeck);
+                //console.log('valor row 1 '+handnode[i]);
                 var oCard = new CCard(iX,iY,_oCardAttach,handnode[i][0],handnode[i][1],handnode[i][2]);
                 _aCurHand.push(oCard);
-                console.log('rango recivido' + _aCurHand.rank);
+                //console.log('rango recivido' + _aCurHand.rank);
                 //_iCurIndexDeck++;
                 iX += 180;
                 oCard.addEventListener(ON_CARD_SHOWN,this._onCardShown);
@@ -245,8 +245,8 @@ function CGame(oData){
                  //console.log('acurhandrank'+_aCurHand[p].rank);
 
                 if(_aCurHand[p].isHold() === false){
-                   console.log(_aCurHand[p].getFotogram()+ '_aCurHand[p].getFotogram()');
-                   console.log(drawnode[p][0] + 'drawnode[p][0]');
+                   //console.log(_aCurHand[p].getFotogram()+ '_aCurHand[p].getFotogram()');
+                   //console.log(drawnode[p][0] + 'drawnode[p][0]');
                     _aCurHand[p].changeInfo(drawnode[p][0],drawnode[p][1],drawnode[p][2]);
                     _aCurHand[p].showCard();
                     _iCurIndexDeck++;              
@@ -259,7 +259,7 @@ function CGame(oData){
             cambiarinfo_node(enviar);
         //}*/
         _checkiCurWinAD = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(_aCurHand)) * _iCurBet;
-         console.log('checkiwin '+_checkiCurWinAD);
+         //console.log('checkiwin '+_checkiCurWinAD);
         //console.log('testeo sale del while' + _oHandEvaluator.evaluate(_aCurHandValueDraw));
         /////////fin testeo
         _iCurState = STATE_GAME_DRAW;
@@ -275,7 +275,7 @@ function CGame(oData){
             }           
         }*/
         
-        console.log('despues de reacomodar lamano'+_oHandEvaluator.evaluate(_aCurHand));           
+        //console.log('despues de reacomodar lamano'+_oHandEvaluator.evaluate(_aCurHand));           
         //_checkiCurWinAD = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(_aCurHand)) * _iCurBet;
         //console.log('checkiwin'+_checkiCurWinAD);
         
@@ -420,15 +420,15 @@ function CGame(oData){
                 }
             }
         }
-        console.log('_iCurCreditIndex'+_iCurCreditIndex);
-        console.log('iRet'+iRet);
-        console.log('_iCurBet'+_iCurBet);
+        //console.log('_iCurCreditIndex'+_iCurCreditIndex);
+        //console.log('iRet'+iRet);
+        //console.log('_iCurBet'+_iCurBet);
         _oPayTable.showWinAnim(_iCurCreditIndex,iRet);
         _iCurWin = s_oPayTableSettings.getWin(_iCurCreditIndex,iRet) * _iCurBet;
         
-        console.log('iwin antes de sumar'+_iCurWin);
-        console.log('_iMoney antes de sumar'+_iMoney);
-        console.log('suma igual'+ (_iCurWin +_iMoney) )
+        //console.log('iwin antes de sumar'+_iCurWin);
+        //console.log('_iMoney antes de sumar'+_iMoney);
+       // console.log('suma igual'+ (_iCurWin +_iMoney) )
         
         _iMoney += _iCurWin;
         _iMoney = parseFloat(_iMoney.toFixed(2));
@@ -504,14 +504,14 @@ function CGame(oData){
             return;
         }
         
-        console.log('oncardhide');
+        //console.log('oncardhide');
         _aCurHandValueDraw = _aCurHand;
 
         /////////testeo no deja llamar funciones afuera
-        console.log('testeo init' + _oHandEvaluator.evaluate(_aCurHandValueDraw));
+        //console.log('testeo init' + _oHandEvaluator.evaluate(_aCurHandValueDraw));
         _checkiCurWinAD = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(_aCurHand)) * _iCurBet;
-         console.log('checkiwin antes del while'+_checkiCurWinAD);
-        console.log('testeo antes del while 2 pares' + TWO_PAIR );
+        // console.log('checkiwin antes del while'+_checkiCurWinAD);
+        //console.log('testeo antes del while 2 pares' + TWO_PAIR );
 
         //while(_oHandEvaluator.evaluate(_aCurHandValueDraw)!==TWO_PAIR){//aqui chequear el iwin 
 
@@ -519,10 +519,10 @@ function CGame(oData){
          //console.log('checkiwin dentro del while'+_checkiCurWinAD);
          var handholded = new Array();
             for(var p=0;p<5;p++){//ojo aqui se maneja la carta
-                console.log('is hold'+ _aCurHand[p].isHold());
-                 console.log('acurhandrank'+_aCurHand[p].getRank());
-                  console.log('acurhandrank'+_aCurHand[p].getFotogram());
-                   console.log('acurhandrank'+_aCurHand[p].getSuit());
+                //console.log('is hold'+ _aCurHand[p].isHold());
+                // console.log('acurhandrank'+_aCurHand[p].getRank());
+                //  console.log('acurhandrank'+_aCurHand[p].getFotogram());
+                //   console.log('acurhandrank'+_aCurHand[p].getSuit());
 
                 if(_aCurHand[p].isHold() === false){
                     var enviar={
@@ -538,10 +538,10 @@ function CGame(oData){
                  //  _aCurHand[p].setHold(false);
                 //}           
             }
-            console.log('---z---'+z+'--iNumHold-- '+iNumHold);
+            //console.log('---z---'+z+'--iNumHold-- '+iNumHold);
         if(z==5-iNumHold){
             var enviar = {handholdedE:handholded,_iCurBetE : _iCurBet,_iCurIndexDeckE:_iCurIndexDeck,}
-            console.log('handholded'+handholded);
+           // console.log('handholded'+handholded);
             cambiarinfo_node(enviar);
 
         }
@@ -570,7 +570,7 @@ function CGame(oData){
     };
 /////
     this.hola =function(){
-        console.log('hola');
+      //  console.log('hola');
     };
     /*this._CardHideDrawValue = function(){
        _aCurHandValueDraw = new Array();
@@ -596,14 +596,14 @@ function CGame(oData){
 
      //////////////
        this.checkassignWin = function(hand){
-        console.log('verifico q tiene' + hand);
-        console.log('el indice'+_iCurIndexDeck);
-        console.log('cur credit index'+ _iCurCreditIndex);
-        console.log(_oHandEvaluator.evaluate(hand));
+       // console.log('verifico q tiene' + hand);
+        //console.log('el indice'+_iCurIndexDeck);
+       // console.log('cur credit index'+ _iCurCreditIndex);
+       // console.log(_oHandEvaluator.evaluate(hand));
         _checkiCurWin=0;
         _checkiCurWin = s_oPayTableSettings.getWin(_iCurCreditIndex,_oHandEvaluator.evaluate(hand)) * _iCurBet;
         
-        console.log('checkiwin'+_checkiCurWin);
+        //console.log('checkiwin'+_checkiCurWin);
           
      };
      //////////////
