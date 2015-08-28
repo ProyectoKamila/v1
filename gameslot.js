@@ -41,6 +41,7 @@
     var jackpot = 0;
     var debt = 0;
     var percent = 0.0;
+    var percentfree = 0.0;
 //clientsconection['all'] = {};
 
 
@@ -82,6 +83,7 @@
             jackpot = row[0]['jackpot'];
             debt = row[0]['debt'];
             percent = row[0]['percent'];
+            percentfree = row[0]['percentfreegame'];
 
             //  console.log('jackpot' + jackpot);
             //  console.log('debt' + debt);
@@ -455,9 +457,14 @@
 
             connection.sitcoins = connection.sitcoins - _iTotBet;
             // console.log('sitcoins antes de sp' + connection.sitcoins);
+            if(connection.idgame_free == 3){
+                       var availiable_jp = jackpot + (_iTotBet - (_iTotBet * (percent+percentfree)));
+            var debito = debt + (_iTotBet * (percent+percentfree));
+            }
+            else{
             var availiable_jp = jackpot + (_iTotBet - (_iTotBet * percent));
             var debito = debt + (_iTotBet * percent);
-
+            }
             //  console.log('debt ' + debt);
 
             //  console.log('porcentaje '+(_iTotBet*percent));
@@ -628,8 +635,110 @@
                                 sendmessageuser(connection, 'free_game', juegos_gratis);
                             }
                         }
+                         else if (_aWinningLine[i].value == 8 && _aWinningLine[i].amount > 0 && connection.idgame_free == 2) {
+                            
+                            if (connection.free == true) {
+                                switch (_aWinningLine[i].num_win) {
+                                    case 3:
+                                        sendmessageuser(connection, 'free_game_play', 5);
+                                        connection.free_game_play = 5;
+                                        connection.numfree += 5;
+                                        connection.free = true;
 
-                        console.log('lina ganadora  ' + _aWinningLine[i].value);
+                                        break;
+                                    case 4:
+                                        sendmessageuser(connection, 'free_game_play', 10);
+                                        connection.free_game_play = 10;
+                                        connection.numfree += 10;
+                                        connection.free = true;
+                                        break;
+                                    case 5:
+                                        sendmessageuser(connection, 'free_game_play', 20);
+                                        connection.free_game_play = 20;
+                                        connection.numfree += 20;
+                                        connection.free = true;
+
+                                        break;
+                                }
+                            }
+                            else {
+                                
+                                switch (_aWinningLine[i].value) {
+                                    case 3:
+                                        sendmessageuser(connection, 'free_game_play', 5);
+                                        connection.free_game_play = 5;
+                                        connection.numfree += 5;
+                                        connection.free = true;
+
+                                        break;
+                                    case 4:
+                                        sendmessageuser(connection, 'free_game_play', 10);
+                                        connection.free_game_play = 10;
+                                        connection.numfree += 10;
+                                        connection.free = true;
+                                        break;
+                                    case 5:
+                                        sendmessageuser(connection, 'free_game_play', 20);
+                                        connection.free_game_play = 20;
+                                        connection.numfree += 20;
+                                        connection.free = true;
+
+                                        break;
+                                }
+                                
+                             
+                                connection.free = true;
+                                // console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].amount);
+
+
+
+                                sendmessageuser(connection, 'free_game', connection.free_game_play);
+                            }
+                            
+                        }
+                                           else if (_aWinningLine[i].value == 8 && _aWinningLine[i].amount > 0 && connection.idgame_free == 3 && _aWinningLine[i].value == 5) {
+                           
+                                            var mysqlc = mysql.createConnection(
+                                                    {
+                                                        host: '23.229.215.154',
+                                                        user: 'v1',
+                                                        password: 'Temporal01',
+                                                        database: 'v1',
+                                                    }
+                                            );
+                                        
+                                            mysqlc.connect();
+                                            var string = 'SELECT * FROM v1.casino_jackpot where id_jackpot=1';
+                                        
+                                            mysqlc.query(string, function(err, row, fields) {
+                                        
+                                                //console.log('verificar la variable row' + row);
+                                        
+                                                if (typeof(row)) {
+                                                    //  console.log('entre a jackpotcall' + row[0]['jackpot']);
+                                                    //   console.log('entre a debt' + row[0]['debt']);
+                                                    //   console.log('entre a jackpotcall' + row[0]['percent']);
+                                                    jackpot = row[0]['jackpot'];
+                                                    debt = row[0]['debt'];
+                                                    percent = row[0]['percent'];
+                                                    percentfree = row[0]['percentfreegame'];
+                                                    sendmessageuser(connection, 'free_game', percentfree);
+                                                    //  console.log('jackpot' + jackpot);
+                                                    //  console.log('debt' + debt);
+                                                    //  console.log('percent' + percent);
+                                                }
+                                        
+                                                //console.log(jackpot);
+                                            });
+                                        
+                                            mysqlc.end();
+                                       
+                        
+                                               
+                                           }
+                        
+
+          
 
 
                         //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea
@@ -713,9 +822,16 @@
             );
 
             mysqlc.connect();
+            if(connection.idgame_free == 3){
+                jack=jack-(jack * percentfree); 
+                debito=debito-(debito * percentfree);
+                var jackpotfree =jack * percentfree;
+            var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + jack + ', `debt` = ' + debito + ', `jackpotfree` = ' + jackpotfree + ' WHERE `casino_jackpot`.`id_jackpot` = 1;';
+                }
+                else{
+                     var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + jack + ', `debt` = ' + debito + ' WHERE `casino_jackpot`.`id_jackpot` = 1;';
 
-            var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpot` = ' + jack + ', `debt` = ' + debito + ' WHERE `casino_jackpot`.`id_jackpot` = 1;';
-
+                }
             mysqlc.query(string, function(err, row, fields) {
                 if (typeof(row)) {
 
@@ -762,11 +878,13 @@
                     jackpot = row[0]['jackpot'];
                     debt = row[0]['debt'];
                     percent = row[0]['percent'];
+                    percentfree = row[0]['percentfreegame'];
                     }
                     catch(e){
                      jackpot = 0;
                     debt = 0;
-                    percent = 0;   
+                    percent = 0;  
+                    percentfree=0;
                     }
 
                     //  console.log('jackpot ' + jackpot);
@@ -804,8 +922,8 @@
                     var num=connection.coins
                    
                   
-                    //num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
-                    //num = num.split('').reverse().join('').replace(/^[\.]/,'');
+                    num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
+                    num = num.split('').reverse().join('').replace(/^[\.]/,'');
                   
                     
 

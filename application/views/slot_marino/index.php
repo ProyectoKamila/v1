@@ -81,10 +81,7 @@
             $(oMain).on("end_bet", function (evt, iMoney, iBetWin) {
                 // alert("juegos gratis: "+ free_gameslot + " Win:"+iBetWin);
                 if (free_gameslot > 0) {
-                    var options = {
-                        "backdrop": "static"
-                    }
-                    $('#jgModal').modal(options);
+                    jugarGratis(free_gameslot);
                 }
                        if (free > 0) {
                           
@@ -93,9 +90,9 @@
                            free=free-1;
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
-               s_oGame.onMaxBetjgXxx();
+                            s_oGame.onMaxBetjgXxx();
                                 
-                            },3000);
+                            },2000);
                 }
                 else{
                     freeselect=20;
@@ -118,6 +115,7 @@
                 var total_money = $('#total_coins').html();
                 //alert(total_money);
                 //alert(value_mt);
+                           total_money = total_money.replace(/\./g,'');
                 if (value_mt > 10 && value_mt < parseFloat(total_money)) {
                     // alert('llega aqui');
                     iMoney = value_mt;
@@ -322,6 +320,7 @@
                          myId = message.userId;
                             if(free > 0){
                                 console.log('aqui');
+                                console.log(free);
                                 free += message.messagesend;
                             }
                             else{
@@ -401,6 +400,22 @@
                 //free_gameslot = coins;
             }
         });
+        
+          function jugarGratis(tipo){
+                console.log("Jugada Gratis 2");
+                console.log(tipo);
+                if(tipo == 1){
+                    console.log("tipo igual a 1");
+                  var options = {
+                            "backdrop": "static"
+                        }
+                    console.log("Levantar Ventana");    
+                    $('#jgModal').modal(options);
+                    console.log("Jugar tipo 1");    
+                    $('#jg-button1').click();
+                }
+    }
+        
     </script>
     <div id="marino" class="container-fluid sin-padding fondo-game" style="background: url(./games/slot-marino/game_1024x768/sprites/bg_game.jpg);">
         <!-- Trigger the modal with a button -->

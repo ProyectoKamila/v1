@@ -8,4 +8,9 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand custom-navbar-brand" href="./"><img src="./interface/images/recortes/home/logo.png" alt="Logo" width="40" height="40"/></a>
+            <div class="col-xs-10">
+                 <div class="carrusel-publicidades">
+                     
+                 </div>   
+            </div>
     </div>

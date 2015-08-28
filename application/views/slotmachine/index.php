@@ -95,6 +95,8 @@
                            free=free-1;
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
+                           //inhabilitar botones
+                           s_oInterface.disableGuiButtons();
                s_oGame.onMaxBetjgXxx();
                                 
                             },2000);
@@ -120,6 +122,7 @@
                 var total_money = $('#total_coins').html();
                 //alert(total_money);
                 //alert(value_mt);
+                           total_money = total_money.replace(/\./g,'');
                 if (value_mt > 10 && value_mt < parseFloat(total_money)) {
                     // alert('llega aqui');
                     iMoney = value_mt;

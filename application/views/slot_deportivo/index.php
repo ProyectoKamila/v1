@@ -86,7 +86,7 @@
             $(oMain).on("end_bet", function (evt, iMoney, iBetWin) {
                 // alert("juegos gratis: "+ free_gameslot + " Win:"+iBetWin);
                 if (free_gameslot > 0) {
-
+                    jugarGratis(free_gameslot);
                     var options = {
                         "backdrop": "static"
                     }
@@ -96,7 +96,7 @@
                        if (free > 0) {
                            free=free-1;
                            NUM_PAYLINES=freeselect;
-               s_oGame.onMaxBetjgXxx();
+                s_oGame.onMaxBetjgXxx();
                 }
                 else{
                     freeselect=20;
@@ -126,6 +126,7 @@
                 var total_money = $('#total_coins').html();
                 //alert(total_money);
                 //alert(value_mt);
+                           total_money = total_money.replace(/\./g,'');
                 if (value_mt > 10 && value_mt < parseFloat(total_money)) {
                     // alert('llega aqui');
                     iMoney = value_mt;
@@ -432,7 +433,11 @@
 
         });
 
-
+    function jugarGratis(tipo){
+        console.log("Jugada Gratis 2");
+        console.log(tipo);
+        
+    }
 
     </script>
     <div id="deportivo" class="container-fluid sin-padding fondo-game" style="background: url('./games/slot-deportivo/game_1024x768/sprites/landscape.jpg') no-repeat top center;">

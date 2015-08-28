@@ -762,7 +762,9 @@ wsServer.on('request', function(request) {
                         mensaje: 'Jugador ' + (parseInt(connection.idsit) +1) + ', se ha retirado',
                     }
                     for (i in saleonlineconexall[connection.idsale]){
-                        sendmessageuser(saleonlineconexall[connection.idsale][i], 'comentglobal', enviar);
+                        if (i < 8){
+                            sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
+                        }
                     }
                     play[connection.idsale].leaveplay(connection.idsit);
 //                console.log('leave');
@@ -1025,8 +1027,6 @@ wsServer.on('request', function(request) {
             saleonline[room][sit].sit = sit;
             saleonline[room][sit].card1 = play[room].jugactivos[sit]['card1'];
             saleonline[room][sit].card2 = play[room].jugactivos[sit]['card2'];
-//            saleonlineconex[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
-//            saleonlineconexall[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
                 var enviar = {
                         first_name: '',
                         last_name: '',
@@ -1034,7 +1034,9 @@ wsServer.on('request', function(request) {
                         mensaje: 'Jugador ' + (parseInt(sit) +1) + ', Ha ganado ' + apos,
                     }
             for (i in saleonlineconexall[room]) {
-                sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
+                if (i < 8){
+                    sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
+                }
                 sendmessageuser(saleonlineconexall[room][i], 'ganador', saleonline[room][sit]);
             }
             updatesale(room);
@@ -1046,9 +1048,9 @@ wsServer.on('request', function(request) {
             if (parseFloat(saleonline[room][sit].apos) >= parseFloat(apos)) {
                 play[room].roomapost[sit]=play[room].roomapost[sit] + parseFloat(apos);
                 saleonline[room][sit].apos = parseFloat(saleonline[room][sit].apos) - parseFloat(apos);
-                //play[room].pote1 = play[room].roomapost[sit] + parseFloat(apos);
+                
                 play[room].pote1 = parseFloat(play[room].pote1) + apos;
-               // this.pote1 = this.pote1 + this.maxci
+                
                  var enviar = {
                         first_name: '',
                         last_name: '',
@@ -1056,11 +1058,13 @@ wsServer.on('request', function(request) {
                         mensaje: 'Jugador ' + (parseInt(sit) +1) + ', Ha apostado ' + apos,
                     }
                 for (i in saleonlineconexall[room]) {
-                    sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
+                    if (i < 8){
+                        sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
+                    }
                     sendmessageuser(saleonlineconexall[room][i], 'joinsale', saleonline[room]);
                 }
             } else {
-               // play[room].leaveplay(sit);
+
                 expulssala(room,sit);
                 var enviar = {
                         first_name: '',
@@ -1070,7 +1074,9 @@ wsServer.on('request', function(request) {
                     }
                 for (i in saleonlineconexall[room]) {
                     sendmessageuser(saleonlineconexall[room][i], 'joinsale', sit);
-                    sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
+                    if (i < 8){
+                        sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
+                    }
                 }
             }
         }
