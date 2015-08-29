@@ -136,8 +136,8 @@ class Insert_controller extends MY_Controller {
            // }
             
             }else{
-//                debug($this->session->userdata('id_user'));
-                $data = array(
+                
+                	 $data = array(
                     'first_name' => $this->input->post('firstname'),
                     'last_name' => $this->input->post('lastname'),
 //                    'identity_card' => $this->input->post('identity_card'),
@@ -150,7 +150,55 @@ class Insert_controller extends MY_Controller {
                     'address' => $this->input->post('address'),
 //                    'id_user' => $this->input->post('id_user')
                     );
+                    
                 $this->modelo_universal->update('user_data', $data, array('id_user' => $this->session->userdata('id_user')));
+//                debug($this->session->userdata('id_user'));
+                    $config['upload_path'] = './images/';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+		$config['max_size']	= '4000';
+		$config['max_width']  = '4000';
+		$config['max_height']  = '4000';
+		$config['encrypt_name']  = true;
+		
+		
+		
+		$this->load->library('upload', $config);
+	
+		if ( ! $this->upload->do_upload())
+		{
+			$error = array('error' => $this->upload->display_errors());
+		
+		}else{	
+		    
+		    $data = array('upload_data' => $this->upload->data());
+		    $data.="http://casino4as.com/casino/images/".$data['file_name'];
+                $this->modelo_universal->update('user_data', array('imagedi'=>$data), array('id_user' => $this->session->userdata('id_user')));
+		}
+		
+		$config['upload_path'] = './images/';
+		$config['allowed_types'] = 'gif|jpg|png|jpeg';
+		$config['max_size']	= '4000';
+		$config['max_width']  = '4000';
+		$config['max_height']  = '4000';
+		$config['encrypt_name']  = true;
+		
+		
+		
+		$this->load->library('upload', $config);
+	
+		if ( ! $this->upload->do_upload('userfile2'))
+		{
+			$error = array('error' => $this->upload->display_errors());
+		
+		}else{	
+		    
+		    $data = array('upload_data' => $this->upload->data());
+		    $data.="http://casino4as.com/casino/images/".$data['file_name'];
+                $this->modelo_universal->update('user_data', array('imageprofile'=>$data), array('id_user' => $this->session->userdata('id_user')));
+		}
+		
+		
+
                 $this->session->set_flashdata('mensaje','Tus datos se han actualizado correctamente');
                 redirect('./myprofile');
             }

@@ -424,7 +424,7 @@
                                     
                                     <span class="input-group-addon"><span class="fa fa-photo" aria-hidden="true"></span></span>
 
-                                    <input class="form-control" placeholder="Imagen" name="userfile" type="file" > 
+                                    <input class="form-control" placeholder="Imagen" name="userfile2" type="file" > 
 
 
                                 </div>
