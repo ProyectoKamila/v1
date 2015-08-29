@@ -44,9 +44,9 @@
     var flash_title_timer;
     var connected = false;
     var connection_retry_timer;
-//    var server_url = 'ws://162.252.57.97:8807/';
+   var server_url = 'ws://162.252.57.97:8801/';
     //var serverc_url = 'ws://localhost:8806/';
-    var serverc_url = 'ws://casino4as-krondon.c9.io:8082/';
+   // var serverc_url = 'ws://casino4as-krondon.c9.io:8082/';
     var card2 = new Array("02tre"
             , "03tre",
             '04tre',
