@@ -60,19 +60,18 @@
             </div>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <img src="./games/slot-4as/game_1024x768/sprites/bg_menu.jpg" alt="">
+                    <img src="./sprites/bg_menu.jpg" alt="">
                     <div class="caption">
-                        <h3>SlotMachine 4as</h3>
+                        <h3>SlotMachine Frutas</h3>
                         <p>
-
-
                         </p>
-                        <p><a href="slotmachine-4as" class="btn btn-primary" role="button">Jugar Ahora</a> 
+                        <p><a href="slotmachine" class="btn btn-primary" role="button">Jugar Ahora</a> 
                             <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
                         </p>
                     </div>
                 </div>
             </div>
+            
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <img src="./games/slot-egipcio/game_1024x768/sprites/bg_menu.jpg" alt="">
@@ -105,34 +104,6 @@
             </div>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <img src="./games/slot-marino/game_1024x768/sprites/bg_menu.jpg" alt="">
-                    <div class="caption">
-                        <h3>SlotMachine Marino</h3>
-                        <p>
-
-
-                        </p>
-                        <p><a href="slotmachine-marino" class="btn btn-primary" role="button">Jugar Ahora</a> 
-                            <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="./sprites/bg_menu.jpg" alt="">
-                    <div class="caption">
-                        <h3>SlotMachine Frutas</h3>
-                        <p>
-                        </p>
-                        <p><a href="slotmachine" class="btn btn-primary" role="button">Jugar Ahora</a> 
-                            <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
                     <img src="./games/slot-ranas/game_1024x768/sprites/bg_menu.jpg" alt="">
                     <div class="caption">
                         <h3>SlotMachine Ranas</h3>
@@ -146,25 +117,12 @@
             </div>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <img src="./games/slot-deportivo/game_1024x768/sprites/bg_menu.jpg" alt="">
+                    <img src="./games/slot-marino/game_1024x768/sprites/bg_menu.jpg" alt="">
                     <div class="caption">
-                        <h3>SlotMachine Ranas</h3>
+                        <h3>SlotMachine Marino</h3>
                         <p>
                         </p>
-                        <p><a href="slotmachine-deportivo" class="btn btn-primary" role="button">Jugar Ahora</a> 
-                            <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4">
-                <div class="thumbnail">
-                    <img src="./games/slot-bebidas/game_1024x768/sprites/bg_menu.jpg" alt="">
-                    <div class="caption">
-                        <h3>SlotMachine Bebidas</h3>
-                        <p>
-                        </p>
-                        <p><a href="slotmachine-bebidas" class="btn btn-primary" role="button">Jugar Ahora</a> 
+                        <p><a href="slotmachine-marino" class="btn btn-primary" role="button">Jugar Ahora</a> 
                             <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
                         </p>
                     </div>
@@ -174,10 +132,51 @@
                 <div class="thumbnail">
                     <img src="./games/slot-candy/game_1024x768/sprites/bg_menu.jpg" alt="">
                     <div class="caption">
-                        <h3>SlotMachine Bebidas</h3>
+                        <h3>SlotMachine Candy</h3>
                         <p>
                         </p>
                         <p><a href="slotmachine-candy" class="btn btn-primary" role="button">Jugar Ahora</a> 
+                            <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="./games/slot-deportivo/game_1024x768/sprites/bg_menu.jpg" alt="">
+                    <div class="caption">
+                        <h3>SlotMachine Deportivo</h3>
+                        <p>
+                        </p>
+                        <p><a href="slotmachine-deportivo" class="btn btn-primary" role="button">Jugar Ahora</a> 
+                            <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <img src="./games/slot-diamantes/game_1024x768/sprites/bg_menu.jpg" alt="">
+                        <div class="caption">
+                            <h3>SlotMachine Diamantes</h3>
+                            <p>
+                            </p>
+                            <p><a href="slotmachine-diamantes" class="btn btn-primary" role="button">Jugar Ahora</a> 
+                                <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img src="./games/slot-4as/game_1024x768/sprites/bg_menu.jpg" alt="">
+                    <div class="caption">
+                        <h3>SlotMachine 4as</h3>
+                        <p>
+
+
+                        </p>
+                        <p><a href="slotmachine-4as" class="btn btn-primary" role="button">Jugar Ahora</a> 
                             <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
                         </p>
                     </div>
@@ -198,6 +197,21 @@
             </div>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
+                    <img src="./games/slot-bebidas/game_1024x768/sprites/bg_menu.jpg" alt="">
+                    <div class="caption">
+                        <h3>SlotMachine Bebidas</h3>
+                        <p>
+                        </p>
+                        <p><a href="slotmachine-bebidas" class="btn btn-primary" role="button">Jugar Ahora</a> 
+                            <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
                     <img src="./games/slot-musical/game_1024x768/sprites/bg_menu.jpg" alt="">
                     <div class="caption">
                         <h3>SlotMachine Musical</h3>
@@ -209,19 +223,7 @@
                     </div>
                 </div>
             </div>
-               <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <img src="./games/slot-diamantes/game_1024x768/sprites/bg_menu.jpg" alt="">
-                        <div class="caption">
-                            <h3>SlotMachine Diamantes</h3>
-                            <p>
-                            </p>
-                            <p><a href="slotmachine-diamantes" class="btn btn-primary" role="button">Jugar Ahora</a> 
-                                <!--            <a href="#" class="btn btn-default" role="button">Button</a>-->
-                            </p>
-                        </div>
-                    </div>
-                </div>
+               
         </div>
     </div>
     <?php $this->load->view('page/footer2'); ?>

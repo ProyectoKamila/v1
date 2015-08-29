@@ -326,7 +326,7 @@
             <div class="modal-dialog">
 
                 <!-- Modal content-->
-                <div class="modal-content">
+                <div class="modal-content" style="background-image: url('./imagen/saldo.jpg')">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <p>Ingrese el monto para recargar sus fichas.</p>

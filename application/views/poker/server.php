@@ -258,6 +258,10 @@
             $('#apost-toal').val($('#apost-mont').val());
             apostresume()
         });
+        $('#apost-mont').change(function() {
+            $('#apost-toal').val($('#apost-mont').val());
+            apostresume()
+        });
         $('#apost-bote').click(function() {
             console.log('apost-bote: ' + pote);
             $('#apost-toal').val(pote);
@@ -348,8 +352,6 @@
             }
             $('#apost-mont').val(0);
             socket.send(JSON.stringify(intro));
-//            $('#apost-toal').val(0);
-//            apostresume();
         });
         $('#apost').click(function() {
 
@@ -409,10 +411,10 @@
     }
 
     function open_connection() {
-        //        socket = new WebSocket('ws://162.252.57.97:8807/', 'server');
-        socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
+          //     socket = new WebSocket('ws://162.252.57.97:8081/', 'server');
+        //socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
         //socket = new WebSocket('ws://milagros-pc:8806/', 'server');
-        // socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
+         socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
 //        socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
 
         console.log(socket);
@@ -606,7 +608,7 @@
             $(player).html(img);
         }
         else if (message.type === 'minapost') {
-            $('.apost-resume').html('Bs. ' + parseFloat(message.messagesend.format(2, 3, '.', ',')));
+            $('.apost-resume').html('Bs. ' + parseFloat(message.messagesend).format(2, 3, '.', ','));
             $('#apost-toal').val(message.messagesend);
             $('#apost-toal').attr('min', message.messagesend);
             $('#apost-toal').attr('max', parseFloat($('#player' + (idsit + 1) + 'apos').html()));
@@ -676,7 +678,7 @@
             var max = $('#inputapos').attr('max');
             var volume = (max - min / 2);
             console.log(volume);
-            $('#volume').html(volume);
+            $('#volume').html($('#inputapos').val());
             $('#boxsitdown').slideDown();
         }
         //                            /si el password es falso

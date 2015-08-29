@@ -172,7 +172,8 @@ wsServer.on('request', function(request) {
                     );
                     mysqlc.connect();
                     mysqlc.query(string, function(err, row, fields) {
-                        if (typeof(row) && row !== undefined && row[0].id_user !== undefined) {
+                        if (typeof(row) && row !== undefined && row[0]!==undefined) {
+                            try{
                             connection.id_user = row[0]['id_user'];
 
                             if (row[0]['id_user'] == clientsconection[connection.id_user]) {
@@ -183,6 +184,10 @@ wsServer.on('request', function(request) {
                             else {
                                 clientsconection[connection.id_user] = connection.id_user;
                                 sendmessageuser(connection, 'welcome', row);
+                            }
+                            }
+                            catch(e){
+                                sendmessageuser(connection, 'welcome', 'aqui falso');
                             }
                         }
                         else {

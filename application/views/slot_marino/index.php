@@ -33,7 +33,7 @@
 
     </head>
     <body ondragstart="return false;" ondrop="return false;">
-        <div class="fondo-game"  style="background: url(./games/slot-marino/game_1024x768/sprites/bg_game.jpg);">
+        <div class="fondo-game"  style="background: #0E6E96!important;">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
     <script>
@@ -50,7 +50,7 @@
             var protocol_identifier = 'server';
             var myId;
             var idgame = 2; //aqui debe llevarse el nombre del juego que selecciono
-            var idgame_free = 1; 
+            var idgame_free = 2; 
             var free_gameslot = 0;
             var free=0;
             var freeselect=0;
@@ -81,7 +81,8 @@
             $(oMain).on("end_bet", function (evt, iMoney, iBetWin) {
                 // alert("juegos gratis: "+ free_gameslot + " Win:"+iBetWin);
                 if (free_gameslot > 0) {
-                    jugarGratis(free_gameslot);
+                       //jugarGratis(freg);
+                 jugarGratis(free_gameslot);
                 }
                        if (free > 0) {
                           
@@ -115,7 +116,7 @@
                 var total_money = $('#total_coins').html();
                 //alert(total_money);
                 //alert(value_mt);
-                           total_money = total_money.replace(/\./g,'');
+                           total_money = total_money.replace(/\./g,''); 
                 if (value_mt > 10 && value_mt < parseFloat(total_money)) {
                     // alert('llega aqui');
                     iMoney = value_mt;
@@ -176,13 +177,12 @@
                 $(".item-free").slideUp();
                 $(".numb-free").slideDown();
                   free_gameslot = 0;
-                  freeselect=10;
+                  freeselect=20;
                   $('#cantidad').html(10);
                   $("#text-win").addClass('celebra');
                   setTimeout(function() {
                           console.log('el timeup');
-                            
-                          $('#jgModal').modal('toggle');
+                       $('#jgModal').modal('toggle');
                        $(".item-free").slideDown();
                        $("#text-win").slideUp();
                             var intro = {
@@ -193,8 +193,7 @@
                         $("#text-win").removeClass('celebra');
                         socket.send(JSON.stringify(intro));
                 }, 3000);
-                 document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
-             
+                 document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 20 Lineas';
             });
                    //10 x 10
             $('#jg-button3').click(function () {
@@ -202,7 +201,7 @@
                 $(".item-free").slideUp();
                 $(".numb-free").slideDown();
                   free_gameslot = 0;
-                  freeselect=5;
+                  freeselect=20;
                   $('#cantidad').html(20);
                   $("#text-win").addClass('celebra');
                   setTimeout(function() {
@@ -311,9 +310,10 @@
                 }
                 else if (message.type === 'free_game') {
                      // myId = message.userId;
-                   free_gameslot = 1;
-                   //ar freg = message.messagesend;
-                   //openjg(freg);
+                   free_gameslot = 2;
+                   freg = message.messagesend;
+                            console.log(freg);
+                   
                 }
                       else if (message.type === 'free_game_play') {
                           console.log('aqui paso');
@@ -404,8 +404,8 @@
           function jugarGratis(tipo){
                 console.log("Jugada Gratis 2");
                 console.log(tipo);
-                if(tipo == 1){
-                    console.log("tipo igual a 1");
+                if(tipo == 5){
+                console.log("tipo igual a 1");
                   var options = {
                             "backdrop": "static"
                         }
@@ -414,10 +414,30 @@
                     console.log("Jugar tipo 1");    
                     $('#jg-button1').click();
                 }
+                if(tipo == 10){
+                console.log("tipo igual a 1");
+                  var options = {
+                            "backdrop": "static"
+                        }
+                    console.log("Levantar Ventana");    
+                    $('#jgModal').modal(options);
+                    console.log("Jugar tipo 1");    
+                    $('#jg-button2').click();
+                }
+                if(tipo == 20){
+                console.log("tipo igual a 1");
+                  var options = {
+                            "backdrop": "static"
+                        }
+                    console.log("Levantar Ventana");    
+                    $('#jgModal').modal(options);
+                    console.log("Jugar tipo 1");    
+                    $('#jg-button2').click();
+                }
     }
         
     </script>
-    <div id="marino" class="container-fluid sin-padding fondo-game" style="background: url(./games/slot-marino/game_1024x768/sprites/bg_game.jpg);">
+    <div id="marino" class="container-fluid sin-padding fondo-game" style="background: #0E6E96 !important;">
         <!-- Trigger the modal with a button -->
         <div class="container sin-padding">
             <div class="row">
@@ -502,7 +522,7 @@
                     </div>
                         
                     <div class="modal-body">
-                        <p>Pulsa una opcion</p>
+                        
                         <?php
                         $z = 1;
                         foreach($valores as $v) { ?>

@@ -687,7 +687,7 @@
                                     todo
                                 </div>
                                 <div class="btn btn-default">
-                                    <input type="text" class="input" id="apost-mont" placeholder="OTRO" onkeypress="return justNumbers(event);">
+                                    <input type="number" class="input" id="apost-mont" placeholder="OTRO" onkeypress="return justNumbers(event);">
                                 </div>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 <div id="page-wrapper" class="custom-login-panel">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Hola <?php echo $this->data['first_name'] . ' ' . $this->data['last_name']; ?>. Tienes <?php echo($this->data['coins']); ?> fichas</h1>
+            <h1 class="page-header">Hola <?php echo $this->data['first_name'] . ' ' . $this->data['last_name']; ?>. Tienes <?php $numercoin = number_format($this->data['coins'], 0, ',', '.'); echo($numercoin); ?> fichas</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -9,6 +9,7 @@
     <!--opciones superiores-->
 
     <!-- /.row -->
+
     <div class="row">
 
         <!-- /.col-lg-8 -->

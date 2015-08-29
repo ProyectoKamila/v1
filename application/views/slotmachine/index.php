@@ -89,21 +89,19 @@
                     $('#jgModal').modal(options);
                 }
                        if (free > 0) {
-                          
                             setTimeout(function() {
-                                
                            free=free-1;
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
                            //inhabilitar botones
                            s_oInterface.disableGuiButtons();
-               s_oGame.onMaxBetjgXxx();
-                                
+                            s_oGame.onMaxBetjgXxx();
+                            
                             },2000);
                 }
                 else{
                     freeselect=20;
-                    NUM_PAYLINES=freeselect;
+                NUM_PAYLINES=freeselect;
                 }
                 
             });

@@ -642,16 +642,19 @@ wsServer.on('request', function(request) {
                 if ((connection.idsale !== undefined) && (connection.idsit !== undefined)) {
 //                    console.log('Conection ' + connection.idsit + '/' + connection.idsale + ' EnEspera ' + play[connection.idsale].jugadorenespera)
                     if (connection.idsit == play[connection.idsale].jugadorenespera && play[connection.idsale].numjugactivos > 1) {
-                        for (i in saleonline[connection.idsale]){
-                            if (i > 0){   
-                                if ((saleonline[connection.idsale][i].apos + play[connection.idsale].roomapost[connection.idsit]) < (saleonline[connection.idsale][(i-1)].apos + play[connection.idsale].roomapost[(i-1)])){
+                      
+                        for (i in play[connection.idsale].jugactivos) {
+                            if (play[connection.idsale].jugactivos[i]['first_name'] !== undefined) {
+                                if (mayorapos == 0){
+                                    mayorapos = saleonline[connection.idsale][i].apos + play[connection.idsale].roomapost[i];
+                                }else if (mayorapos > (saleonline[connection.idsale][i].apos + play[connection.idsale].roomapost[i])){
                                     mayorapos = saleonline[connection.idsale][i].apos + play[connection.idsale].roomapost[i];
                                 }
-                            } else {
-                                mayorapos = saleonline[connection.idsale][i].apos + play[connection.idsale].roomapost[i];
                             }
                         }
+                        console.log('apuesta 1: ' + mayorapos);
                         mayorapos = mayorapos - play[connection.idsale].roomapost[connection.idsit];
+                        console.log('apuesta 2: ' + mayorapos);
                         if ((parseFloat(msgObj.montapost) > 0) && (parseFloat(msgObj.montapost) > parseFloat(saleonline[connection.idsale][connection.idsit].apos))) {
                             if (mayorapos < parseFloat(saleonline[connection.idsale][connection.idsit].apos)){
                                 montoapos = mayorapos;
@@ -665,7 +668,8 @@ wsServer.on('request', function(request) {
                                 montoapos = parseFloat(msgObj.montapost);
                             }
                         }
-                        console.log('apuesta final: ' + mayorapos);
+                        console.log('apuesta 3: ' + mayorapos);
+                        console.log('apuesta final: ' + montoapos);
                         updatesaleapost(connection.idsale, connection.idsit, montoapos);
                         play[connection.idsale].potefu();
                         clearTimeout(play[connection.idsale].enespera);
@@ -763,7 +767,7 @@ wsServer.on('request', function(request) {
                     }
                     for (i in saleonlineconexall[connection.idsale]){
                         if (i < 8){
-                            sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
+                            sendmessageuser(saleonlineconexall[connection.idsale][i], 'comentglobal', enviar);
                         }
                     }
                     play[connection.idsale].leaveplay(connection.idsit);
@@ -1325,7 +1329,7 @@ wsServer.on('request', function(request) {
         clearInterval(this.end);
         var x = 0;
         //creo todos los puestos
-        while (x < 7) {
+        while (x <= 7) {
                console.log('while 3');
             var coarray = {
                 'first_name': undefined,
@@ -1336,20 +1340,17 @@ wsServer.on('request', function(request) {
             this.newapost[x] = 0;
             x++;
         }
-        var i = 0;
-        while (saleonlineconex[this.room][i] !== undefined   && i < 7){
-                if (saleonlineconex[this.room][i].apos > this.maxci){
+        for (i in saleonlineconex[this.room]) {
+            if (saleonlineconex[this.room][i] !== undefined && i < 8) {
+                 if (saleonlineconex[this.room][i].apos >= this.maxci){
                     this.jugactivos[i] = saleonlineconex[this.room][i];
                     this.numjugactivos++;
                 }else{
                     expulssala(this.room,i);
                 }
-            i++;
+            }
         }
-      //  for (i in saleonlineconex[this.room]) {
-       //     if (saleonlineconex[this.room][i] !== undefined && i < 7)  {
-        //    }
-       // }
+
         if (this.numjugactivos < 2){
             this.gameover();
         }
@@ -1476,29 +1477,30 @@ wsServer.on('request', function(request) {
                    numtry++;
                    console.log('while 5');
                 this.diler++;
-                if (this.diler == 7) {
+                if (this.diler >= 7) {
                     this.diler = 0;
                 }
             }
             this.ciegamin = this.diler + 1;
-            var numtry=0;
+            numtry=0;
             while (this.jugactivos[this.ciegamin]['first_name'] == undefined && numtry < 8) {
                    numtry++;
                    console.log('while 6');
                 this.ciegamin++;
-                if (this.ciegamin == 7) {
+                if (this.ciegamin >= 7) {
                     this.ciegamin = 0;
                 }
             }
             //this.roomapost[this.ciegamin] = this.minci;
             updatesaleapost(this.room, this.ciegamin, this.minci);
-            this.ciegamax = this.ciegamin + 1;
-            var numtry = 0
+            this.ciegamax = (this.ciegamin + 1);
+            console.log('ciegamax: ' + this.ciegamax);
+            numtry = 0;
             while (this.jugactivos[this.ciegamax]['first_name'] == undefined && numtry < 8) {
                    numtry++;
                    console.log('while 7');
                 this.ciegamax++;
-                if (this.ciegamax == 7) {
+                if (this.ciegamax >= 7) {
                     this.ciegamax = 0;
                 }
             }
@@ -1536,7 +1538,7 @@ wsServer.on('request', function(request) {
                     }
                 }
                 console.log('Prev: ' + prev + ' Name: ' + this.jugactivos[prev]['first_name'] + ' Sentado: ' + saleonline[this.room][prev].apos + ' mayor ' + maxapost + ' Apost: '+ this.roomapost[prev] + ' Activos: ' + this.numjugactivos);
-                if ((this.jugactivos[prev]['first_name'] !== undefined) && (this.roomapost[prev] !== maxapost) && (saleonline[this.room][prev].apos !== 0)) {
+                if ((this.jugactivos[prev]['first_name'] !== undefined) && (this.roomapost[prev] !== maxapost)) {
                         this.leaveplay(prev);
                 } else {
                     var x = this.jugadorenespera + 1;
@@ -1560,9 +1562,6 @@ wsServer.on('request', function(request) {
                     for (i in this.roomapost) {
                         if ((this.jugactivos[i]['first_name'] !== undefined) && (this.roomapost[i] !== maxapost)) {
                             cadmesa = 1;
-                            if (saleonline[this.room][i].apos == 0){
-                                cadmesa = 0;
-                            }
                         } 
                     }
                     console.log('MaxApost: ' + maxapost + ' All=: ' + cadmesa + ' CardMesa: ' + this.cardmesa.length + ' Turno: ' + this.jugadorenespera + ' ApostMax: ' + this.aposmax);
@@ -1575,7 +1574,7 @@ wsServer.on('request', function(request) {
         //                console.log('if');
                     } else {
         //                console.log('else');
-                        if (this.cardmesa.length == 5) {
+                        if ((cadmesa == 0) && (this.cardmesa.length == 5)) {
                             clearTimeout(this.enespera);
                             play[this.room].ganador();
                             var espejo = this.room;
