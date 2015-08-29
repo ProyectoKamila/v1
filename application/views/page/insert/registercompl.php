@@ -133,12 +133,12 @@
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
                                     
-                                    <!--<input class="form-control" placeholder="País" name="country" type="text" value="<?php-->
-                                    <!--//if (isset($dat)) {-->
-                                    <!--   // echo $dat[0]['country'];-->
-                                    <!--//} else-->
-                                    <!--  //  echo set_value('country')-->
-                                    <!--    ?>"required=""> -->
+                                    <!--<input class="form-control" placeholder="País" name="country" type="text" value="<?php
+                                    //if (isset($dat)) {-->
+                                     // echo $dat[0]['country'];-->
+                                    //} else-->
+                                    //  echo set_value('country')-->
+                                    ?>"required=""> -->
                                     <select name="country" class="form-control" id="">
                                         <option value="AF">Afganistán</option>
                                         <option value="AL">Albania</option>

@@ -171,8 +171,8 @@ class Insert_controller extends MY_Controller {
 		}else{	
 		    
 		    $data = array('upload_data' => $this->upload->data());
-		    $data.="http://casino4as.com/casino/images/".$data['file_name'];
-                $this->modelo_universal->update('user_data', array('imagedi'=>$data), array('id_user' => $this->session->userdata('id_user')));
+		    $data2="http://casino4as.com/casino/images/".$data['file_name'];
+                $this->modelo_universal->update('user_data', array('imagedi'=>$data2), array('id_user' => $this->session->userdata('id_user')));
 		}
 		
 		$config['upload_path'] = './images/';
@@ -193,8 +193,8 @@ class Insert_controller extends MY_Controller {
 		}else{	
 		    
 		    $data = array('upload_data' => $this->upload->data());
-		    $data.="http://casino4as.com/casino/images/".$data['file_name'];
-                $this->modelo_universal->update('user_data', array('imageprofile'=>$data), array('id_user' => $this->session->userdata('id_user')));
+		    $data2="http://casino4as.com/casino/images/".$data['file_name'];
+                $this->modelo_universal->update('user_data', array('imageprofile'=>$data2), array('id_user' => $this->session->userdata('id_user')));
 		}
 		
 		
