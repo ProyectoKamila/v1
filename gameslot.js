@@ -663,7 +663,7 @@
                             }
                             else {
                                 
-                                switch (_aWinningLine[i].value) {
+                                switch (_aWinningLine[i].num_win) {
                                     case 3:
                                         sendmessageuser(connection, 'free_game_play', 5);
                                         connection.free_game_play = 5;

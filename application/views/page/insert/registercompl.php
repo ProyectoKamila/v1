@@ -134,10 +134,10 @@
                                     <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
                                     
                                     <!--<input class="form-control" placeholder="País" name="country" type="text" value="<?php-->
-                                    <!--if (isset($dat)) {-->
-                                    <!--    echo $dat[0]['country'];-->
-                                    <!--} else-->
-                                    <!--    echo set_value('country')-->
+                                    <!--//if (isset($dat)) {-->
+                                    <!--   // echo $dat[0]['country'];-->
+                                    <!--//} else-->
+                                    <!--  //  echo set_value('country')-->
                                     <!--    ?>"required=""> -->
                                     <select name="country" class="form-control" id="">
                                         <option value="AF">Afganistán</option>
