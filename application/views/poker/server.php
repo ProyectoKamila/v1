@@ -142,7 +142,7 @@
     card["08dia"] = {'image': '8dia.png', 'carpeta': 'diamante'};
     card["09dia"] = {'image': '9dia.png', 'carpeta': 'diamante'};
     card["10dia"] = {'image': '10dia.png', 'carpeta': 'diamante'};
-    card["101dia"] = {'image': 'jdia.png', 'carpeta': 'diamante'};
+    card["10dia"] = {'image': 'jdia.png', 'carpeta': 'diamante'};
     card["12dia"] = {'image': 'qdia.png', 'carpeta': 'diamante'};
     card["13dia"] = {'image': 'kdia.png', 'carpeta': 'diamante'};
     card["14dia"] = {'image': 'as.png', 'carpeta': 'diamante'};
@@ -296,6 +296,7 @@
             $('#apost-toal').val(0, function() {
                 apostresume()
             });
+            
         });
 
         $('#exitgame').click(function() {
@@ -355,6 +356,7 @@
             }
             $('#apost-mont').val(0);
             socket.send(JSON.stringify(intro));
+            $('#audio_paso')[0].play();
         });
         $('#apost').click(function() {
             $('#audio_press_but')[0].play();
@@ -363,6 +365,11 @@
                 idsale: idsale,
                 idsit: idsit,
                 montapost: $('#apost-toal').val()
+            }
+            if ($('#apost-toal').val() < 1){
+                $('#audio_paso')[0].play();
+            }else{
+                $('#audio_fichas')[0].play();
             }
 //            console.log(intro);
             socket.send(JSON.stringify(intro));
@@ -414,10 +421,10 @@
     }
 
     function open_connection() {
-            //   socket = new WebSocket('ws://162.252.57.97:8081/', 'server');
+               socket = new WebSocket('ws://162.252.57.97:8081/', 'server');
         //socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
         //socket = new WebSocket('ws://milagros-pc:8806/', 'server');
-         socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
+     //    socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
 //        socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
 
         console.log(socket);
@@ -528,6 +535,7 @@
             $('#playerdata').css('display', 'block');
             $('#playeroption').css('display', 'none');
             $('.win').css('display', 'block');
+            $('#audio_barajando')[0].play();
         }
         else if (message.type === 'gameover') {
             for (i = 1; i < 8; i++) {
@@ -544,6 +552,11 @@
             $('.five').html('');
         }
         else if (message.type === 'cardmesa') {
+            if (message.messagesend.lenght < 4){
+                $('#audio_3card')[0].play();
+            }else {
+                $('#audio_1card')[0].play();
+            }
             for (i in message.messagesend) {
                 if (i == 0) {
                     var card3 = card[message.messagesend[i]];

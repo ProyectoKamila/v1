@@ -418,29 +418,39 @@
  <button style="display: none;" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Cargar Saldo</button>
 
         <!-- Modal -->
-        <div class="modal fade box-cargar-saldo" id="myModal" role="dialog">
+         <div class="modal fade box-cargar-saldo" id="myModal" role="dialog">
             <div class="modal-dialog">
-
                 <!-- Modal content-->
-                <div class="modal-content">
+                <div class="modal-content firstmodal">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <p>Ingrese el monto para recargar sus fichas.</p>
-                        <h2>Fichas Disponibles</h2>
-                        <label id="total_coins"></label>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="saldo-carga">
+                                    <div class="col-xs-4">
+                                    <p class="ficha">Fichas Disponibles:</p> 
+                                        <div class="mount">
+                                            <p><label id="total_coins"></label></p>
+                                        </div>
+                                    </div> 
+                                <div class="col-xs-6 ">
+                                    <p class="ficha">Ingrese el monto de fichas:</p> 
+                                        <!--<label >Cargar Saldo: </label>-->
+                                        <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
+                                        <input type="numeric" name="money-text" id="money-text" maxlength="5" class="money-text" title="0" placeholder="Fichas a recargar">
+                                        <button type="button" class="btn btn-default btn-submit"  id="money-button">Aceptar</button>
+                                    </div>    
+                                </div>    
+                                </div>
+                            </div>
+                                
+                                
                     </div>
                     <div class="modal-body">
-
-                        <label>Cargar Saldo: </label>
-                        <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
-                        <input type="numeric" name="money-text" id="money-text" maxlength="5" class="" title="0">
-                        <button type="button" class="btn btn-default"  id="money-button">Aceptar</button>
-
-
+                        
                     </div>
-                    <div class="modal-footer">
-                          Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza.
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <div class="modal-footer"> 
+                         <!-- Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza. -->
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
                     </div>
                 </div>
 

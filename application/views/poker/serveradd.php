@@ -763,3 +763,8 @@
 <audio id="audio_win"><source src="sounds/win.ogg" type="audio/ogg">, <source src="sounds/win.mp3" type="audio/mpeg"></audio>
 <audio id="audio_press_but"><source src="sounds/press_but.ogg" type="audio/ogg">, <source src="sounds/press_but.mp3" type="audio/mpeg"></audio>
 <audio id="audio_tictoc"><source src="sonidos/Reloj.mp3" type="audio/mpeg">,</audio>
+<audio id="audio_fichas"><source src="sonidos/Fichas.mp3" type="audio/mpeg">,</audio>
+<audio id="audio_paso"><source src="sonidos/Paso.mp3" type="audio/mpeg">,</audio>
+<audio id="audio_barajando"><source src="sonidos/Barajando.mp3" type="audio/mpeg">,</audio>
+<audio id="audio_1card"><source src="sonidos/1Card.mp3" type="audio/mpeg">,</audio>
+<audio id="audio_3card"><source src="sonidos/3Card.mp3" type="audio/mpeg">,</audio>
