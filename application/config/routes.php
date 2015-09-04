@@ -71,6 +71,7 @@ $route['slotmachine-sensual'] = "casino/slotmachine_sensual/";
 $route['slotmachine-musical'] = "casino/slotmachine_musical/";
 $route['slotmachine-diamantes'] = "casino/slotmachine_diamantes/";
 $route['demo-slotmachine'] = "casino/demo_slotmachine/";
+$route['demo-egipcia'] = "casino/demo_egicia/";
 $route['roulette'] = "casino/roulette/";
 $route['blackjack'] = "casino/blackjack/";
 $route['jacks'] = "casino/jacks/";

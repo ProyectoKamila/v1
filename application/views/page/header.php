@@ -8,13 +8,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-
+        <link rel="icon" href="http://www.casino4as.com/favicon.png" type="image/x-png">
         <title>Escritorio - Casino4As</title>
-
-
         <link rel="stylesheet/less" type="text/css" href="css/main.less" />
         <script src="js/less.min.js"></script>
-
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>

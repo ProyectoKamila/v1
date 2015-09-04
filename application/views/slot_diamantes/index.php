@@ -36,7 +36,7 @@
         <div class="fondo-game"  style="background: url(./games/slot-diamantes/game_1024x768/sprites/bg_game.jpg) top center;">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
-    <script>
+      <script>
         $(document).ready(function () {
             var oMain = new CMain({
                 min_reel_loop: 2, //NUMBER OF REEL LOOPS BEFORE SLOT STOPS  
@@ -49,7 +49,7 @@
             var socket;
             var protocol_identifier = 'server';
             var myId;
-            var idgame = 12; //aqui debe llevarse el nombre del juego que selecciono
+            var idgame =12; //aqui debe llevarse el nombre del juego que selecciono
             var idgame_free = 2; 
             var free_gameslot = 0;
             var free=0;
@@ -81,7 +81,8 @@
             $(oMain).on("end_bet", function (evt, iMoney, iBetWin) {
                 // alert("juegos gratis: "+ free_gameslot + " Win:"+iBetWin);
                 if (free_gameslot > 0) {
-                    jugarGratis(free_gameslot);
+                       //jugarGratis(freg);
+                 jugarGratis(free_gameslot);
                 }
                        if (free > 0) {
                           
@@ -90,6 +91,8 @@
                            free=free-1;
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
+                      s_oInterface.hideAllLines();
+                              s_oInterface.disableGuiButtons();
                             s_oGame.onMaxBetjgXxx();
                                 
                             },2000);
@@ -97,6 +100,8 @@
                 else{
                     freeselect=20;
                     NUM_PAYLINES=freeselect;
+                    $(".numb-free").slideUp();
+                
                 }
                 
             });
@@ -163,7 +168,7 @@
                         $(".item-free").slideDown();
                         $("#text-win").removeClass('celebra');
                         socket.send(JSON.stringify(intro));
-                }, 3000);
+                }, 2000);
                 
             document.getElementById('text-win').innerHTML = 'Has Ganado 5 juegos por 20 Lineas';
 
@@ -192,7 +197,7 @@
                         $(".item-free").slideDown();
                         $("#text-win").removeClass('celebra');
                         socket.send(JSON.stringify(intro));
-                }, 3000);
+                }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
              
             });
@@ -218,7 +223,7 @@
                         $(".item-free").slideDown();
                         $("#text-win").removeClass('celebra');
                         socket.send(JSON.stringify(intro));
-                }, 3000);
+                }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 20 juegos por 5 Lineas';
              
             });
@@ -311,9 +316,11 @@
                 }
                 else if (message.type === 'free_game') {
                      // myId = message.userId;
-                   free_gameslot = 1;
-                   //ar freg = message.messagesend;
-                   //openjg(freg);
+                   free_gameslot = message.messagesend; 
+                   //freg = message.messagesend;
+                  
+         
+                   
                 }
                       else if (message.type === 'free_game_play') {
                           console.log('aqui paso');
@@ -329,7 +336,8 @@
                                    free=free -1;
                                    //console.log('free sele '+freeselect);
                                    NUM_PAYLINES=freeselect;
-                                s_oGame.onMaxBetjgXxx();
+                                    // s_oInterface.disableGuiButtons();
+                                //s_oGame.onMaxBetjgXxx();
                          
                             
                         }
@@ -404,8 +412,8 @@
           function jugarGratis(tipo){
                 console.log("Jugada Gratis 2");
                 console.log(tipo);
-                if(tipo == 1){
-                    console.log("tipo igual a 1");
+                if(tipo == 5){
+                console.log("tipo igual a 1");
                   var options = {
                             "backdrop": "static"
                         }
@@ -413,6 +421,26 @@
                     $('#jgModal').modal(options);
                     console.log("Jugar tipo 1");    
                     $('#jg-button1').click();
+                }
+                if(tipo == 10){
+                console.log("tipo igual a 1");
+                  var options = {
+                            "backdrop": "static"
+                        }
+                    console.log("Levantar Ventana");    
+                    $('#jgModal').modal(options);
+                    console.log("Jugar tipo 1");    
+                    $('#jg-button2').click();
+                }
+                if(tipo == 20){
+                console.log("tipo igual a 1");
+                  var options = {
+                            "backdrop": "static"
+                        }
+                    console.log("Levantar Ventana");    
+                    $('#jgModal').modal(options);
+                    console.log("Jugar tipo 1");    
+                    $('#jg-button2').click();
                 }
     }
         

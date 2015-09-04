@@ -33,23 +33,23 @@
 
     </head>
     <body ondragstart="return false;" ondrop="return false;">
-        <div class="fondo-game"  style="background: url(./games/slot-ranas/game_1024x768/sprites/bg_menu.jpg) top center;">
+        <div class="fondo-game" style="    background: #00A9BA;">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
-    <script>
+     <script>
         $(document).ready(function () {
             var oMain = new CMain({
                 min_reel_loop: 2, //NUMBER OF REEL LOOPS BEFORE SLOT STOPS  
-                reel_delay: 2, //NUMBER OF FRAMES TO DELAY THE REELS THAT START AFTER THE FIRST ONE
-                time_show_win: 1000, //DURATION IN MILLISECONDS OF THE WINNING COMBO SHOWING
-                time_show_all_wins: 1000, //DURATION IN MILLISECONDS OF ALL WINNING COMBO
+                reel_delay: 6, //NUMBER OF FRAMES TO DELAY THE REELS THAT START AFTER THE FIRST ONE
+                time_show_win: 2000, //DURATION IN MILLISECONDS OF THE WINNING COMBO SHOWING
+                time_show_all_wins: 2000, //DURATION IN MILLISECONDS OF ALL WINNING COMBO
                 money: 0                //STARING CREDIT FOR THE USER
             });
             'use strict';
             var socket;
             var protocol_identifier = 'server';
             var myId;
-            var idgame = 3; //aqui debe llevarse el nombre del juego que selecciono
+            var idgame = 4; //aqui debe llevarse el nombre del juego que selecciono
             var idgame_free = 1; 
             var free_gameslot = 0;
             var free=0;
@@ -87,20 +87,21 @@
                     $('#jgModal').modal(options);
                 }
                        if (free > 0) {
-                          
                             setTimeout(function() {
-                                
                            free=free-1;
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
+                           //inhabilitar botones
                            s_oInterface.disableGuiButtons();
-               s_oGame.onMaxBetjgXxx();
-                                
-                            },3000);
+                            s_oGame.onMaxBetjgXxx();
+                            
+                            },2000);
                 }
                 else{
                     freeselect=20;
-                    NUM_PAYLINES=freeselect;
+                NUM_PAYLINES=freeselect;
+                $(".numb-free").slideUp();
+                console.log("ocultar cantidad");
                 }
                 
             });
@@ -119,7 +120,7 @@
                 var total_money = $('#total_coins').html();
                 //alert(total_money);
                 //alert(value_mt);
-                total_money = total_money.replace(/\./g,'');
+                           total_money = total_money.replace(/\./g,'');
                 if (value_mt > 10 && value_mt < parseFloat(total_money)) {
                     // alert('llega aqui');
                     iMoney = value_mt;
@@ -167,7 +168,7 @@
                         $(".item-free").slideDown();
                         $("#text-win").removeClass('celebra');
                         socket.send(JSON.stringify(intro));
-                }, 3000);
+                }, 2000);
                 
             document.getElementById('text-win').innerHTML = 'Has Ganado 5 juegos por 20 Lineas';
 
@@ -196,7 +197,7 @@
                         $(".item-free").slideDown();
                         $("#text-win").removeClass('celebra');
                         socket.send(JSON.stringify(intro));
-                }, 3000);
+                }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
              
             });
@@ -222,7 +223,7 @@
                         $(".item-free").slideDown();
                         $("#text-win").removeClass('celebra');
                         socket.send(JSON.stringify(intro));
-                }, 3000);
+                }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 20 juegos por 5 Lineas';
              
             });
@@ -408,7 +409,7 @@
         <!-- Trigger the modal with a button -->
         <div class="container sin-padding">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">    
+                <div class="hidden-xs col-sm-12 col-md-12 col-lg-12 sin-padding">    
                 <?php     
                         $valores = array();
                         $x=1;
@@ -466,7 +467,7 @@
                     </div>
                     <div class="modal-footer"> 
                          <!-- Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza. -->
-                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button> 
                     </div>
                 </div>
 
@@ -535,6 +536,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
         <div class="a-lert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
+    </div>
+    <div class="visible-xs col-xs-12">
+    <p>Este juego no es soportado en dispositivos moviles. Entra desde tu table o Pc</p>
     </div>
     </div>
     <?php $this->load->view('page/footer'); ?>

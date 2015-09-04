@@ -358,7 +358,9 @@ class Casino extends MY_Controller {
     public function demo_slotmachine() {
         $this->load->view('slotmachine/demo-index');
     }
-
+    public function demo_egipcia() {
+        $this->load->view('slot-egipcia/demo-index');
+    }
     public function roulette() {
         $data = $this->modelo_universal->select('game_roulette', '*', 'id_game_roulette = 1');
         $this->load->view('roulette/settings', $data[0]);

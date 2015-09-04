@@ -72,6 +72,7 @@ class Player extends MY_Controller {
                     redirect('./inser_controller/insertc');
                 }*/
                 $this->data['dat'] = $data;
+                $this->data['term'] = true;
             //debug(print_r($this->session->userdata));
                  
                 $this->header('player');

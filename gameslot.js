@@ -479,6 +479,7 @@
 
 
             do { //symbolos finales, a modificar
+               console.log('tercer while');
                 _anterior = new Array();
                 _aFinalSymbolCombo = new Array();
                 for (var i = 0; i < NUM_ROWS; i++) {
@@ -520,8 +521,8 @@
                                         var p = i;
                                         var q = b;
 
-                                        do { //while para quitar las combinaciones ganadoras... cada vez que cambia un numero se reinicia el contador para vlver a revisar...
-
+                                        do { //while para quitar las combinaciones ganadoras... cada vez que cambia un numero se reinicia el conta {r para vlver a revisar...
+console.log('primer while');
                                             var iRandIndex = Math.floor(Math.random() * (s_aRandSymbols.length - 1));
                                             var iRandSymbol = s_aRandSymbols[iRandIndex];
                                             _aFinalSymbolCombo[i][j] = iRandSymbol;
@@ -553,6 +554,7 @@
                     aCellList.push({row: aCombos[0].row, col: aCombos[0].col, value: _aFinalSymbolCombo[aCombos[0].row][aCombos[0].col]});
 
                     while (iValue === WILD_SYMBOL && iStartIndex < NUM_REELS) {
+                        console.log('segundo while');
                         iNumEqualSymbol++;
                         iValue = _aFinalSymbolCombo[aCombos[iStartIndex].row][aCombos[iStartIndex].col];
                         aCellList.push({row: aCombos[iStartIndex].row, col: aCombos[iStartIndex].col,

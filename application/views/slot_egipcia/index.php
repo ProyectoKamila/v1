@@ -36,13 +36,13 @@
         <div class="fondo-game"  style="background: url(./games/slot-egipcio/game_1024x768/sprites/landscape.jpg);">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
-    <script>
+  <script>
         $(document).ready(function () {
             var oMain = new CMain({
                 min_reel_loop: 2, //NUMBER OF REEL LOOPS BEFORE SLOT STOPS  
-                reel_delay: 2, //NUMBER OF FRAMES TO DELAY THE REELS THAT START AFTER THE FIRST ONE
-                time_show_win: 1000, //DURATION IN MILLISECONDS OF THE WINNING COMBO SHOWING
-                time_show_all_wins: 1000, //DURATION IN MILLISECONDS OF ALL WINNING COMBO
+                reel_delay: 6, //NUMBER OF FRAMES TO DELAY THE REELS THAT START AFTER THE FIRST ONE
+                time_show_win: 2000, //DURATION IN MILLISECONDS OF THE WINNING COMBO SHOWING
+                time_show_all_wins: 2000, //DURATION IN MILLISECONDS OF ALL WINNING COMBO
                 money: 0                //STARING CREDIT FOR THE USER
             });
             'use strict';
@@ -87,19 +87,21 @@
                     $('#jgModal').modal(options);
                 }
                        if (free > 0) {
-                          
                             setTimeout(function() {
-                                
                            free=free-1;
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
-               s_oGame.onMaxBetjgXxx();
-                                
-                            },3000);
+                           //inhabilitar botones
+                           s_oInterface.disableGuiButtons();
+                            s_oGame.onMaxBetjgXxx();
+                            
+                            },2000);
                 }
                 else{
                     freeselect=20;
-                    NUM_PAYLINES=freeselect;
+                NUM_PAYLINES=freeselect;
+                $(".numb-free").slideUp();
+                console.log("ocultar cantidad");
                 }
                 
             });
@@ -166,7 +168,7 @@
                         $(".item-free").slideDown();
                         $("#text-win").removeClass('celebra');
                         socket.send(JSON.stringify(intro));
-                }, 3000);
+                }, 2000);
                 
             document.getElementById('text-win').innerHTML = 'Has Ganado 5 juegos por 20 Lineas';
 
@@ -195,7 +197,7 @@
                         $(".item-free").slideDown();
                         $("#text-win").removeClass('celebra');
                         socket.send(JSON.stringify(intro));
-                }, 3000);
+                }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
              
             });
@@ -221,7 +223,7 @@
                         $(".item-free").slideDown();
                         $("#text-win").removeClass('celebra');
                         socket.send(JSON.stringify(intro));
-                }, 3000);
+                }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 20 juegos por 5 Lineas';
              
             });
@@ -488,7 +490,7 @@
                     </div>
                         
                     <div class="modal-body">
-                        <p>Pulsa una opcion</p>
+                        <p class="seleccion">Pulsa una opcion</p>
                         <?php
                         $z = 1;
                         foreach($valores as $v) { ?>
@@ -501,7 +503,7 @@
                                     style="margin-top:30px;"
                                     <?php } ?>        
                                     <?php if($z== 2) { ?>
-                                     style="margin-top:3px;"
+                                     style="margin-top:60px;"
                                     <?php } ?>
                                     <?php if($z== 3) { ?>
                                     style="margin-top:25px;"

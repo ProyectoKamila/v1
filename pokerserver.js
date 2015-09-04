@@ -1315,7 +1315,7 @@ wsServer.on('request', function(request) {
         this.pote6 = 0;
         this.card = [];
         this.numcard = 0;
-        this.diler = 0;
+        this.diler = -1;
         this.cardmesa = [];
         this.newapost = [];
         this.roomapost = [];
@@ -1401,7 +1401,7 @@ wsServer.on('request', function(request) {
                         numtry++;
                            console.log('while 4: ' + numtry);
                         this.diler++;
-                        if (this.diler == 7) {
+                        if (this.diler >= 7) { 
                             this.diler = 0;
                         }
                     }
@@ -1443,18 +1443,23 @@ wsServer.on('request', function(request) {
     };
     Sala.prototype.repartircardmesa = function() {
         var count = this.cardmesa.length;
-        if (count === 3) {
+        console.log('cantidad de cartas: ' + count);
+        if (count == 3) {
+            console.log('carta 3 numcard: ' + this.numcard+ ': ' + this.card[this.numcard]);
             this.cardmesa[3] = this.card[this.numcard];
             this.numcard++;
-        } else if (count === 4) {
+        } else if (count == 4) { 
+            console.log('carta 4 numcard: ' + this.numcard+ ': ' + this.card[this.numcard]);
             this.cardmesa[4] = this.card[this.numcard];
             this.numcard++;
         } else if (count < 4) {
             for (i = 0; i < 3; i++) {
+                console.log('carta' + i +' numcard: ' + this.numcard+ ': ' + this.card[this.numcard]);
                 this.cardmesa[i] = this.card[this.numcard];
                 this.numcard++;
             }
         }
+        console.log('cantidad de cartas: ' + count);
         for (i in saleonlineconexall[this.room]) {
             sendmessageuser(saleonlineconexall[this.room][i], 'cardmesa', this.cardmesa);
         }
@@ -1462,6 +1467,7 @@ wsServer.on('request', function(request) {
     Sala.prototype.gameover = function() {
         play[this.room].cardmesa = [];
         play[this.room].roomapost = [];
+        play[this.room].numcard = 0;
         this.pote1=0;
         this.numjugactivos=0;
         clearTimeout(this.enespera);
@@ -1473,6 +1479,7 @@ wsServer.on('request', function(request) {
         if (play[this.room].numjugactivos > 1){
                 
            var numtry =0;
+                this.diler++;
             while (this.jugactivos[this.diler]['first_name'] == undefined && numtry < 8) {
                    numtry++;
                    console.log('while 5');
@@ -1513,7 +1520,7 @@ wsServer.on('request', function(request) {
                 numtry++;
                 console.log('while 1');
                 this.jugadorenespera++;
-                if (this.jugadorenespera == 7) {
+                if (this.jugadorenespera >= 7) {
                     this.jugadorenespera = 0;
                 }
             }

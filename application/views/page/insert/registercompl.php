@@ -81,7 +81,7 @@
                             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding">
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><span class="fa fa-users"></span></span>
-                                    <select class="form-control" name="gender" value="<?php
+                                    <select style="color:black" class="form-control" name="gender" value="<?php
                                     if (isset($dat)) {
                                         echo $dat[0]['gender'];
                                     } else
@@ -117,10 +117,10 @@
 
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding">
+                            <div style="display:none;" class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding">
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><span class="fa fa-globe" ></span></span>
-                                    <input class="form-control" placeholder="Nacionalidad" name="nationality" type="text" value="<?php
+                                    <input  class="form-control" placeholder="Nacionalidad" name="nationality" type="text" value="<?php
                                     if (isset($dat)) {
                                         echo $dat[0]['nationality'];
                                     } else
@@ -139,7 +139,7 @@
                                     //} else-->
                                     //  echo set_value('country')-->
                                     ?>"required=""> -->
-                                    <select name="country" class="form-control" id="">
+                                    <select name="country" class="form-control" id="" style="color:black">
                                         <option value="AF">Afganistán</option>
                                         <option value="AL">Albania</option>
                                         <option value="DE">Alemania</option>
@@ -429,11 +429,12 @@
 
                                 </div>
                             </div>
+                            <?php if(!isset($term)){ ?>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">
                                 <p style="color:white;">Acepta ud los terminos y condiciones.</p>
                                 <input type="checkbox" name="acepto" required/>
                             </div>
-
+                            <?php } ?>
                             <input class="form-control" placeholder="" name="registration_date" type="hidden" value="<?php
                             if (isset($dat)) {
                                 echo $dat[0]['registration_date'];

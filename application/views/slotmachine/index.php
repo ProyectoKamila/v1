@@ -94,7 +94,9 @@
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
                            //inhabilitar botones
+                           
                            s_oInterface.disableGuiButtons();
+                           s_oInterface.hideAllLines();
                             s_oGame.onMaxBetjgXxx();
                             
                             },2000);
@@ -102,6 +104,8 @@
                 else{
                     freeselect=20;
                 NUM_PAYLINES=freeselect;
+                $(".numb-free").slideUp();
+                console.log("ocultar cantidad");
                 }
                 
             });
@@ -333,7 +337,8 @@
                                    free=free -1;
                                    //console.log('free sele '+freeselect);
                                    NUM_PAYLINES=freeselect;
-                                s_oGame.onMaxBetjgXxx();
+                                 //    s_oInterface.disableGuiButtons();
+                               // s_oGame.onMaxBetjgXxx();
                          
                             
                         }
@@ -410,7 +415,7 @@
         <!-- Trigger the modal with a button -->
         <div class="container sin-padding">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">    
+                <div class="hidden-xs col-sm-12 col-md-12 col-lg-12 sin-padding">    
                 
                 <?php     
                         $valores = array();
@@ -468,7 +473,7 @@
                     </div>
                     <div class="modal-footer"> 
                          <!-- Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza. -->
-                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Salir</button> 
                     </div>
                 </div>
 
@@ -491,7 +496,7 @@
                     </div>
                         
                     <div class="modal-body">
-                        <p>Pulsa una opcion</p>
+                        <p class="seleccion">Pulsa una opcion</p>
                         <?php
                         $z = 1;
                         foreach($valores as $v) { ?>
@@ -538,6 +543,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
         <div class="a-lert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
+    </div>
+    <div class="visible-xs col-xs-12">
+    <p>Este juego no es soportado en dispositivos moviles. Entra desde tu table o Pc</p>
     </div>
     </div>
     <?php $this->load->view('page/footer'); ?>

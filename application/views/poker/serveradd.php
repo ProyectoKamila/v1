@@ -425,7 +425,7 @@
                                     <div class="vert">
                                         <a href="./poker#" class="btn btn-default" id="exitgame"></a>
                                     </div>
-                                    <div class="vert " id='player1' ondblclick="seeplayer('#player1', 0);" style='cursor:pointer;'>
+                                    <div class="vert " id='player1' onclick="seeplayer('#player1', 0);" style='cursor:pointer;'>
                                         <h3 class="nameusr" id='player1name'>No Disponible</h3>
                                         <div class="fichsit">
                                             <img src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 1" id='player1imageprofile' class="profile-mesa">
@@ -436,7 +436,7 @@
                                     <div class="vert">
                                         <div class="diler men"></div>
                                     </div>
-                                    <div class="vert" id='player2' ondblclick="seeplayer('#player2', 1);" style='cursor:pointer;'>
+                                    <div class="vert" id='player2' onclick="seeplayer('#player2', 1);" style='cursor:pointer;'>
                                         <h3 class="nameusr right" id='player2name'>No Disponible</h3>
                                         <div class="fichsit right">
                                             <img src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 2" id='player2imageprofile' class="profile-mesa right">
@@ -495,7 +495,7 @@
 
                             <div class="container-fluid hori">
                                 <div class="row" id='rowgame' >
-                                    <div class="vert " id='player7' ondblclick="seeplayer('#player7', 6);" style="width: 10%;cursor:pointer">
+                                    <div class="vert " id='player7' onclick="seeplayer('#player7', 6);" style="width: 10%;cursor:pointer">
                                         <h3 class="nameusr" id='player7name'>No Disponible</h3>
                                         <div class="fichsit">
                                             <img src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 7" id='player7imageprofile' class="profile-mesa">
@@ -555,7 +555,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="vert" id='player3' ondblclick="seeplayer('#player3', 2);" style="width: 10%; cursor:pointer" >
+                                    <div class="vert" id='player3' onclick="seeplayer('#player3', 2);" style="width: 10%; cursor:pointer" >
                                         <h3 class="nameusr right" id='player3name'>No Disponible</h3>
                                         <div class="fichsit right">
                                             <img id='player3imageprofile' src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player3" class="profile-mesa right">
@@ -619,7 +619,7 @@
                                     <div class="vert">
 
                                     </div>
-                                    <div class="vert " id='player6' ondblclick="seeplayer('#player6', 5);" style="cursor:pointer">
+                                    <div class="vert " id='player6' onclick="seeplayer('#player6', 5);" style="cursor:pointer">
                                         <h3 class="nameusr" id='player6name'>No Disponible</h3>
                                         <div class="fichsit">
                                             <img src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 6" id='player6imageprofile' class="profile-mesa">
@@ -627,7 +627,7 @@
                                         <p class="apostonline " id='player6apos'>0</p>
                                         <p class="timeturn " id='player6time'></p>
                                     </div>
-                                    <div class="vert c" id='player5' ondblclick="seeplayer('#player5', 4);" style="cursor:pointer">
+                                    <div class="vert c" id='player5' onclick="seeplayer('#player5', 4);" style="cursor:pointer">
                                         <h3 class="nameusr" id='player5name'>No Disponible</h3>
                                         <div class="fichsit c">
                                             <img src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 5" id='player5imageprofile' class="profile-mesa">
@@ -635,7 +635,7 @@
                                         <p class="apostonline " id='player5apos'>0</p>
                                         <p class="timeturn " id='player5time'></p>
                                     </div>
-                                    <div class="vert" id='player4' ondblclick="seeplayer('#player4', 3);" style="cursor:pointer">
+                                    <div class="vert" id='player4' onclick="seeplayer('#player4', 3);" style="cursor:pointer">
                                         <h3 class="nameusr right" id='player4name'>No Disponible</h3>
                                         <div class="fichsit right">
                                             <img id='player4imageprofile' src="http://www.apcd.org.br/clubedebeneficios/imagens/ico-close.png" alt="Player 4" class="profile-mesa right">
@@ -748,7 +748,7 @@
                                                 classtyle = "glyphicon glyphicon-lock";
                                             }
 
-                                            content += "<tr class='general' style='cursor:pointer;'  ondblclick='joingame(" + i + "," + recorrido[i].boolpass + ")'><td><span class='" + classtyle + "' id=''> </span>" + recorrido[i].name + "</td><td>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</td><td>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</td><td>" + recorrido[i].max_jug + "</td></tr>"
+                                            content += "<tr class='general' style='cursor:pointer;'  onclick='joingame(" + i + "," + recorrido[i].boolpass + ")'><td><span class='" + classtyle + "' id=''> </span>" + recorrido[i].name + "</td><td>" + recorrido[i].apu_min + "/" + recorrido[i].apu_max + "</td><td>" + recorrido[i].jug_min + "/" + recorrido[i].jug_max + "</td><td>" + recorrido[i].max_jug + "</td></tr>"
                                             ide++;
 
                                         }
@@ -760,3 +760,6 @@
 
 </script>
 
+<audio id="audio_win"><source src="sounds/win.ogg" type="audio/ogg">, <source src="sounds/win.mp3" type="audio/mpeg"></audio>
+<audio id="audio_press_but"><source src="sounds/press_but.ogg" type="audio/ogg">, <source src="sounds/press_but.mp3" type="audio/mpeg"></audio>
+<audio id="audio_tictoc"><source src="sonidos/Reloj.mp3" type="audio/mpeg">,</audio>

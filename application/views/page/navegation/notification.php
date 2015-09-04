@@ -9,13 +9,40 @@
         </a>
         <ul class="dropdown-menu dropdown-alerts">
             <li>
-                                <a href="<?php echo site_url('slotmachine'); ?>"><i class="fa fa-play fa-fw"></i> SlotMachine</a>
+                                <a href="<?php echo site_url('slotmachine'); ?>"><i class="fa fa-play fa-fw"></i> SlotMachine Frutas</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('slotmachine-ranas'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Ranas</a>
                             </li>
                              <li>
+                                <a href="<?php echo site_url('slotmachine-egipcia'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Egipcio</a>
+                            </li>
+                             <li>
+                                <a href="<?php echo site_url('slotmachine-espacial'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Espacial</a>
+                            </li>
+                               <li>
                                 <a href="<?php echo site_url('slotmachine-marino'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Marino</a>
                             </li>
+                             <li>
+                                <a href="<?php echo site_url('slotmachine-candy'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Caramelo</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('slotmachine-depotivo'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Deportivo</a>
+                            </li>
+                               <li>
+                                <a href="<?php echo site_url('slotmachine-diamantes'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Diamantes</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo site_url('slotmachine-4as'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine 4As</a>
+                            </li>
                               <li>
-                                <a href="<?php echo site_url('slotmachine-espacial'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Espacial</a>
+                                <a href="<?php echo site_url('slotmachine-sensual'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Sexy</a>
+                            </li>
+                                <li>
+                                <a href="<?php echo site_url('slotmachine-bebidas'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Bebidas</a>
+                            </li>
+                               <li>
+                                <a href="<?php echo site_url('slotmachine-musical'); ?>"><i class="fa fa-play fa-fw"></i> Slotmachine Musical</a>
                             </li>
                             <li>
                                 <a href="<?php echo site_url('roulette'); ?>"><i class="fa fa-play fa-fw"></i> Roulette</a>
@@ -39,8 +66,6 @@
         </a>
         <ul class="dropdown-menu dropdown-user">
             <li><a href="./account"><i class="fa fa-user fa-fw"></i> Perfil</a>
-            </li>
-            <li><a href="#"><i class="fa fa-gear fa-fw"></i> Ajustes</a>
             </li>
             <li class="divider"></li>
             <li><a href="./close"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesi&oacute;n</a>

@@ -285,6 +285,7 @@
             socket.send(JSON.stringify(intro));
         });
         $('#leave').click(function() {
+            $('#audio_press_but')[0].play();
             console.log('leave-:'+idsit);
             var intro = {
                 type: 'leave',
@@ -298,6 +299,7 @@
         });
 
         $('#exitgame').click(function() {
+            $('#audio_press_but')[0].play();
                var intro = {
                 type: 'exitgame'
             }
@@ -337,13 +339,14 @@
             }
         });
         $('#buttonjoingame').click(function() {
+            $('#audio_press_but')[0].play();
             $('#passloss').slideUp();
             var passbox = $('#passbox').val();
             $('#passbox').val('');
             conexgame(passbox);
         });
         $('#past').click(function() {
-
+            $('#audio_press_but')[0].play();
             var intro = {
                 type: 'apost',
                 idsale: idsale,
@@ -354,7 +357,7 @@
             socket.send(JSON.stringify(intro));
         });
         $('#apost').click(function() {
-
+            $('#audio_press_but')[0].play();
             var intro = {
                 type: 'apost',
                 idsale: idsale,
@@ -411,10 +414,10 @@
     }
 
     function open_connection() {
-               socket = new WebSocket('ws://162.252.57.97:8081/', 'server');
+            //   socket = new WebSocket('ws://162.252.57.97:8081/', 'server');
         //socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
         //socket = new WebSocket('ws://milagros-pc:8806/', 'server');
-        // socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
+         socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
 //        socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
 
         console.log(socket);
@@ -509,6 +512,7 @@
             //$('#game').html(message.messagesend);
         }
         else if (message.type === 'ganador') {
+            $('#audio_win')[0].play();
             console.log('ganador');
             console.log(message.messagesend);
             clearInterval(enespera);
@@ -630,7 +634,9 @@
                 $('.win').css('display','none');
                 $('#playerdata').slideDown();
                 $('#playeroption').slideUp();
+                $('#audio_tictoc')[0].pause();
             } else {
+                $('#audio_tictoc')[0].play();
                 //descomentar
                 blink_window_title('~Su turno~');
                 $('.win').html('~Su turno~');
