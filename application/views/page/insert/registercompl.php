@@ -18,6 +18,31 @@
                         <?php echo form_open_multipart("/receivingdc") ?>
                         <!--     <form role="form" method="post" action="./registering"> -->
                         <fieldset>
+                             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding">
+                                <div class="form-group input-group">
+                                    <span class="input-group-addon"><span class="fa fa-users"></span></span>
+                                    <select style="color:black" class="form-control" name="nationality" value="<?php
+                                    if (isset($dat)) {
+                                        echo $dat[0]['nationality'];
+                                    } else
+                                        echo set_value('nationality')
+                                        ?>">
+                                        <option value="">...</option>
+                                        <option <?php
+                                        if (isset($dat) && $dat[0]['nationality'] == 'V') {
+                                            echo 'selected';
+                                        }
+                                        ?> value="V">Venezolano</option>
+                                        <option <?php
+                                        if (isset($dat) && $dat[0]['gender'] == 'E') {
+                                            echo 'selected';
+                                        }
+                                        ?> value="E">Extranjero</option>
+
+                                    </select>
+
+                                </div>
+                            </div>
                             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding">
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><span class="fa fa-eye-slash"></span></span>
@@ -117,18 +142,7 @@
 
                                 </div>
                             </div>
-                            <div style="display:none;" class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding">
-                                <div class="form-group input-group">
-                                    <span class="input-group-addon"><span class="fa fa-globe" ></span></span>
-                                    <input  class="form-control" placeholder="Nacionalidad" name="nationality" type="text" value="<?php
-                                    if (isset($dat)) {
-                                        echo $dat[0]['nationality'];
-                                    } else
-                                        echo set_value('nationality')
-                                        ?>"required=""> 
-                                    <font color="red" style="font-weight: bold; font-size: 8px; text-decoration: underline"><?php echo form_error('nationality'); ?></font>
-                                </div>
-                            </div>
+                     
                             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding">
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><span class="fa fa-map-marker"></span></span>
