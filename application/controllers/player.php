@@ -141,7 +141,7 @@ class Player extends MY_Controller {
                             'amount' => $this->input->post('amount'),
                             'id_user' => $this->session->userdata('id_user'),
                             'register_payment_status_id'=>'1',
-                            'register_date' => now()
+                            'register_date' => date("Y-m-d")
                             );
 
                         $this->modelo_universal->insert('register_payment', $data);
