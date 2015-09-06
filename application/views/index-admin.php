@@ -60,8 +60,8 @@
                                 <i class="fa fa-shopping-cart fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">124</div>
-                                <div>New Orders!</div>
+                                <div class="huge"><?php echo $this->data['jackpots']; ?></div>
+                                <div>Balance disponible</div>
                             </div>
                         </div>
                     </div>
