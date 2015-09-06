@@ -82,8 +82,8 @@
                                 <i class="fa fa-support fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">13</div>
-                                <div>Support Tickets!</div>
+                                <div class="huge"><?php echo $this->data['active_users']; ?></div>
+                                <div>Usuarios Registrados</div>
                             </div>
                         </div>
                     </div>

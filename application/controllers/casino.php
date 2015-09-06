@@ -44,6 +44,9 @@ class Casino extends MY_Controller {
             $recent_payments = $this->modelo_universal->count('register_payment', 'register_payment_status_id = 1');
             //debug($recent_payments);
             $this->data['recent_payments'] = $recent_payments;
+            $active_users = $this->modelo_universal->count('user', 'id_user_account_status = 3');
+            //debug($recent_payments);
+            $this->data['active_users'] = $active_users;
             $this->header('admin');
             $this->navigation();
             $this->load->view('index-admin', $this->data);
