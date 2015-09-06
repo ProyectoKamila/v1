@@ -38,7 +38,7 @@
                                 <i class="fa fa-money fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">12</div>
+                                <div class="huge"><?php echo $this->data['recent_payments']; ?></div>
                                 <div>Pagos sin Aprobar!</div>
                             </div>
                         </div>

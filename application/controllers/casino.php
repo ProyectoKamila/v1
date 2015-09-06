@@ -41,6 +41,9 @@ class Casino extends MY_Controller {
             $jackpot= $this->modelo_universal->query('SELECT  ROUND(SUM(`jackpot`), 2) as jackpot FROM `casino_jackpot`');
             //debug($jackpot[0]['jackpot']);
             $this->data['jackpots']=$jackpot[0]['jackpot'];
+            $recent_payments = $this->modelo_universal->count('register_payment', 'register_payment_status_id = 1');
+            //debug($recent_payments);
+            $this->data['recent_payments'] = $recent_payments;
             $this->header('admin');
             $this->navigation();
             $this->load->view('index-admin', $this->data);
