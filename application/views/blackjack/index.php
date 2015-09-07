@@ -450,7 +450,7 @@
                     </div>
                     <div class="modal-footer"> 
                          <!-- Casino4as: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza. -->
-                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button> 
                     </div>
                 </div>
 
