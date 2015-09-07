@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
         <link rel="icon" href="http://www.casino4as.com/favicon.png" type="image/x-png">
         <title>Escritorio - Casino4As</title>
         <link rel="stylesheet/less" type="text/css" href="css/main.less" />
