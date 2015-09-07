@@ -10,13 +10,13 @@
         <meta name="author" content="">
         <title>Acceder - Casino4As</title>
         <link rel="stylesheet/less" type="text/css" href="css/main.less" />
-         <link rel="stylesheet" type="text/less" href="http://casino4as.com/wp-content/themes/casino4as_wp/css/main.less">
+         <link rel="stylesheet" type="text/less" href="/interface/css/main.less">
         <script src="js/less.min.js"></script>
     </head>
     
     <body>
         
-        <div class="container" style="width:100%;padding:0px;">
+        <div class="container-fluid" style="<width:100%></width:100%>">
                     <div class="container-fluid sin-padding">
             <div class="row">
                 <div class="col-xs-12 sin-padding">
