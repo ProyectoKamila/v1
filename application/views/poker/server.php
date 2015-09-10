@@ -100,8 +100,25 @@
             "13co",
             "14co"
             );
+            
+    var card55 = new Array(
+        "02co",
+            "03co",
+            "04co",
+            "05co",
+            "06co",
+            "07co",
+            "08co",
+            "09co",
+            "10co",
+            "11co",
+            "12co",
+            "13co",
+            "14co"
+            );
+    
     var card = [];
-
+    
     //trebol
 
     card["02tre"] = {'image': '2tre.png', 'carpeta': 'trebol'};
@@ -142,7 +159,7 @@
     card["08dia"] = {'image': '8dia.png', 'carpeta': 'diamante'};
     card["09dia"] = {'image': '9dia.png', 'carpeta': 'diamante'};
     card["10dia"] = {'image': '10dia.png', 'carpeta': 'diamante'};
-    card["10dia"] = {'image': 'jdia.png', 'carpeta': 'diamante'};
+    card["11dia"] = {'image': 'jdia.png', 'carpeta': 'diamante'};
     card["12dia"] = {'image': 'qdia.png', 'carpeta': 'diamante'};
     card["13dia"] = {'image': 'kdia.png', 'carpeta': 'diamante'};
     card["14dia"] = {'image': 'as.png', 'carpeta': 'diamante'};
@@ -160,6 +177,24 @@
     card["12co"] = {'image': 'qco.png', 'carpeta': 'corazon'};
     card["13co"] = {'image': 'kco.png', 'carpeta': 'corazon'};
     card["14co"] = {'image': 'as2.png', 'carpeta': 'corazon'};
+    
+    for (i in card2){
+     var card1 = card[card2[i]];
+     if (card2[i] == '02pic'){
+         $('#cartastodas').prepend('<p>Treblol</p>');
+     }else if (card2[i] == '02dia'){
+         $('#cartastodas').prepend('<p>Picas</p>');
+     }else if (card2[i] == '02co'){
+         $('#cartastodas').prepend('<p>Diamante</p>');
+     }
+     console.log('carta: ' + card2[i])
+            var url = "./imagen/poker/" + card1['carpeta'] + "/" + card1['image'];
+            var img1 = "<img src='" + url + "' style='height:45px;' />";
+            $('#cartastodas').prepend(img1);
+         if (card2[i] == '14co'){
+            $('#cartastodas').prepend('<p>Corazon</p>');
+         }
+    }
     var pos = [1, 2, 4, 7, 6, 5, 3];
 //   console.log(card2.sort(function() {return Math.random() - 0.5}));
 //   console.log(card2.length);

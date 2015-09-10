@@ -1,5 +1,5 @@
-<section class="other-game">
-    <div class="container fondo-mesa">
+<section class="other-game ">
+    <div class="container fondo-mesa ">
         <div class="row">
             <div class="col-xs-12 text-center juego-texto1">
                 <h1>OTROS JUEGOS</h1>
@@ -7,8 +7,8 @@
         </div>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
+        <div class="row hidden-xs">
+            <div class="col-xs-12 ">
                 <h3>Otros Juegos</h3>
             </div>
             <div class="clearfix"></div>

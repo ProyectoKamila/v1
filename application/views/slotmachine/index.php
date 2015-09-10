@@ -320,6 +320,7 @@
                 }
                 else if (message.type === 'free_game') {
                      // myId = message.userId;
+                     console.log('aquiiii el freegame');
                    free_gameslot = 1;
                    //ar freg = message.messagesend;
                    //openjg(freg);

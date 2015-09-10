@@ -106,13 +106,13 @@
                             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding">
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><span class="fa fa-users"></span></span>
-                                    <select style="color:black" class="form-control" name="gender" value="<?php
+                                    <select  class="form-control select-country" name="gender" value="<?php
                                     if (isset($dat)) {
                                         echo $dat[0]['gender'];
                                     } else
                                         echo set_value('gender')
                                         ?>">
-                                        <option value="">...</option>
+                                        <option value="">Sexo</option>
                                         <option <?php
                                         if (isset($dat) && $dat[0]['gender'] == 'M') {
                                             echo 'selected';
@@ -153,7 +153,7 @@
                                     //} else-->
                                     //  echo set_value('country')-->
                                     ?>"required=""> -->
-                                    <select name="country" class="form-control" id="" style="color:black">
+                                    <select name="country" class="form-control select-country" id="" >
                                         <option value="AF">Afganistán</option>
                                         <option value="AL">Albania</option>
                                         <option value="DE">Alemania</option>

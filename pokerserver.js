@@ -1642,7 +1642,7 @@ wsServer.on('request', function(request) {
                                     h = win.evaluate(mesa[u]);
                                     playing[u] = h;
                                     if (u > 0) {
-                                        if (playing[u].point < playing[(u - 1)].point) {
+                                        if (playing[u].point < mayorprem.point) {
                                             mayorprem = playing[u];
                                         }
                                     } else {

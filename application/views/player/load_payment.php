@@ -3,7 +3,7 @@
      <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Agregar Saldo</h1> 
-                </div>
+                
                 <!-- /.col-lg-12 -->
             <div class="panel-body custom-panel-body">
                                <?php if ($this->session->flashdata('message')!= null){
@@ -27,9 +27,9 @@
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
 
                                         <select class="form-control" name="type" id="type" >
-                                            <option selected value="">Tipo De Instrumento</option>
-                                            <option value="Transferencia">Transferencia</option>
-                                            <option value="Deposito">Deposito</option>
+                                            <option selected value="">Metodo de Pago</option>
+                                            <option value="Transferencia" style="color:black;">Transferencia</option>
+                                            <option value="Deposito" style="color:black;">Deposito</option>
                                         </select>
                                     </div>
                                     <div class="form-group input-group">
@@ -51,6 +51,7 @@
 
                                 </fieldset>
                                 <?php echo form_close() ?>
+                            </div>
                             </div>
         </div>
         <!-- /#page-wrapper -->

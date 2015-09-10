@@ -31,6 +31,7 @@ class Player extends MY_Controller {
         }elseif ($this->session->userdata('id_role') == 1) {
             redirect('./dashboard');
         }else{
+            $this->load->view('page/header2');
             $this->header('player');
 //            $this->load->view('page/header');
 //            debug($this->session->userdata('id_user'));
@@ -74,10 +75,11 @@ class Player extends MY_Controller {
                 $this->data['dat'] = $data;
                 $this->data['term'] = true;
             //debug(print_r($this->session->userdata));
-                 
+                  $this->load->view('page/header2');
                 $this->header('player');
                 $this->navigation();
                 $this->load->view('page/insert/registercompl');
+                 $this->load->view('page/footer2');
             }
         }
 
@@ -94,10 +96,11 @@ class Player extends MY_Controller {
                 
                 $this->data['data'] = $data;
                 //debug(print_r($data[0]));
-                 
+                 $this->load->view('page/header2');
                 $this->header('player');
                 $this->navigation();
                 $this->load->view('player/payments');
+                $this->load->view('page/footer2');
             }
         }
 
@@ -165,10 +168,12 @@ class Player extends MY_Controller {
                      //echo "entrando";
                     $data = null;
                     $this->data['id_user'] = $this->session->userdata('id_user');
+                    $this->load->view('page/header2');
                     $this->header('player');
                     $this->session->set_flashdata('message', null);
                     $this->navigation();
                     $this->load->view('player/load_payment', $this->data);
+                    $this->load->view('page/footer2');
                     //redirect('player/load_payment');
                 }
             }

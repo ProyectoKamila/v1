@@ -41,7 +41,7 @@
                                 </div>
                                 <div id="menu2"  class="col-lg-2 col-md-2 hidden-sm hidden-xs sin-padding col-xs-offset-0 col-xs-12">
                                     <ul class="nav nav-pills">
-                                        <li role="presentation" class=""><a href="http://casino4s.com/casino/poker">PÓKER</a></li>
+                                        <li role="presentation" class=""><a href="http://casino4as.com/casino/poker">PÓKER</a></li>
                                         <li role="presentation"><a href="http://casino4s.com/casino/blog">BLOG</a></li>
                                     </ul>
                                 </div>
@@ -77,10 +77,6 @@
             </div>
         </div>
         
-        
-        
-        
-            
             <div class="row" style="margin-top:100px">
            
                 <div class="clearfix"></div>

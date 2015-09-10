@@ -38,7 +38,7 @@ class Casino extends MY_Controller {
         $role = parent::verify_role();
         if ($role == true) {
 //            $this->load->view('page/header');
-            $jackpot= $this->modelo_universal->query('SELECT  ROUND(SUM(`jackpot`), 2) as jackpot FROM `casino_jackpot`');
+            $jackpot= $this->modelo_universal->query('SELECT  ROUND(SUM(`debt`), 2) as jackpot FROM `casino_jackpot`');
             //debug($jackpot[0]['jackpot']);
             $this->data['jackpots']=$jackpot[0]['jackpot'];
             $recent_payments = $this->modelo_universal->count('register_payment', 'register_payment_status_id = 1');

@@ -630,9 +630,9 @@ console.log('primer while');
                             else {
                                 var juegos_gratis = juegos_gratis + 1;
                                 connection.free = true;
-                                // console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].amount);
-
-
+                               console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].value);
+                                
+                             
 
                                 sendmessageuser(connection, 'free_game', juegos_gratis);
                             }
@@ -693,12 +693,12 @@ console.log('primer while');
                                 // console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].amount);
 
 
-
+                                        console.log('aqui paso por el 2');
                                 sendmessageuser(connection, 'free_game', connection.free_game_play);
                             }
                             
                         }
-                                           else if (_aWinningLine[i].value == 8 && _aWinningLine[i].amount > 0 && connection.idgame_free == 3 && _aWinningLine[i].value == 5) {
+                         else if (_aWinningLine[i].value == 8 && _aWinningLine[i].amount > 0 && connection.idgame_free == 3 && _aWinningLine[i].num_win == 5) {
                            
                                             var mysqlc = mysql.createConnection(
                                                     {
@@ -723,7 +723,22 @@ console.log('primer while');
                                                     jackpot = row[0]['jackpot'];
                                                     debt = row[0]['debt'];
                                                     percent = row[0]['percent'];
-                                                    percentfree = row[0]['percentfreegame'];
+                                                    percentfree = row[0]['jackpotfree'];
+                                                              var mysqlc = mysql.createConnection(
+                                                    {
+                                                        host: '23.229.215.154',
+                                                        user: 'v1',
+                                                        password: 'Temporal01',
+                                                        database: 'v1',
+                                                    }
+                                            );
+                                        
+                                            mysqlc.connect();
+                                                    var string = 'UPDATE `v1`.`casino_jackpot` SET `jackpotfree` = 0 WHERE `casino_jackpot`.`id_jackpot` = 1;';
+                                                       mysqlc.query(string, function(err, row, fields) {
+                                                           
+                                                           
+                                                       });
                                                     sendmessageuser(connection, 'free_game', percentfree);
                                                     //  console.log('jackpot' + jackpot);
                                                     //  console.log('debt' + debt);
@@ -1021,7 +1036,23 @@ console.log('primer while');
 
         function updtclose(sitc, coin) {
 
+            var mysqlc = mysql.createConnection(
+                    {
+                        host: '23.229.215.154',
+                        user: 'v1',
+                        password: 'Temporal01',
+                        database: 'v1',
+                    }
+            );
+            mysqlc.connect();
+            var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_user + ';';
+            //  console.log(string);
+            mysqlc.query(string, function(err, row, fields) {
+                if (typeof(row)) {
+                    connection.coins = 0;
+                    connection.coins = row[0]['coins'];
 
+            coin = connection.coins;
             console.log('sitcoins' + sitc);
             //console.log('coins' + coin);
             var cointotal = coin + sitc;
@@ -1045,7 +1076,8 @@ console.log('primer while');
 
 
             });
-
+            
+            
             var string = 'INSERT INTO `activity_bet`(`coins_i`, `coins_f`, `id_user`, `id_game`, `time_i`, `time_f`) VALUES ("' + connection.coinsinit + '","' + connection.sitcoins + '","' + connection.id_user + '","' + connection.id_game + '","' + connection.date_i + '", NOW() );';
 //console.log('update close' + string);
             mysqlc.query(string, function(err, row, fields) {
@@ -1068,6 +1100,18 @@ console.log('primer while');
             });
 
             mysqlc.end();
+
+                    //    console.log('coins ' + connection.coins);
+
+                }
+            });
+
+            mysqlc.end();
+
+
+
+
+
 
         }
 

@@ -49,7 +49,7 @@
             var socket;
             var protocol_identifier = 'server';
             var myId;
-            var idgame = 4; //aqui debe llevarse el nombre del juego que selecciono
+            var idgame = 5; //aqui debe llevarse el nombre del juego que selecciono
             var idgame_free = 1; 
             var free_gameslot = 0;
             var free=0;
@@ -93,6 +93,7 @@
                            NUM_PAYLINES=freeselect;
                            //inhabilitar botones
                            s_oInterface.disableGuiButtons();
+                           s_oInterface.hideAllLines();
                             s_oGame.onMaxBetjgXxx();
                             
                             },2000);
@@ -333,7 +334,9 @@
                                    free=free -1;
                                    //console.log('free sele '+freeselect);
                                    NUM_PAYLINES=freeselect;
-                                s_oGame.onMaxBetjgXxx();
+                                       s_oInterface.disableGuiButtons();
+                                     s_oInterface.hideAllLines();
+                                //s_oGame.onMaxBetjgXxx();
                          
                             
                         }
@@ -405,7 +408,7 @@
             }
         });
     </script>
-    <div id="ranas" class="container-fluid sin-padding fondo-game" style="background: url(./games/slot-ranas/game_1024x768/sprites/bg_menu.jpg) top center;">
+    <div id="ranas" class="container-fluid sin-padding fondo-game hidden-xs" style="background: url(./games/slot-ranas/game_1024x768/sprites/bg_menu.jpg) top center;">
         <!-- Trigger the modal with a button -->
         <div class="container sin-padding">
             <div class="row">

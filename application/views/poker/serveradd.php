@@ -453,6 +453,7 @@
                             <div class="container-fluid hori">
                                 <div class="row" id='rowgame' >
                                     <div class="vert">
+                                        <div class="oculto" id="cartastodas" style="overflow: hidden;height: 100%;overflow-y: auto;"></div>
                                         <!--<a href="./poker#" class="btn btn-default" id="exitgame">Abandonar Sala</a>-->
                                     </div>
                                     <div class="vert">

@@ -30,11 +30,11 @@
                 </div>
                 <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                     <ul class="nav nav-pills">
-                        <li role="presentation"><a href="">Inicio</a></li>
-                        <li role="presentation"><a href="">Nosotros</a></li>
-                        <li role="presentation"><a href="">Juegos</a></li>
-                        <li role="presentation"><a href="">Póker</a></li>
-                        <li role="presentation"><a href="">Blog</a></li>
+                        <li role="presentation"><a href="http://www.casino4s.com">Inicio</a></li>
+                        <li role="presentation"><a href="http://www.casino4s.com/nosotros">Nosotros</a></li>
+                        <li role="presentation"><a href="http://www.casino4s.com/juego">Juegos</a></li>
+                        <li role="presentation"><a href="http://www.casino4s.com/poker">Póker</a></li>
+                        <li role="presentation"><a href="http://www.casino4s.com/blog">Blog</a></li>
                     </ul>
                     <div class="clearfix"></div>
                     <p class="telefono hidden-xs"><span class="glyphicon glyphicon-earphone "></span> 900 234 80 32 <span class="glyphicon glyphicon-envelope email"></span> soporte@casino4as.com</p>
@@ -45,7 +45,7 @@
                 </div>
                 <div class=" col-xs-12 visible-xs visible-sm">
                     <p class="copy">www.casino4s.com. Todos los derechos reservados<br>
-                        Desarrollado por Proyecto Kamila</p>
+</p>
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 <div id="page-wrapper" class="custom-login-panel">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Bienvenido Nombre de usuario</h1>
+                <h1 class="page-header">Hola, Administrador</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -9,7 +9,7 @@
         <!--opciones superiores-->
         <div class="row">
             <div class="col-lg-3 col-md-6">
-                <div class="panel panel-primary">
+                <div class="panel panel-primary panel-mostaza">
                     <div class="panel-heading ">
                         <div class="row">
                             <div class="col-xs-3">
@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">26</div>
-                                <div>Usuarion Online</div>
+                                <div>Usuarios Online</div>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-money fa-5x"></i>
+                                <i class="fa fa-money fa-4x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge"><?php echo $this->data['recent_payments']; ?></div>
@@ -53,11 +53,11 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="panel panel-yellow">
+                <div class="panel panel-yellow panel-mostaza">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-shopping-cart fa-5x"></i>
+                                <i class="fa  fa-balance-scale fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge"><?php echo $this->data['jackpots']; ?></div>
@@ -75,11 +75,11 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <div class="panel panel-red">
+                <div class="panel panel-red panel-mostaza">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-support fa-5x"></i>
+                                <i class="fa fa-user fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge"><?php echo $this->data['active_users']; ?></div>
@@ -132,7 +132,7 @@
                 <!-- /.panel -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> Balance
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Ultimos recargas sin aprobar
                         <div class="pull-right">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">

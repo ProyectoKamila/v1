@@ -33,7 +33,7 @@
 
     </head>
     <body ondragstart="return false;" ondrop="return false;">
-        <div class="fondo-game"  style="background: url(./games/slot-sensual/game_1024x768/sprites/fondo.jpg) top center;">
+        <div class="fondo-game"  style="background:#000;">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
     <script>
@@ -417,7 +417,7 @@
     }
         
     </script>
-    <div id="sensual" class="container-fluid sin-padding fondo-game" style="background: url(./games/slot-sensual/game_1024x768/sprites/fondo.jpg) top center;">
+    <div id="sensual" class="container-fluid sin-padding fondo-game hidden-xs" style="background: url(./games/slot-sensual/game_1024x768/sprites/fondo.jpg) top center;">
         <!-- Trigger the modal with a button -->
         <div class="container sin-padding">
             <div class="row">
@@ -479,7 +479,7 @@
                     </div>
                     <div class="modal-footer"> 
                          <!-- Casinosensual: Recuerda siempre cerrar sesion si no estas jugando en una maquina de confianza. -->
-                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button> 
                     </div>
                 </div>
 
@@ -549,6 +549,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
         <div class="a-lert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
+    </div>
+    <div class="visible-xs col-xs-12">
+    <p style="color:white;">Este juego no es soportado en dispositivos moviles. Entra desde tu table o Pc</p>
     </div>
     </div>
     <?php $this->load->view('page/footer'); ?>

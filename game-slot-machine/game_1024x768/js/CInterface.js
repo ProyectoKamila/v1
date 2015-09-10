@@ -60,7 +60,7 @@ function CInterface(iCurBet,iTotBet,iMoney){
         _oTimeText.textAlign = "center";
         s_oStage.addChild(_oTimeText);
 		
-	_oMoneyText = new createjs.Text(TEXT_MONEY +"\n"+iMoney.toFixed(2),"bold 30px Arial", "#ffde00");
+	_oMoneyText = new createjs.Text(TEXT_MONEY +"\n"+iMoney.toFixed(2),"bold 22px Arial", "#ffde00");
         _oMoneyText.x = 140;
         _oMoneyText.y = 50;
         _oMoneyText.textAlign = "center";
@@ -80,14 +80,14 @@ function CInterface(iCurBet,iTotBet,iMoney){
         _oCoinText.textBaseline = "alphabetic";
         s_oStage.addChild(_oCoinText);
 
-        _oTotalBetText = new createjs.Text(TEXT_BET +" "+iTotBet.toFixed(2),"bold 30px Arial", "#ffffff");
+        _oTotalBetText = new createjs.Text(TEXT_BET +" "+iTotBet.toFixed(2),"bold 20px Arial", "#ffffff");
         _oTotalBetText.x = 690;
         _oTotalBetText.y = CANVAS_HEIGHT - 130;
         _oTotalBetText.textAlign = "center";
         _oTotalBetText.textBaseline = "alphabetic";
         s_oStage.addChild(_oTotalBetText);
         
-        _oWinText = new createjs.Text("","bold 26px Arial", "#ffde00");
+        _oWinText = new createjs.Text("","bold 18px Arial", "#ffde00");
         _oWinText.x = 900;
         _oWinText.y = CANVAS_HEIGHT - 133;
         _oWinText.textAlign = "center";

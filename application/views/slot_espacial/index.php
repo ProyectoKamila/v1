@@ -33,7 +33,7 @@
 
     </head>
     <body ondragstart="return false;" ondrop="return false;">
-        <div class="fondo-game"  style="background: url(./games/slot-espacial/game_1024x768/sprites/bg_game.jpg);">
+        <div class="fondo-game"  style="background: #000">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
   <script>
@@ -93,6 +93,7 @@
                            NUM_PAYLINES=freeselect;
                            //inhabilitar botones
                            s_oInterface.disableGuiButtons();
+                           s_oInterface.hideAllLines();
                             s_oGame.onMaxBetjgXxx();
                             
                             },2000);
@@ -333,7 +334,9 @@
                                    free=free -1;
                                    //console.log('free sele '+freeselect);
                                    NUM_PAYLINES=freeselect;
-                                s_oGame.onMaxBetjgXxx();
+                                       s_oInterface.disableGuiButtons();
+                                     s_oInterface.hideAllLines();
+                             //   s_oGame.onMaxBetjgXxx();
                          
                             
                         }
@@ -405,7 +408,7 @@
             }
         });
     </script>
-    <div id="espacial" class="container-fluid sin-padding fondo-game" style="background: url(./games/slot-espacial/game_1024x768/sprites/bg_game.jpg);">
+    <div id="espacial" class="container-fluid sin-padding fondo-game hidden-xs" style="background: url(./games/slot-espacial/game_1024x768/sprites/bg_game.jpg);">
         <!-- Trigger the modal with a button -->
         <div class="container sin-padding">
             <div class="row">
@@ -537,6 +540,9 @@
     <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
         <div class="a-lert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">Reconectar...</a></div>
 
+    </div>
+        <div class="visible-xs col-xs-12">
+    <p style="color:white;">Este juego no es soportado en dispositivos moviles. Entra desde tu table o Pc</p>
     </div>
     </div>
     <?php $this->load->view('page/footer'); ?>
