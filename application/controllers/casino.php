@@ -47,6 +47,9 @@ class Casino extends MY_Controller {
             $active_users = $this->modelo_universal->count('user', 'id_user_account_status = 3');
             //debug($recent_payments);
             $this->data['active_users'] = $active_users;
+
+             $reload = $this->modelo_universal->query('SELECT * FROM `register_payment`, `register_payment_status` WHERE `register_payment_status`.`id_register_payment_status`= 1 and `register_payment_status`.`id_register_payment_status`=`register_payment`.`register_payment_status_id` ORDER BY `register_payment_status`.`id_register_payment_status` ASC');
+            $this->data['reload'] = $reload;
             $this->header('admin');
             $this->navigation();
             $this->load->view('index-admin', $this->data);
@@ -77,9 +80,19 @@ class Casino extends MY_Controller {
         $role = parent::verify_role();
         if ($role == true) {
 //            $this->load->view('page/header');
-            $where = "register_payment_status.id_register_payment_status=register_payment.register_payment_status_id";
+           // $where = "register_payment_status.id_register_payment_status=register_payment.register_payment_status_id";
 
-            $reload = $this->modelo_universal->selectjoin('register_payment', 'register_payment_status', $where, '*');
+             $jackpot= $this->modelo_universal->query('SELECT  ROUND(SUM(`debt`), 2) as jackpot FROM `casino_jackpot`');
+            //debug($jackpot[0]['jackpot']);
+            $this->data['jackpots']=$jackpot[0]['jackpot'];
+            $recent_payments = $this->modelo_universal->count('register_payment', 'register_payment_status_id = 1');
+            //debug($recent_payments);
+            $this->data['recent_payments'] = $recent_payments;
+            $active_users = $this->modelo_universal->count('user', 'id_user_account_status = 3');
+            //debug($recent_payments);
+            $this->data['active_users'] = $active_users;
+
+            $reload = $this->modelo_universal->query('SELECT * FROM `register_payment`, `register_payment_status` WHERE `register_payment_status`.`id_register_payment_status`=`register_payment`.`register_payment_status_id` ORDER BY `register_payment_status`.`id_register_payment_status` ASC');
             $this->data['reload'] = $reload;
 
             $this->header('admin');
@@ -91,6 +104,16 @@ class Casino extends MY_Controller {
     public function profile($message = null) {
         $role = parent::verify_role();
         if ($role == true) {
+
+             $jackpot= $this->modelo_universal->query('SELECT  ROUND(SUM(`debt`), 2) as jackpot FROM `casino_jackpot`');
+            //debug($jackpot[0]['jackpot']);
+            $this->data['jackpots']=$jackpot[0]['jackpot'];
+            $recent_payments = $this->modelo_universal->count('register_payment', 'register_payment_status_id = 1');
+            //debug($recent_payments);
+            $this->data['recent_payments'] = $recent_payments;
+            $active_users = $this->modelo_universal->count('user', 'id_user_account_status = 3');
+            //debug($recent_payments);
+            $this->data['active_users'] = $active_users;
 
             if ($message == 'online') {
                 $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`  where `user`.`id_user_status` =1 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` ');
