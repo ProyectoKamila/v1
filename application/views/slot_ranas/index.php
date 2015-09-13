@@ -81,12 +81,17 @@
             $(oMain).on("end_bet", function (evt, iMoney, iBetWin) {
                 // alert("juegos gratis: "+ free_gameslot + " Win:"+iBetWin);
                 if (free_gameslot > 0) {
+                    
+                    console.log('aqui el weon cuadro');
                     var options = {
                         "backdrop": "static"
                     }
                     $('#jgModal').modal(options);
                 }
-                       if (free > 0) {
+                       else if (free > 0) {
+                          s_oInterface.disableGuiButtons();
+                           s_oInterface.hideAllLines();
+              
                             setTimeout(function() {
                            free=free-1;
                             $('#cantidad').html(free);
@@ -94,7 +99,8 @@
                            //inhabilitar botones
                            s_oInterface.disableGuiButtons();
                            s_oInterface.hideAllLines();
-                            s_oGame.onMaxBetjgXxx();
+                         
+                             s_oGame.onMaxBetjgXxx();
                             
                             },2000);
                 }
@@ -102,7 +108,7 @@
                     freeselect=20;
                 NUM_PAYLINES=freeselect;
                 $(".numb-free").slideUp();
-                console.log("ocultar cantidad");
+                //console.log("ocultar cantidad");
                 }
                 
             });
@@ -128,8 +134,8 @@
                     s_oGame.TOTAL_MONEY = value_mt;
                     s_oGame._iMoney = value_mt;
                     s_oGame.moneyref(parseFloat(value_mt));
-                    //   console.log('iMoney' + iMoney);
-                    //  console.log('total Money' + TOTAL_MONEY);
+                    //console.log('iMoney' + iMoney);
+                    //console.log('total Money' + TOTAL_MONEY);
                     s_oInterface.refreshMoney(parseFloat(iMoney));
                     s_oInterface.enableSpin();
                     var enviarm = {
@@ -156,19 +162,21 @@
                   freeselect=20;
                   $('#cantidad').html(5);
                   $("#text-win").addClass('celebra');
+                     var intro = {
+                                type: 'playfreegame',
+                                free: 5
+                            }
+                                 socket.send(JSON.stringify(intro));
                   setTimeout(function() {
-                          console.log('el timeup');
+                          //console.log('el timeup');
                             
                           $('#jgModal').modal('toggle');
                        $(".item-free").slideDown();
                        $("#text-win").slideUp();
-                            var intro = {
-                                type: 'playfreegame',
-                                free: 5
-                            }
-                        $(".item-free").slideDown();
+                    
                         $("#text-win").removeClass('celebra');
-                        socket.send(JSON.stringify(intro));
+                   
+                         s_oGame.onMaxBetjgXxx();
                 }, 2000);
                 
             document.getElementById('text-win').innerHTML = 'Has Ganado 5 juegos por 20 Lineas';
@@ -185,19 +193,21 @@
                   freeselect=10;
                   $('#cantidad').html(10);
                   $("#text-win").addClass('celebra');
+                    var intro = {
+                                type: 'playfreegame',
+                                free: 10
+                            }
+                                 socket.send(JSON.stringify(intro));
                   setTimeout(function() {
-                          console.log('el timeup');
+                          //console.log('el timeup');
                             
                           $('#jgModal').modal('toggle');
                        $(".item-free").slideDown();
                        $("#text-win").slideUp();
-                            var intro = {
-                                type: 'playfreegame',
-                                free: 10
-                            }
-                        $(".item-free").slideDown();
+                    
                         $("#text-win").removeClass('celebra');
-                        socket.send(JSON.stringify(intro));
+                   
+                         s_oGame.onMaxBetjgXxx();
                 }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
              
@@ -211,19 +221,21 @@
                   freeselect=5;
                   $('#cantidad').html(20);
                   $("#text-win").addClass('celebra');
+                     var intro = {
+                                type: 'playfreegame',
+                                free: 20
+                            }
+                                 socket.send(JSON.stringify(intro));
                   setTimeout(function() {
-                          console.log('el timeup');
+                          //console.log('el timeup');
                             
                           $('#jgModal').modal('toggle');
                        $(".item-free").slideDown();
                        $("#text-win").slideUp();
-                            var intro = {
-                                type: 'playfreegame',
-                                free: 20
-                            }
-                        $(".item-free").slideDown();
+                    
                         $("#text-win").removeClass('celebra');
-                        socket.send(JSON.stringify(intro));
+                   
+                         s_oGame.onMaxBetjgXxx();
                 }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 20 juegos por 5 Lineas';
              
@@ -322,10 +334,10 @@
                    //openjg(freg);
                 }
                       else if (message.type === 'free_game_play') {
-                          console.log('aqui paso');
+                         //console.log('aqui paso');
                          myId = message.userId;
                             if(free > 0){
-                                console.log('aqui');
+                               //console.log('aqui');
                                 free += message.messagesend;
                             }
                             else{
