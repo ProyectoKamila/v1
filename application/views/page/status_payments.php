@@ -109,7 +109,7 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                   <thead>
                                         <tr>
-                                            <th>ID User</th>
+                                            <th>User</th>
                                             <th>ID Reload</th>
                                             <th>Type</th>
                                             <th>N° Referencia</th>
@@ -124,7 +124,7 @@
                                         <?php foreach ($this->data['reload'] as $reload=>$valor ){ ?>
                                         <tr class="odd gradeX">
 
-                                            <td><?php echo $valor['id_user']; ?></td>
+                                            <td><?php echo $valor['nickname']; ?></td>
                                             <td><?php echo $valor['id_register_payment']; ?></td>
                                             <td><?php echo $valor['type']; ?></td>
                                             <td><?php echo $valor['bank']; ?></td>

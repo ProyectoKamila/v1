@@ -48,7 +48,7 @@ class Casino extends MY_Controller {
             //debug($recent_payments);
             $this->data['active_users'] = $active_users;
 
-             $reload = $this->modelo_universal->query('SELECT * FROM `register_payment`, `register_payment_status` WHERE `register_payment_status`.`id_register_payment_status`= 1 and `register_payment_status`.`id_register_payment_status`=`register_payment`.`register_payment_status_id` ORDER BY `register_payment_status`.`id_register_payment_status` ASC');
+             $reload = $this->modelo_universal->query('SELECT * FROM `register_payment`, `register_payment_status`, `user` WHERE `register_payment_status`.`id_register_payment_status`= 1 and `register_payment_status`.`id_register_payment_status`=`register_payment`.`register_payment_status_id` and `register_payment`.`id_user`= `user`.`id_user`  ORDER BY `register_payment_status`.`id_register_payment_status` ASC');
             $this->data['reload'] = $reload;
             $this->header('admin');
             $this->navigation();
@@ -92,7 +92,7 @@ class Casino extends MY_Controller {
             //debug($recent_payments);
             $this->data['active_users'] = $active_users;
 
-            $reload = $this->modelo_universal->query('SELECT * FROM `register_payment`, `register_payment_status` WHERE `register_payment_status`.`id_register_payment_status`=`register_payment`.`register_payment_status_id` ORDER BY `register_payment_status`.`id_register_payment_status` ASC');
+            $reload = $this->modelo_universal->query('SELECT * FROM `register_payment`, `register_payment_status`, `user` WHERE `register_payment_status`.`id_register_payment_status`=`register_payment`.`register_payment_status_id` and `register_payment`.`id_user`= `user`.`id_user` ORDER BY `register_payment_status`.`id_register_payment_status`  ASC');
             $this->data['reload'] = $reload;
 
             $this->header('admin');
@@ -116,14 +116,14 @@ class Casino extends MY_Controller {
             $this->data['active_users'] = $active_users;
 
             if ($message == 'online') {
-                $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`  where `user`.`id_user_status` =1 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` ');
+                $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`, `active_session`  where `user`.`id_user_status` =1 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` and `user`.`id_user`= `active_session`.`id_user` and TIMESTAMPDIFF(MINUTE,`active_session`.`date_time`,NOW())< 60');
                 $this->data['message'] = $message;
                 $this->data['users'] = $users;
                 $this->load->view('page/header');
                 $this->navigation();
                 $this->load->view('page/profile', $this->data);
             } elseif ($message == 'offline') {
-                $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`  where `user`.`id_user_status` =2 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` ');
+                $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`, `active_session`  where `user`.`id_user_status` =1 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` and `user`.`id_user`= `active_session`.`id_user` and TIMESTAMPDIFF(MINUTE,`active_session`.`date_time`,NOW())> 60');
                 $this->data['message'] = $message;
                 $this->data['users'] = $users;
                 $this->load->view('page/header');
@@ -178,7 +178,21 @@ class Casino extends MY_Controller {
             }
         }
     }
+    public function balance_detail(){ 
 
+        $role = parent::verify_role();
+        if ($role == true) {
+//            $this->load->view('page/header');
+//            $activity_status = $this->modelo_universal->select('activity_bet', '*', null);
+            $this->data['balance_casino'] = $this->modelo_universal->select('casino_jackpot', '*');
+//            $this->data['activity'] = $activity_status;
+//            debug($this->data);
+            $this->header('admin');
+            $this->navigation();
+            $this->load->view('page/balance_detail', $this->data);
+        }
+
+    }
     public function update_payment($id = null) {
         $role = parent::verify_role();
         if ($role == true) {

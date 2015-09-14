@@ -55,6 +55,7 @@ $route['dashboard'] = "casino/dashboard/";
 $route['update-payment'] = "casino/update_payment/";
 $route['activity'] = "casino/activity/";
 $route['status-payments'] = "casino/status_payments/";
+$route['balance-details'] = "casino/balance_detail/";
 //////////////////////////////////////////////jugegos y demos de juegos////////////////////////////////////////////////////
 $route['close_home'] = "casino/close_home/";
 $route['slotmachine'] = "casino/slotmachine/";
