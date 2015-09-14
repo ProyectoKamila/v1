@@ -48,7 +48,7 @@ class Casino extends MY_Controller {
             //debug($recent_payments);
             $this->data['active_users'] = $active_users;
 
-             $reload = $this->modelo_universal->query('SELECT * FROM `register_payment`, `register_payment_status` WHERE `register_payment_status`.`id_register_payment_status`= 1 and `register_payment_status`.`id_register_payment_status`=`register_payment`.`register_payment_status_id` ORDER BY `register_payment_status`.`id_register_payment_status` ASC');
+             $reload = $this->modelo_universal->query('SELECT * FROM `register_payment`, `register_payment_status`, `user` WHERE `register_payment_status`.`id_register_payment_status`= 1 and `register_payment_status`.`id_register_payment_status`=`register_payment`.`register_payment_status_id` and `register_payment`.`id_user`= `user`.`id_user`  ORDER BY `register_payment_status`.`id_register_payment_status` ASC');
             $this->data['reload'] = $reload;
             $this->header('admin');
             $this->navigation();
@@ -92,7 +92,7 @@ class Casino extends MY_Controller {
             //debug($recent_payments);
             $this->data['active_users'] = $active_users;
 
-            $reload = $this->modelo_universal->query('SELECT * FROM `register_payment`, `register_payment_status` WHERE `register_payment_status`.`id_register_payment_status`=`register_payment`.`register_payment_status_id` ORDER BY `register_payment_status`.`id_register_payment_status` ASC');
+            $reload = $this->modelo_universal->query('SELECT * FROM `register_payment`, `register_payment_status`, `user` WHERE `register_payment_status`.`id_register_payment_status`=`register_payment`.`register_payment_status_id` and `register_payment`.`id_user`= `user`.`id_user` ORDER BY `register_payment_status`.`id_register_payment_status`  ASC');
             $this->data['reload'] = $reload;
 
             $this->header('admin');
