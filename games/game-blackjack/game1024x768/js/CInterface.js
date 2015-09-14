@@ -16,7 +16,7 @@ function CInterface(iMoney){
     
     this._init = function(iMoney){
 
-        var oSprite = s_oSpriteLibrary.getSprite('but_game_very_small_bg');
+        var oSprite = s_oSpriteLibrary.getSprite('but_game_bg');
         _oClearBetBut = new CTextButton(350,CANVAS_HEIGHT -20,oSprite,TEXT_CLEAR,"Arial","#ffffff",14,s_oStage);
         _oClearBetBut.addEventListener(ON_MOUSE_UP, this._onButClearRelease, this);
         
@@ -29,29 +29,29 @@ function CInterface(iMoney){
             _oAudioToggle.addEventListener(ON_MOUSE_UP, this._onAudioToggle, this);
         }
 	
-	_oMoneyText = new createjs.Text("$"+iMoney.toFixed(2),"bold 29px Digital-7", "#ffde00");
+	_oMoneyText = new createjs.Text(""+iMoney.toFixed(2),"bold 18px Digital-7", "#ffde00");
         _oMoneyText.x = 80;
         _oMoneyText.y = CANVAS_HEIGHT - 38;
         _oMoneyText.textAlign = "center";
         s_oStage.addChild(_oMoneyText);
 
-        _oDisplayText1 = new createjs.Text("","bold 24px Digital-7", "#ffde00");
+        _oDisplayText1 = new createjs.Text("","bold 12px Digital-7", "#ffde00");
         _oDisplayText1.x = 74;
         _oDisplayText1.y = 20;
 		_oDisplayText1.lineWidth = 150;
         _oDisplayText1.textAlign = "left";
-        _oDisplayText1.lineHeight = 20;
+        _oDisplayText1.lineHeight = 24;
         s_oStage.addChild(_oDisplayText1);
         
-        _oDisplayText2 = new createjs.Text("","bold 18px Digital-7", "#ffde00");
+        _oDisplayText2 = new createjs.Text("","bold 12px Digital-7", "#ffde00");
         _oDisplayText2.x = 74;
         _oDisplayText2.y = 70;
 		_oDisplayText1.lineWidth = 140;
         _oDisplayText2.textAlign = "left";
-        _oDisplayText2.lineHeight = 20;
+        _oDisplayText2.lineHeight = 24;
         s_oStage.addChild(_oDisplayText2);
 
-        _oCurDealerCardValueText = new createjs.Text("","bold 20px Arial", "#fff");
+        _oCurDealerCardValueText = new createjs.Text("","bold 12px Arial", "#fff");
         _oCurDealerCardValueText.shadow = new createjs.Shadow("#000000", 2, 2, 1);
         _oCurDealerCardValueText.x = 420;
         _oCurDealerCardValueText.y = 180;
