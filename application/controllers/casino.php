@@ -178,7 +178,21 @@ class Casino extends MY_Controller {
             }
         }
     }
+    public function balance_detail(){ 
 
+        $role = parent::verify_role();
+        if ($role == true) {
+//            $this->load->view('page/header');
+//            $activity_status = $this->modelo_universal->select('activity_bet', '*', null);
+            $this->data['balance_casino'] = $this->modelo_universal->select('casino_jackpot', '*');
+//            $this->data['activity'] = $activity_status;
+//            debug($this->data);
+            $this->header('admin');
+            $this->navigation();
+            $this->load->view('page/balance_detail', $this->data);
+        }
+
+    }
     public function update_payment($id = null) {
         $role = parent::verify_role();
         if ($role == true) {

@@ -65,7 +65,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    <a href="./balance-details">
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
