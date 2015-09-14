@@ -116,14 +116,14 @@ class Casino extends MY_Controller {
             $this->data['active_users'] = $active_users;
 
             if ($message == 'online') {
-                $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`  where `user`.`id_user_status` =1 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` ');
+                $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`, `active_session`  where `user`.`id_user_status` =1 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` and `user`.`id_user`= `active_session`.`id_user` and TIMESTAMPDIFF(MINUTE,`active_session`.`date_time`,NOW())< 60');
                 $this->data['message'] = $message;
                 $this->data['users'] = $users;
                 $this->load->view('page/header');
                 $this->navigation();
                 $this->load->view('page/profile', $this->data);
             } elseif ($message == 'offline') {
-                $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`  where `user`.`id_user_status` =2 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` ');
+                $users = $this->modelo_universal->query('SELECT * FROM `user`, `user_account_status`, `active_session`  where `user`.`id_user_status` =1 and `user`.`id_user_account_status`= `user_account_status`.`id_user_account_status` and `user`.`id_user`= `active_session`.`id_user` and TIMESTAMPDIFF(MINUTE,`active_session`.`date_time`,NOW())> 60');
                 $this->data['message'] = $message;
                 $this->data['users'] = $users;
                 $this->load->view('page/header');
