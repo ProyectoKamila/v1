@@ -120,7 +120,7 @@
     }
 
     wsServer.on('request', function(request) {
-        console.log('acceder');
+        //console.log('acceder');
         if (!originIsAllowed(request.origin)) {
             // Make sure we only accept requests from an allowed origin
             request.reject();
@@ -321,7 +321,7 @@
             clients = clients - 1;
             var newarrayclient = {};
             var newarrayallclient = {};
-            updtclose(connection.sitcoins, connection.coins);
+            updtclose(connection.sitcoins, connection.coins,connection.id_user,connection.coinsinit,connection.sitcoins,connection.id_game,connection.date_i);
             delete clientsconection[connection.token];
             delete clientsconection[connection.id_user];
             delete clientsconection[connection.sitcoins];
@@ -433,10 +433,10 @@
         }
 
         function pruebaserver(objeto) {
-            console.log(objeto.nrows);
-            console.log(objeto.nreels);
+            //console.log(objeto.nrows);
+            //console.log(objeto.nreels);
 
-            console.log(objeto.payline);
+            //console.log(objeto.payline);
 
 
             var contador = 0;
@@ -479,7 +479,7 @@
 
 
             do { //symbolos finales, a modificar
-               console.log('tercer while');
+              // console.log('tercer while');
                 _anterior = new Array();
                 _aFinalSymbolCombo = new Array();
                 for (var i = 0; i < NUM_ROWS; i++) {
@@ -522,7 +522,7 @@
                                         var q = b;
 
                                         do { //while para quitar las combinaciones ganadoras... cada vez que cambia un numero se reinicia el conta {r para vlver a revisar...
-console.log('primer while');
+//console.log('primer while');
                                             var iRandIndex = Math.floor(Math.random() * (s_aRandSymbols.length - 1));
                                             var iRandSymbol = s_aRandSymbols[iRandIndex];
                                             _aFinalSymbolCombo[i][j] = iRandSymbol;
@@ -554,7 +554,7 @@ console.log('primer while');
                     aCellList.push({row: aCombos[0].row, col: aCombos[0].col, value: _aFinalSymbolCombo[aCombos[0].row][aCombos[0].col]});
 
                     while (iValue === WILD_SYMBOL && iStartIndex < NUM_REELS) {
-                        console.log('segundo while');
+                       // console.log('segundo while');
                         iNumEqualSymbol++;
                         iValue = _aFinalSymbolCombo[aCombos[iStartIndex].row][aCombos[iStartIndex].col];
                         aCellList.push({row: aCombos[iStartIndex].row, col: aCombos[iStartIndex].col,
@@ -582,7 +582,7 @@ console.log('primer while');
                             num_win: iNumEqualSymbol, value: iValue, list: aCellList});
 
                     }
-                    console.log(_aWinningLine);
+                   // console.log(_aWinningLine);
                 }
 //verificar el monto ganado antes de salir de esta función
                 var iTotWin = 0;
@@ -596,13 +596,13 @@ console.log('primer while');
                         for (var k = 0; k < aList.length; k++) {
                             //  _aStaticSymbols[aList[k].row][aList[k].col].show(aList[k].value);
                         }
-                        console.log('aqui icono valie---- ' + _aWinningLine[i].value);
+                       // console.log('aqui icono valie---- ' + _aWinningLine[i].value);
                         if (_aWinningLine[i].value != 8 && _aWinningLine[i].amount > 0 && connection.idgame_free == 1)
                             iTotWin += _aWinningLine[i].amount;
-                        console.log("numwin:" + _aWinningLine[i].num_win);
+                       // console.log("numwin:" + _aWinningLine[i].num_win);
 
                         if (_aWinningLine[i].value == 8 && _aWinningLine[i].amount > 0 && connection.idgame_free == 1) {
-                            console.log('aqui juego gratis');
+                           // console.log('aqui juego gratis');
                             if (connection.free == true) {
                                 switch (connection.free_game_play) {
                                     case 5:
@@ -630,7 +630,7 @@ console.log('primer while');
                             else {
                                 var juegos_gratis = juegos_gratis + 1;
                                 connection.free = true;
-                               console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].value);
+                              // console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].value);
                                 
                              
 
@@ -693,7 +693,7 @@ console.log('primer while');
                                 // console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].amount);
 
 
-                                        console.log('aqui paso por el 2');
+                                       // console.log('aqui paso por el 2');
                                 sendmessageuser(connection, 'free_game', connection.free_game_play);
                             }
                             
@@ -1034,7 +1034,7 @@ console.log('primer while');
 
 
 
-        function updtclose(sitc, coin) {
+        function updtclose(sitc, coin,user,coinsinit,sitcoins,id_game,date_i) {
 
             var mysqlc = mysql.createConnection(
                     {
@@ -1045,30 +1045,29 @@ console.log('primer while');
                     }
             );
             mysqlc.connect();
-            var string = 'SELECT coins FROM v1.user_data where id_user=' + connection.id_user + ';';
-            //  console.log(string);
+            var string = 'SELECT coins FROM v1.user_data where id_user=' + user + ';';
+           // console.log(string);
             mysqlc.query(string, function(err, row, fields) {
                 if (typeof(row)) {
                     connection.coins = 0;
-                    connection.coins = row[0]['coins'];
+                     coin = row[0]['coins'];
 
-            coin = connection.coins;
-            console.log('sitcoins' + sitc);
-            //console.log('coins' + coin);
+           // console.log('sitcoins' + sitc);
+          //console.log('coins' + coin);
             var cointotal = coin + sitc;
-            var mysqlc = mysql.createConnection(
-                    {
+           var mysqlc2 = mysql.createConnection(
+                   {
                         host: '23.229.215.154',
                         user: 'v1',
                         password: 'Temporal01',
                         database: 'v1',
-                    }
+                   }
             );
-            mysqlc.connect();
-            if (connection.coins != null)
-                var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + cointotal + ' WHERE `user_data`.`id_user` =' + connection.id_user + ';';
+           mysqlc2.connect();
+      
+                var string = 'UPDATE `v1`.`user_data` SET `coins` = ' + cointotal + ' WHERE `user_data`.`id_user` =' + user + ';';
 //console.log('update close' + string);
-            mysqlc.query(string, function(err, row, fields) {
+            mysqlc2.query(string, function(err, row, fields) {
                 if (typeof(row)) {
 
 
@@ -1078,9 +1077,9 @@ console.log('primer while');
             });
             
             
-            var string = 'INSERT INTO `activity_bet`(`coins_i`, `coins_f`, `id_user`, `id_game`, `time_i`, `time_f`) VALUES ("' + connection.coinsinit + '","' + connection.sitcoins + '","' + connection.id_user + '","' + connection.id_game + '","' + connection.date_i + '", NOW() );';
+            var string = 'INSERT INTO `activity_bet`(`coins_i`, `coins_f`, `id_user`, `id_game`, `time_i`, `time_f`) VALUES ("' + coinsinit + '","' + sitcoins + '","' + user + '","' + id_game + '","' + date_i + '", NOW() );';
 //console.log('update close' + string);
-            mysqlc.query(string, function(err, row, fields) {
+            mysqlc2.query(string, function(err, row, fields) {
                 if (typeof(row)) {
 
 
@@ -1088,9 +1087,9 @@ console.log('primer while');
             });
 
 
-            var string = 'DELETE FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = ' + connection.id_user + ' and `temp_bet`.`id_game` = ' + connection.id_game + ';';
+            var string = 'DELETE FROM `v1`.`temp_bet`  WHERE `temp_bet`.`id_user` = ' + user + ' and `temp_bet`.`id_game` = ' + id_game+ ';';
 //console.log('delete close' + string);
-            mysqlc.query(string, function(err, row, fields) {
+            mysqlc2.query(string, function(err, row, fields) {
                 if (typeof(row)) {
 
 
@@ -1099,10 +1098,10 @@ console.log('primer while');
 
             });
 
-            mysqlc.end();
+     
 
                     //    console.log('coins ' + connection.coins);
-
+            mysqlc2.end();
                 }
             });
 

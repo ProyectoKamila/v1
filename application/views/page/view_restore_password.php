@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Acceder - Casino4As</title>
+        <title>Recuperar Contrase&ntilde;a - Casino4As</title>
         <link rel="stylesheet/less" type="text/css" href="css/main.less" />
          <link rel="stylesheet" type="text/less" href="/interface/css/main.less">
         <script src="js/less.min.js"></script>
@@ -80,8 +80,10 @@
             <div class="row" style="margin-top:100px">
            
                 <div class="clearfix"></div>
+                <?php if($checks == true){ ?>
                 
-                <div class="col-md-4 col-md-offset-2">
+                
+                <div class="col-md-4 col-md-offset-4">
                     <div class="login-panel panel panel-default  custom-login-panel">
                     <?php if ($this->session->flashdata('message')!= null){
                         echo "<div id='infoMessage' class='alert alert-danger' role='alert'>". $this->session->flashdata('message') ."</div>";
@@ -89,29 +91,16 @@
                     ?>
               
                         <div class="panel-heading custom-panel-heading">
-                            <h3 class="panel-title custom-panel-title">Identificarse</h3>
+                            <h3 class="panel-title custom-panel-title">Recuperar Contrase&ntilde;a</h3>
                         </div>
                         <div class="panel-body custom-panel-body">
-                            <form role="form" method="post" action="./login">
+                            <form role="form" method="post" action="./restore-password">
+                                <label for="" style="color:white !important;">Introduzca el correo con el que se registro</label>
                                 <fieldset>
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon "><span class="fa fa-user"></span></span>
-                                        <input type="text" class="form-control" name="namenick" placeholder="Username" value="" required="" pattern=".{5,12}"title="5 a 12 caracteres">
-                                    </div>
-                                    <!--                                    <div class="form-group">
-                                                                            <input class="form-control" placeholder="E-mail / Nickname" name="email" type="email" autofocus>
-                                                                        </div>-->
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
-                                        <input class="form-control" placeholder="Password" name="password" type="password" value="" required=""><!-- Pr4y2ct4 -->
-                                    </div>
-                                    <div class="checkbox">
-                                        <label style="color:white;">
-                                            <input name="remember" type="checkbox" value="1">No cerrar sesi&oacute;n
-                                        </label>
-                                        <label for="">
-                                            <a href="./restore-password">¿Olvido su Contrase&ntilde;a?</a>
-                                        </label>
+                                   <div class="form-group input-group">
+                                        <span class="input-group-addon">@</span>
+                                        <input type="email" class="form-control" name="emailr" value="<?php echo set_value('email') ?>" placeholder="Correo" required="">
+                                        <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('email'); ?></font>
                                     </div>
                                     <!-- Change this to a button or input when using this as a form -->
                                     <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
@@ -121,52 +110,50 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="login-panel panel panel-default custom-login-panel">
+                
+                
+                
+                <?php }else{ ?>
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-panel panel panel-default  custom-login-panel">
+                    <?php if ($this->session->flashdata('message')!= null){
+                        echo "<div id='infoMessage' class='alert alert-danger' role='alert'>". $this->session->flashdata('message') ."</div>";
+                        }
+                    ?>
+              
                         <div class="panel-heading custom-panel-heading">
-                            <h3 class="panel-title custom-panel-title">Registrate</h3>
+                            <h3 class="panel-title custom-panel-title">Recuperar Contrase&ntilde;a</h3>
                         </div>
                         <div class="panel-body custom-panel-body">
-                            <?php echo form_open("/check") ?>
-                        <!--     <form role="form" method="post" action="./registering"> -->
+                            <form role="form" method="post" action="./restore-password">
+                                <input type="hidden" name="token" value="<?= $token; ?>" />
                                 <fieldset>
-                                    <div class="form-group input-group">
+                                   <div class="form-group input-group">
                                         <span class="input-group-addon">@</span>
-                                        <input type="hidden" name="id_user_account_status" value="0" />
-                                        <input type="text" class="form-control" name="nickname" value="<?php echo set_value('nickname') ?>" placeholder="Username" required="" pattern=".{5,12}"title="5 a 12 caracteres">
-                                        
-                                        <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('nickname'); ?></font>
-                                        
+                                        <input type="email" class="form-control" name="email" value="<?php echo set_value('email') ?>" placeholder="Correo" required="">
+                                        <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('email'); ?></font>
                                     </div>
-                                    <fieldset>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="email" class="form-control" name="email" value="<?php echo set_value('email') ?>" placeholder="Correo" required="">
-                                            <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('email'); ?></font>
-                                        </div>
-                                        <!--                                    <div class="form-group">
-                                                                                <input class="form-control" placeholder="E-mail / Nickname" name="email" type="email" autofocus>
-                                                                            </div>-->
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
-                                           
-                                           <input class="form-control" placeholder="Password" name="pass" type="password" value=""required=""> 
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
-                                        
-                                        <input class="form-control" placeholder="Repeat Password" name="passc" type="password" value=""required=""> 
-                                        <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('pass'); ?></font>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
+                                       
+                                       <input class="form-control" placeholder="Password" name="pass" type="password" value=""required=""> 
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
+                                    
+                                    <input class="form-control" placeholder="Repeat Password" name="passc" type="password" value=""required=""> 
+                                    <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('pass'); ?></font>
 
-                                        </div>
-                                        <!-- Change this to a button or input when using this as a form -->
-                                        <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
-                                        <input type="submit" name="login" class="btn btn-lg btn-success btn-block" value="Registrarme"/>
-                                    </fieldset>
-                          <?php echo form_close() ?>
+                                    </div>
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
+                                    <input type="submit" name="login" class="btn btn-lg btn-success btn-block" value="Iniciar Sesi&oacute;n"/>
+                                </fieldset>
+                            </form>
                         </div>
                     </div>
                 </div>
+                <?php } ?>
             </div>
         </div>
         <footer>

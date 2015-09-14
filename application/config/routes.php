@@ -95,8 +95,11 @@ $route['newest'] = "insert_controller/newest/";
 $route['enable'] = "insert_controller/enable/";
 $route['enable/(:any)'] = "insert_controller/enable/$1";
 
+
 /////////////////////////////////////////////////////controlador nuevo/////////////////////////////////////////////////////
 
+$route['restore-password'] = "restore_password";
+$route['restore-password/(:any)'] = "restore_password/index/$1";
 
 /////////////////////////////////////////////////////controlador newest/////////////////////////////////////////////////////
 

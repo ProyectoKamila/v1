@@ -90,6 +90,7 @@
                 }
                        else if (free > 0) {
                           s_oInterface.disableGuiButtons();
+                           s_oInterface.disableSpin();
                            s_oInterface.hideAllLines();
               
                             setTimeout(function() {
@@ -97,10 +98,11 @@
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
                            //inhabilitar botones
-                           s_oInterface.disableGuiButtons();
-                           s_oInterface.hideAllLines();
-                         
+                   
                              s_oGame.onMaxBetjgXxx();
+                                     s_oInterface.disableGuiButtons();
+                                     s_oInterface.disableSpin();
+                           s_oInterface.hideAllLines();
                             
                             },2000);
                 }
@@ -128,7 +130,8 @@
                 //alert(total_money);
                 //alert(value_mt);
                            total_money = total_money.replace(/\./g,'');
-                if (value_mt > 10 && value_mt < parseFloat(total_money)) {
+                           var value_mt = value_mt.replace(/\./g,'');
+                if (parseFloat(value_mt) >= 10 && parseFloat(value_mt) <= parseFloat(total_money)) {
                     // alert('llega aqui');
                     iMoney = value_mt;
                     s_oGame.TOTAL_MONEY = value_mt;
@@ -347,6 +350,7 @@
                                    //console.log('free sele '+freeselect);
                                    NUM_PAYLINES=freeselect;
                                        s_oInterface.disableGuiButtons();
+                                        s_oInterface.disableSpin();
                                      s_oInterface.hideAllLines();
                                 //s_oGame.onMaxBetjgXxx();
                          

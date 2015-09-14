@@ -9,7 +9,7 @@
         </button>
         <a class="navbar-brand custom-navbar-brand" href="./"><img src="./interface/images/recortes/home/logo.png" alt="Logo" width="40" height="40"/></a>
 </div>
-<div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
+<div class="col-lg-9 col-md-7 col-sm-8 col-xs-12">
                  <div class="carrusel-publicidades">
                      <marquee behavior="" direction="left">
                          <div class="item">
