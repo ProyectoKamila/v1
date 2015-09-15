@@ -80,7 +80,6 @@
             <div class="row" style="margin-top:100px">
            
                 <div class="clearfix"></div>
-                <?php if($checks == true){ ?>
                 
                 
                 <div class="col-md-4 col-md-offset-4">
@@ -94,69 +93,11 @@
                             <h3 class="panel-title custom-panel-title">Recuperar Contrase&ntilde;a</h3>
                         </div>
                         <div class="panel-body custom-panel-body">
-                            <form role="form" method="post" action="./restore-password">
-                                <label for="" style="color:white !important;">Introduzca el correo con el que se registro</label>
-                                <fieldset>
-                                   <div class="form-group input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="email" class="form-control" name="emailr" value="<?php echo set_value('email') ?>" placeholder="Correo" required="">
-                                        <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('email'); ?></font>
-                                    </div>
-                                    <!-- Change this to a button or input when using this as a form -->
-                                    <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
-                                    <input type="submit" name="login" class="btn btn-lg btn-success btn-block" value="Enviar"/>
-                                </fieldset>
-                            </form>
+                                <label for="" style="color:white !important;">Se ha Cambiado su contrase&ntilde;a con exito, para <a href="./login">Iniciar Sesi&oacute;n</a></label>
                         </div>
                     </div>
                 </div>
                 
-                
-                
-                <?php }else{ ?>
-                <div class="col-md-4 col-md-offset-4">
-                    <div class="login-panel panel panel-default  custom-login-panel">
-                    <?php if ($this->session->flashdata('message')!= null){
-                        echo "<div id='infoMessage' class='alert alert-danger' role='alert'>". $this->session->flashdata('message') ."</div>";
-                        }
-                    ?>
-              
-                        <div class="panel-heading custom-panel-heading">
-                            <h3 class="panel-title custom-panel-title">Recuperar Contrase&ntilde;a</h3>
-                        </div>
-                        <div class="panel-body custom-panel-body">
-                            <form role="form" method="post" action="./restore-password">
-                                <input type="hidden" name="token" value="<?= $token; ?>" />
-                                <?php if($s){ ?>
-                                <input type="hidden" name="s" value="<?= $s; ?>" />
-                                <?php } ?>
-                                <fieldset>
-                                   <div class="form-group input-group">
-                                        <span class="input-group-addon">@</span>
-                                        <input type="r" class="form-control" name="email" value="<?php echo $emailr ?>" placeholder="Correo" required="" readonly>
-                                        <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('email'); ?></font>
-                                    </div>
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
-                                       
-                                       <input class="form-control" placeholder="Password" name="pass" type="password" value=""required=""> 
-                                    </div>
-                                    <div class="form-group input-group">
-                                        <span class="input-group-addon fa fa-key" style="display: table-cell;"></span>
-                                    
-                                    <input class="form-control" placeholder="Repeat Password" name="passc" type="password" value=""required=""> 
-                                    <font color="red" style="font-weight: bold; font-size: 14px; text-decoration: underline"><?php echo form_error('pass'); ?></font>
-
-                                    </div>
-                                    <!-- Change this to a button or input when using this as a form -->
-                                    <!--<a href="index.html" class="btn btn-lg btn-success btn-block">iniciar sesi&oacute;n</a>-->
-                                    <input type="submit" name="login" class="btn btn-lg btn-success btn-block" value="Enviar"/>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <?php } ?>
             </div>
         </div>
         <footer>

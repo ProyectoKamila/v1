@@ -90,7 +90,6 @@
                 }
                        else if (free > 0) {
                           s_oInterface.disableGuiButtons();
-                           s_oInterface.disableSpin();
                            s_oInterface.hideAllLines();
               
                             setTimeout(function() {
@@ -98,10 +97,10 @@
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
                            //inhabilitar botones
-                   
+                   //_oInterface.refreshNumLines(freeselect);
                              s_oGame.onMaxBetjgXxx();
                                      s_oInterface.disableGuiButtons();
-                                     s_oInterface.disableSpin();
+                                     s_oInterface.disableGuiButtons();
                            s_oInterface.hideAllLines();
                             
                             },2000);
@@ -350,7 +349,6 @@
                                    //console.log('free sele '+freeselect);
                                    NUM_PAYLINES=freeselect;
                                        s_oInterface.disableGuiButtons();
-                                        s_oInterface.disableSpin();
                                      s_oInterface.hideAllLines();
                                 //s_oGame.onMaxBetjgXxx();
                          
@@ -509,7 +507,7 @@
                     </div>
                         
                     <div class="modal-body">
-                        <p class="selecion">Pulsa una opcion</p>
+                        <p class="seleccion">Pulsa una opcion</p>
                         <?php
                         $z = 1;
                         foreach($valores as $v) { ?>

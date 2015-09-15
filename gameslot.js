@@ -217,11 +217,7 @@
 
                 }
                 else if (msgObj.type === 'sitmoney') {
-
-
                     setmoneyuser(msgObj);
-
-
 
                 }
 
@@ -450,11 +446,18 @@
             var s_aSymbolWin = objeto.symbolwin;
             var _oPayTable = objeto.paytable;
             var _iCurBet = objeto.curbet;
-            var _iTotBet = objeto.totalbet;
+            if(objeto.totalbet){
+                var _iTotBet = parseFloat(objeto.totalbet);
+            }else{
+                var _iTotBet = 0;
+                
+            }
             var _iLastLineActive = objeto.lastline;
             var WILD_SYMBOL = objeto.wsymb;
             var juegos_gratis = 0;
-
+                
+            
+console.log('itobet ess: '+_iTotBet);
             connection.sitcoins = connection.sitcoins - _iTotBet;
             // console.log('sitcoins antes de sp' + connection.sitcoins);
             if(connection.idgame_free == 3){
@@ -464,6 +467,7 @@
             else{
             var availiable_jp = jackpot + (_iTotBet - (_iTotBet * percent));
             var debito = debt + (_iTotBet * percent);
+            
             }
             //  console.log('debt ' + debt);
 
@@ -597,11 +601,12 @@
                             //  _aStaticSymbols[aList[k].row][aList[k].col].show(aList[k].value);
                         }
                        // console.log('aqui icono valie---- ' + _aWinningLine[i].value);
-                        if (_aWinningLine[i].value != 8 && _aWinningLine[i].amount > 0 && connection.idgame_free == 1)
+                        if (_aWinningLine[i].value != 8 && _aWinningLine[i].amount > 0)
                             iTotWin += _aWinningLine[i].amount;
                        // console.log("numwin:" + _aWinningLine[i].num_win);
 
                         if (_aWinningLine[i].value == 8 && _aWinningLine[i].amount > 0 && connection.idgame_free == 1) {
+                              iTotWin += 0;
                            // console.log('aqui juego gratis');
                             if (connection.free == true) {
                                 switch (connection.free_game_play) {
@@ -760,7 +765,7 @@
 
                         //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea
                     }
-
+console.log('linea apostada: '+_iCurBet);
                     iTotWin *= _iCurBet;  // multiplica el monto a ganar por cada linea apostada
                     // _iMoney += iTotWin;
 
@@ -792,11 +797,12 @@
              }*/
 
 
-            jackpot = availiable_jp - iTotWin;
+            jackpot = availiable_jp - parseFloat(iTotWin);
             // console.log('actualizado jackpot '+ jackpot);
-            //  console.log('totalwin '+ iTotWin);
-            connection.sitcoins = connection.sitcoins + iTotWin;
-            // console.log('sitcoins despues de sp' + connection.sitcoins);
+             console.log('totalwin '+ iTotWin);
+             console.log('sitcoins'+connection.sitcoins);
+            connection.sitcoins +=parseFloat(iTotWin);
+            console.log('sitcoins despues de sp' + connection.sitcoins);
             update_jackpot(jackpot, debito);
             updatetemp(connection.sitcoins);
 
@@ -934,7 +940,7 @@
             mysqlc.query(string, function(err, row, fields) {
                 if (typeof(row)) {
                     connection.coins = 0;
-                    connection.coins = row[0]['coins'];
+                    connection.coins = parseFloat(row[0]['coins']);
 
                     var num=connection.coins
                    
@@ -960,7 +966,7 @@
 
         function setmoneyuser(objeto) {
             connection.coinsinit = parseFloat(objeto.sitmoney);
-            connection.sitcoins = connection.sitcoins + parseFloat(objeto.sitmoney);
+            connection.sitcoins +=  parseFloat(objeto.sitmoney);
             connection.coins = connection.coins - objeto.sitmoney;
 
             var mysqlc = mysql.createConnection(
@@ -1052,8 +1058,8 @@
                     connection.coins = 0;
                      coin = row[0]['coins'];
 
-           // console.log('sitcoins' + sitc);
-          //console.log('coins' + coin);
+           console.log('sitcoins' + sitc);
+          console.log('coins' + coin);
             var cointotal = coin + sitc;
            var mysqlc2 = mysql.createConnection(
                    {

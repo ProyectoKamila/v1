@@ -151,8 +151,7 @@ _aFinalSymbolCombo=finalc;
 
         TOTAL_MONEY= money;
         _iMoney= money;
-        TOTAL_MONEY = TOTAL_MONEY.replace(/\./g,'');
-        _iMoney = _iMoney.replace(/\./g,'');
+
 
     };
     this.moneyrefjg = function(money){
