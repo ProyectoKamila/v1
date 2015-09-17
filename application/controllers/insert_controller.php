@@ -172,7 +172,8 @@ class Insert_controller extends MY_Controller {
 		    
 		    $data = $this->upload->data();
 		    
-		    $data2="http://casino4as.com/casino/images/".$data['file_name'];
+		    //$data2="http://casino4as.com/casino/images/".$data['file_name'];
+		    $data2 = base_url().'images/'.$data['file_name'];
                 $this->modelo_universal->update('user_data', array('imagedi'=>$data2), array('id_user' => $this->session->userdata('id_user')));
 		}
 		
@@ -194,7 +195,8 @@ class Insert_controller extends MY_Controller {
 		}else{	
 		    
 		    $data =  $this->upload->data();
-		    $data2="http://casino4as.com/casino/images/".$data['file_name'];
+		    //$data2="http://casino4as.com/casino/images/".$data['file_name'];
+		    $data2 = base_url().'images/'.$data['file_name'];
                 $this->modelo_universal->update('user_data', array('imageprofile'=>$data2), array('id_user' => $this->session->userdata('id_user')));
 		}
 		

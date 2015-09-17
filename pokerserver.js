@@ -211,62 +211,62 @@ function HandEvaluator() {
     this.rankHand = function() {
         if (this._checkForRoyalFlush()) {
             return retur1 = {
-                'premy': 'ROYAL_FLUSH',
+                'premy': 'Escalera Real',
                 'point': ROYAL_FLUSH,
                 'mayor': mayor
             }
         } else if (this._checkForStraightFlush()) {
             return retur2 = {
-                'premy': 'STRAIGHT_FLUSH',
+                'premy': 'Escalera de Color',
                 'point': STRAIGHT_FLUSH,
                 'mayor': mayor
             };
         } else if (this._checkForFourOfAKind()) {
             return retur3 = {
-                'premy': 'FOUR_OF_A_KIND',
+                'premy': 'Poker',
                 'point': FOUR_OF_A_KIND,
                 'mayor': mayor
             };
 
         } else if (this._checkForFullHouse()) {
             return retur4 = {
-                'premy': 'FULL_HOUSE',
+                'premy': 'Full',
                 'point': FULL_HOUSE,
                 'mayor': mayor
             };
         } else if (this._checkForFlush()) {
             return retur5 = {
-                'premy': 'FLUSH',
+                'premy': 'Color',
                 'point': FLUSH,
                 'mayor': mayor
             };
         } else if (this._checkForStraight()) {
             return retur6 = {
-                'premy': 'STRAIGHT',
+                'premy': 'Escalera',
                 'point': STRAIGHT,
                 'mayor': mayor
             };
         } else if (this._checkForThreeOfAKind()) {
             return retur7 = {
-                'premy': 'THREE_OF_A_KIND',
+                'premy': 'Trío',
                 'point': THREE_OF_A_KIND,
                 'mayor': mayor
             };
         } else if (this._checkForTwoPair()) {
             return retur8 = {
-                'premy': 'TWO_PAIR',
+                'premy': 'Dobles parejas',
                 'point': TWO_PAIR,
                 'mayor': mayor
             };
         } else if (this._checkForOnePair()) {
             return retur9 = {
-                'premy': 'JACKS_OR_BETTER',
+                'premy': 'Una pareja',
                 'point': JACKS_OR_BETTER,
                 'mayor': mayor
             };
         } else {
             return retur0 = {
-                'premy': 'HIGH_CARD',
+                'premy': 'Carta Mayor',
                 'point': HIGH_CARD,
                 'mayor': mayor
             };
@@ -762,8 +762,8 @@ wsServer.on('request', function(request) {
                      var enviar = {
                         first_name: '',
                         last_name: '',
-                        color: 1,
-                        mensaje: 'Jugador ' + (parseInt(connection.idsit) +1) + ', se ha retirado',
+                        player: (parseInt(sit) +1),
+                        mensaje: 'se ha retirado',
                     }
                     for (i in saleonlineconexall[connection.idsale]){
                         if (i < 8){
@@ -1025,20 +1025,26 @@ wsServer.on('request', function(request) {
         }
     }
 //function para actualizar todas las salas
-    function updatewin(room, sit, apos) {
+    function updatewin(room, sit, apos, win) {
         if (saleonline[room][sit]) {
             saleonline[room][sit].apos = parseFloat(saleonline[room][sit].apos) + parseFloat(apos);
             saleonline[room][sit].sit = sit;
             saleonline[room][sit].card1 = play[room].jugactivos[sit]['card1'];
             saleonline[room][sit].card2 = play[room].jugactivos[sit]['card2'];
+                if (win){
+                    var msj = 'Ha ganado ' + apos + ' con ' + win;
+                }else{
+                    var msj = 'Ha ganado ' + apos;
+                }
                 var enviar = {
                         first_name: '',
                         last_name: '',
                         color: 1,
-                        mensaje: 'Jugador ' + (parseInt(sit) +1) + ', Ha ganado ' + apos,
+                        player: (parseInt(sit) +1),
+                        mensaje: msj,
                     }
             for (i in saleonlineconexall[room]) {
-                if (i < 8){
+                if ((i < 8) && (apos > 0)){
                     sendmessageuser(saleonlineconexall[room][i], 'comentglobal', enviar);
                 }
                 sendmessageuser(saleonlineconexall[room][i], 'ganador', saleonline[room][sit]);
@@ -1055,11 +1061,18 @@ wsServer.on('request', function(request) {
                 
                 play[room].pote1 = parseFloat(play[room].pote1) + apos;
                 
+                        if (apos > 0){
+                            msj  = 'Ha apostado ' + apos;
+                        }else{
+                            msj = 'Ha pasado';
+                        }
                  var enviar = {
                         first_name: '',
                         last_name: '',
                         color: 1,
-                        mensaje: 'Jugador ' + (parseInt(sit) +1) + ', Ha apostado ' + apos,
+                        player: (parseInt(sit) +1),
+                        mensaje: msj,
+                        
                     }
                 for (i in saleonlineconexall[room]) {
                     if (i < 8){
@@ -1073,8 +1086,8 @@ wsServer.on('request', function(request) {
                 var enviar = {
                         first_name: '',
                         last_name: '',
-                        color: 1,
-                        mensaje: 'Jugador ' + (parseInt(sit) +1) + ', Ha sido expulsado',
+                        player: (parseInt(sit) +1),
+                        mensaje: 'Ha sido expulsado',
                     }
                 for (i in saleonlineconexall[room]) {
                     sendmessageuser(saleonlineconexall[room][i], 'joinsale', sit);
@@ -1703,7 +1716,7 @@ wsServer.on('request', function(request) {
                 if (this.jugactivos[t]['first_name'] !== undefined) {
                     if ((this.jugactivos[t]['win'].point == jugada) && (this.jugactivos[t]['win'].mayor == cartmmayor)) {
                         this.jugactivos[t]['apost'] = parseFloat(this.jugactivos[i]['apost']) + montapagar;
-                        updatewin(this.room, t, montapagar);
+                        updatewin(this.room, t, montapagar, this.jugactivos[t]['win'].premy);
                         console.log('Puesto ganador: ' + t);
                     }
                 }

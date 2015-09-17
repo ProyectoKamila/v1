@@ -44,9 +44,9 @@
     var flash_title_timer;
     var connected = false;
     var connection_retry_timer;
-   var server_url = 'ws://162.252.57.97:8801/';
+    var server_url = 'ws://162.252.57.97:8801/';
     //var serverc_url = 'ws://localhost:8806/';
-   // var serverc_url = 'ws://casino4as-krondon.c9.io:8082/';
+   // var serverc_url = 'ws://casino4as-krondon.c9.io:8081/';
     var card2 = new Array("02tre"
             , "03tre",
             '04tre',
@@ -456,11 +456,12 @@
     }
 
     function open_connection() {
-               socket = new WebSocket('ws://162.252.57.97:8081/', 'server');
+        socket = new WebSocket(server_url, 'server');
+        //socket = new WebSocket('ws://162.252.57.97:8081/', 'server');
         //socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
         //socket = new WebSocket('ws://milagros-pc:8806/', 'server');
-     //    socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
-//        socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
+        //socket = new WebSocket('ws://casino4as-krondon.c9.io:8081/', 'server');
+        //socket = new WebSocket('ws://casino4as-krondon.c9.io:8082/', 'server'); 
 
         console.log(socket);
         socket.addEventListener("open", connection_established);
@@ -772,7 +773,12 @@
                 }
                 var cls = 'responder';
             }
-//            console.log()
+                console.log('Player' + dt.player);
+            if (dt.player){
+                dt.mensaje = $('#player'+ dt.player +'name').html() + ', ' + dt.mensaje;
+                console.log('Player' + dt.player);
+            }
+
             $('#globalchat').append('<div class="message"><p '+ adm +'><span class="name ' + cls + '"> ' + dt.first_name + ' ' + dt.last_name + ': </span>' + dt.mensaje + '</p></div>');
             $('#globalchat').scrollTop(9999999999999999999999);
 

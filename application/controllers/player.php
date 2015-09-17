@@ -65,8 +65,10 @@ class Player extends MY_Controller {
             $role = parent::verify_role();
             if($role == false){
                 //debug(print_r($this->session->userdata('id_user')));
+                //$data = $this->modelo_universal->select('user_data', '*', array('id_user' =>  56));
                 $data = $this->modelo_universal->select('user_data', '*', array('id_user' =>  $this->session->userdata('id_user')));
                 //debug(print_r($data));
+                //debug($data);
             
 
                /* if (!$data){

@@ -32,7 +32,13 @@ class Restore_password extends MY_Controller {
             //debug($_POST);
         }
         if ($this->input->post('emailr')) {
+            $this->data['ms'];
             $check = $this->modelo_universal->select('user', '*', array('email' => $this->input->post('emailr')));
+            if(empty($check)){
+                //debug('empty');
+                $this->data['ms'] = 'Disculpe, este correo no tiene una cuenta asociada';
+            }
+            //debug($check);
             //$this->data['id_user'] = $check[0]['id_user'];
             //$this->data['pass'] = $check[0]['pass'];
             $this->data['url'] = base_url().$check[0]['pass'].'?s='.$check[0]['id_user'].'&ss='.md5($check[0]['id_user']);
@@ -48,12 +54,13 @@ class Restore_password extends MY_Controller {
             $this->email->subject('Recuperar Contrase&ntilde;a');
             $this->email->message('<a href="'.$this->data['url'].'">Recuperar Contrase&ntilde;a</a>');	
             
-            $this->email->send();
+            $send = $this->email->send();
             
             //debug($this->email->print_debugger());
-            
-            if($this->email->send()){
-            $this->load->view('page/restore_send');
+            //debug($send);
+            if($send == true){
+                $this->data['ms'] = 'Te hemos enviado un mensaje con un enlace para continuar.';
+            $this->load->view('page/restore_send', $this->data);
             }
         }else{
             if($token != null){

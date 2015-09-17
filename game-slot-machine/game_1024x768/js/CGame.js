@@ -379,7 +379,7 @@ _aFinalSymbolCombo=finalc;
         };
         
         this.changeCoinBet = function(){
-            var iNewBet = Math.floor((_iCurBet+0.05) * 100)/100;
+            var iNewBet = Math.floor((_iCurBet+2) * 100)/100;
             var iNewTotalBet;
             
             if(iNewBet>MAX_BET){
@@ -391,7 +391,7 @@ _aFinalSymbolCombo=finalc;
             }else{
                 iNewTotalBet = iNewBet * _iLastLineActive;
 
-                _iCurBet += 0.05;
+                _iCurBet += 2;
                 _iCurBet = Math.floor(_iCurBet * 100)/100;
                 _iTotBet = iNewTotalBet;
                 _oInterface.refreshBet(_iCurBet);

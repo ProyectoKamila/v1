@@ -159,6 +159,7 @@
                 <style>
                     .hori {
                         height: 20%;
+                        max-width: 900px;
                     }
                     .playing {
                         height: 515px !important;

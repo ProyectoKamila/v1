@@ -93,7 +93,7 @@
                             <h3 class="panel-title custom-panel-title">Recuperar Contrase&ntilde;a</h3>
                         </div>
                         <div class="panel-body custom-panel-body">
-                                <label for="" style="color:white !important;">Te hemos enviado un mensaje con un enlace para continuar.</label>
+                                <label for="" style="color:white !important;"><?=$ms;?></label>
                         </div>
                     </div>
                 </div>

@@ -80,6 +80,16 @@
             });
             $(oMain).on("end_bet", function (evt, iMoney, iBetWin) {
                 // alert("juegos gratis: "+ free_gameslot + " Win:"+iBetWin);
+                console.log('aqui antes de '+iMoney);
+                if(iMoney< 10){
+                    console.log('aqui '+iMoney);
+                  totalcoins();
+                var options = {
+                    "backdrop": "static"
+                }
+                $('#myModal').modal(options);
+                    
+                }
                 if (free_gameslot > 0) {
                     
                     console.log('aqui el weon cuadro');
@@ -89,19 +99,23 @@
                     $('#jgModal').modal(options);
                 }
                        else if (free > 0) {
-                          s_oInterface.disableGuiButtons();
-                           s_oInterface.hideAllLines();
+     ç
               
                             setTimeout(function() {
                            free=free-1;
+                           if(free==0){
+                               $(".numb-free").slideUp();
+                           }
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
                            //inhabilitar botones
                    //_oInterface.refreshNumLines(freeselect);
+             
                              s_oGame.onMaxBetjgXxx();
-                                     s_oInterface.disableGuiButtons();
-                                     s_oInterface.disableGuiButtons();
-                           s_oInterface.hideAllLines();
+                                 
+                            _oInterface.disableGuiButtons();
+                                
+                         
                             
                             },2000);
                 }
@@ -162,23 +176,25 @@
                   $(".numb-free").slideDown();
                   free_gameslot = 0;
                   freeselect=20;
-                  $('#cantidad').html(5);
+                  $('#cantidad').html(4);
                   $("#text-win").addClass('celebra');
                      var intro = {
                                 type: 'playfreegame',
                                 free: 5
                             }
-                                 socket.send(JSON.stringify(intro));
+                    socket.send(JSON.stringify(intro));
                   setTimeout(function() {
                           //console.log('el timeup');
                             
                           $('#jgModal').modal('toggle');
                        $(".item-free").slideDown();
                        $("#text-win").slideUp();
-                    
                         $("#text-win").removeClass('celebra');
-                   
+                        NUM_PAYLINES=20;
+                    
                          s_oGame.onMaxBetjgXxx();
+                                _oInterface.hideAllLines();
+                            _oInterface.disableGuiButtons();
                 }, 2000);
                 
             document.getElementById('text-win').innerHTML = 'Has Ganado 5 juegos por 20 Lineas';
@@ -193,7 +209,7 @@
                 $(".numb-free").slideDown();
                   free_gameslot = 0;
                   freeselect=10;
-                  $('#cantidad').html(10);
+                  $('#cantidad').html(9);
                   $("#text-win").addClass('celebra');
                     var intro = {
                                 type: 'playfreegame',
@@ -208,8 +224,11 @@
                        $("#text-win").slideUp();
                     
                         $("#text-win").removeClass('celebra');
+                         NUM_PAYLINES=10;
                    
                          s_oGame.onMaxBetjgXxx();
+                                _oInterface.hideAllLines();
+                            _oInterface.disableGuiButtons();
                 }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
              
@@ -221,7 +240,7 @@
                 $(".numb-free").slideDown();
                   free_gameslot = 0;
                   freeselect=5;
-                  $('#cantidad').html(20);
+                  $('#cantidad').html(19);
                   $("#text-win").addClass('celebra');
                      var intro = {
                                 type: 'playfreegame',
@@ -236,8 +255,11 @@
                        $("#text-win").slideUp();
                     
                         $("#text-win").removeClass('celebra');
-                   
+                         NUM_PAYLINES=5;
+               
                          s_oGame.onMaxBetjgXxx();
+                             _oInterface.hideAllLines();
+                            _oInterface.disableGuiButtons();
                 }, 2000);
                  document.getElementById('text-win').innerHTML = 'Has Ganado 20 juegos por 5 Lineas';
              

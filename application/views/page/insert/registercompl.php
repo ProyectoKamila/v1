@@ -1,3 +1,4 @@
+<?php //debug($dat[0]['imageprofile']); ?>
 <div id="page-wrapper" class="custom-login-panel">
 
     <div class="container-fluid">
@@ -18,6 +19,35 @@
                         <?php echo form_open_multipart("/receivingdc") ?>
                         <!--     <form role="form" method="post" action="./registering"> -->
                         <fieldset>
+                            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding col-lg-offset-4 col-sm-offset-3 col-xs-offset-3 ">
+                                <?php 
+                                if($dat[0]['imageprofile'] != null){
+                                    $img = $dat[0]['imageprofile'];
+                                }else{
+                                    $img = './interface/images/recortes/home/logo.png';
+                                }
+                                
+                                 ?>
+                                <div class="img-profile" id="img-c" style="background: url(<?=$img;?>)no-repeat;background-position: center;background-size: cover;">
+                                    <!--<img src="./interface/images/recortes/home/logo.png" alt="">-->
+                                </div>      
+                                
+                                
+                                
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">
+                                    <p style="color:white;">Por favor adjunte su imagen de perfil.</p>
+                                    <div class="form-group input-group">
+                                        
+                                        <span class="input-group-addon"><span class="fa fa-photo" aria-hidden="true"></span></span>
+    
+                                        <input class="form-control" placeholder="Imagen" name="userfile2" type="file" > 
+    
+    
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="clearfix"></div>
                              <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding">
                                 <div class="form-group input-group">
                                     <span class="input-group-addon"><span class="fa fa-users"></span></span>
@@ -27,7 +57,7 @@
                                     } else
                                         echo set_value('nationality')
                                         ?>">
-                                        <option value="">...</option>
+                                        <option value="">Nacionalidad</option>
                                         <option <?php
                                         if (isset($dat) && $dat[0]['nationality'] == 'V') {
                                             echo 'selected';
@@ -432,7 +462,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">
+                            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">
                                 <p style="color:white;">Por favor adjunte su imagen de perfil.</p>
                                 <div class="form-group input-group">
                                     
@@ -442,7 +472,7 @@
 
 
                                 </div>
-                            </div>
+                            </div>-->
                             <?php if(!isset($term)){ ?>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sin-padding">
                                 <p style="color:white;">Acepta ud los terminos y condiciones.</p>
@@ -489,3 +519,19 @@
 </body>
 
 </html>
+<style type="text/css">
+    .img-profile {
+    display: block;
+    max-width: 200px;
+    max-height: 200px;
+    margin: 0 auto;
+    clear: both;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid;
+    height: 100%;
+    width: 100%;
+}
+
+
+</style>
