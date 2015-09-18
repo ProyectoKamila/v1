@@ -578,6 +578,7 @@
             for (i = 1; i < 8; i++) {
                 $('#montapuestplayer' + i).html('0');
                 $('#player' + i + 'time').html('');
+                $('#player' + i + ' .fichsit').removeClass('winnercorona');
             }
             $('#apost-toal').val(0);
             $('.win').css('display', 'none');

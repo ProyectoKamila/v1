@@ -5,7 +5,7 @@
 <?php $this->load->view('page/navegation/notification'); ?>
 </div>
 <style>
-                #boxpass {
+               #boxpass {
                     background-color: #2B2A26;
                     width: 80%;
                     margin: 0 auto;
@@ -60,103 +60,7 @@
                     #maxus option {
                         color: black;
                     }
-            </style>
-<div class="container-fluid ">
-    <div class="row" id='rowsales'>
-        <div class="col-lg-9 col-md-10 col-sm-10 hidden-xs content-game poker sin-padding" id="">
-
-            <div class="container-fluid sin-padding" id="torbo">
-                <div class="row">
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 hidden-xs sin-padding" id="">
-                        <div class="alert alert-danger" style="display: none;" role="alert" id="user-conect">!!Aff, Ya se encuentra conectado, revise los dispositivos conectados <a class="btn btn-default link-error" id="" href="./dispositivos">AQUI...</a></div>
-                        <div class="alert alert-info alert-reward" style="display: none;" role="alert" id="boxsitdown"> 
-                            <p>Arraste para selecionar la cantidad que deseas recargar... </p>
-                            <span class="input-group-addon" id="sizing-addon3">Fichas</span>
-                            <input type="range" oninput="outputUpdate(value)" step="1" class="form-control drag" placeholder="Minimo de coin para apostar" min="" max="" aria-describedby="sizing-addon3" id="inputapos">
-                            <p>Entrar con <output for="fader" id="volume">--</output> </p>
-
-
-                            <a class="btn btn-default link-error" id="buttonsitdown">SENTARSE</a>
-                            <span class="glyphicon glyphicon-remove-circle close" onclick="ocultar_carga();"></span>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
-                        <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">reconectar...</a></div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="game">
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-lg-10 col-md-10 col-sm-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 hidden-xs" id="sales">
-
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs" style="display: none" id="boxpass">
-                        <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs" style="border: 0px !important">
-                            <div class="alert alert-danger" style="display: none;" role="alert" id="passloss"></div>
-                            <input type="password" class="form-control" placeholder="Clave" aria-describedby="sizing-addon3" id="passbox">
-                            <a class="btn btn-default link-error" id="buttonjoingame">Acceder</a>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            
-            <section class="create-salas register-form col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3" id="creating-sale">
-                <span class="glyphicon glyphicon-remove-circle close" onclick="ocultar_create_sala();"></span>
-                <div class="col-xs-12 ">
-                    <h2 class="title-white">Crear una sala<span class="label label-default">Diviertete!</span></h2>                    
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs sin-pading" id="newsale">
-                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                        <span class="input-group-addon glyphicon glyphicon-ok" id="sizing-addon3">
-                        </span>
-                        <input type="text" class="form-control" placeholder="nombre de la sala" aria-describedby="sizing-addon3" id="namesale">
-                    </div>
-                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                        <span class="input-group-addon glyphicon glyphicon-lock" id="sizing-addon3"></span>
-                        <input type="password" class="form-control" placeholder="Clave" aria-describedby="sizing-addon3" id="passsale">
-                    </div>
-                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                        <span class="input-group-addon glyphicon glyphicon-usd" id="sizing-addon3"></span>
-                        <input type="text" class="form-control" placeholder="Minimo de coin para apostar" aria-describedby="sizing-addon3" id="minapos">
-
-                    </div>
-                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                        <span class="input-group-addon glyphicon glyphicon-usd" id="sizing-addon3"></span>
-                        <input type="text" class="form-control" placeholder="Maximo de coin para apostar" aria-describedby="sizing-addon3" id="maxapos">
-
-                    </div>
-                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                        <span class="input-group-addon glyphicon glyphicon-chevron-down" id="sizing-addon3"></span>
-                        <input type="text" class="form-control" placeholder="minimo de la ciega" aria-describedby="sizing-addon3" id="minci">
-                    </div>
-                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                        <span class="input-group-addon glyphicon glyphicon-chevron-up" id="sizing-addon3"></span>
-
-                        <input type="text" class="form-control" placeholder="maximo de la ciega" aria-describedby="sizing-addon3" id="maxci">
-                    </div>
-                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                        <span class="input-group-addon glyphicon glyphicon-user" id="sizing-addon3"></span>
-                        <select class="input" id="maxus" title="Maximo de usuario">
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                        </select>
-                    </div>
-                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
-                        <a class="btn btn-default link-error btn-submit " id="buttoncreate" onclick="ocultar_create_sala();">Jugar Ahora</a>
-                    </div>
-
-                </div>
-            </section>
-
-            <section class="playing">
-                <style>
+                    
                     .hori {
                         height: 20%;
                         max-width: 900px;
@@ -198,9 +102,8 @@
                         float: left;
                     }
                     .winnercorona {
-                        background-image: url(./imagen/poker/coronas.png);
+                        background-image: url(./imagen/poker/corona.png);
                         border-radius: 0%;
-                        
                     }
                     .profile-mesa {
                         position: absolute;
@@ -421,8 +324,103 @@
                     tr.general:hover {
                         color: #d3cf49;
                     }
-                    
-                </style>
+            </style>
+<div class="container-fluid ">
+    <div class="row" id='rowsales'>
+        <div class="col-xs-12 hidden-xs content-game poker sin-padding" id="">
+
+            <div class="container-fluid sin-padding" id="torbo">
+                <div class="row">
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 hidden-xs sin-padding" id="">
+                        <div class="alert alert-danger" style="display: none;" role="alert" id="user-conect">!!Aff, Ya se encuentra conectado, revise los dispositivos conectados <a class="btn btn-default link-error" id="" href="./dispositivos">AQUI...</a></div>
+                        <div class="alert alert-info alert-reward" style="display: none;" role="alert" id="boxsitdown"> 
+                            <p>Arraste para selecionar la cantidad que deseas recargar... </p>
+                            <span class="input-group-addon" id="sizing-addon3">Fichas</span>
+                            <input type="range" oninput="outputUpdate(value)" step="1" class="form-control drag" placeholder="Minimo de coin para apostar" min="" max="" aria-describedby="sizing-addon3" id="inputapos">
+                            <p>Entrar con <output for="fader" id="volume">--</output> </p>
+
+
+                            <a class="btn btn-default link-error" id="buttonsitdown">SENTARSE</a>
+                            <span class="glyphicon glyphicon-remove-circle close" onclick="ocultar_carga();"></span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="">
+                        <div class="alert alert-danger" style="display: none;" role="alert" id="connection-lost-message">Se ha perdido la conexión. intente <a class="btn btn-default link-error" id="buttonreconect">reconectar...</a></div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs" id="game">
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 hidden-xs" id="sales">
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs" style="display: none" id="boxpass">
+                        <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs" style="border: 0px !important">
+                            <div class="alert alert-danger" style="display: none;" role="alert" id="passloss"></div>
+                            <input type="password" class="form-control" placeholder="Clave" aria-describedby="sizing-addon3" id="passbox">
+                            <a class="btn btn-default link-error" id="buttonjoingame">Acceder</a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            
+            <section class="create-salas register-form col-lg-6 col-md-6 col-sm-6 col-lg-offset-3 col-md-offset-3 col-sm-offset-3" id="creating-sale">
+                <span class="glyphicon glyphicon-remove-circle close" onclick="ocultar_create_sala();"></span>
+                <div class="col-xs-12 ">
+                    <h2 class="title-white">Crear una sala<span class="label label-default">Diviertete!</span></h2>                    
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs sin-pading" id="newsale">
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-ok" id="sizing-addon3">
+                        </span>
+                        <input type="text" class="form-control" placeholder="nombre de la sala" aria-describedby="sizing-addon3" id="namesale">
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-lock" id="sizing-addon3"></span>
+                        <input type="password" class="form-control" placeholder="Clave" aria-describedby="sizing-addon3" id="passsale">
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-usd" id="sizing-addon3"></span>
+                        <input type="text" class="form-control" placeholder="Minimo de coin para apostar" aria-describedby="sizing-addon3" id="minapos">
+
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-usd" id="sizing-addon3"></span>
+                        <input type="text" class="form-control" placeholder="Maximo de coin para apostar" aria-describedby="sizing-addon3" id="maxapos">
+
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-chevron-down" id="sizing-addon3"></span>
+                        <input type="text" class="form-control" placeholder="minimo de la ciega" aria-describedby="sizing-addon3" id="minci">
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-chevron-up" id="sizing-addon3"></span>
+
+                        <input type="text" class="form-control" placeholder="maximo de la ciega" aria-describedby="sizing-addon3" id="maxci">
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <span class="input-group-addon glyphicon glyphicon-user" id="sizing-addon3"></span>
+                        <select class="input" id="maxus" title="Maximo de usuario">
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                        </select>
+                    </div>
+                    <div class="input-group input-group-sm col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                        <a class="btn btn-default link-error btn-submit " id="buttoncreate" onclick="ocultar_create_sala();">Jugar Ahora</a>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="playing">
+               
                 <div class="container-fluid">
                     <div class="row" id='rowgame' >
                         <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs content-game " id="">
@@ -660,48 +658,51 @@
                 </div>
             </section>
         </div>
-        <div class="col-lg-3 col-md-2 col-sm-2 hidden-xs sidebar-game">
-            <div class="content-user" id="playerdata" style="display: block;">
-                <h3>Datos del Jugador</h3>
-                <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
-                <div class="profile">
-                    <img src="" />
-                </div>
-                <p class="nameprofile"> Player</p>
-                <p class="saldo">0</p>
-            </div>
-            <div class="content-option-user" id="playeroption" style="display: none;">
-                <h3>Opciones del Jugador</h3>
-                <p class="saldo apost-resume">0</p>
-                <input type="hidden" value="0" class="input-group" id="apost-toal" style="float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
-                <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
-                <div class="option-user">
-                    <div class="container-fluid sin-padding">
-                        <div class="row sin-padding">
-                            <div class="col-lg-7 col-md-7 col-sm-7 izq">
-                                <input type="submit" class="btn btn-default " id="apost" value="Apostar">
-                                <input type="submit" class="btn btn-default " id="past" value="Pasar">
-                                <input type="submit" class="btn btn-default " id="leave" value="Retirarse">
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-sm-4 sin-padding der">
-                                <div class="btn btn-default" id="apost-bote">
-                                    BOTE
-                                </div>
-                                <div class="btn btn-default" id="apost-bote-mid">
-                                    1/2 BOTE
-                                </div>
-                                <div class="btn btn-default" id="apost-all">
-                                    todo
-                                </div>
-                                <div class="btn btn-default">
-                                    <input type="number" class="input" id="apost-mont" placeholder="OTRO" onkeypress="return justNumbers(event);">
+        <div class="col-xs-12 hidden-xs sidebar-game">
+            <div class="container">
+                <div class="row sin-padding">
+                    <div class="col-lg-2 col-md-2 col-sm-2 sin-padding content-user"  id="playerdata" style="display: block;">
+                        <h3>Datos del Jugador</h3>
+                        <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
+                        <div class="profile">
+                            <img src="" />
+                        </div>
+                        <p class="nameprofile"> Player</p>
+                        <p class="saldo">0</p>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 sin-padding content-option-user" id="playeroption" style="display: block;">
+                        <h3>Opciones del Jugador</h3>
+                        <p class="saldo apost-resume">0</p>
+                        <input type="hidden" value="0" class="input-group" id="apost-toal" style="float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
+                        <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
+                        <div class="option-user">
+                            <div class="container-fluid sin-padding">
+                                <div class="row sin-padding">
+                                    <div class="col-lg-7 col-md-7 col-sm-7 izq">
+                                        <input type="submit" class="btn btn-default " id="apost" value="Apostar">
+                                        <input type="submit" class="btn btn-default " id="past" value="Pasar">
+                                        <input type="submit" class="btn btn-default " id="leave" value="Retirarse">
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4 sin-padding der">
+                                        <div class="btn btn-default" id="apost-bote">
+                                            BOTE
+                                        </div>
+                                        <div class="btn btn-default" id="apost-bote-mid">
+                                            1/2 BOTE
+                                        </div>
+                                        <div class="btn btn-default" id="apost-all">
+                                            todo
+                                        </div>
+                                        <div class="btn btn-default">
+                                            <input type="number" class="input" id="apost-mont" placeholder="OTRO" onkeypress="return justNumbers(event);">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
+                    <div class="col-lg-2 col-md-2 col-sm-2 sin-padding content-user"  id="playerdata" style="display: block;">
+                         <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
             <h3>Chat del Jugador <span class="fa fa-weixin"></span></h3>
             <div class="content-chat" id="globalchat">
                 <!--                <div class="message">
@@ -716,20 +717,24 @@
                                 <div class="message">
                                     <p><span class="name responder"> Jugador : </span> You asked, Font Awesome delivers with 40 shiny new icons in version 4.3. Want to request new icons? Here's how. Need vectors or want to use on the desktop? Check the cheatsheet.</p>
                                 </div>-->
-
-            </div>
-            <div class="text-message">
-                <div class="container-fluid sin-padding">
-                    <div class="row sin-padding">
-                        <div class="col-lg-7 col-md-7 col-sm-7 ">
-                            <input type="text" class="text" id="newcomentglobal" maxlength="255" placeholder="Escribe tu comentario"></input>
                         </div>
-                        <div class="col-lg-3 col-md-3 col-sm-3 sin-padding">
-                            <input type="submit" class="btn btn-default " id="comentglobal" value="Enviar">
+                        <div class="text-message">
+                            <div class="container-fluid sin-padding">
+                                <div class="row sin-padding">
+                                    <div class="col-lg-7 col-md-7 col-sm-7 ">
+                                        <input type="text" class="text" id="newcomentglobal" maxlength="255" placeholder="Escribe tu comentario"></input>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-3 sin-padding">
+                                        <input type="submit" class="btn btn-default " id="comentglobal" value="Enviar">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+       
+            
         </div>
 
     </div>
