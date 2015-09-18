@@ -33,6 +33,7 @@
 
     </head>
     <body ondragstart="return false;" ondrop="return false;">
+        <div class="vidrio"></div>
         <div class="fondo-game" style="    background: #00A9BA;">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
@@ -99,13 +100,15 @@
                     $('#jgModal').modal(options);
                 }
                        else if (free > 0) {
-     ç
+     
               
                             setTimeout(function() {
                            free=free-1;
                            if(free==0){
                                $(".numb-free").slideUp();
+                               $(".vidrio").slideUp();
                            }
+                              $(".numb-free").slideDown();
                             $('#cantidad').html(free);
                            NUM_PAYLINES=freeselect;
                            //inhabilitar botones
@@ -123,6 +126,7 @@
                     freeselect=20;
                 NUM_PAYLINES=freeselect;
                 $(".numb-free").slideUp();
+                $(".vidrio").slideUp();
                 //console.log("ocultar cantidad");
                 }
                 
@@ -173,6 +177,7 @@
             $('#jg-button1').click(function () {
                 $("#text-win").slideDown();
                 $(".item-free").slideUp();
+                $(".vidrio").slideDown();
                   $(".numb-free").slideDown();
                   free_gameslot = 0;
                   freeselect=20;
@@ -207,6 +212,7 @@
                 $("#text-win").slideDown();
                 $(".item-free").slideUp();
                 $(".numb-free").slideDown();
+                $(".vidrio").slideDown();
                   free_gameslot = 0;
                   freeselect=10;
                   $('#cantidad').html(9);
@@ -238,6 +244,7 @@
                 $("#text-win").slideDown();
                 $(".item-free").slideUp();
                 $(".numb-free").slideDown();
+                $(".vidrio").slideDown();
                   free_gameslot = 0;
                   freeselect=5;
                   $('#cantidad').html(19);

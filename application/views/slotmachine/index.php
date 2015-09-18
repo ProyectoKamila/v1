@@ -33,11 +33,10 @@
 
     </head>
     <body ondragstart="return false;" ondrop="return false;">
+        <div class="vidrio"></div>
         <div class="fondo-game"  style="background: #FF9603;">
         <?php $this->load->view('page/navegation/header'); ?>
         <?php $this->load->view('page/navegation/notification'); ?>
-        
-
     <script>
         $(document).ready(function () {
             var oMain = new CMain({
@@ -105,6 +104,7 @@
                     freeselect=20;
                 NUM_PAYLINES=freeselect;
                 $(".numb-free").slideUp();
+                 $(".vidrio").slideToggle();
                 console.log("ocultar cantidad");
                 }
                 
@@ -165,6 +165,7 @@
                           $('#jgModal').modal('toggle');
                        $(".item-free").slideDown();
                        $("#text-win").slideUp();
+                        $(".vidrio").slideToggle();
                             var intro = {
                                 type: 'playfreegame',
                                 free: 5
@@ -194,6 +195,8 @@
                           $('#jgModal').modal('toggle');
                        $(".item-free").slideDown();
                        $("#text-win").slideUp();
+                        $(".vidrio").slideToggle();
+                      
                             var intro = {
                                 type: 'playfreegame',
                                 free: 10
@@ -220,6 +223,7 @@
                           $('#jgModal').modal('toggle');
                        $(".item-free").slideDown();
                        $("#text-win").slideUp();
+                        $(".vidrio").slideToggle();
                             var intro = {
                                 type: 'playfreegame',
                                 free: 20
