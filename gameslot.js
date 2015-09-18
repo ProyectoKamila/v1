@@ -232,20 +232,20 @@
                             case 5:
                                 sendmessageuser(connection, 'free_game_play', 5);
                                 connection.free_game_play = 5;
-                                connection.numfree += 5;
+                                connection.numfree = 5;
                                 connection.free = true;
 
                                 break;
                             case 10:
                                 sendmessageuser(connection, 'free_game_play', 10);
                                 connection.free_game_play = 10;
-                                connection.numfree += 10;
+                                connection.numfree = 10;
                                 connection.free = true;
                                 break;
                             case 20:
                                 sendmessageuser(connection, 'free_game_play', 20);
                                 connection.free_game_play = 20;
-                                connection.numfree += 20;
+                                connection.numfree = 20;
                                 connection.free = true;
 
                                 break;
@@ -258,7 +258,7 @@
                 else if (msgObj.type === 'prueba') {
                     if (connection.free == true) {
                         connection.numfree = connection.numfree - 1;
-                        console.log('numero de free aqui:'+connection.numfree);
+                        console.log('numero de free aqui:'+ connection.numfree);
                         if (connection.numfre < 1) {
                             connection.free = false;
                         }
