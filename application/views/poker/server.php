@@ -44,9 +44,9 @@
     var flash_title_timer;
     var connected = false;
     var connection_retry_timer;
-    var server_url = 'ws://162.252.57.97:8801/';
-    //var serverc_url = 'ws://localhost:8806/';
-   // var serverc_url = 'ws://casino4as-krondon.c9.io:8081/';
+    //var server_url = 'ws://162.252.57.97:8801/';
+    //var server_url = 'ws://localhost:8806/';
+    var server_url = 'ws://casino4as-krondon.c9.io:8081/';
     var card2 = new Array("02tre"
             , "03tre",
             '04tre',
@@ -568,6 +568,7 @@
             var img2 = "<img src='" + url2 + "' style='height:45px;' />";
             $('.player' + (parseInt(message.messagesend.sit) + 1) + 'carta1').html(img1);
             $('.player' + (parseInt(message.messagesend.sit) + 1) + 'carta2').html(img2);
+            $('#player' + (parseInt(message.messagesend.sit) + 1) + ' .fichsit').addClass('winnercorona');
             $('#playerdata').css('display', 'block');
             $('#playeroption').css('display', 'none');
             $('.win').css('display', 'block');

@@ -197,6 +197,11 @@
                         position: relative;
                         float: left;
                     }
+                    .winnercorona {
+                        background-image: url(./imagen/poker/coronas.png);
+                        border-radius: 0%;
+                        
+                    }
                     .profile-mesa {
                         position: absolute;
                         background-color: #2b2a27;

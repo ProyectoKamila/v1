@@ -762,7 +762,8 @@ wsServer.on('request', function(request) {
                      var enviar = {
                         first_name: '',
                         last_name: '',
-                        player: (parseInt(sit) +1),
+                        color: 1,
+                        player: (parseInt(connection.idsit) +1),
                         mensaje: 'se ha retirado',
                     }
                     for (i in saleonlineconexall[connection.idsale]){
@@ -1213,7 +1214,14 @@ wsServer.on('request', function(request) {
             if (saleonline[room][sit] !== undefined) {
                 var prearray = saleonline[room][sit];
                 saleonline[room][sit] = [conexarray];
+                
             }
+            /*for (i in saleonlineconexall[room]){
+                
+                if (saleonlineconexall[room][i].id_user == connection.id_user){
+                    saleonlineconexall[room][i] = undefined;
+                } 
+            }*/
             if (sit !== undefined) {
                 var mysqlc = mysql.createConnection(
                         {
@@ -1264,7 +1272,15 @@ wsServer.on('request', function(request) {
             if (saleonline[connection.idsale][connection.idsit] !== undefined) {
                 var prearray = saleonline[connection.idsale][connection.idsit];
                 saleonline[connection.idsale][connection.idsit] = [conexarray];
+                
             }
+            
+            /*for (i in saleonlineconexall[connection.idsale]){
+                
+                if (saleonlineconexall[connection.idsale][i].id_user == connection.id_user){
+                    saleonlineconexall[connection.idsale][i] = undefined;
+                } 
+            }*/
             if (connection.idsit !== undefined) {
                 var mysqlc = mysql.createConnection(
                         {
