@@ -258,6 +258,7 @@
                 else if (msgObj.type === 'prueba') {
                     if (connection.free == true) {
                         connection.numfree = connection.numfree - 1;
+                        console.log('numero de free aqui:'+connection.numfree);
                         if (connection.numfre < 1) {
                             connection.free = false;
                         }

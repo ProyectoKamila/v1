@@ -1,6 +1,6 @@
  <meta charset="UTF-8">
  <base href="<?php echo base_url(); ?>" />
-<link rel="stylesheet/less" type="text/css" href="interface/css/main.less" />
+<link rel="stylesheet/less" type="text/css" href="./interface/css/main.less" />
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
         <script src="interface/scripts/main.js"></script>
 <div class="container-fluid sin-padding">
