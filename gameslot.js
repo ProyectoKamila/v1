@@ -227,7 +227,7 @@
 
                         //}
 
-
+console.log("el loco msgObj q esta jodiendo"+msgObj.free);
                         switch (msgObj.free) {
                             case 5:
                                 sendmessageuser(connection, 'free_game_play', 5);
@@ -250,21 +250,29 @@
 
                                 break;
                         }
-                        pruebaserver(msgObj);
+                        console.log('por aqui paso el numfree de la wea q es '+ connection.numfree);
+                        console.log(connection.numfree);
+                        
+                        //pruebaserver(msgObj);
                     }
 
 
                 }
                 else if (msgObj.type === 'prueba') {
-                    if (connection.free == true) {
-                        connection.numfree = connection.numfree - 1;
-                        console.log('numero de free aqui:'+ connection.numfree);
-                        if (connection.numfre < 1) {
+                    console.log('la conexion free ta en ' + connection.numfre);
+              
+                     if (connection.free == true) {
+                          console.log(connection.numfre);
+                        connection.numfree -= 1;
+                       
+                        if (connection.numfre == 0) {
+                            console.log('aqui falso el weon numfree');
                             connection.free = false;
                         }
 
 
                     }
+                      
                     pruebaserver(msgObj);
 
 
@@ -274,6 +282,7 @@
                     connection.nickname = msgObj.nickname;
                     connection.chatroom = msgObj.chatroom;
                     connection.idgame = msgObj.idgame;
+                    connection.free=0;
 
 
                     if (rooms[msgObj.chatroom] !== undefined) {
