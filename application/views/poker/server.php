@@ -233,8 +233,8 @@
 
             $('#rowgame').slideUp();
             $('#sales').removeClass('sales-close');
-            $('#playerdata').slideDown();
-            $('#playeroption').slideUp();
+            //$('#playerdata').slideDown();
+            //$('#playeroption').slideUp();
             $('.pote').html('0');
         });
         $('#buttoncreate').click(function() {
@@ -342,9 +342,10 @@
             $('.mesaplayer' + (idsit + 1)).addClass('oculto');
             socket.send(JSON.stringify(intro));
             $('#rowgame').slideUp();
+            $('.create-salas').css('display','block');
             $('#sales').removeClass('sales-close');
-            $('#playerdata').slideDown();
-            $('#playeroption').slideUp();
+            //$('#playerdata').slideDown();
+            //$('#playeroption').slideUp();
             $('.pote').html('0');
         });
 
@@ -361,6 +362,11 @@
                     $('#newcomentglobal').focus();
                 }
             }
+        });
+        $('#opn-chat').click(function() {
+            console.log('abrir y cerrar chat');
+            $('.div-chat').slideToggle();
+            
         });
         $('#comentglobal').click(function() {
             if ($('#newcomentglobal').val() !== "") {
@@ -395,11 +401,19 @@
         });
         $('#apost').click(function() {
             $('#audio_press_but')[0].play();
+            console.log ('apost total: '+ $('#apost-toal').val() +' min calc: '+ $('#apost-min-calc').val());
+            var apst = 0;
+            if ($('#apost-toal').val() >= $('#apost-min-calc').val()){
+                apst = $('#apost-toal').val();
+            }else{
+                apst = (parseFloat($('#apost-toal').val()) + parseFloat($('#apost-min-calc').val()));
+            }
+            console.log('Apost: '+apst);
             var intro = {
                 type: 'apost',
                 idsale: idsale,
                 idsit: idsit,
-                montapost: $('#apost-toal').val()
+                montapost: apst
             }
             if ($('#apost-toal').val() < 1){
                 $('#audio_paso')[0].play();
@@ -409,6 +423,7 @@
 //            console.log(intro);
             socket.send(JSON.stringify(intro));
             $('#apost-toal').val(0);
+            $('#apost-min-calc').val(0);
             apostresume();
         });
         //si no soporta websocket
@@ -429,8 +444,8 @@
             socket.send(JSON.stringify(intro));
             $('#rowgame').slideUp();
             $('#sales').removeClass('sales-close');
-            $('#playerdata').slideDown();
-            $('#playeroption').slideUp();
+            //$('#playerdata').slideDown();
+            //$('#playeroption').slideUp();
             $('.pote').html('0');
         }
     function justNumbers(e) {
@@ -441,8 +456,8 @@
     }
     function apostresume() {
         var apt = parseFloat($('#apost-toal').val());
-
         $('.apost-resume').html('Bs. ' + apt.format(2, 3, '.', ','));
+        $('apost-mont').val('');
 //        var saldo = parseFloat($('#player' + (idsit + 1) + 'apos').html());
 //        console.log('saldo: ' + saldo);
 //        var r = (saldo - apt)
@@ -498,8 +513,8 @@
        // socket.send(JSON.stringify(intro));
         $('#rowgame').slideUp();
         $('#sales').removeClass('sales-close');
-        $('#playerdata').slideDown();
-        $('#playeroption').slideUp();
+        //$('#playerdata').slideDown();
+        //$('#playeroption').slideUp();
         $('.pote').html('0');
     }
     //segun el mensaje que llegue realiza un caso especifico
@@ -569,8 +584,8 @@
             $('.player' + (parseInt(message.messagesend.sit) + 1) + 'carta1').html(img1);
             $('.player' + (parseInt(message.messagesend.sit) + 1) + 'carta2').html(img2);
             $('#player' + (parseInt(message.messagesend.sit) + 1) + ' .fichsit').addClass('winnercorona');
-            $('#playerdata').css('display', 'block');
-            $('#playeroption').css('display', 'none');
+            // $('#playerdata').css('display', 'block');
+            //$('#playeroption').css('display', 'none');
             $('.win').css('display', 'block');
             $('#audio_barajando')[0].play();
         }
@@ -665,6 +680,7 @@
         else if (message.type === 'minapost') {
             $('.apost-resume').html('Bs. ' + parseFloat(message.messagesend).format(2, 3, '.', ','));
             $('#apost-toal').val(message.messagesend);
+            $('#apost-min-calc').val(message.messagesend);
             $('#apost-toal').attr('min', message.messagesend);
             $('#apost-toal').attr('max', parseFloat($('#player' + (idsit + 1) + 'apos').html()));
             $('#apost-mont').attr('min', message.messagesend);
@@ -683,8 +699,8 @@
             if (idsit !== (sitenespera - 1)) {
                 blink_window_title('Poker Casino4as');
                 $('.win').css('display','none');
-                $('#playerdata').slideDown();
-                $('#playeroption').slideUp();
+                //$('#playerdata').slideDown();
+                //$('#playeroption').slideUp();
                 $('#audio_tictoc')[0].pause();
             } else {
                 $('#audio_tictoc')[0].play();
@@ -692,8 +708,8 @@
                 blink_window_title('~Su turno~');
                 $('.win').html('~Su turno~');
                 $('.win').css('display','block');
-                $('#playerdata').slideUp();
-                $('#playeroption').slideDown();
+                //$('#playerdata').slideUp();
+                //$('#playeroption').slideDown();
             }
             enespera = setInterval(function() {
                 myTimer();
@@ -780,9 +796,14 @@
                 dt.mensaje = $('#player'+ dt.player +'name').html() + ', ' + dt.mensaje;
                 console.log('Player' + dt.player);
             }
-
-            $('#globalchat').append('<div class="message"><p '+ adm +'><span class="name ' + cls + '"> ' + dt.first_name + ' ' + dt.last_name + ': </span>' + dt.mensaje + '</p></div>');
+             if (dt.color == 1){
+                    $('.console').append('<div class="message"><p '+ adm +'><span class="name ' + cls + '"> ' + dt.first_name + ' ' + dt.last_name + ': </span>' + dt.mensaje + '</p></div>');
+                }else {
+                    $('#globalchat').append('<div class="message"><p '+ adm +'><span class="name ' + cls + '"> ' + dt.first_name + ' ' + dt.last_name + ': </span>' + dt.mensaje + '</p></div>');
+                }
+            $('.console').scrollTop(9999999999999999999999);
             $('#globalchat').scrollTop(9999999999999999999999);
+                
 
         }
         else if (message.type === 'welcome') {
@@ -946,7 +967,7 @@
         if (disponible == undefined) {
 
             $(elem).addClass('disponible');
-            $(name).html('disponible');
+            $(name).html('Disponible');
             $(coin).html('');
             $(time).html('');
             $(apos).html('');
@@ -985,7 +1006,7 @@
         var elem = player;
         var name = elem + 'name';
         var disp = $(name).html();
-        if (disp == "disponible") {
+        if (disp == "Disponible") {
 
             var intro = {
                 type: 'numcoin',

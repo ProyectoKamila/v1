@@ -659,11 +659,11 @@
             </section>
         </div>
         <div class="col-xs-12 hidden-xs sidebar-game">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row sin-padding">
-                    <div class="col-lg-2 col-md-2 col-sm-2 sin-padding content-user"  id="playerdata" style="display: block;">
-                        <h3>Datos del Jugador</h3>
-                        <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
+                    <div class="col-lg-3 col-md-3 col-sm-3 sin-padding content-user"  id="playerdata" style="display: block;">
+                        <!--<h3>Datos del Jugador</h3>
+                        <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>-->
                         <div class="profile">
                             <img src="" />
                         </div>
@@ -671,19 +671,22 @@
                         <p class="saldo">0</p>
                     </div>
                     <div class="col-lg-8 col-md-8 col-sm-8 sin-padding content-option-user" id="playeroption" style="display: block;">
-                        <h3>Opciones del Jugador</h3>
-                        <p class="saldo apost-resume">0</p>
-                        <input type="hidden" value="0" class="input-group" id="apost-toal" style="float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
-                        <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
+                        <!--<h3>Opciones del Jugador</h3>
+                        <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>-->
                         <div class="option-user">
                             <div class="container-fluid sin-padding">
                                 <div class="row sin-padding">
-                                    <div class="col-lg-7 col-md-7 col-sm-7 izq">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 izq">
+                                        <p class="saldo apost-resume">0</p>
+                                        <input type="hidden" value="0" class="input-group" id="apost-toal" style="position:absolute; top:0;float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
+                                        <input type="hidden" value="0" class="input-group" id="apost-min-calc" style="position:absolute; top:0; right: 0;float:left; height: 20px; width: 100px;" onkeypress="return justNumbers(event);">
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 izq">
                                         <input type="submit" class="btn btn-default " id="apost" value="Apostar">
                                         <input type="submit" class="btn btn-default " id="past" value="Pasar">
                                         <input type="submit" class="btn btn-default " id="leave" value="Retirarse">
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-4 sin-padding der">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 sin-padding der">
                                         <div class="btn btn-default" id="apost-bote">
                                             BOTE
                                         </div>
@@ -701,11 +704,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 col-sm-2 sin-padding content-user"  id="playerdata" style="display: block;">
-                         <img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
-            <h3>Chat del Jugador <span class="fa fa-weixin"></span></h3>
-            <div class="content-chat" id="globalchat">
-                <!--                <div class="message">
+                    <div class="col-lg-1 col-md-1 col-sm-1 sin-padding content-user"  id="playerdata" style="display: block;">
+                        <!--<img src="./interface/images/recortes/poker/linea.png" alt="" class="img-responsive"/>
+                        <h3>Chat del Jugador <span class="fa fa-weixin"></span></h3> -->
+                        <p style="color: white; text-align: center; font-size: 17px; margin: 0; padding: 0px; margin-top: 10px;" >CHAT</p>
+                        <h3 style="margin: 0;"><span class="fa fa-weixin" id="opn-chat" title="Chat del Jugador"></span></h3>
+                        <div class="div-chat" style="display:none;">
+                            <div class="console">
+                                
+                            </div>
+                            <div class="content-chat" id="globalchat">
+                            <!--<div class="message">
                                     <p><span class="name"> Jugador : </span> Hola que tal</p>
                                 </div>
                                 <div class="message">
@@ -717,15 +726,16 @@
                                 <div class="message">
                                     <p><span class="name responder"> Jugador : </span> You asked, Font Awesome delivers with 40 shiny new icons in version 4.3. Want to request new icons? Here's how. Need vectors or want to use on the desktop? Check the cheatsheet.</p>
                                 </div>-->
-                        </div>
-                        <div class="text-message">
-                            <div class="container-fluid sin-padding">
-                                <div class="row sin-padding">
-                                    <div class="col-lg-7 col-md-7 col-sm-7 ">
-                                        <input type="text" class="text" id="newcomentglobal" maxlength="255" placeholder="Escribe tu comentario"></input>
-                                    </div>
-                                    <div class="col-lg-3 col-md-3 col-sm-3 sin-padding">
-                                        <input type="submit" class="btn btn-default " id="comentglobal" value="Enviar">
+                            </div>
+                            <div class="text-message">
+                                <div class="container-fluid ">
+                                    <div class="row ">
+                                        <div class="col-lg-7 col-md-7 col-sm-7 sin-padding">
+                                            <input type="text" class="text" id="newcomentglobal" maxlength="255" placeholder="Escribe Aquí"></input>
+                                        </div>
+                                        <div class="col-lg-5 col-md-5 col-sm-5 sin-padding">
+                                            <input type="submit" class="btn btn-default " id="comentglobal" value="Enviar">
+                                        </div>
                                     </div>
                                 </div>
                             </div>

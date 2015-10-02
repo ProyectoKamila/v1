@@ -21,7 +21,7 @@
                         <fieldset>
                             <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 sin-padding col-lg-offset-4 col-sm-offset-3 col-xs-offset-3 ">
                                 <?php 
-                                if($dat[0]['imageprofile'] != null){
+                                if(isset($dat[0]['imageprofile']) &&  $dat[0]['imageprofile'] != null){
                                     $img = $dat[0]['imageprofile'];
                                 }else{
                                     $img = './interface/images/recortes/home/logo.png';

@@ -329,9 +329,9 @@ class Casino extends MY_Controller {
 
      public function slotmachine_ranas() {
         $this->last_connection();
-        $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 4');
+        $data = $this->modelo_universal->select('game_slotmachine', '*', 'id_game_slotmachine = 5');
         $this->load->view('slot_ranas/settings', $data[0]);
-        $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 4');
+        $result = $this->modelo_universal->select('symbol_win_ocurrence', '*', 'id_game_slot = 5');
         $data = array('consulta' => $result);
 
         $this->load->view('slot_ranas/CSSettings', $data);

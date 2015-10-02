@@ -239,12 +239,11 @@ h1.page-header{
         font-weight: 200;
     }
 }
-.poker{
-    padding-top: 80px;
-    overflow:hidden;
+.poker {
+    padding-top: 10px;
+    overflow: hidden;
     position: relative;
-    height: 780px;
-
+    height: 550px;
 }
 .playing{
     background: url(../interface/images/recortes/poker/mesa.png) center center no-repeat;
@@ -411,51 +410,73 @@ h1.page-header{
     }
 }
 .sidebar-game{
-    /*width: 100%;*/
-    height: 780px;
-    /*background: @mostaza;*/
-    border-left: 1px solid white;
-    overflow:hidden;
+    /*width: 100%; */
+    height: 100px;
+    /* background: @mostaza; */
+    /* border-left: 1px solid white; */
+    /* overflow: hidden; */
+    position: fixed;
+    background-color: #731010;
+    bottom: 0px;
+    z-index: 99999999999;
+    border-top: 5px solid #B4A32C;
     h3{
         text-align: center;
         color: white;
         font-weight: 200;
     }
     .profile{
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        display: block;
-        margin: 0 auto;
-        overflow:hidden;
-        margin-top: 40px;
+            display: block;
+            margin: 0 auto;
+            overflow: hidden;
+            margin-top: 5px;
+            float: left;
+            border-radius: 100%;
+            max-width: 85px;
+            max-height: 85px;
         img{
             width: 100%;
             height: 100%;
-            background: yellow;
+            background: none;
         }
     }
     .saldo{
-        color: @rojo;
+        color: white;
         font-size: 18px;
         text-align: center;
         padding-top: 10px;
         font-weight: bold;
+        float: left;
+        width: calc(~"100% - 90px");
+        text-overflow: ellipsis;
+        height: 40px;
+        overflow: hidden;
+        white-space: nowrap;
     }
-    .nameprofile{
+    .nameprofile {
         color: white;
         font-size: 22px;
         text-align: center;
         padding-top: 10px;
         font-weight: 200;
+        float: left;
+        margin: 0;
+        text-overflow: ellipsis;
+        height: 40px;
+        width: calc(~"100% - 90px");
+        white-space: nowrap;
+        overflow: hidden;
     }
     .btn{
-        background: @rojo;
+        background: #96110d;
         color: white;
         font-weight: 200;
         font-size: 16px;
         border-radius: 0px;
         border: none;
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
     }
     .btn-center{
         display: block;
@@ -466,27 +487,32 @@ h1.page-header{
     .option-user {
         width: 98%;
         overflow: hidden;
-        margin: 20px auto;
-        height: 200px;
+        //margin: 20px auto;
+        height: 100px;
         .izq{
+            height: 40px;
             input {
-                width: 90%;
+                width: calc(~"33.3% - 20px");
                 padding: 10px;
-                margin: 10px;
+                margin: 7px;
                 text-transform: uppercase;
+                margin-top: 0px;
             }
         }
         .der {
+            height: 50px;
             div {
-                background-color: #2B2A26 !important;
-                height: 25%;
-                width: 100%;
+               background-color: #2B2A26 !important;
+                width: calc(~"25% - 20px");
                 overflow: hidden;
-                padding: 13%;
                 box-shadow: none;
                 font-weight: 200;
                 font-size: 14px;
+                height: 40px;
                 text-transform: uppercase;
+                padding: 10px;
+                margin: 5px;
+                margin-top: 0px;
                 input {
                     width: 100%;
                     height: 100%;
@@ -501,6 +527,10 @@ h1.page-header{
                 border-top: 1px solid white !important;
             }
         }
+    }
+    #playerdata h3:hover {
+        color: #B4A32C;
+        cursor:pointer;
     }
     .content-chat{
         width: 98%;
@@ -538,13 +568,13 @@ h1.page-header{
         margin-top: 10px;
         .text{
             background: none;
-            border:1px solid white;
-            color:white;
+            border: 1px solid white;
+            color: white;
             min-height: 10px;
-            max-height: 50px;
             width: 100%;
-            padding-left:3px;
+            padding-left: 3px;
             resize: none;
+            height: 34px;
         }
     }
 }
@@ -2691,7 +2721,35 @@ footer{
     display: none;
     opacity: 0;
 }
- 
+.div-chat {
+    position: absolute;
+    bottom: 54px;
+    background-color: rgba(43,42,39,0.9);
+    width: 200%;
+    right: 0px;
+    min-width: 220px;
+    padding: 5px;
+}
+.console {
+    height: 70px;
+    width: 100%;
+    margin-left: -1%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-bottom: 3px solid #731010;
+    .message {
+            padding-left: 5px;
+            padding-right: 5px;
+            color: #d3cf49;
+            border-bottom: 1px solid white;
+            margin-top: 4px;
+            font-size: 12px;
+            p{
+                padding: 0px;
+                margin: 0px;
+            }
+    }
+}
                     
                     
 

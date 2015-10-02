@@ -259,13 +259,14 @@ console.log("el loco msgObj q esta jodiendo"+msgObj.free);
 
                 }
                 else if (msgObj.type === 'prueba') {
-                    console.log('la conexion free ta en ' + connection.numfre);
+             
+                    console.log('la conexion free ta en ' + connection.numfree);
               
                      if (connection.free == true) {
-                          console.log(connection.numfre);
+                          console.log(connection.numfree);
                         connection.numfree -= 1;
                        
-                        if (connection.numfre == 0) {
+                        if (connection.numfree == 0) {
                             console.log('aqui falso el weon numfree');
                             connection.free = false;
                         }
@@ -456,6 +457,7 @@ console.log("el loco msgObj q esta jodiendo"+msgObj.free);
             var s_aSymbolWin = objeto.symbolwin;
             var _oPayTable = objeto.paytable;
             var _iCurBet = objeto.curbet;
+            console.log('el objeto totalbet '+objeto.totalbet);
             if(objeto.totalbet){
                 var _iTotBet = parseFloat(objeto.totalbet);
             }else{
@@ -469,7 +471,7 @@ console.log("el loco msgObj q esta jodiendo"+msgObj.free);
             
 console.log('itobet ess: '+_iTotBet);
             connection.sitcoins = connection.sitcoins - _iTotBet;
-            // console.log('sitcoins antes de sp' + connection.sitcoins);
+         console.log('sitcoins antes de sp' + connection.sitcoins);
             if(connection.idgame_free == 3){
                        var availiable_jp = jackpot + (_iTotBet - (_iTotBet * (percent+percentfree)));
             var debito = debt + (_iTotBet * (percent+percentfree));
@@ -618,39 +620,15 @@ console.log('itobet ess: '+_iTotBet);
                         if (_aWinningLine[i].value == 8 && _aWinningLine[i].amount > 0 && connection.idgame_free == 1) {
                               iTotWin += 0;
                            // console.log('aqui juego gratis');
-                            if (connection.free == true) {
-                                switch (connection.free_game_play) {
-                                    case 5:
-                                        sendmessageuser(connection, 'free_game_play', 5);
-                                        connection.free_game_play = 5;
-                                        connection.numfree += 5;
-                                        connection.free = true;
-
-                                        break;
-                                    case 10:
-                                        sendmessageuser(connection, 'free_game_play', 10);
-                                        connection.free_game_play = 10;
-                                        connection.numfree += 10;
-                                        connection.free = true;
-                                        break;
-                                    case 20:
-                                        sendmessageuser(connection, 'free_game_play', 20);
-                                        connection.free_game_play = 20;
-                                        connection.numfree += 20;
-                                        connection.free = true;
-
-                                        break;
-                                }
-                            }
-                            else {
-                                var juegos_gratis = juegos_gratis + 1;
+                            
+                                var juegos_gratis = parseFloat(juegos_gratis) + 1;
                                 connection.free = true;
                               // console.log('spins gratis  ' + juegos_gratis + ' '+_aWinningLine[i].value);
                                 
                              
 
                                 sendmessageuser(connection, 'free_game', juegos_gratis);
-                            }
+                            
                         }
                          else if (_aWinningLine[i].value == 8 && _aWinningLine[i].amount > 0 && connection.idgame_free == 2) {
                             
@@ -659,20 +637,20 @@ console.log('itobet ess: '+_iTotBet);
                                     case 3:
                                         sendmessageuser(connection, 'free_game_play', 5);
                                         connection.free_game_play = 5;
-                                        connection.numfree += 5;
+                                        connection.numfree = (parseFloat(connection.numfree) + 5);
                                         connection.free = true;
 
                                         break;
                                     case 4:
                                         sendmessageuser(connection, 'free_game_play', 10);
                                         connection.free_game_play = 10;
-                                        connection.numfree += 10;
+                                        connection.numfree = (parseFloat(connection.numfree) + 10);
                                         connection.free = true;
                                         break;
                                     case 5:
                                         sendmessageuser(connection, 'free_game_play', 20);
                                         connection.free_game_play = 20;
-                                        connection.numfree += 20;
+                                        connection.numfree = (parseFloat(connection.numfree) + 20);
                                         connection.free = true;
 
                                         break;
@@ -684,20 +662,20 @@ console.log('itobet ess: '+_iTotBet);
                                     case 3:
                                         sendmessageuser(connection, 'free_game_play', 5);
                                         connection.free_game_play = 5;
-                                        connection.numfree += 5;
+                                        connection.numfree = (parseFloat(connection.numfree) + 5);
                                         connection.free = true;
 
                                         break;
                                     case 4:
                                         sendmessageuser(connection, 'free_game_play', 10);
                                         connection.free_game_play = 10;
-                                        connection.numfree += 10;
+                                        connection.numfree = (parseFloat(connection.numfree) + 10);
                                         connection.free = true;
                                         break;
                                     case 5:
                                         sendmessageuser(connection, 'free_game_play', 20);
                                         connection.free_game_play = 20;
-                                        connection.numfree += 20;
+                                        connection.numfree = (parseFloat(connection.numfree) + 20);
                                         connection.free = true;
 
                                         break;
@@ -775,7 +753,7 @@ console.log('itobet ess: '+_iTotBet);
 
                         //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea
                     }
-console.log('linea apostada: '+_iCurBet);
+//console.log('linea apostada: '+_iCurBet);
                     iTotWin *= _iCurBet;  // multiplica el monto a ganar por cada linea apostada
                     // _iMoney += iTotWin;
 
@@ -812,7 +790,7 @@ console.log('linea apostada: '+_iCurBet);
              console.log('totalwin '+ iTotWin);
              console.log('sitcoins'+connection.sitcoins);
             connection.sitcoins +=parseFloat(iTotWin);
-            console.log('sitcoins despues de sp' + connection.sitcoins);
+            console.log('sitcoins despues de sp2' + connection.sitcoins);
             update_jackpot(jackpot, debito);
             updatetemp(connection.sitcoins);
 
@@ -952,7 +930,7 @@ console.log('linea apostada: '+_iCurBet);
                     connection.coins = 0;
                     connection.coins = parseFloat(row[0]['coins']);
 
-                    var num=connection.coins
+                    var num=connection.coins;
                    
                   
                     num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');

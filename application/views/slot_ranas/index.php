@@ -195,7 +195,7 @@
                        $(".item-free").slideDown();
                        $("#text-win").slideUp();
                         $("#text-win").removeClass('celebra');
-                        NUM_PAYLINES=20;
+                   
                     
                          s_oGame.onMaxBetjgXxx();
                                 _oInterface.hideAllLines();
@@ -214,7 +214,7 @@
                 $(".numb-free").slideDown();
                 $(".vidrio").slideDown();
                   free_gameslot = 0;
-                  freeselect=10;
+                  freeselect=20;
                   $('#cantidad').html(9);
                   $("#text-win").addClass('celebra');
                     var intro = {
@@ -230,7 +230,7 @@
                        $("#text-win").slideUp();
                     
                         $("#text-win").removeClass('celebra');
-                         NUM_PAYLINES=10;
+                         
                    
                          s_oGame.onMaxBetjgXxx();
                                 _oInterface.hideAllLines();
@@ -262,7 +262,7 @@
                        $("#text-win").slideUp();
                     
                         $("#text-win").removeClass('celebra');
-                         NUM_PAYLINES=5;
+               
                
                          s_oGame.onMaxBetjgXxx();
                              _oInterface.hideAllLines();
@@ -397,6 +397,8 @@
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
                     //$('#game').html(message.messagesend);
+                    
+                    
                 }
                 //para traer datos del usuarhio
                 else if (message.type === 'welcome') {
@@ -499,7 +501,7 @@
                                     <p class="ficha">Ingrese el monto de fichas:</p> 
                                         <!--<label >Cargar Saldo: </label>-->
                                         <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
-                                        <input type="numeric" name="money-text" id="money-text" maxlength="5" class="money-text" title="0" placeholder="Fichas a recargar">
+                                        <input type="numeric" name="money-text" id="money-text" class="money-text" title="0" placeholder="Fichas a recargar">
                                         <button type="button" class="btn btn-default btn-submit"  id="money-button">Aceptar</button>
                                     </div>    
                                 </div>    
