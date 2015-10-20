@@ -252,8 +252,10 @@ _aFinalSymbolCombo=finalc;
                     for(var k=0;k<aList.length;k++){
                         _aStaticSymbols[aList[k].row][aList[k].col].show(aList[k].value);
                     }
+                    if (_aWinningLine[i].value != 8 && _aWinningLine[i].amount > 0){
+                        iTotWin += _aWinningLine[i].amount;
+                    }
                     
-                    iTotWin += _aWinningLine[i].amount;
                    //  alert(iTotWin);   //sergio suma el monto de a gana por cada línea
                 }
                 
@@ -525,9 +527,11 @@ this.generateFinalSymbols();
         };
 
         this.onExit = function(){
-            this.unload();
-            s_oMain.gotoMenu();
-            $(s_oMain).trigger("restart");
+            // this.unload();
+            // s_oMain.gotoMenu();
+            // $(s_oMain).trigger("restart");
+            
+            window.location.replace(window.location.href);
         };
         
         this.getState = function(){

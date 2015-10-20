@@ -1349,6 +1349,9 @@ wsServer.on('request', function(request) {
         play[connection.idsale].newapost[connection.idsit] = montapost;
         updatesaleapost(connection.idsale, connection.idsit, montapost);
     }
+    function onlyUnique(value, index, self) { 
+        return self.indexOf(value) === index;
+    }
     function Sala(room) {
         this.room = room;//identificador de la sala
         this.minci = rooms[room].jug_min;//monto de la ciega minima
@@ -1694,6 +1697,7 @@ wsServer.on('request', function(request) {
         var win = new HandEvaluator();
         var cant = this.cardmesa.length;
         var mesa = [];
+        var mesaw = [];
         var playing = [];
         var calcpremy = [];
         var mayorprem = [];
@@ -1701,34 +1705,53 @@ wsServer.on('request', function(request) {
         if (cant === 5) {
             for (t in this.jugactivos) {
                 if (this.jugactivos[t]['first_name'] !== undefined) {
-                    for (j = 0; j < cant; j++) {
-                        for (k = 0; k < cant; k++) {
-                            for (i = 0; i < cant; i++) {
-                                if ((this.cardmesa[j] !== this.cardmesa[k]) && (this.cardmesa[k] !== this.cardmesa[i]) && (this.cardmesa[j] !== this.cardmesa[i])) {
-                                    u = mesa.length;
-                                    mesa[u] = [
-                                        this.cardmesa[j],
-                                        this.cardmesa[k],
-                                        this.cardmesa[i],
-                                        this.jugactivos[t]['card1'],
-                                        this.jugactivos[t]['card2']
-                                    ];
-//                                    console.log('Cartas ' + u + ': ' + mesa[u][0] + ' ' + mesa[u][1] + ' ' + mesa[u][2] + ' ' + mesa[u][3] + ' ' + mesa[u][4]);
-                                    h = win.evaluate(mesa[u]);
-                                    playing[u] = h;
-                                    if (u > 0) {
-                                        if (playing[u].point < mayorprem.point) {
-                                            mayorprem = playing[u];
+                    console.log('todas las cartas Player '+ t +':');
+                    var allcard = this.cardmesa.concat(this.jugactivos[t]['card1'],this.jugactivos[t]['card2']);
+                    console.log(allcard);
+                    for (j = 0; j < 7; j++) {
+                        for (k = 0; k < 7; k++) {
+                            for (i = 0; i < 7; i++) {
+                                for (l = 0; l < 7; l++) {
+                                    for (m = 0; m < 7; m++) {
+                                            u = mesa.length;
+                                            uw = mesaw.length;
+                                            mesaw[uw] = [
+                                                allcard[j],
+                                                allcard[k],
+                                                allcard[i],
+                                                allcard[l],
+                                                allcard[m]
+                                            ];
+                                            var unicas = mesaw[uw].filter( onlyUnique ).length;
+                                            console.log*('cantidad de cartas: '+unicas +' Cantidad de combinaciones: '+ uw+ ' diferencia: ' +u);
+                                        if (unicas == 5)  {
+                                            mesa[u] = [
+                                                allcard[j],
+                                                allcard[k],
+                                                allcard[i],
+                                                allcard[l],
+                                                allcard[m]
+                                            ];
+                                            console.log('Cartas ' + u + ': ' + mesa[u][0] + ' ' + mesa[u][1] + ' ' + mesa[u][2] + ' ' + mesa[u][3] + ' ' + mesa[u][4]);
+                                            playing[u] = win.evaluate(mesa[u]);
+                                            if (u > 0) {
+                                                if (playing[u].point < mayorprem.point) {
+                                                    mayorprem = playing[u];
+                                                }
+                                            } else {
+                                                mayorprem = playing[u];
+                                            }
+                                            this.jugactivos[t]['win'] = mayorprem;
+                                        }else{
+                                            delete mesaw[uw] ; 
                                         }
-                                    } else {
-                                        mayorprem = playing[u];
-                                    }
-                                    this.jugactivos[t]['win'] = mayorprem;
-                                }
-                            }
-                        }
-                    }
+                                    }//for 5
+                                }//for 4
+                            }//for 3
+                        }//for 2
+                    }//for 1
                     mesa = [];
+                    mesaw = [];
                     playing = [];
                     mayorprem = [];
                 }

@@ -82,7 +82,7 @@
             $(oMain).on("end_bet", function (evt, iMoney, iBetWin) {
                 // alert("juegos gratis: "+ free_gameslot + " Win:"+iBetWin);
                 console.log('aqui antes de '+iMoney);
-                if(iMoney< 10){
+                if(iMoney< 1){
                     console.log('aqui '+iMoney);
                   totalcoins();
                 var options = {
@@ -107,10 +107,10 @@
                            if(free==0){
                                $(".numb-free").slideUp();
                                $(".vidrio").slideUp();
-                           }
+                           }else{
                               $(".numb-free").slideDown();
                             $('#cantidad').html(free);
-                           NUM_PAYLINES=freeselect;
+                           }
                            //inhabilitar botones
                    //_oInterface.refreshNumLines(freeselect);
              
@@ -123,8 +123,7 @@
                             },2000);
                 }
                 else{
-                    freeselect=20;
-                NUM_PAYLINES=freeselect;
+     
                 $(".numb-free").slideUp();
                 $(".vidrio").slideUp();
                 //console.log("ocultar cantidad");
@@ -180,7 +179,7 @@
                 $(".vidrio").slideDown();
                   $(".numb-free").slideDown();
                   free_gameslot = 0;
-                  freeselect=20;
+                  
                   $('#cantidad').html(4);
                   $("#text-win").addClass('celebra');
                      var intro = {
@@ -195,15 +194,14 @@
                        $(".item-free").slideDown();
                        $("#text-win").slideUp();
                         $("#text-win").removeClass('celebra');
-                   
+                    
                     
                          s_oGame.onMaxBetjgXxx();
                                 _oInterface.hideAllLines();
                             _oInterface.disableGuiButtons();
                 }, 2000);
                 
-            document.getElementById('text-win').innerHTML = 'Has Ganado 5 juegos por 20 Lineas';
-
+            document.getElementById('text-win').innerHTML = 'Has Ganado 5 juegos';
                 
         
             });
@@ -214,7 +212,7 @@
                 $(".numb-free").slideDown();
                 $(".vidrio").slideDown();
                   free_gameslot = 0;
-                  freeselect=20;
+             
                   $('#cantidad').html(9);
                   $("#text-win").addClass('celebra');
                     var intro = {
@@ -230,13 +228,12 @@
                        $("#text-win").slideUp();
                     
                         $("#text-win").removeClass('celebra');
-                         
-                   
+                      
                          s_oGame.onMaxBetjgXxx();
                                 _oInterface.hideAllLines();
                             _oInterface.disableGuiButtons();
                 }, 2000);
-                 document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos por 10 Lineas';
+                 document.getElementById('text-win').innerHTML = 'Has Ganado 10 juegos';
              
             });
                    //10 x 10
@@ -246,7 +243,7 @@
                 $(".numb-free").slideDown();
                 $(".vidrio").slideDown();
                   free_gameslot = 0;
-                  freeselect=5;
+         
                   $('#cantidad').html(19);
                   $("#text-win").addClass('celebra');
                      var intro = {
@@ -262,13 +259,13 @@
                        $("#text-win").slideUp();
                     
                         $("#text-win").removeClass('celebra');
-               
+                   
                
                          s_oGame.onMaxBetjgXxx();
                              _oInterface.hideAllLines();
                             _oInterface.disableGuiButtons();
                 }, 2000);
-                 document.getElementById('text-win').innerHTML = 'Has Ganado 20 juegos por 5 Lineas';
+                 document.getElementById('text-win').innerHTML = 'Has Ganado 20 juegos';
              
             });
 //totalcoins();
@@ -376,7 +373,7 @@
                           
                                    free=free -1;
                                    //console.log('free sele '+freeselect);
-                                   NUM_PAYLINES=freeselect;
+            
                                        s_oInterface.disableGuiButtons();
                                      s_oInterface.hideAllLines();
                                 //s_oGame.onMaxBetjgXxx();
@@ -397,8 +394,6 @@
                     // $('#chat-container').fadeIn();
                     //$('#loading-message').hide();
                     //$('#game').html(message.messagesend);
-                    
-                    
                 }
                 //para traer datos del usuarhio
                 else if (message.type === 'welcome') {
@@ -431,6 +426,10 @@
                 //public function prueba(){
                 enviar.type = 'prueba';
                 //alert(enviar.type);
+                if(free_gameslot >0)
+                {
+                   enviar.totalbet=0; 
+                }
                 socket.send(JSON.stringify(enviar));
             }
             function totalcoins() {
@@ -501,7 +500,7 @@
                                     <p class="ficha">Ingrese el monto de fichas:</p> 
                                         <!--<label >Cargar Saldo: </label>-->
                                         <!--     <input type="hidden" name="money-hidden" id="money-hidden" name="money-hidden"> -->
-                                        <input type="numeric" name="money-text" id="money-text" class="money-text" title="0" placeholder="Fichas a recargar">
+                                        <input type="numeric" name="money-text" id="money-text" maxlength="5" class="money-text" title="0" placeholder="Fichas a recargar">
                                         <button type="button" class="btn btn-default btn-submit"  id="money-button">Aceptar</button>
                                     </div>    
                                 </div>    

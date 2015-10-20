@@ -37,12 +37,14 @@ class Poker extends MY_Controller {
 
     }
 
-    public function index() {
+    public function index($ajax = null) {
 //        debug($this->session->userdata('token'));
          $this->last_connection();
-  $this->load->view('poker/header',$this->data);
-  $this->load->view('poker/server',$this->data);
-  $this->load->view('poker/footer',$this->data);
+         if (!$ajax){
+             $this->load->view('poker/header',$this->data);
+         }
+         $this->load->view('poker/server',$this->data);
+         $this->load->view('poker/footer',$this->data);
     }
 
 
